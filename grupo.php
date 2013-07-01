@@ -34,10 +34,8 @@ body {
     <td height="200" align="center" valign="top">
 		<h2 class="Estilo12">Integrantes:</h2>
 		<br>
-        <span class="Estilo15">Zela Hurtado Daniela<br>
-Oquendo Munoz Ronald Alejandro<br>
-Chambi Villarroel Claudia<br>
-Alcocer Torrez Oliver</span><br>
+        <span class="Estilo15">Cespedes Lopez Vladimir<br>
+Ramirez Iriarte Elvis Rogelio</span><br>
         
 	</td>
   </tr>
