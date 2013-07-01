@@ -1,0 +1,129 @@
+Cap´itulo 3
+Conceptos de bases de
+datos objeto–relacionales
+3.1 Introducci´on
+Los modelos de bases de datos tradicionales (relacional, red y jer´arquico)
+han sido capaces de satisfacer las necesidades, en cuanto a bases de datos, de
+las aplicaciones de gesti´on tradicionales. Sin embargo, presentan algunas defi-
+ciencias cuando se trata de aplicaciones m´as complejas o sofisticadas como, por
+ejemplo, el dise˜no y fabricaci´on en ingenier´ia (CAD/CAM, CIM), la ingenier´ia
+del software (CASE), los experimentos cient´ificos, los sistemas de informaci´on
+geogr´afica o los sistemas multimedia. Los requerimientos y las caracter´isticas
+de estas nuevas aplicaciones difieren en gran medida de las t´ipicas aplicaciones
+de gesti´on: la estructura de los objetos es m´as compleja, las transacciones son
+de larga duraci´on, se necesitan nuevos tipos de datos para almacenar im´agenes
+y textos, y hace falta definir operaciones no est´andar, espec´ificas para cada
+aplicaci´on.
+Las bases de datos orientadas a objetos se crearon para tratar de satisfacer
+las necesidades de estas nuevas aplicaciones. La orientaci´on a objetos ofrece
+flexibilidad para manejar algunos de estos requisitos y no est´a limitada por
+los tipos de datos y los lenguajes de consulta de los sistemas de bases de datos
+tradicionales. Una caracter´istica clave de las bases de datos orientadas a objetos
+es la potencia que proporcionan al dise˜nador al permitirle especificar tanto la
+estructura de objetos complejos, como las operaciones que se pueden aplicar
+sobre dichos objetos.
+Otro motivo para la creaci´on de las bases de datos orientadas a objetos es
+el creciente uso de los lenguajes orientados a objetos para desarrollar aplicaciones.
+Las bases de datos se han convertido en piezas fundamentales de muchos
+sistemas de informaci´on y las bases de datos tradicionales son dif´iciles de utilizar
+cuando las aplicaciones que acceden a ellas est´an escritas en un lenguaje
+de programaci´on orientado a objetos como C++, Smalltalk o Java. Las bases
+de datos orientadas a objetos se han dise˜nado para que se puedan integrar directamente
+con aplicaciones desarrolladas con lenguajes orientados a objetos,
+habiendo adoptado muchos de los conceptos de estos lenguajes.
+Los fabricantes de los SGBD relacionales tambi´en se han dado cuenta de las
+nuevas necesidades en el modelado de datos, por lo que las nuevas versiones de
+sus sistemas incorporan muchos de los rasgos propuestos para las bases de datos
+orientadas a objetos, como ha ocurrido con Informix, PostgreSQL y Oracle, entre
+otros. Esto ha dado lugar al modelo relacional extendido y a los sistemas que
+lo implementan se les denomina sistemas objeto–relacionales. La ´ultima versi´on
+de SQL, SQL:19991, incluye algunas de las caracter´isticas de la orientaci´on a
+objetos.
+Durante los ´ultimos a˜nos se han creado muchos prototipos experimentales
+de sistemas de bases de datos orientadas a objetos y tambi´en muchos sistemas
+comerciales. Conforme ´estos fueron apareciendo, surgi´o la necesidad de establecer
+un modelo est´andar y un lenguaje. Para ello, los fabricantes de los SGBD
+orientados a objetos formaron un grupo denominado ODMG (Object Database
+Management Group), que propuso el est´andar ODMG–93 y que ha ido evolucionando,
+apareciendo despu´es nuevas versiones. El uso de est´andares proporciona
+portabilidad, permitiendo que una aplicaci´on se pueda ejecutar sobre sistemas
+distintos con m´inimas modificaciones. Los est´andares tambi´en proporcionan
+interoperabilidad, permitiendo que una aplicaci´on pueda acceder a varios sistemas
+diferentes. Y una tercera ventaja de los est´andares es que permiten que los
+usuarios puedan comparar entre distintos sistemas comerciales, dependiendo de
+qu´e partes del est´andar proporcionan.
+3.2 Nuevas necesidades
+Los SGBD relacionales no son adecuados para aplicaciones cuyas necesidades
+son distintas de las t´ipicas aplicaciones de gesti´on. En este apartado se comentan
+las necesidades de estas aplicaciones:
+• Dise˜no asistido por computador (CAD).
+Una base de datos CAD almacena informaci´on relativa a dise˜nos mec´anicos
+o el´ectricos, como por ejemplo edificios, aviones o circuitos integrados. Los
+dise˜nos de este tipo tienen algunas caracter´isticas en com´un:
+– Los datos que se manejan son de tipos muy diversos, habiendo pocas
+instancias de cada tipo.
+– Los dise˜nos pueden ser muy grandes, teniendo incluso millones de
+componentes, con muchos subsistemas interdependientes.
+– El dise˜no no es est´atico, va evolucionando con el tiempo. Cuando
+un dise˜no cambia, se deben propagar sus consecuencias a todas sus
+representaciones.
+– Las actualizaciones pueden afectar a muchos objetos de un dise˜no
+dadas las relaciones topol´ogicas.
+– En muchas ocasiones se tienen en cuenta muchas alternativas de dise
+˜no para cada componente, por lo que es necesario un control de
+versiones.
+– Puede haber cientos de personas involucradas en un dise˜no, trabajando
+en paralelo sobre m´ultiples versiones de un mismo dise˜no. A´un
+as´i, el producto final debe ser consistente y coordinado (ingenier´ia
+cooperativa).
+• Fabricaci´on asistida por computador (CAM).
+Una base de datos CAM almacena informaci´on similar a la de un sistema
+CAD, adem´as de informaci´on relativa a producci´on discreta (como
+coches en una l´inea de montaje) y a producci´on cont´inua (como en una
+s´intesis qu´imica). Por ejemplo, en la fabricaci´on qu´imica habr´a aplicaciones
+que monitoricen el estado del sistema (temperaturas, flujos, etc.).
+Tambi´en habr´a aplicaciones que controlen procesos f´isicos (abrir v´alvulas,
+aumentar el flujo de aire de ventilaci´on, etc.). Estas aplicaciones se suelen
+organizar en una jerarqu´ia, con una aplicaci´on de nivel superior que
+controla toda f´abrica y aplicaciones de nivel m´as bajo que monitorizan
+procesos de fabricaci´on individuales. Estas aplicaciones deben responder
+en tiempo real y ser capaces de ajustar los procesos para mantener las prestaciones
+´optimas dentro de unos niveles de tolerancia. Estas aplicaciones
+utilizan una combinaci´on de algoritmos est´andar con reglas propias elaboradas
+para responder ante diferentes condiciones. Los operarios pueden
+modificar estas reglas de forma ocasional para optimizar las prestaciones
+bas´andose en datos hist´oricos que el sistema debe mantener. El sistema
+deber´a ser capaz de mantener grandes cantidades de datos cuya naturaleza
+es jer´arquica y mantener complejas relaciones entre los datos. Adem´as,
+debe ser capaz de navegar r´apidamente entre los datos para responder a
+los cambios.
+• Ingenier´ia del software asistida por computador (CASE).
+Una base de datos CASE almacena informaci´on relativa a las etapas del ciclo
+de vida del desarrollo del software: planificaci´on, recolecci´on y an´alisis
+de requisitos, dise˜no, implementaci´on, pruebas, mantenimiento y documentaci
+´on. Al igual que en CAD, los dise˜nos pueden ser muy grandes y la
+ingenier´ia cooperativa es habitualmente el modo de trabajar. Las herramientas
+de gesti´on de configuraci´on de software deben permitir trabajar en
+el dise˜no de forma concurrente, tambi´en en la implementaci´on y en la documentaci
+´on. Es necesario controlar las dependencias entre componentes
+y prestar apoyo en la gesti´on de los cambios. Las herramientas de gesti´on
+de proyectos permiten la coordinaci´on de varias actividades distintas, como
+la planificaci´on de complejas tareas interdependientes, la estimaci´on
+de costes y la monitorizaci´on de los progresos que se realizan.
+• Publicaciones digitales.
+Actualmente ya es posible almacenar electr´onicamente libros, revistas y
+peri´odicos, y servirlos a trav´es de la red a los clientes. En este tipo de
+sistemas se hace necesario poder manipular documentos multimedia que
+contienen texto, audio, im´agenes, v´ideos y animaciones. En algunos casos
+la cantidad de informaci´on que se pone a disposici´on de los clientes es
+enorme (del orden de petabytes, 1015 bytes), informaci´on que deber´ia ser
+manejada eficientementen por el SGBD.
+• Sistemas de informaci´on geogr´afica (GIS).
+Una base de datos GIS almacena informaci´on temporal y espacial. La
+mayor parte de estos datos los proporcionan los sat´elites y suelen ser
+muy grandes. Las b´usquedas que se realizan requieren que se identifiquen
+caracter´isticas basadas, por ejemplo, en la forma, el color o la textura,
+bas´andose en avanzadas t´ecnicas de reconocimiento de formas.
+• Son m´as las aplicaciones que tienen necesidades que no satisfacen los
+SGBD relacionales: aplicaciones m´edicas y cient´ificas, sistemas expertos,
+sistemas de informaci´on de oficina (OIS), sistemas multimedia, etc.

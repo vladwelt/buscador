@@ -1,0 +1,27 @@
+2.4 Procesamiento de reglas activas
+Hay dos algoritmos alternativos para el procesamiento de las reglas activadas
+por una sentencia: el algoritmo iterativo y el algoritmo recursivo. Ambos se
+detallan a continuaci´on.
+Algoritmo Iterativo
+mientras existan reglas activadas:
+1. seleccionar una regla activada R
+2. comprobar la condici´on de R
+3. si la condici´on es cierta, ejecutar la acci´on de R
+fin mientras
+Algoritmo Recursivo
+mientras existan reglas activadas:
+1. seleccionar una regla activada R
+2. comprobar la condici´on de R
+3. si la condici´on es cierta
+3.1. ejecutar la acci´on de R
+3.2. ejecutar este algoritmo para las reglas
+activadas por la acci´on de R
+fin mientras
+Tanto en el est´andar SQL:1999 como en Oracle y PostgreSQL, el tipo de
+procesamiento es recursivo. El orden en que se van seleccionando las reglas de
+entre el conjunto de reglas activadas viene determinado por cada SGBD. Por
+ejemplo, en Oracle es indeterminado para disparadores del mismo tipo, mientras
+que en PostgreSQL se van activando por orden alfab´etico. La terminaci´on del
+algoritmo de ejecuci´on de reglas se asegura estableciendo un l´imite m´aximo al
+n´umero de reglas disparadas durante la ejecuci´on del algoritmo (normalmente
+es 32).

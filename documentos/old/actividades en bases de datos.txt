@@ -1,0 +1,93 @@
+Cap´itulo 2
+Actividad en bases de datos
+relacionales
+2.1 Introducci´on
+En muchas aplicaciones, la base de datos debe evolucionar independientemente
+de la intervenci´on del usuario como respuesta a un suceso o una determinada
+situaci´on. En los sistemas de gesti´on de bases de datos tradicionales
+(pasivas), la evoluci´on de la base de datos se programa en el c´odigo de las aplicaciones,
+mientras que en los sistemas de gesti´on de bases de datos activas esta
+evoluci´on es aut´onoma y se define en el esquema de la base de datos.
+El poder especificar reglas con una serie de acciones que se ejecutan autom
+´aticamente cuando se producen ciertos eventos, es una de las mejoras de los
+sistemas de gesti´on de bases de datos que se consideran de gran importancia
+desde hace alg´un tiempo. Mediante estas reglas se puede hacer respetar reglas
+de integridad, generar datos derivados, controlar la seguridad o implementar
+reglas de negocio. De hecho, la mayor´ia de los sistemas relacionales comerciales
+disponen de disparadores (triggers). Se ha hecho mucha investigaci´on sobre lo
+que deber´ia ser un modelo general de bases de datos activas desde que empezaron
+a aparecer los primeros disparadores. El modelo que se viene utilizando
+para especificar bases de datos activas es el modelo evento–condici´on–acci´on.
+Mediante los sistemas de bases de datos activas se consigue un nuevo nivel de
+independencia de datos: la independencia de conocimiento. El conocimiento que
+provoca una reacci´on se elimina de los programas de aplicaci´on y se codifica en
+forma de reglas activas. De este modo, al encontrarse las reglas definidas como
+parte del esquema de la base de datos, se comparten por todos los usuarios, en
+lugar de estar replicadas en todos los programas de aplicaci´on. Cualquier cambio
+sobre el comportamiento reactivo se puede llevar a cabo cambiando solamente
+las reglas activas, sin necesidad de modificar las aplicaciones.
+Adem´as, mediante los sistemas de bases de datos activas se hace posible el
+integrar distintos subsistemas (control de accesos, gesti´on de vistas, etc.) y se
+extiende el ´ambito de aplicaci´on de la tecnolog´ia de bases de datos a otro tipo
+de aplicaciones.
+Uno de los problemas que ha limitado el uso extensivo de reglas activas, a
+pesar de su potencial para simplificar el desarrollo de bases de datos y de aplicaciones,
+es el hecho de que no hay t´ecnicas f´aciles de usar para dise˜nar, escribir
+y verificar reglas. Por ejemplo, es bastante dif´icil verificar que un conjunto de
+reglas es consistente, es decir, que no se contradice. Tambi´en es dif´icil garantizar
+la terminaci´on de un conjunto de reglas bajo cualquier circunstancia. Para que
+las reglas activas alcancen todo su potencial, es necesario desarrollar herramientas
+para dise˜nar, depurar y monitorizar reglas activas que puedan ayudar a los
+usuarios en el dise˜no y depuraci´on de sus reglas.
+2.2 El modelo evento–condici´on–acci´on
+Un sistema de bases de datos activas es un sistema de gesti´on de bases
+de datos (SGBD) que contiene un subsistema que permite la definici´on y la
+gesti´on de reglas de producci´on (reglas activas). Las reglas siguen el modelo
+evento–condici´on–acci´on (modelo ECA): cada regla reacciona ante un determinado
+evento, eval´ua una condici´on y, si ´esta es cierta, ejecuta un acci´on. La
+ejecuci´on de las reglas tiene lugar bajo el control de un subsistema aut´onomo,
+denominado motor de reglas, que se encarga de detectar los eventos que van
+sucediendo y de planificar las reglas para que se ejecuten.
+En el modelo ECA una regla tiene tres componentes:
+• El evento (o eventos) que dispara la regla. Estos eventos pueden ser
+operaciones de consulta o actualizaci´on que se aplican expl´icitamente sobre
+la base de datos. Tambi´en pueden ser eventos temporales (por ejemplo,
+que sea una determinada hora del d´ia) u otro tipo de eventos externos
+(definidos por el usuario).
+• La condici´on que determina si la acci´on de la regla se debe ejecutar. Una
+vez ocurre el evento disparador, se puede evaluar una condici´on (es opcional).
+Si no se especifica condici´on, la acci´on se ejecutar´a cuando suceda el
+evento. Si se especifica condici´on, la acci´on se ejecutar´a s´olo si la condici´on
+se eval´ua a verdadero.
+• La acci´on a realizar puede ser una transacci´on sobre la base de datos o un
+programa externo que se ejecutar´a autom´aticamente.
+Casi todos los sistemas relacionales incorporan reglas activas simples denominadas
+disparadores (triggers), que est´an basados en el modelo ECA:
+• Los eventos son sentencias SQL de manejo de datos (INSERT, DELETE,
+UPDATE).
+• La condici´on (que es opcional) es un predicado booleano expresado en
+SQL.
+• La acci´on es un secuencia de sentencias SQL, que pueden estar inmersas
+en un lenguaje de programaci´on integrado en el producto que se est´e
+utilizando (por ejemplo, PL/SQL en Oracle o PL/pgSQL en PostgreSQL).
+El modelo ECA se comporta de un modo simple e intuitivo: cuando ocurre el
+evento, si la condici´on es verdadera, entonces se ejecuta la acci´on. Se dice que el
+disparador es activado por el evento, es considerado durante la verificaci´on de su
+condici´on y es ejecutado si la condici´on es cierta. Sin embargo, hay diferencias
+importantes en el modo en que cada sistema define la activaci´on, consideraci´on
+y ejecuci´on de disparadores.
+Los disparadores relacionales tienen dos niveles de granularidad: a nivel de
+fila y a nivel de sentencia. En el primer caso, la activaci´on tiene lugar para
+cada tupla involucrada en la operaci´on y se dice que el sistema tiene un comportamiento
+orientado a tuplas. En el segundo caso, la activaci´on tiene lugar
+s´olo una vez para cada sentencia SQL, refiri´endose a todas las tuplas invocadas
+por la sentencia, con un comportamiento orientado a conjuntos. Adem´as,
+los disparadores tienen funcionalidad inmediata o diferida. La evaluaci´on de
+los disparadores inmediatos normalmente sucede inmediatamente despu´es del
+evento que lo activa (opci´on AFTER), aunque tambi´en puede precederlo (opci´on
+BEFORE) o ser evaluados en lugar de la ejecuci´on del evento (opci´on INSTEAD OF).
+La evaluaci´on diferida de los disparadores tiene lugar al finalizar la transacci´on
+en donde se han activado (tras la sentencia COMMIT).
+Un disparador puede activar otro disparador. Esto ocurre cuando la acci´on
+de un disparador es tambi´en el evento de otro disparador. En este caso, se dice
+que los disparadores se activan en cascada.

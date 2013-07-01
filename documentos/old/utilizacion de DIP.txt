@@ -1,0 +1,158 @@
+
+       #  route  del  cowslip
+       #  ifconfig  sl0  down
+       #  kill  -HUP  516
+
+7.3       Utilizacion  de  dip
+Lo  visto  hasta  ahora  no  es  dificil  de  hacer.  Sin  embargo,  puede  que  desee  automatizar
+
+los pasos de modo que solo tenga que invocar un comando.  El programa dip  hace esto.3
+
+La version que existe en este momento es la 3.3.7.  Ha sido parcheada por mucha gente,
+
+con lo que no podremos hablar simplemente de el programa dip.  Las modificaciones seran
+
+incorporadas en futuras versiones.
+
+
+     dip tiene un interprete de un lenguaje script sencillo que puede manejar automaticamente
+
+el modem, convertir la linea a modo SLIP y configurar las interfaces. Es bastante restrictivo
+
+por lo simple que es, pero suficiente para la mayoria de los casos. Una nueva version de este
+
+programa podra traer una version mas completa del lenguaje.
+
+
+     Para ser capaces de configurar el interfaz SLIP, dip necesita tener permisos de superu-
+
+suario.  Puede hacerse poniendo el programa con el bit setuid y de propiedad del usuario
+
+root, de modo que cualquier usuario sin privilegios podra poner en marcha el programa.
+
+Esto es, sin embargo, muy peligroso, ya que una configuracion incorrecta del encaminamien-
+
+to de dip puede estropear el encaminamiento de su red local.  Ademas, dara a los usuarios
+
+la posibilidad de conectarse a cualquier servidor SLIP, y lanzar ataques peligrosos a la red.
+
+Si aun quiere permitir a los usuarios activar conexiones SLIP, escriba peque"nos programas
+
+para cada servidor de modo que cada uno invoque a dip  con el script especifico.  Estos
+
+programas pueden tener privilegios sin peligro.4
+7.3.1      Un script de ejemplo
+
+
+
+Un  script  de  ejemplo  se  encuentra  en  la  figura  7.1.   Puede  utilizarse  para  conectarse  a
+
+cowslip invocando a dip de esta forma:
+
+
+
+       #  dip  cowslip.dip
+       DIP:  Dialup  IP  Protocol  Driver  version  3.3.7  (12/13/93)
+       Written  by  Fred  N.  van  Kempen,  MicroWalt  Corporation.
+
+
+       conectado  a  cowslip.moo.com  with  addr  193.174.7.129
+       #
+
+  #  Script  de  dip  para  conectarse  al  servidor  cowslip
+
+
+  #  Preparar  nombres  local  y  remoto
+  get  $local  vlager
+  get  $remote  cowslip
+
+
+  port  cua3                      #  seleccion  de  puerto  serie
+  speed  38400                   #  poner  velocidad  maxima
+  modem  HAYES                   #  poner  tipo  de  modem
+  reset                           #  reiniciar  modem  y  terminal  (tty)
+  flush                           #  limpiar  buffer  de  respuesta  del  modem
+
+
+  #  Prepararse  para  marcado.
+  send  ATQ0V1E1X1\r
+  wait  OK  2
+  if  $errlvl  !=  0  goto  error
+  dial  41988
+  if  $errlvl  !=  0  goto  error
+  wait  CONNECT  60
+  if  $errlvl  !=  0  goto  error
+
+
+  #  Ahora  ya  estamos  conectados
+  sleep  3
+  send  \r\n\r\n
+  wait  ogin:  10
+  if  $errlvl  !=  0  goto  error
+  send  Svlager\n
+  wait  ssword:  5
+  if  $errlvl  !=  0  goto  error
+  send  hey-jude\n
+  wait  running  30
+  if  $errlvl  !=  0  goto  error
+
+
+  #  Ahora  ya  estamos  en  la  cuenta.  Lancemos  SLIP.
+  print  Conectado  a  $remote  with  address  $rmtip
+  default                        #  Hacer  que  este  enlace  sea  nuestra  ruta  por  defecto
+  mode  SLIP                      #  Pasemos  a  modo  SLIP
+  #  en  caso  de  error  se  ejecuta  lo  siguiente
+
+
+error:
+  print  Fallo  de  la  conextion  SLIP  con  $remote  .
+                              Figura 7.1: Un script de ejemplo para dip
+     Despues de conectar a cowslip y activar SLIP, dip pasara a ejecutarse en segundo plano.
+
+Ahora puede conectarse a traves del enlace SLIP mediante los programas habituales de red.
+
+Para terminar la conexion, ejecute dip con la opcion -k.  Esto enviara una se"nal de colgar
+
+al proceso dip, cuyo numero se encontrara almacenado en el fichero /etc/dip.pid.5
+
+
+
+       #  dip  -k
+     En  el  lenguaje  que  interpreta  dip  las  palabras  precedidas  con  un  signo  de  dolar  se
+
+corresponden con nombres de variables. dip tiene un conjunto predefinido de variables que
+
+se listara a continuacion. $remote y $local, por ejemplo, contienen los nombres de maquina
+
+local y remoto, respectivamente, involucrados en el enlace SLIP.
+
+
+     Las dos primeras sentencias del ejemplo son los comandos get, que sirven para establecer
+
+variables. Aqui, las maquinas local y remota han sido vlager y cowslip, respectivamente.
+
+
+     Las cinco sentencias que siguen preparan la linea serie y el modem.  La palabra reset
+
+envia una cadena de reinicio al modem; que sera el comando ATZ  para modems compati-
+
+bles con Hayes. La siguiente sentencia limpia el buffer de salida del modem, para conseguir
+
+que el dialogo de entrada (login y password) funcione correctamente.  Este dialogo es ex-
+
+tremadamente simple:  llama al numero 41988, que es el numero de cowslip, entra en la
+
+cuenta Svlager  mediante la clave de acceso hey-jude.  El comando wait  hace que se espere
+
+a la aparicion de la cadena que sigue a esta orden,  mientras que su segundo argumento
+
+especifica el tiempo de espera en segundos. Los comandos if  sirven para ir comprobando la
+
+correccion del procedimiento de entrada en la cuenta.
+
+
+     Los comandos finales, ejecutados tras entrar en la cuenta, son default, que hace que el
+
+enlace SLIP sea la ruta por defecto para todos los destinos y mode, que pone la linea en
+
+modo SLIP y configura automaticamente el interface y la tabla de encaminamiento.

@@ -1,0 +1,126 @@
+UBICUIDAD Y USABILIDAD EN LA WEB
+
+La usabilidad es un concepto que engloba a una serie de métricas y métodos que buscan hacer que un sistema sea fácil de usar y de aprender. Un sitio es usable solo si lo podemos encontrar.
+
+Hay tres formas principales:
+
+•	Directa: Publicidad en medios de comunicación tradicionales u otras personas.
+•	Navegando: Enlaces al sitio mediante publicidad en Internet
+•	Usando un Buscador: El buscador debe previamente encontrarlo.
+
+Al  concepto de estar en la Web y poder ser encontrado y visto lo llamamos ubicuidad. Ubicuidad tiene dos partes: Buscabilidad. Poder encontrar el sitio. Visibilidad. Poder verlo
+
+La usabilidad tiene dos aspectos centrales: el contenido y la estética (la forma, el diseño gráfico). El contenido debe tener elementos legibles y comprensibles, y coherencia de la navegación y de la funcionalidad en todas las páginas. Su diseño debe ser estético pero sin sacrificar los puntos anteriores. Esto significa cosas obvias como no usar fondos que afecten la legibilidad o recargar la página con elementos distractivos. El diseño debe ser elegante y simple. La usabilidad de un sitio genera lo más importante: que la persona vuelva, es decir genera fidelidad. 
+El diagrama adjunto muestra las relaciones de dependencia entre estos cinco conceptos. 
+ 
+No tiene mucho sentido escoger el sitio con mejor diseño, pues puede que no sirva para nada. El análisis de un sitio debe ser integral: el mejor diseño y el mejor contenido (interacción, navegación, servicios, etc.). 
+Ubicuidad
+Buscabilidad
+Un gran porcentaje de las visitas a un sitio, en especial si es nuevo, proviene de un buscador. Por lo tanto es importante poder buscar y encontrar el sitio que nos interesa. Éste es el primer paso. Esto significa responder a las siguientes preguntas: 
+•	¿Encontrará mi sitio un buscador? La respuesta es no, si no ha registrado su sitio o si no posee un enlace desde un sitio claramente conocido. Envíe su sitio a los mayores buscadores mundiales (Google, Altavista, AlltheWeb, NorthernLight, etc) y locales. 
+•	¿Pongo trabas a los buscadores para entrar a mi sitio? La respuesta es sí, si usa mapas de imágenes, Flash u otros mecanismos que no son HTML y que no permiten extraer los enlaces hacia páginas internas (algunos buscadores tampoco reconocen frames).. 
+•	¿Tengo el texto correcto en mi página principal? ¿Puedo encontrar mi sitio imaginando que palabras usarán mis clientes? Si la respuesta es no, no podremos encontrar el sitio. Esto implica tener el lenguaje correcto, que puede ser más de una forma de hablar o más de un idioma. 
+•	¿Queda mi sitio bien ubicado en una búsqueda? Si la respuesta es no, consiga enlaces desde otros sitios y mejore sus metadatos. No crea en los servicios de posicionamiento de páginas Web, es imposible, no sólo en teoría, sino también en la práctica ya que los algoritmos para jerarquización de páginas  no son públicos 
+Visibilidad
+No sirve de nada encontrar un sitio si no puedo acceder a él, no puedo verlo. La visibilidad depende tanto del desempeño computacional de un sitio y de la calidad del enlace Internet, como del diseño del sitio. Sin embargo, aunque el hardware y la conectividad sean buenas, aún pueden haber otros problemas que impiden que su sitio sea visible: 
+•	¿Es su sitio liviano? Si la página tarda en cargarse para personas que sólo tienen un modem de 30Kbit/seg ya estamos marginando a muchas personas que no esperarán los 20 segundos que se necesitan para descargar 100Kbytes.
+•	¿Es su diseño compatible con todos los navegadores o usted supone que todo el mundo usa Explorer y Windows?  Recuerde que no todo el mundo usa el mismo navegador o el mismo sistema operativo. 
+•	Un tema relacionado es la accesibilidad, el cual también es relevante para la usabilidad: ¿Considera usted usuarios con discapacidades visuales? Si no es así, usted está marginando a una minoría. Existen normativas, fáciles de seguir, que permiten la creación de páginas web accesibles para todos, de acuerdo a WAI (Web Accessibility Initiative). 
+•	Si su sitio tiene mucho tráfico (por ejemplo, difusión o comercio electrónico), deberá sacrificar parcialmente el diseño para obtener un buen desempeño del servidor. Recuerde que es más importante la funcionalidad de un sitio que como se ve. 
+Usabilidad
+"La usabilidad es el rango en el cual un producto puede ser usado por unos usuarios específicos para alcanzar ciertas metas especificadas con efectividad, eficiencia y satisfacción en un contexto de uso especificado". La usabilidad es un concepto aplicable a cualquier elemento en el cual se va a producir una interacción entre un humano y un dispositivo.
+En los sistemas computacionales va a abarcar desde el proceso de instalación de la aplicación hasta el punto en que el sistema sea utilizado por el usuario, incluyendo también el proceso de mantenimiento.
+La usabilidad tiene los siguientes atributos:
+1.	Facilidad de aprendizaje. 
+Se refiere a que tan rápido el usuario va a aprender a usar un sistema con el cual no había tenido contacto previamente.                                                                                           
+2.	Velocidad de desempeño. 
+Una vez que el usuario ha aprendido a utilizar el sistema, se ponderara la velocidad con que puede completar una tarea específica. 
+3.	Tasas de error por parte de los usuarios. 
+Este atributo se refiere a aquellos errores que comete el usuario al utilizar el sistema.  
+4.	Retención sobre el tiempo. 
+Este atributo se refiere a qué tan bien recuerdan los usuarios la manera en como funciona el sistema después de una hora, un día o una semana. 
+5.	Satisfacción subjetiva. 
+Se refiere a que tanto le gustaron a los usuarios los distintos atributos del sistema.
+6.	Control. 
+Los usuarios deben de sentir que tienen el control por sobre la aplicación, y no al revés. 
+7.	Habilidades. 
+Los usuarios deben de sentir que el sistema apoya, complementa y realza sus habilidades y experiencia - el sistema tiene respeto por el usuario.
+8.	Privacidad. 
+El sistema ayuda a los usuarios a proteger su información o la de sus clientes.
+Ingeniería de Usabilidad
+La Ingeniería de Usabilidad (IU) da pautas para obtener productos con un alto grado de usabilidad, esto mediante la aplicación de distintos métodos en diferentes etapas del proceso de diseño y desarrollo de una manera estructurada y sistemática. El objetivo principal de la IU es mejorar la interfaz de usuario.
+En IU se trata de decidir que atributos del concepto de usabilidad deben de ser prioritizados, con el fin de lograr metas verificables y medibles de niveles de usabilidad. Por ejemplo, 
+•	Medir el desempeño de un usuario ejecutando una serie de tareas específicas con respecto al tiempo de terminación de las tareas o en base al número de errores cometidos. 
+•	Determinar los niveles de preferencia subjetiva o el grado de satisfacción. 
+•	La facilidad de aprendizaje podría medirse en base al número de tareas completadas en cierto periodo, número de errores cometidos, o respecto al número de veces que utilizó la opción de ayuda.   
+Evaluación de usabilidad
+La evaluación de la usabilidad puede ayudar a determinar cual es el nivel actual de la aplicación y si de hecho el diseño elegido realmente funciona. Los datos que se recaban mediante la observación del usuario frente a la aplicación y ver su desempeño, es información muy valiosa que ayudan en definitiva a detectar posibles falencias del sistema.
+A continuación se describen brevemente algunos de estos métodos:
+1.	Inspección formal de usabilidad. 
+Un grupo de expertos realizan una especie de juicio de la interfaz, con uno de los participantes actuando como moderador, destacando las fortalezas y las debilidades de la aplicación.
+2.	Testeo de usabilidad (Usability testing). 
+Se realizan pruebas de desempeño de un grupo de usuarios utilizando el sistema a probar y se graban los resultados para un análisis posterior. 
+3.	Pensar en voz alta (Thinking aloud). 
+Se le pide al usuario que realice una serie de tareas específicas. El usuario debe de expresar sus acciones oralmente. 
+4.	Evaluación heurística y de estándares. 
+En este tipo de evaluación un equipo de especialistas en usabilidad realizan una revisión conforme a estas normativas. 
+5.	Caminata cognitiva. 
+Un grupo de expertos simula la manera en como un usuario caminaría por la interfaz al enfrentarse a tareas particulares.  
+
+Usabilidad en la Web
+Las aplicaciones basadas en la web presentan un escenario bastante diferente al de las aplicaciones diseñadas para ser usadas sin conexión a una red (stand-alone). La naturaleza misma de la web, prácticamente sin barreras y accesible desde cualquier punto, hacen que la manera de atacar los problemas de usabilidad requieran de un enfoque distinto al de una aplicación de software tradicional. La clave en la usabilidad de un sitio web es asegurarse de que el sitio sea útil y usable para la audiencia objetivo.
+Un documento en la web se enfrenta a una audiencia global, con distintas necesidades, bagajes culturales y niveles educativos. Cada usuario que visita el sitio web lo hace con un equipamiento de hardware y software distinto. Si nuestro objetivo es llegar a todo usuario y atenderlos con el mismo nivel de calidad debemos de diseniar nuestro sitio web para que se adapte a las posibles limitaciones de cada usuario.
+Quizás una de las decisiones más importantes al momento de comenzar a desarrollar un sitio web sea precisamente el definir la audiencia que vamos a manejar. Existen varios métodos para recolectar información para sustentar nuestra definición de audiencia, entre estos se incluye la utilización de focus groups, entrevistas individuales, investigación demográfica y la recolección de datos por parte de usuarios en el caso de un sitio web pre-existente (encuestas on-line). 
+Heurísticas de Usabilidad para la Web
+1.	Visibilidad del estado del sistema. 
+El usuario siempre debe de saber exactamente qué es lo que el sistema está haciendo. En sitios web esto se puede lograr informándole al usuario dónde se encuentra, siempre. Tambien ofrecer al usuario una permanente retroalimentación a las acciones que este realice en cada página web. Esto puede lograrse con efectos tan sutiles como el efecto hover de las hojas de estilo (CSS) sobre los hipervínculos.  
+2.	Similitud entre el sistema y el mundo real. 
+El sistema debe de hablar el lenguaje del usuario, Las frases, palabras y conceptos deben de ser familiares para el usuario. 
+3.	Control por parte del usuario y libertad. 
+Los usuarios frecuentemente eligen funciones por error y necesitarán de “salidas de emergencia” claramente marcadas. Se debe de proveeer al visitante al sitio el contar con funciones para deshacer y rehacer las acciones que haya realizado.
+4.	Consistencia y cumplimiento de estándares. 
+Se debe seguir las convenciones de las plataformas en las que se está desplegando el sitio web. Preferir los estilos por default de botones, barras de scroll, etc. provistas por la plataforma. El cumplimiento con las recomendaciones emitidas por el W3C (World Wide Web Consortium) referentes tecnologías web (HTML, CSS, XML,etc.) aseguran en muchos casos una portabilidad absoluta del sitio web.
+5.	Prevención de errores 
+Aún mejor que el desarrollar buenos mensajes de error es tener un diseño cuidadoso que eviten la ocurrencia de errores. Hay que asegurarse de que las instrucciones estén escritas de una manera clara y que estás sean desplegadas de manera conveniente. Si se requiere el llenado de un formulario con campos obligatorios, destácar por sobre el resto de las entradas. Es muy conveniente hacer una validación de la forma antes de enviarla al servidor (esto se puede hacer fácilmente con Javascript). 
+6.	Preferencia al reconocimiento frente a la memorización. 
+Haga que los objetos, acciones y opciones sean visibles. El usuario no tiene porque recordar información de una parte de un diálogo a otra parte.
+7.	Flexibilidad y eficiencia de uso. 
+Los aceleradores –invisibles para el usuario novato – pueden hacer más rápida la interacción para el usuario experto. El sistema debe de tratar eficientemente tanto a los usuarios expertos como inexpertos. Para lograr esto, es conveniente permitir a los usuarios que personalicen ciertas acciones frecuentes.
+8.	Estética y diseño minimalista. 
+Los diálogos no deben de contener información que sea irrelevante o que rara vez sea de utilidad. Se recomienda reducir el número de imágenes al mínimo. Hay que recordar que cada imágen implica una descarga desde el servidor, y esto en conexiones lentas puede ser un problema serio.Es altamente recomendable que la información más importante sea colocada en la parte superior de la página, pues está es la región que siempre es visible en el navegador. 
+9.	Ayuda para que el usuario reconozca, diagnostique y se recupere de los errores. 
+Los mensajes de error deben de ser expresados en un lenguaje hacer uso del mensaje default de error que ofrecen los servidores web, el cual usted puede personalizar.
+10.	Ayuda y documentación. 
+En cuanto un sitio web ofrezca alguna característica fuera de la norma, o ligeramente complicada, será necesario prestar ayuda y dar documentación a los usuarios. 
+Recomendaciones de diseño
+Antes de empezar a diseñar un sitio web hay que hacerse las siguientes preguntas:
+•	¿Por qué quiero usar la internet? 
+•	¿Quién es mi audiencia? 
+•	¿Qué tratan de lograr mis usuarios? 
+•	¿Cuáles son las mejores tecnologías que me pueden ayudar para que mi información tenga el impacto que deseo? ¿De qué manera puedo beneficiarme de la tecnología? 
+•	¿Qué está haciendo mi competencia? 
+•	¿Cuáles son mis metas a largo plazo? 
+Es importante clarificar perfectamente la naturaleza del sitio web que se intenta desarrollar. La creación de un sitio involcra una inversión considerable de recursos (humanos, financieros, tiempo). 
+  
+Análisis de requerimientos	Diseño Conceptual	Bocetos y prototipos	Producción	Lanzamiento
+ 
+	 
+	 
+	 
+	 
+
+Evaluación
+Algunos consejos de diseño que pueden ayudar a lograr un sitio web más fácil de usar son los siguientes 
+1.	Compatibilidad del navegador. 
+El seguir las recomendaciones del W3C es una buena opción para procurar de que el sitio web sea portable. 
+2.	Diseñar para la diversidad. 
+No sólo los sitios web están expuestos a gente de los más diversos orígenes, además de las personas que presentan algún tipo de discapacidad física. Debemos de diseñar nuestro sitio web con esto siempre presente. Cualquier insinuación aparentemente inocua en una localidad puede ser altamente ofensiva en otra región.  
+3.	Optimizar para una descarga rápida. 
+Las páginas web deben de ser diseñadas con la velocidad como prioridad, aun por encima del diseño gráfico. En general, los sitios más populares en internet comparten una velocidad de descarga mínima. Los usuarios quieren la información de inmediato, saber qué es lo que contiene la página. Un usuario tiene muy poca paciencia para promesas. 
+4.	Diseñar para diversos tamaños de monitor. 
+El sitio web debe de ser diseñado para que sea usable aún en resoluciones bajas, conservando la mayor cantidad de funcionalidades posibles.
+5.	Controlar la cantidad de scrolling. 
+Hay que diseñar las páginas web de manera tal de que haya una indicación clara de que existe información relevante en la parte no visible de la página web. El contenido más importante de la página se debe de colocar en la parte superior de la misma. 
+6.	Escribir para la web es distinto que para otros medios. 
+La escritura vigorosa es concisa. Un enunciado no debe de contener palabras innecesarias, un párrafo no debe tener enunciados innecesarios, por las mismas razones que una pintura no debe de tener líneas innecesarias y una máquina no debe de tener partes innecesarias".
+

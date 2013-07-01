@@ -1,0 +1,96 @@
+---Resumen del primer parcial de telefonía IP---
+
+INVITE		direccioanr trafico a un destino
+ACK		mensaje de aceptacion
+REGISTER	registro de sesion
+BYE		finalizacion de sesion
+CANCEL		cancela un mensaje en transito
+OPTIONS		inf soobre la conexion
+INFO		inf de los mensajes
+PRACK		retransmision
+COMET		retransmision
+REFER		refer de transmision (por donde esta pasando el msje)
+SUBSCRIBE	subs a un servicio
+UNSUBSCRIBE	
+NOTIFY		notificacion
+MESSAGE		mensajes adicionels
+
+1xx	msjes de direccionamiento
+2xx	msje de servidor 
+3xx	peticion lado cliente
+4xx	error en el servidor
+5xx	error en el cliente
+6xx	falla global (servicio no esta funcionanado)
+
+100_Dial(SIP/100)
+200_Dial(SIP/200:1234@19.168.2.100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+antes de irte espera por favor
+tengo algo que decir mi amor
+dos minutos no cambiaran 
+
+quiero que sientas lo amargo de mi voz
+hoy no pienso sonrerir mi amor
+escucha entonces por favor
+
+antes de ti no habia una razon
+y hoy me aferro mas a ti, sin ti
+la partida termino
+
+si bien he perdido, no entiendo que paso
+donde estuvo mi error, por que
+la razon de tu distancia.
+
+he tenido errores, no los quiero recordar
+tu lo sabes mejor que yo, tal vez
+los cometi por acermarme a ti

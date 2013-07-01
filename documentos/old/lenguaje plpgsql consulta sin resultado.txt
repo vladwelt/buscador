@@ -1,0 +1,37 @@
+Ejecución de una Expresión o Consulta Sin Resultados
+En algunas ocasiones se desea evaluar un expresión o una consulta y descartar sus
+resultados (típicamente debido a que se está llamando a una función que tiene efectos
+secundarios útiles, pero valores de resultados inútiles). Para hacer esto en PL/pgSQL
+utilice la sentencia PERFORM:
+PERFORM consulta;
+Esto ejecuta la consulta y descarta el resultado. Escriba la consulta de la misma
+manera en que lo haría en un comando SELECT, pero reemplace la palabra reservada
+inicial SELECT con PERFORM. Las variables PL/pgSQL serán sustituídas dentro de
+la consulta de la manera usual. También a la variable especial FOUND se le asignará el
+valor de verdadero si la consulta produce al menos un renglón o falso si no produce
+renglones.
+Nota: Uno esperaría que un SELECT sin una clúasula INTO haría lo mismo, pero hasta
+el momento la única manera aceptada de hacerlo es con PERFORM.
+Un ejemplo:
+PERFORM create_mv(’cs_session_page_requests_mv’, my_query);
+No Hacer Absolutamente Nada
+Algunas veces una sentencia comodín que no hace nada es útil. Por ejemplo, puede
+indicar que una rama del una cadena if/then/else se encuentra vacía deliberadamente.
+Para hacer esto, use la sentencia NULL:
+NULL;
+Por ejemplo, los siguientes dos fragmentos de código son equivalentes:
+BEGIN
+y := x / 0;
+EXCEPTION
+WHEN division_by_zero THEN
+NULL; -- ignore el error
+END;
+BEGIN
+y := x / 0;
+EXCEPTION
+WHEN division_by_zero THEN -- ignore el error
+END;
+Dejamos a su elección el que quiera usar.
+Nota: En el PL/SQL de Oracle las sentencias vacias no están permitidas, así que las
+sentencias NULL son requeridas para situaciones como ésas. PL/pgSQL permite, en
+cambio, el escribir nada.

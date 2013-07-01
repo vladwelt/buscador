@@ -1,0 +1,83 @@
+_______________________________________________________________________________________________________________2.4.   E*
+ *ncaminamiento IP        @
+
+
+
+
+departamento.   Concretamente  se  divide  en  254  subredes,  desde  la  149.76.1.0  hasta  la
+
+149.76.254.0.  Por ejemplo, el Departamento de Fisica Teorica tendra asignada la subred
+
+149.76.12.0. La dorsal del campus es en si mismo una subred, la 149.76.1.0. Las subredes
+
+comparten el mismo numero de red, pero se usa el tercer octeto deesta para distinguir las
+
+distintas subredes. Por lo tanto, tendran una mascara de subred igual a 255.255.255.0.
+
+
+     En la figura 2.1 se muestra como el nodo quark (149.76.12.4) se ve de distinta forma
+
+segun se vea desde el punto de vista de la red de clase B, o desde el punto de vista de las
+
+subredes.
+
+
+     Debe notarse que la division en subredes es visible solo internamente a la red. Normal-
+
+mente, las organiza el administrador de red para reflejar diferentes ubicaciones geograficas,
+
+distinguir segmentos de red, o bien por motivos administrativos (departamentos, redes de
+
+alumnos, etc). Pero esta division es totalmente invisible desde fuera de la organizacion.
+2.4.3      Pasarelas
+
+
+
+La organizcion en subredes no solo se hace por motivos administrativos, tambien es conse-
+
+cuencia de cuestiones del hardware.  Lo que ve un nodo en una red es limitado:  solo ve los
+
+nodos con los que directamente este conectado (por ejemplo, en la Ethernet), mientras que
+
+a los demas los accede a traves de lo que se conoce como pasarela o gateway. Una pasarela
+
+es un nodo conectado a dos o mas redes fisicas, configurado para pasar paquetes de una red
+
+a otra.
+
+
+     Para reconocer si una direccion IP se encuentra en la red local fisica, cada LAN debe
+
+tener una direccion de red IP diferente. Por ejemplo, las maquinas de la (sub)red 149.76.4.0
+
+serian las que estan en la LAN del Departamento de Matematicas.  Cuando se envia un
+
+datagrama a la maquina quark, el software de red de erdos ve que su direccion de red
+
+es otra (149.76.12.4) con lo que sabe que tiene que enviar los datagramas a traves de la
+
+pasarela (sophus por defecto).
+
+
+     sophus se encuentra conectado a dos subredes:  la del Departamento de Matematicas
+
+y la de la dorsal del campus,  accediendo a cada una a traves de una interfaz diferente,
+
+respectivamente eth0  y fddi0.  Nos preguntaremos entonces, que direccion IP debe tener la
+
+pasarela, una de la subred de Matematicas o bien una de la dorsal.
+
+
+     Pues bien,  la respuesta es ambas.  Cuando la pasarela comunique con un nodo de la
+
+LAN de Matematicas, usara la direccion 149.76.4.1, mientras que si lo hace con un nodo
+
+de la dorsal, usara 149.76.1.4.
+
+
+     Es decir, la pasarela tiene tantas direcciones IP como conexiones a redes fisicas tenga.
+
+En definitiva,este sera el esquema de interfaces, direcciones y mascara de sophus, nuestra
+
+pasarela:
+ 

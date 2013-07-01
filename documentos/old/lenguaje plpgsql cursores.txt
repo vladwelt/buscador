@@ -1,0 +1,166 @@
+Cursores
+En lugar de ejecutar una consulta completa de inmediato, es posible definir un cursor
+que encapsule la consulta, para después leer los resultados de la consulta recuperando
+solo algunos renglones a la vez. Una razón para proceder de esta manera
+es el evitar el consumo de la memoria cuando el resultado contiene una gran cantidad
+de renglones. (Sin embargo, los usuarios de PL/pgSQL normalmente no tienen
+que preocuparse de esto, pues el ciclo FOR usa de manera automática un cursor interno
+para evitar problemas con la memoria). Un uso más interesante es el regresar
+una referencia a un cursor que ha creado una función. Esto proporciona una manera
+eficiente de regresar desde las funciones conjuntos grandes de renglones.
+Declaración de las Variables de Cursores
+Todos los accesos a los cursores en PL/pgSQL se hacen por medio de variables de
+cursores, las cuales son siempre del tipo de dato especial refcursor. Una manera de
+crear una variable de cursor es simplemente declararla como una variable de tipo
+refcursor. Otra manera es usar la sintaxis de declaración de cursor, que en general es:
+nombre CURSOR [ ( argumentos ) ] FOR consulta ;
+(FOR puede se reemplazado por IS, por compatibilidad con Oracle). Los
+argumentos, si se especifican, son una lista separada por comas de pares nombre
+tipo_de_dato que definen los nombres que serán reemplazados por los valores de
+los parámetros en la consulta específica. Los valores actuales a sustituir por esos
+nombres serán especificados más tarde, al abrirse el cursor.
+Algunos ejemplos
+DECLARE
+curs1 refcursor;
+curs2 CURSOR FOR SELECT * FROM tenk1;
+curs3 CURSOR (key integer) IS SELECT * FROM tenk1
+WHERE unique1 = llave;
+Las tres variables tienen el tipo de dato refcursor, pero la primera puede usarse con
+cualquier consulta, mientras que las segunda tiene ya una consulta específica ligada
+a ella, y la última tiene una consulta parametrizada ligada a ella. (llave será reemplazada
+por un parámetro con valor entero cuando el cursor se abra). Se dice que la
+variable curs1 está desligada puesto que no está ligada a ninguna consulta en particular.
+Apertura de Cursores
+Antes de que un cursor pueda ser usado para recuperar renglones, debe ser abierto.
+(Esta es la acción equivalente al comando de SQL DECLARE CURSOR). PL/pgSQL
+tiene tres formas de la sentencia OPEN, dos de la cuales usan variables de cursores
+no ligadas, mientras que la tercera usa una variable de cursor ligada.
+OPEN FOR SELECT
+OPEN cursor_no_ligado FOR SELECT ...;
+La variable de cursor se abre y se le entrega la consulta específica que debe ejecutar.
+El cursor no puede estar ya abierto, y tiene que haber sido declarado como un cursor
+no ligado (es decir, como una variable refcursor simple). La consulta SELECT es
+tratada de la misma manera que otras sentencia SELECT en PL/pgSQL: los nombres
+de las variable PL/pgSQL se sustituyen y el plan de la consulta es almacenado para
+un posible reuso.
+Un ejemplo:
+OPEN curs1 FOR SELECT * FROM foo WHERE llave= millave;
+OPEN FOR EXECUTE
+OPEN cursor_no_ligado FOR EXECUTE cadena_de_comando;
+La variable de cursor se abre y se le entrega la consulta específica que debe ejecutar. El
+cursor no puede estar ya abierto, y tiene que haber sido declarado como un cursor no
+ligado (es decir, como una variable refcursor simple). La consulta se específica como
+una expresión de cadena de la misma manera que el comando EXECUTE. Como
+siempre, esto otorga flexibilidad puesto que la consulta puede variar de una corrida
+a otra.
+Un ejemplo:
+OPEN curs1 FOR EXECUTE ’SELECT * FROM ’ || quote_ident($1);
+Apertura de un Cursor Ligado
+OPEN cursor_ligado [ ( valores_de_argumentos ) ];
+Esta forma de OPEN se utiliza para abrir una variable de cursor cuya consulta se encontraba
+ligada a ella cuando fue declarada. El cursor no puede estar ya abierto. Una
+lista de los valores de las expresiones de los argumentos actuales debe aparecer si y
+solo si el cursor fue declarado para manejar argumentos. Esos valores serán sustituídos
+en la consulta. El plan de la consulta para un cursor ligado siempre se considera
+almacenable (cachable); para este caso no existe un equivalente de EXECUTE.
+Ejemplos:
+OPEN curs2;
+OPEN curs3(42);
+Uso de los Cursores
+Una vez que se ha abierto un cursor, puede ser manipulado con las sentencias descritas
+aquí.
+Estas manipulaciones no deben ocurrir en la misma función que abrió el cursor con
+el cual iniciar. Usted puede regresar un valor refcursor de una función y permitir
+que quien la llamó opere sobre el cursor. (Internamente, un valor refcursor es simplemente
+el nombre de la cadena de un llamado portal que contiene la consulta activa
+para ese cursor. Este nombre puede pasar de un lado a otro, asignarse a otra variable
+refcursor y demás, sin perturbar el portal).
+Todos los portales se cierran implícitamente al terminar la transacción. Por tanto, un
+valor refcursor se puede usar para referirse a un cursor abierto solo hasta
+FETCH
+FETCH cursor INTO blanco;
+FETCH recupera el siguiente renglón del cursor y lo inserta en el blanco, el cual
+puede ser una variable de renglón, una variable de registro o una lista de variables
+simples separadas por comas, exactamente como en SELECT INTO. De igual forma
+que con SELECT INTO, la variable especial FOUND puede ser revisada para saber si
+se obtuvo o no un renglón.
+Un ejemplo:
+FETCH curs1 INTO renglobvar;
+FETCH curs2 INTO foo, bar, baz;
+CLOSE
+CLOSE cursor;
+CLOSE cierra el portal subyacente a un cursor abierto. Esto puede utilizarse para
+liberar recursos antes de que se termine la transacción, o para liberar la variable del
+cursor que desea abrir de nuevo.
+Un ejemplo:
+CLOSE curs1;
+Regreso de Cursores
+Las funciones PL/pgSQL pueden regresar cursores a quien las llama. Es útil para regresar
+varios renglones o columnas, especialmente para conjuntos de resultados muy
+grandes. Para hacerlo la función abre el cursor y regresa el nombre del cursor a quien
+la invoca (o simplemente abre el cursor usando un nombre de portal especificado
+por o conocido por quien lo invoca). El invocante puede entonces recuperar (fetch)
+los renglones del cursor. El cursor puede ser cerrado por el invocante, o aquel será
+cerrado automáticamente cuando se cierre la transacción.
+El nombre del portal usado para un cursor puede ser especificado por el programador
+o generado automáticamente. Para especificar un nombre de un portal basta
+con asignar una cadena a la variable refcursor antes de abrirlo. El valor de la cadena
+de la variable refcursor será usado por OPEN como el nombre de el portal subyacente.
+Sin embargo, si la variable refcursor es nula, OPEN generará de manera automática
+un nombre que no genere conflicto con algún portal existente, y lo asignará
+a la variable refcursor.
+Nota: Una variable de cursor ligado se inicializa al valor de la cadena que representa su
+nombre, de tal manera que el nombre del portal es el mismo que el nombre de la variable
+de cursor, a menos que el programador lo sobreescriba por asignación antes de abrir
+el cursor. Pero una variable de cursor no ligado toma inicialmente el valor por defecto
+de nulo, así que recibirá un nombre único generado automáticamente, a menos que se
+sobreescriba.
+El siguiente ejemplo muestra una manera de que un nombre de un cursor puede ser
+suministrado por el invocante:
+CREATE TABLE test (col text);
+INSERT INTO test VALUES (’123’);
+CREATE FUNCTION reffunc(refcursor) RETURNS refcursor AS ’
+BEGIN
+OPEN $1 FOR SELECT col FROM test;
+RETURN $1;
+END;
+’ LANGUAGE plpgsql;
+BEGIN;
+SELECT reffunc(’funccursor’);
+FETCH ALL IN funccursor;
+COMMIT;
+En el siguiente ejemplo se utiliza la generación automática del nombre del cursor:
+CREATE FUNCTION reffunc2() RETURNS refcursor AS ’
+DECLARE
+ref refcursor;
+BEGIN
+OPEN ref FOR SELECT col FROM test;
+RETURN ref;
+END;
+’ LANGUAGE plpgsql;
+BEGIN;
+SELECT reffunc2();
+reffunc2
+--------------------
+<unnamed cursor 1>
+(1 row)
+FETCH ALL IN "<unnamed cursor 1>";
+COMMIT;
+El siguiente ejemplo muestra una manera de regresar varios cursores desde una sola
+función:
+CREATE FUNCTION mifunc(refcursor, refcursor) RETURNS
+SETOF refcursor AS $$
+BEGIN
+OPEN $1 FOR SELECT * FROM tabla_1;
+RETURN NEXT $1;
+OPEN $2 FOR SELECT * FROM tabla_2;
+RETURN NEXT $2;
+RETURN;
+END;
+$$ LANGUAGE plpgsql;
+-- se require estar en una transacción para usar los cursores.
+BEGIN;
+SELECT * FROM mifunc(’a’, ’b’);
+FETCH ALL FROM a;
+FETCH ALL FROM b;
+COMMIT;

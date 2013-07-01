@@ -1,0 +1,104 @@
+Clase A            La clase A comprende redes desde 1.0.0.0 hasta 127.0.0.0.  El numero de
+
+                   red  esta  en  el  primer  octeto,  con  lo  que  solo  hay  127  redes  de  este  tipo,
+
+                   pero cada una tiene 24 bits disponibles para identificar a los nodos, lo que
+
+                   se corresponde con poder distinguir en la red unos 1.6 millones de nodos
+
+                   distintos.
+
+
+Clase B            La clase B comprende redes desde 128.0.0.0 hasta 191.255.0.0; siendo el
+
+                   numero  de  red  de  16  bits  (los  dos  primeros  octetos.  Esto  permite  16320
+
+                   redes de 65024 nodos cada una.
+
+
+Clase C            Las redes de clase C tienen el rango de direcciones desde 192.0.0.0 hasta
+_____________________________________________1
+     MTU son las siglas de "Maximum Transfer Unix"
+   2 Frecuentemente, las direcciones IP le seran asignadas directamente por el proveedor que le conecte a
+
+la red.  No obstante, se puede contactar directamente con el NIC para obtener direcciones, escribiendo a
+hostmaster@internic.net.
+ 
+_______________________________________________________________________________________________________________2.3.   R*
+ *esolucion de direcciones@
+
+
+
+
+                   223.255.255.0,  contando con tres octetos para identificar la red.  Por lo
+
+                   tanto, hay cerca de 2 millones de redes de este tipo con un maximo de 254
+
+                   nodos cada una.
+
+Clases D, E, y F
+
+                   Comprenden las direcciones entre 224.0.0.0 y 254.0.0.0, y estan reservadas
+
+                   para uso futuro, o con fines experimentales.  No especifican, pues, ninguna
+
+                   red de Internet.
+
+
+
+     Volviendo al ejemplo del capitulo anterior, veremos que en la direccion 149.76.12.4 de
+
+la maquina quark, 12.4 es el identificativo del nodo dentro de la red de clase B 149.76.0.0.
+
+
+     Se puede observar que en la lista anterior no se consideraban todas las posibilidades en
+
+la parte que identifica al nodo, concretamente, se excluian siempre el identificador 0 y el
+
+255.  Estos dos identificadores se reservan con proposito especial.  Una direccion con los
+
+bits del nodo a cero identifica a la red, mientras que si tiene todos los bits a uno, identifica
+
+a todos los nodos de la red (lo que se conoce como direccion de broadcast, lo que indica
+
+que un mensaje enviado a esa direccion sera interpretado por todos los nodos de la red).
+
+Asi pues, en nuestro ejemplo la direccion de la red seria 149.76.0.0 y la de broadcast, la
+
+149.76.255.255.
+
+
+     Ademas, otras dos direcciones de red estan reservadas:  la 0.0.0.0 y la 127.0.0.0.  La
+
+primera se conoce como direccion de encaminamiento por defecto, y la segunda, como di-
+
+reccion de loopback. El encaminamiento por defecto se utiliza para saber a donde enviar los
+
+datagramas por defecto, tema que abordaremos despues.
+
+
+     La red 127.0.0.0 se reserva para el trafico local, dirigido al propio nodo. Normalmente,
+
+se asigna la direccion 127.0.0.1 a un dispositivo de la maquina llamado interfaz de loopback
+
+o de circuito cerrado. Cualquier paquete enviado a esa direccion sera recibido por el propio
+
+nodo, esto permite probar aplicaciones de red con uno mismo, sin estar conectado a una red
+
+"real".  Otra aplicacionutil es la de ejecutar aplicaciones de red que afectan solo al nodo
+
+local, por ejemplo, muchos sistemas UUCP no tienen conexion IP pero ejecutan un sistema
+
+de noticias INN. Para que esto funcione, INN utiliza la interfaz de loopback.
+
+2.3       Resolucion  de  direcciones
+Ahora  que  conocemos  que  son  las  direcciones  IP,  nos  preguntamos  como  se  utilizan  en
+
+una red Ethernet.  Despues de todo,  en una red de este tipo,  el protocolo Ethernet usa
+
+direcciones identificativas de seis octetos que no tienen que ver con los numeros IP.
+
+
+     En efecto, se necesita un mecanismo de traduccion de direcciones IP a direcciones Et-
+ 
+     _______________________________________________________________________________________________________________2.4*

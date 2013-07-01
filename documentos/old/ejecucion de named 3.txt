@@ -1,0 +1,187 @@
+
+y pedira el nombre indicado al servidor de nombres que aparezca en resolv.conf  (si aparece
+
+mas de uno, nslookup cogera uno al azar).
+
+
+     El modo interactivo, sin embargo, es mucho mas interesante. Ademas de buscar maqui-
+
+nas por su nombre, se puede tambien preguntar por cualquier registro DNS, y transferir la
+
+informacion de zona completa de un dominio.
+
+
+     Cuando se invoca sin argumentos, nslookup mostrara el servidor de nombres en uso y
+
+entrara en modo interactivo.  En el prompt `>' que se mostrara,  puede teclear cualquier
+
+nombre de dominio por el que quiera preguntar.  Por defecto, preguntara por registros de
+
+tipo A, es decir, aquellos que dan una direccion IP correspondiente al dominio introducido.
+
+
+     Esto se puede cambiar tecleando "set  type=tipo", donde tipo es un nombre de registro
+
+de recurso (RR) como los descritos antes (en la seccion 6.2) o bien la palabra ANY.
+
+
+     Por ejemplo, esta puede ser una sesion con nslookup:
+
+
+
+       $  nslookup
+       Default  Name  Server:   rs10.hrz.th-darmstadt.de
+       Address:   130.83.56.60
+
+
+       >  sunsite.unc.edu
+       Name  Server:   rs10.hrz.th-darmstadt.de
+       Address:   130.83.56.60
+
+
+       Non-authoritative  answer:
+       Name:      sunsite.unc.edu
+       Address:   152.2.22.81
+     Si intenta preguntar por un nombre que no tiene direccion IP asociada, pero se encuen-
+
+tran otros registros relacionados en el DNS, el programa respondera con un error "No  type
+
+A  records  found" (no se encontraron registros de tipo A). Sin embargo, puede hacer pre-
+
+guntas para otro tipo de registros sin mas que usar el comando "set  type".  Por ejemplo,
+
+para obtener el registro SOA de unc.edu, podria escribir lo siguiente:
+
+
+
+       >  unc.edu
+       ***  No  address  (A)  records  available  for  unc.edu
+       Name  Server:   rs10.hrz.th-darmstadt.de
+       Address:   130.83.56.60
+
+
+       >  set  type=SOA
+       >  unc.edu
+       Name  Server:   rs10.hrz.th-darmstadt.de
+       Address:   130.83.56.60
+       Non-authoritative  answer:
+       unc.edu
+                  origin  =  ns.unc.edu
+                  mail  addr  =  shava.ns.unc.edu
+                  serial  =  930408
+                  refresh  =  28800  (8  hours)
+                  retry    =  3600  (1  hour)
+                  expire   =  1209600  (14  days)
+                  minimum  ttl  =  86400  (1  day)
+
+
+       Authoritative  answers  can  be  found  from:
+       UNC.EDU  nameserver  =  SAMBA.ACS.UNC.EDU
+       SAMBA.ACS.UNC.EDU          internet  address  =  128.109.157.30
+
+
+
+     De manera similar, se pueden pedir registros MX, etc.  Y mediante la palabra ANY se
+
+obtendran todos los RR asociados al nombre escrito.
+
+
+
+       >  set  type=MX
+       >  unc.edu
+       Non-authoritative  answer:
+       unc.edu  preference  =  10,  mail  exchanger  =  lambada.oit.unc.edu
+       lambada.oit.unc.edu       internet  address  =  152.2.22.80
+
+
+       Authoritative  answers  can  be  found  from:
+       UNC.EDU  nameserver  =  SAMBA.ACS.UNC.EDU
+       SAMBA.ACS.UNC.EDU          internet  address  =  128.109.157.30
+
+
+
+     Una aplicacion practica de nslookup para la depuracion es obtener la lista de servidores
+
+raiz para el fichero named.ca. Esto puede hacerse pidiendo todos los registros NS asociados
+
+al dominio raiz:
+
+
+
+       >  set  typ=NS
+       >  .
+       Name  Server:   fb0430.mathematik.th-darmstadt.de
+       Address:   130.83.2.30
+
+
+       Non-authoritative  answer:
+       (root)   nameserver  =  NS.INTERNIC.NET
+       (root)   nameserver  =  AOS.ARL.ARMY.MIL
+       (root)   nameserver  =  C.NYSER.NET
+       (root)   nameserver  =  TERP.UMD.EDU
+       (root)   nameserver  =  NS.NASA.GOV
+       (root)   nameserver  =  NIC.NORDU.NET
+
+
+       (root)   nameserver  =  NS.NIC.DDN.MIL
+
+
+       Authoritative  answers  can  be  found  from:
+       (root)   nameserver  =  NS.INTERNIC.NET
+       (root)   nameserver  =  AOS.ARL.ARMY.MIL
+       (root)   nameserver  =  C.NYSER.NET
+       (root)   nameserver  =  TERP.UMD.EDU
+       (root)   nameserver  =  NS.NASA.GOV
+       (root)   nameserver  =  NIC.NORDU.NET
+       (root)   nameserver  =  NS.NIC.DDN.MIL
+       NS.INTERNIC.NET  internet  address  =  198.41.0.4
+       AOS.ARL.ARMY.MIL           internet  address  =  128.63.4.82
+       AOS.ARL.ARMY.MIL           internet  address  =  192.5.25.82
+       AOS.ARL.ARMY.MIL           internet  address  =  26.3.0.29
+       C.NYSER.NET       internet  address  =  192.33.4.12
+       TERP.UMD.EDU      internet  address  =  128.8.10.90
+       NS.NASA.GOV       internet  address  =  128.102.16.10
+       NS.NASA.GOV       internet  address  =  192.52.195.10
+       NS.NASA.GOV       internet  address  =  45.13.10.121
+       NIC.NORDU.NET    internet  address  =  192.36.148.17
+       NS.NIC.DDN.MIL   internet  address  =  192.112.36.4
+     El conjunto completo de comandos disponibles en nslookup puede obtenerse con la orden
+
+interna help.
+6.2.5      Otras utilidades interesantes
+
+
+
+Hay algunas utilidades que pueden ayudarle en sus tareas de administrador de BIND. Des-
+
+cribiremos dos de ellas. Por favor, eche un vistazo a la documentacion que traen para saber
+
+como utilizarlas.
+
+
+     La utilidad hostcvt  sirve para obtener una configuracion inicial de BIND a partir del
+
+fichero /etc/hosts. Genera tanto los ficheros de traduccion directa (registros A) como los de
+
+traduccion inversa (registros PTR) teniendo cuidado con los nombres de alias y otros. Por
+
+supuesto, no hara todo el trabajo, pues aun puede que necesite ajustar los registros SOA o
+
+a"nadir registros MX. Suponemos que tambien le ayudara tener cerca algunas aspirinas.  El
+
+programa hostcvt forma parte de las fuentes de BIND, pero puede obtenerse por separado
+
+en algunos servidores FTP dedicados a Linux.
+
+
+     Despues de configurar el servidor de nombres, puede que desee comprobar el resultado.
+
+La aplicacion ideal para esto (al menos para mi) es el programa dnswalk, un paquete basado
+
+en perl que navega por la base de datos DNS, buscando errores habituales y verificando que
+
+la informacion es consistente. El programa dnswalk ha sido enviado recientemente al grupo
+ 
+comp.sources.misc  de  News,  y  deberia  estar  en  los  servidores  FTP  que  archiven  este
+
+grupo (un servidor que seguro que lo tiene es ftp.uu.net).

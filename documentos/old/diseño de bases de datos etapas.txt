@@ -1,0 +1,114 @@
+1.2 Etapas en el dise˜no de bases de datos
+El dise˜no de una base de datos se lleva a cabo en tres etapas: dise˜no conceptual,
+dise˜no l´ogico y dise˜no f´isico de la base de datos. La primera fase consiste
+en la producci´on de un esquema conceptual, que es independiente de todas las
+consideraciones f´isicas. Este modelo se refina despu´es en un esquema l´ogico eliminando
+las construcciones que no se pueden representar en el modelo de base
+de datos escogido (relacional, orientado a objetos, etc.). En la tercera fase, el
+esquema l´ogico se traduce en un esquema f´isico para el SGBD escogido. La fase
+de dise˜no f´isico considera las estructuras de almacenamiento y los m´etodos de
+acceso necesarios para proporcionar un acceso eficiente a la base de datos en
+memoria secundaria.
+Los objetivos del dise˜no de la base de datos son:
+• Representar los datos que requieren las principales ´areas de aplicaci´on y
+los grupos de usuarios, y representar las relaciones entre dichos datos.
+• Proporcionar un modelo de datos que soporte las transacciones que se
+vayan a realizar sobre los datos.
+• Especificar un esquema que alcance las prestaciones requeridas para el
+sistema.
+Hay varias estrategias a seguir para realizar el dise˜no. La estrategia de abajo
+a arriba parte de todos los atributos y los va agrupando en entidades y relaciones.
+Es apropiada cuando la base de datos es simple, con pocos atributos.
+La estrategia de arriba a abajo es m´as apropiada cuando se trata de bases de
+datos complejas. Se comienza con un esquema con entidades de alto nivel, que
+se van refinando para obtener entidades de bajo nivel, atributos y relaciones.
+La estrategia de dentro a fuera es similar a la estrategia de abajo a arriba, pero
+difiere en que se parte de los conceptos principales y se va extendiendo el esquema
+para considerar tambi´en otros conceptos, asociados con los que se han
+identificado en primer lugar. La estrategia mixta utiliza ambas estrategias, de
+abajo a arriba y de arriba a abajo, con un esquema de divide y vencer´as. Se
+obtiene un esquema inicial de alto nivel, se divide en partes, y de cada parte se
+obtiene un subesquema. Estos subesquemas se integran despu´es para obtener
+el modelo final. Esta ´ultima estrategia es la m´as utilizada cuando se trata de
+dise˜nar grandes bases de datos que se ocupan de distintas ´areas de una empresa
+u organizaci´on.
+1.2.1 Factores cr´iticos en el dise˜no de bases de datos
+Los aspectos que se citan a continuaci´on son de gran importancia para afrontar
+con ´exito el dise˜no de bases de datos.
+• Trabajar interactivamente con los usuarios, tanto como sea posible.
+• Utilizar una metodolog´ia estructurada durante todo el proceso de modelado
+de datos.
+• Emplear una metodolog´ia orientada a los datos (frente a una orientada a
+las funciones).
+• Incluir en los modelos de datos todo tipo de consideraciones estructurales,
+sem´anticas y de integridad.
+• Utilizar diagramas para representar los datos siempre que sea posible.
+• Mantener un diccionario de datos para complementar los diagramas.
+• Estar dispuesto a repetir fases del dise˜no.
+1.2.2 Metodolog´ia de dise˜no de bases de datos
+En este apartado se especifican los pasos a seguir en el dise˜no de una base
+de datos:
+Dise˜no conceptual
+1. Construir un esquema conceptual local para cada vista (esquema externo)
+de usuario/grupo de usuarios.
+1.1. Identificar las entidades.
+1.2. Identificar las relaciones.
+1.3. Identificar los atributos y asociarlos a entidades y relaciones.
+1.4. Determinar los dominios de los atributos.
+1.5. Determinar todos los identificadores de cada entidad.
+1.6. Especializar/generalizar entidades (este paso es opcional).
+1.7. Dibujar el esquema conceptual mediante un diagrama entidad–relaci´on.
+1.8. Revisar el esquema conceptual con el usuario/grupo.
+Dise˜no l´ogico
+2. Construir y validar el esquema l´ogico de cada vista de usuario/grupo.
+2.1. Convertir los esquemas conceptuales locales en esquemas l´ogicos locales.
+2.2. Derivar un conjunto de tablas para cada esquema l´ogico local.
+2.3. Validar cada esquema mediante la normalizaci´on.
+2.4. Validar cada esquema frente a las transacciones del usuario.
+2.5. Redibujar el diagrama entidad–relaci´on.
+2.6. Definir las restricciones de integridad.
+2.7. Revisar cada esquema l´ogico local con el usuario/grupo correspondiente.
+3. Construir y validar el esquema l´ogico global.
+3.1. Mezclar los esquemas l´ogicos locales en un esquema l´ogico global.
+3.2. Validar el esquema l´ogico global.
+3.3. Estudiar las posibilidades de crecimiento en el futuro (flexibilidad).
+3.4. Dibujar el diagrama entidad–relaci´on final.
+3.5. Revisar el esquema l´ogico global con los usuarios.
+Dise˜no f´isico
+4. Traducir el esquema l´ogico global para el SGBD espec´ifico.
+1. Dise˜nar las tablas para el SGBD espec´ifico.
+2. Dise˜nar las reglas de integridad y reglas de negocio para el SGBD
+espec´ifico.
+5. Dise˜nar la representaci´on f´isica.
+3. Analizar las transacciones.
+4. Escoger las organizaciones de ficheros.
+5. Escoger los ´indices a crear y sus tipos.
+6. Considerar la introducci´on de redundancias controladas y cambios en
+el esquema.
+7. Estimar la necesidad de espacio en disco.
+6. Dise˜nar los mecanismos de seguridad.
+8. Dise˜nar las vistas (esquemas externos) de los usuarios (conjuntos de
+tablas y vistas de SQL).
+9. Dise˜nar las reglas de acceso.
+7. Monitorizar y afinar el sistema.
+1.2.3 Dise˜no conceptual
+En esta etapa se debe construir un esquema de la informaci´on que se usa en la
+empresa, independientemente de cualquier consideraci´on f´isica. A este esquema
+se le denomina esquema conceptual. Al construir el esquema, los dise˜nadores
+descubren la sem´antica (significado) de los datos de la empresa: encuentran
+entidades, atributos y relaciones. El objetivo es comprender:
+• La perspectiva que cada usuario tiene de los datos.
+• La naturaleza de los datos, independientemente de su representaci´on f´isica.
+• El uso de los datos a trav´es de las ´areas de aplicaci´on.
+El esquema conceptual se puede utilizar para que el dise˜nador transmita a la
+empresa lo que ha entendido sobre la informaci´on que ´esta maneja. Para ello,
+ambas partes deben estar familiarizadas con la notaci´on utilizada en el esquema.
+La m´as popular es la notaci´on del modelo entidad–relaci´on.
+El esquema conceptual se construye utilizando la informaci´on que se encuentra
+en la especificaci´on de los requisitos de usuario. El dise˜no conceptual es
+completamente independiente de los aspectos de implementaci´on, como puede
+ser el SGBD que se vaya a utilizar, los programas de aplicaci´on, los lenguajes
+de programaci´on, el hardware disponible o cualquier otra consideraci´on f´isica.
+Durante todo el proceso de desarrollo del esquema conceptual ´este se prueba y
+se valida con los requisitos de los usuarios. El esquema conceptual es una fuente
+de informaci´on para el dise˜no l´ogico de la base de datos.

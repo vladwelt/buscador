@@ -1,0 +1,35 @@
+1 - Conceptos de seguridad
+En la actualidad, la seguridad informática ha adquirido gran auge, dadas las
+cambiantes condiciones y las nuevas plataformas de computación disponibles. La
+posibilidad de interconectarse a través de redes, ha abierto nuevos horizontes que
+permiten explorar más allá de las fronteras de la organización. Esta situación ha llevado
+a la aparición de nuevas amenazas en los sistemas computarizados.
+Consecuentemente, muchas organizaciones gubernamentales y no
+gubernamentales internacionales [1,2] han desarrollado documentos y directrices que
+orientan en el uso adecuado de estas destrezas tecnológicas y recomendaciones con el
+objeto de obtener el mayor provecho de estas ventajas, y evitar el uso indebido de la
+mismas. Esto puede ocasionar serios problemas en los bienes y servicios de las
+empresas en el mundo.
+En este sentido, las políticas de seguridad informática (PSI) surgen como una
+herramienta organizacional para concientizar a cada uno de los miembros de una
+organización sobre la importancia y la sensibilidad de la información y servicios críticos
+que favorecen el desarrollo de la organización y su buen funcionamiento.
+1.1 - ¿Cuál puede ser el valor de los datos?
+Establecer el valor de los datos es algo totalmente relativo, pues la información
+constituye un recurso que, en muchos casos, no se valora adecuadamente debido a su
+intangibilidad, cosa que no ocurre con los equipos, la documentación o las aplicaciones.
+Además, las medidas de seguridad no influyen en la productividad del sistema por lo
+que las organizaciones son reticentes a dedicar recursos a esta tarea.
+Cuando hablamos del valor de la información nos referimos, por ejemplo, a qué
+tan peligroso es enviar la información de mi tarjeta de crédito a través de Internet para
+hacer una compra, en una red gigantesca donde viajan no únicamente los 16 dígitos de
+mi tarjeta de crédito sino millones de datos más , gráficas, voz y vídeo.
+De hecho, este tema es complejo. Algunos expertos opinan que se corre más
+peligro cuando se entrega una tarjeta de crédito al empleado de un restaurante o
+cuando se la emplea telefónicamente para efectivizar alguna compra.
+El peligro más grande radica no en enviar la información sino una vez que esta
+información, unida a la de miles de clientes más, reposa en una base de datos de la
+compañía con las que se concretó el negocio. Con un único acceso no autorizado a esta
+base de datos, es posible que alguien obtenga no únicamente mis datos y los de mi
+tarjeta, sino que tendrá acceso a los datos y tarjetas de todos los clientes de esta
+compañía.

@@ -1,0 +1,136 @@
+1.3 Vistas
+Hay tres caracter´isticas importantes inherentes a los sistemas de bases de
+datos: la separaci´on entre los programas de aplicaci´on y los datos, el manejo
+de m´ultiples vistas por parte de los usuarios (esquemas externos) y el uso de
+un cat´alogo para almacenar el esquema de la base de datos. En 1975, el comit´e
+ANSI–SPARC (American National Standard Institute – Standards Planning
+and Requirements Committee) propuso una arquitectura de tres niveles para
+los sistemas de bases de datos, que resulta muy ´util a la hora de conseguir estas
+tres caracter´isticas.
+El objetivo de la arquitectura de tres niveles es el de separar los programas
+de aplicaci´on de la base de datos f´isica. En esta arquitectura, el esquema de
+una base de datos se define en tres niveles de abstracci´on distintos:
+1. En el nivel interno se describe la estructura f´isica de la base de datos
+mediante un esquema interno. Este esquema se especifica mediante un
+modelo f´isico y describe todos los detalles para el almacenamiento de la
+base de datos, as´i como los m´etodos de acceso.
+2. En el nivel conceptual se describe la estructura de toda la base de datos
+para una comunidad de usuarios (todos los de una empresa u organizaci
+´on), mediante un esquema conceptual. Este esquema oculta los detalles
+de las estructuras de almacenamiento y se concentra en describir entidades,
+atributos, relaciones, operaciones de los usuarios y restricciones. En
+este nivel se puede utilizar un modelo conceptual o un modelo l´ogico para
+especificar el esquema.
+3. En el nivel externo se describen varios esquemas externos o vistas de
+usuario. Cada esquema externo describe la parte de la base de datos que
+interesa a un grupo de usuarios determinado y oculta a ese grupo el resto
+de la base de datos. En este nivel se puede utilizar un modelo conceptual
+o un modelo l´ogico para especificar los esquemas.
+La mayor´ia de los SGBD no distinguen del todo los tres niveles. Algunos
+incluyen detalles del nivel f´isico en el esquema conceptual. En casi todos los
+SGBD que se manejan vistas de usuario, los esquemas externos se especifican
+con el mismo modelo de datos que describe la informaci´on a nivel conceptual,
+aunque en algunos se pueden utilizar diferentes modelos de datos en los niveles
+conceptual y externo.
+Hay que destacar que los tres esquemas no son m´as que descripciones de
+los mismos datos pero con distintos niveles de abstracci´on. Los ´unicos datos
+que existen realmente est´an a nivel f´isico, almacenados en un dispositivo como
+puede ser un disco. En un SGBD basado en la arquitectura de tres niveles, cada
+grupo de usuarios hace referencia exclusivamente a su propio esquema externo.
+La arquitectura de tres niveles es ´util para explicar el concepto de independencia
+de datos que podemos definir como la capacidad para modificar el
+esquema en un nivel del sistema sin tener que modificar el esquema del nivel
+inmediato superior. Se pueden definir dos tipos de independencia de datos:
+• La independencia l´ogica es la capacidad de modificar el esquema conceptual
+sin tener que alterar los esquemas externos ni los programas de
+aplicaci´on. Se puede modificar el esquema conceptual para ampliar la base
+de datos o para reducirla. Si, por ejemplo, se reduce la base de datos
+eliminando una entidad, los esquemas externos que no se refieran a ella
+no deber´an verse afectados.
+• La independencia f´isica es la capacidad de modificar el esquema interno
+sin tener que alterar el esquema conceptual (o los externos). Por ejemplo,
+puede ser necesario reorganizar ciertos ficheros f´isicos con el fin de mejorar
+el rendimiento de las operaciones de consulta o de actualizaci´on de datos.
+Dado que la independencia f´isica se refiere s´olo a la separaci´on entre las
+aplicaciones y las estructuras f´isicas de almacenamiento, es m´as f´acil de
+conseguir que la independencia l´ogica.
+Cada esquema externo estar´a formado por un conjunto de tablas (TABLE)
+y un conjunto de vistas (VIEW). En la arquitectura de tres niveles estudiada se
+describe una vista externa como la estructura de la base de datos tal y como
+la ve un usuario en particular. En el modelo relacional, el t´ermino vista tiene
+un significado un tanto diferente. En lugar de ser todo el esquema externo de
+un usuario, una vista es una tabla virtual, una tabla que en realidad no existe
+como tal.
+Una vista es el resultado din´amico de una o varias operaciones relacionales
+realizadas sobre las tablas. La vista es una tabla virtual que se produce cuando
+un usuario la consulta. Al usuario le parece que la vista es una tabla que
+existe y la puede manipular como si se tratara de una tabla, pero la vista no
+est´a almacenada f´isicamente. El contenido de una vista est´a definido como una
+consulta sobre una o varias tablas.
+En SQL, la sentencia que permite definir una vista es la siguiente:
+CREATE VIEW nombre_vista
+[ ( nombre_col, ... ) ]
+AS sentencia_SELECT
+[ WITH CHECK OPTION ];
+Las columnas de la vista se pueden nombrar especificando la lista entre
+par´entesis. Si no se especifican nuevos nombres, los nombres son los mismos
+que los de las columnas de las tablas especificadas en la sentencia SELECT. La
+opci´on WITH CHECK OPTION impide que se realice una actualizaci´on sobre la
+vista que afecte a filas que no selecciona la vista.
+Cualquier operaci´on que se realice sobre la vista se traduce autom´aticamente
+a operaciones sobre las tablas de las que se deriva. Las vistas son din´amicas
+porque los cambios que se realizan sobre las tablas que afectan a una vista se
+reflejan inmediatamente sobre ella. Cuando un usuario realiza un cambio sobre
+la vista (no todo tipo de cambios est´an permitidos), este cambio se realiza sobre
+las tablas de las que se deriva.
+Las vistas son ´utiles por varias razones:
+• Proporcionan un poderoso mecanismo de seguridad, ocultando partes de
+la base de datos a ciertos usuarios. El usuario no sabr´a que existen aquellos
+atributos que se han omitido al definir una vista.
+• Permiten que los usuarios accedan a los datos en el formato que ellos
+desean o necesitan, de modo que los mismos datos pueden ser vistos con
+formatos distintos por distintos usuarios.
+• Se pueden simplificar operaciones sobre las tablas que son complejas. Por
+ejemplo, se puede definir una vista como el JOIN de dos tablas. El usuario
+puede hacer restricciones y proyecciones sobre la vista, que el SGBD
+traducir´a en las operaciones equivalentes sobre el JOIN.
+• Las vistas proporcionan independencia de datos a nivel l´ogico, que tambi´en
+se da cuando se reorganiza el nivel conceptual. Si se a˜nade un atributo
+a una tabla, los usuarios no se percatan de su existencia si sus vistas no
+lo incluyen. Si una tabla existente se reorganiza o se divide en varias
+tablas, se pueden crear vistas para que los usuarios la sigan viendo como
+al principio.
+• Las vistas permiten que se disponga de informaci´on expresada en forma
+de reglas generales de conocimiento relativas al funcionamiento de la organizaci
+´on. Una de estas reglas puede ser “las piezas de m´as de 10 kilos se
+consideran piezas pesadas” y se puede definir una vista que contenga s´olo
+las piezas pesadas, aunque ninguna columna de la base de datos indique
+c´omo ha de considerarse cada pieza (es el conocimiento).
+Cuando se actualiza una tabla, el cambio se refleja autom´aticamente en todas
+las vistas que la referencian. Del mismo modo, si se actualiza una vista, las
+tablas de las que se deriva deber´ian reflejar el cambio. Sin embargo, hay algunas
+restricciones respecto a los tipos de modificaciones que se pueden realizar
+sobre las vistas. En el est´andar SQL92 las condiciones en las que una vista es
+actualizable son las siguientes:
+• Se permiten las actualizaciones de vistas que se definen mediante una
+consulta simple sobre una sola tabla y que contienen la clave primaria de
+la tabla y los atributos que no aceptan nulos.
+• No se permiten las actualizaciones de vistas que se definen sobre varias
+tablas.
+• No se permiten las actualizaciones de vistas definidas con operaciones
+de agrupamiento (GROUP BY) o con operaciones de conjuntos (UNION,
+INTERSECT, EXCEPT).
+En el nuevo est´andar, SQL:1999, se ampl´ian estas condiciones y se distingue
+entre vista actualizable y vista insertable. B´asicamente, una vista es actualizable
+si se puede identificar de modo ´unico la tupla a la que afecta la actualizaci´on.
+• Una vista definida sobre varias tablas es actualizable si contiene las claves
+primarias de todas ellas y los atributos que no aceptan nulos.
+• Una columna de una vista definida sobre varias tablas se podr´a actualizar
+si se obtiene directamente de una sola de las columnas de alguna de las
+tablas y si la clave primaria de dicha tabla est´a incluida en la vista.
+• Las vistas definidas con operaciones de conjuntos pueden ser actualizables,
+pero no son insertables (no se puede determinar en qu´e tabla hacer la
+inserci´on).
+Ya que el est´andar permite que sean actualizables un conjunto muy restringido
+de vistas, en ocasiones ser´a necesario hacer que una vista sea actualizable
+mediante disparadores o reglas del tipo en lugar de.

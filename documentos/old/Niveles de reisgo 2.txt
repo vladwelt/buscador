@@ -1,0 +1,125 @@
+3.2 - Acerca de los procedimientos
+Si se piensa certificar ISO, es indispensable tener un manual de procedimientos
+escrito y llevarlo a cabo al pie de la letra. De esta manera, cabría pensar que un manual
+de procedimientos es un paso adelante para poder llegar a la certificación ISO.
+3.3 - Procedimiento de alta de cuenta de usuario
+Cuando un elemento de la organización requiere una cuenta de operación en el
+sistema, debe llenar un formulario que contenga, al menos los siguientes datos:
+· Nombre y Apellido
+· Puesto de trabajo
+· Jefe inmediato superior que avale el pedido
+· Descripción de los trabajos que debe realizar en el sistema
+· Consentimiento de que sus actividades son susceptibles de ser
+auditadas en cualquier momento y de que conoce las normas de “buen
+uso de los recursos” (para lo cual, se le debe dar una copia de tales
+normas).
+· Explicaciones breves, pero claras de cómo elegir su password.
+Asimismo, este formulario debe tener otros elementos que conciernen a la parte
+de ejecución del área encargada de dar de alta la cuenta, datos como:
+· Tipo de cuenta
+· Fecha de caducidad
+· Fecha de expiración
+· Datos referentes a los permisos de acceso (por ejemplo, tipos de
+permisos a los diferentes directorios y/o archivos)
+Si tiene o no restricciones horarias para el uso de algunos recursos y/o para el
+ingreso al sistema.
+3.4 - Procedimiento de baja de cuenta de usuario
+Este procedimiento es el que se lleva a cabo cuando se aleja un elemento de la
+organización o cuando alguien deja de trabajar por un determinado tiempo (licencia sin
+goce de sueldo, vacaciones, viajes prolongados, etc.). En base a la explicación anterior
+hay, entonces, dos tipos de alejamientos: permanente y parcial.
+Aquí, es necesario definir un circuito administrativo a seguir, y que como todos los
+componentes de la política de seguridad, debe estar fuertemente apoyado por la parte
+gerencial de la organización.
+Un ejemplo de este circuito, podría ser: ante el alejamiento de un elemento de la
+organización, la gerencia de personal (o la sección encargada de la administración de
+los RRHH), debe informar en un formulario de “Alejamiento de personal”, todos los
+datos del individuo que ha dejado la organización, así como de la posición que éste
+ocupaba y el tipo de alejamiento (permanente o no).Una vez llegada la información al
+departamento encargado de la administración de sistemas, se utiliza para dar de baja o
+inhabilitar la cuenta del usuario.
+La definición de si se da de baja o se inhabilita es algo importante pues, si se da
+de baja, se deberían guardar y eliminar los archivos y directorios del usuario, mientras
+que si sólo se inhabilita, no pasa de esa acción. Si el alejamiento del individuo no era
+permanente, al volver a la organización, la sección que había informado anteriormente
+de la ausencia, debe comunicar su regreso, por medio de un formulario dando cuenta
+de tal hecho para volver a habilitar la cuenta al individuo.
+3.5 - Procedimiento para determinar las buenas passwords
+Aunque no lo parezca, la verificación de palabras claves efectivas no es algo
+frecuente en casi ninguna organización. El procedimiento debe explicar las normas para
+elegir una password:
+Se debe explicitar
+· La cantidad de caracteres mínimo que debe tener,
+· No tiene que tener relación directa con las características del usuario.
+· Debe constar de caracteres alfanuméricos, mayúsculas, minúsculas, números
+y símbolos de puntuación.
+· Determinar, si es posible, el seguimiento de las palabras claves (llevar
+registros de las palabras claves anteriores elegidas por el usuario).
+Una vez que el usuario ha elegido su password, se le debe correr un “programa
+crackeador” para tener idea de cuán segura es, en base al tiempo que tarda en romper
+la palabra.
+3.6 - Procedimientos de verificación de accesos
+Debe explicar la forma de realizar las auditorías de los archivos logísticos de
+ingresos a fin de detectar actividades anómalas. También debe detectar el tiempo entre
+la auditoría y cómo actuar en caso de detectar desviaciones.
+Normalmente, este trabajo es realizado por programas a los que se les dan
+normativas de qué y cómo comparar. Escanean archivos de “log” con diferentes fechas
+tomando en cuenta las reglas que se le han dado. Ante la detección de un desvío,
+generan reportes informando el mismo.
+En el procedimiento debe quedar perfectamente indicado quién es el responsable
+del mantenimiento de estos programas y cómo se actúa cuando se generan alarmas.
+3.7 - Procedimiento para el chequeo del tráfico de la red
+Permite conocer el comportamiento del tráfico en la red, al detectar variaciones
+que pueden ser síntoma de mal uso de la misma.
+El procedimiento debe indicar el/los programas que se ejecuten, con qué
+intervalos, con qué reglas de trabajo, quién se encarga de procesar y/o monitorear los
+datos generados por ellos y cómo se actúa en consecuencia.
+3.8 - Procedimiento para el monitoreo de los volúmenes de correo
+Este procedimiento permite conocer los volúmenes del tráfico de correo o la
+cantidad de “mails” en tránsito. Dicho procedimiento se encuentra realizado por
+programas que llevan las estadísticas, generando reportes con la información pedida. El
+conocimiento de esta información permite conocer, entre otras cosas, el uso de los
+medios de comunicación, y si el servidor está siendo objeto de un “spam”.
+Como en los casos anteriores, en el procedimiento debe estar explicitado quién es
+el encargado del mantenimiento y del análisis de los datos generados, y qué hacer
+cuando se detectan variaciones.
+3.9 - Procedimientos para el monitoreo de conexiones activas
+Este procedimiento se efectúa con el objeto de prevenir que algún usuario deje su
+terminal abierta y sea posible que alguien use su cuenta. El procedimiento es ejecutado
+por medio de programas que monitorean la actividad de las conexiones de usuarios.
+Cuando detecta que una terminal tiene cierto tiempo inactiva, cierra la conexión y
+genera un log con el acontecimiento.
+3.10 - Procedimiento de modificación de archivos
+Este procedimiento sirve para detectar la modificación no autorizada y la
+integridad de los archivos y, en muchos casos, permite la traza de las modificaciones
+realizadas. Al igual que en los casos anteriores, debe estar bien determinada la
+responsabilidad de quién es el encargado del seguimiento y de actuar en caso de
+alarmas.
+3.11 - Procedimientos para el resguardo de copias de seguridad
+Este procedimiento debe indicar claramente dónde se deben guardar las copias de
+seguridad y los pasos a seguir en caso de problemas. Para lograr esto, deben estar
+identificados los roles de las personas que interactúan con el área, a fin de que cada
+uno sepa qué hacer ante la aparición de problemas.
+3.12 - Procedimientos para la verificación de las máquinas de los
+usuarios
+Este procedimiento permitirá encontrar programas que no deberían estar en las
+máquinas de los usuarios y que, por su carácter, pueden traer problemas de licencias y
+fuente potencial de virus. El procedimiento debe explicitar los métodos que se van a
+utilizar para la verificación, las acciones ante los desvíos y quién/quiénes lo llevarán a
+cabo.
+3.13 - Procedimientos para el monitoreo de los puertos en la red
+Este procedimiento permite saber qué puertos están habilitados en la red, y, en
+algunos casos, chequear la seguridad de los mismos. El procedimiento deberá describir
+qué programas se deben ejecutar, con qué reglas, quién estará a cargo de llevarlo a
+cabo y qué hacer ante las desviaciones detectadas.
+3.14 - Procedimientos de cómo dar a publicidad las nuevas
+normas de seguridad
+Este tipo de procedimiento no siempre es tenido en cuenta. Sin embargo, en una
+organización es muy importante conocer las últimas modificaciones realizadas a los
+procedimientos, de tal manera que nadie pueda poner cómo excusa “que no conocía las
+modificaciones”. En él, debe describirse la forma de realizar la publicidad de las
+modificaciones: puede ser mediante un mailing, por exposición en transparencias, por
+notificación expresa, etc.; quién estará a cargo de la tarea y las atribuciones que tiene.
+Es fundamental tener en cuenta este último punto ya que un porcentaje de los
+problemas de seguridad, según está demostrado en estudios de mercado, proviene del
+desconocimiento de las normas y/o modificaciones a ellas por parte de los usuarios.

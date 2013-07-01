@@ -1,0 +1,212 @@
+ *Opciones de Configuracion@
+
+
+
+
+     Ya hemos visto antes que se puede pedir al pppd  que configure el encaminamiento por
+
+defecto utilizando la opcion defaultroute.  Esta opcion es muyutil si el servidor PPP al
+
+que llama va a actuar como su pasarela a Internet.
+
+
+     El caso contrario, cuando su sistema actua como un gateway para un solo ordenador,
+
+es tambien relativamente facil de llevar a cabo.  Por ejemplo, imagine a algun empleado
+
+de la Virtual Brewery cuyo ordenador de casa se llama loner.  Cuando este conectando a
+
+vlager a traves de PPP,el utiliza una direccion de la subred de la Brewery. Podremos dar
+
+al pppd  del ordenador vlager la opcion proxyarp, que instalara una entrada proxy-ARP
+
+para el ordenador loner.  Esto hara que loner sea automaticamente accesible desde todos
+
+los ordenadores de la Brewery y la Winery.
+
+
+     De cualquier manera, las cosas no son siempre tan faciles como eso, por ejemplo cuando
+
+intentamos unir dos redes dearea local.  Esto requiere normalmente el a"nadir una ruta de
+
+red espeifica, porque estas redes tendran ya sus propios encaminamientos por defecto.  Por
+
+otra parte, el tener a los dos extremos de comunicacion utilizando la conexion PPP como
+
+encaminamiento  por  defecto  generaria  un  ciclo  sin  fin,  donde  los  paquetes  con  destinos
+
+desconocidos  rebotarian  entre  los  dos  ordenadores  hasta  que  su  tiempo  de  vida  (TTL)
+
+expirase.
+
+
+     Pongamos un ejemplo,  suponga que la Virtual Brewery abre una sucursal en alguna
+
+otra ciudad.  La sucursal utiliza su propia red Ethernet utilizando el numero de red IP
+
+191.72.3.0,  que es la subred 3 de la red de clase B de la Brewery.  Quieren conectarse
+
+a la red Ethernet principal de la Brewery a traves de PPP para actualizar las bases de
+
+datos de clientes, etc. De nuevo, vlager actuara como el gateway; la otra maquina se llama
+
+sub-etha y tiene una direccion IP de 191.72.3.1..
+
+
+     Cuando sub-etha conecta a vlager, hara que el punto de encaminamiento por defecto
+
+sea vlager como es habitual. En vlager, de todas formas, tendremos que instalar un enca-
+
+minamiento de red para la subred 3 que vaya a traves de sub-etha.  Paraesto, utilizamos
+
+una caracteristica del pppd de la que no hemos hablado hasta ahora - el comando ip-up. Es
+
+un script del shell situado en /etc/ppp que se ejecuta despues de que el interface PPP ha
+
+sido configurado. Cuando esta presente, se le llama con los siguientes parametros:
+       ip-up  interface  dispositivo  velocidad  dir_local  dir_remota
+donde interface se refiere al interface de red usado, dispositivo es la ruta al dispositivo
+
+serie  utilizado,  (/dev/tty  si  se  utiliza  la  salida  y  entrada  estandar),  y  velocidad  es  la
+
+velocidad del dispositivo.  dir_local  y dir_remota  nos dan las direcciones IP usadas en
+
+dos extremos de la conexion en notacion de cuarteto numerico.  En nuestro caso, el script
+
+ip-up puede contener el siguiente fragmento de codigo:
+
+       #!/bin/sh
+       case  $5  in
+       191.72.3.1)                #  este  es  sub-etha
+       route  add  -net  191.72.3.0  gw  191.72.3.1;;
+       ...
+       esac
+       exit  0
+     De una forma analoga, /etc/ppp/ip-down se utiliza para deshacer todas las acciones de
+
+ip-up despues de que la conexion PPP ha sido cortada de nuevo.
+
+
+     A pesar de todo, la tabla de encaminamiento aun no esta completa. Hemos configurado
+
+las entradas de la tabla de encaminamiento para las dos ordenadores con PPP, pero hasta
+
+ahora, todos los demas ordenadores de las dos redes no saben nada sobre la conexion PPP.
+
+Esto no es un gran problema si todos los ordenadores de la sucursal tienen su encamina-
+
+miento por defecto encaminado a sub-etha, y todos los ordenadores de la Brewery enca-
+
+minan hacia vlager por defecto. Sieste no fuera el caso, suunica posibilidad normalmente
+
+sera usar un demonio de encaminamiento como el gated.  Tras crear el encaminamiento de
+
+la red en vlager, el demonio de encaminamiento pasara el nuevo encaminamiento a todos
+
+los ordenadores de las redes dependientes deesta.
+
+8.8       Opciones  de  Control  de  Enlace
+Anteriormente, ya hemos tratado sobre el LCP, el protocolo de control de enlace (Link Con-
+
+trol Protocol), que se utiliza para negociar las caracteristicas de la conexion y comprobarla.
+
+
+     Las dos opciones mas importantes que pueden ser negociadas por el LCP son la unidad
+
+maxima  de  recepcion  (MRU)  y  el  mapa  de  caracteres  de  control  asincronos.   Tambien
+
+hay varias opciones de configuracion LCP mas, pero son demasiado especificas como para
+
+comentarlas aqui. Eche un vistazo a la RFC 1548 para ver una descripcion deestas.
+
+
+     El mapa de caracteres de control asincronos, tambien conocido como el mapa asincrono,
+
+es usado en enlaces asincronos como las lineas telefonicas para identificar los caracteres de
+
+control que deben de ser reemplazados por una especifica secuencia de dos caracteres9. Por
+
+ejemplo, puede que quiera evitar los caracteres XON y XOFF utilizados con el control de
+
+flujo hardware activado, pues algun modem mal configurado puede parar hasta que reciba
+
+un XOFF. Otro candidato puede ser Ctrl-] (el caracter de escape del telnet ).  El PPP le
+
+permite rehuir de cualquiera de los caracteres con codigos ASCII comprendidos entre 0 y
+
+31 especificandolos en el mapa asincrono.
+     El mapa asincrono (async map) es un mapa de bits de 32 bits de ancho, y cuyo bit menos
+
+significativo corresponde al caracter ASCII NUL, y cuyo bit mas significativo corresponde al
+
+ASCII 31. Si un bit se pone a 1, indica que el caracter correspondiente debe de ser rehuido
+
+antes de ser enviado a traves de la conexion.  Inicialmente, el mapa asincrono se establece
+
+como 0xffffffff, lo que significa que todos los caracteres de control seran rehuidos.
+
+
+     Para decir al otro ordenador que no tiene que rehuir de todos los caracteres de control
+
+sino solo de algunos, puede establecer un nuevo mapa asincrono al pppd utilizando la opcion
+
+asyncmap. Por ejemplo, si solo ^S y ^Q (los codigos ASCII 17 y 19, normalmente utilizados
+
+para XON y XOFF) deben de ser rehuidos, utilice la siguiente opcion:
+       asyncmap  0x000A0000
+     La unidad maxima de recepcion, o MRU, se"naliza al otro extremo el tama"no maximo
+
+de las tramas HDLC que queremos recibir.  Aunqueesto puede que le recuerde al valor de
+
+MTU (unidad maxima de transferencia), tienen poco en comun. El MTU es un parametro
+
+del dispositivo de red del kernel, y describe el tama"no maximo de la trama que el interface
+
+es capaz de soportar.  El MRU es mas bien un consejo al ordenador remoto para que no
+
+genere ninguna trama mas grande que la MRU; no obstante, el interface ha de ser capaz de
+
+recibir tramas de hasta 1500 bytes.
+
+
+     Por lo tanto, elegir un MRU no es tanto una cuestion de que es capaz de transmitir
+
+la conexion, sino de como conseguir el mejor rendimiento.  Si va a usar la conexion para
+
+aplicaciones interactivas, el poner en el MRU valores tan bajos como 296 es una buena idea,
+
+de forma que un paquete ocasional mayor (digamos, de una sesion de FTP) no haga a su
+
+cursor "saltar".  Para decir al pppd  que pida un MRU de 296, pondria la opcion mru  296.
+
+Las MRUs peque"nas, de todas maneras, solo tienen sentido si no tiene la compresion de
+
+cabecera VJ desactivada (esta activada por defecto).
+
+
+     El pppd  tambien entiende un par de opciones LCP que configuran el comportamiento
+
+general del proceso de negociacion, como es el maximo numero de peticiones de configura-
+
+cion que pueden ser intercambiadas antes de que se corte la conexion.  A menos que sepa
+
+exactamente lo que esta haciendo, debera dejar este valor fijo.
+
+
+     Finalmente, hay dos opciones que se aplican a los mensajes de eco del LCP. El PPP
+
+define dos mensajes, Peticion de Eco y Respuesta de Eco.  El pppd  usa esta caracteristica
+
+para para comprobar si la conexion esta aun operativa.  Puede habilitar esto utilizando la
+
+opcion lcp-echo-interval junto con el tiempo en segundos.  Si no se reciben tramas del
+
+ordenador remoto en este intervalo, el pppd  genera una Peticion de Eco, y espera a que el
+
+compa"nero devuelva una Respuesta de Eco.  Si el compa"nero no produce una respuesta, la
+
+conexion es cortada despues de que se hayan enviado un cierto numero de peticiones. Este
+
+numero puede ser establecido utilizando la opcion lcp-echo-failure.  Por defecto, esta
+
+caracteristica esta tambien desactivada.

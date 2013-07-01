@@ -1,0 +1,37 @@
+2.6 Propiedades de las reglas activas
+No es dif´icil dise˜nar reglas activas de modo individual, una vez se han identificado
+claramente el evento, la condici´on y la acci´on. Sin embargo, entender el
+comportamiento colectivo de las reglas activas es m´as complejo ya que su interacci
+´on suele ser sutil. Por este motivo, el problema principal en el dise˜no de las
+bases de datos activas est´a en entender el comportamiento de conjuntos complejos
+de reglas. Las propiedades principales de estas reglas son terminaci´on,
+confluencia e id´entico comportamiento observable.
+• Un conjunto de reglas garantiza la terminaci´on cuando, para cada transacci
+´on que puede activar la ejecuci´on de reglas, esta ejecuci´on produce
+un estado final en un n´umero finito de pasos.
+• Un conjunto de reglas garantiza la confluencia cuando, para cada transacci
+´on que puede activar la ejecuci´on de reglas, la ejecuci´on termina produciendo
+un estado final ´unico que no depende del orden de ejecuci´on de
+las reglas.
+• Un conjunto de reglas garantiza un comportamiento observable id´entico
+cuando, para cada transacci´on que puede activar la ejecuci´on de reglas,
+esta ejecuci´on es confluyente y todas las acciones visibles llevas a cabo por
+la regla son id´enticas y producidas en el mismo orden.
+Estas propiedades no tienen la misma importancia. Concretamente, la terminaci
+´on es una propiedad esencial; se debe evitar la situaci´on en que las transacciones,
+activadas por el usuario, causan ejecuciones infinitas por la activaci´on
+recursiva de reglas. Por otra parte, la confluencia y el id´entico comportamiento
+observable no son esenciales.
+El proceso del an´alisis de reglas permite la verificaci´on de si las propiedades
+deseadas se cumplen en un conjunto de reglas. Una herramienta esencial para
+verificar la terminaci´on es el grafo de activaci´on, que representa interacciones
+entre reglas. El grafo se crea incluyendo un nodo para cada regla y un arco
+de la regla R1 a la regla R2 cuando la acci´on de R1 contiene un sentencia
+del lenguaje de manejo de datos que es tambi´en uno de los eventos de R2. Una
+condici´on necesaria para la no terminaci´on es la presencia de ciclos en el grafo de
+activaci´on: s´olo en este caso podemos tener una secuencia infinita de ejecuci´on
+de reglas.
+Los sistemas que tienen muchas reglas activas suelen ser c´iclicos. Sin embargo,
+s´olo unos pocos ciclos son los que provocan situaciones cr´iticas. De hecho,
+el que un grafo sea c´iclico es condici´on necesaria pero no suficiente para la no
+terminaci´on.

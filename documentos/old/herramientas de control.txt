@@ -1,0 +1,146 @@
+5 - Descripción de algunas herramientas de
+control y seguimiento de accesos
+En este apartado se encuentran aquellas herramientas que nos permitirán tener
+una información - mediante archivos de trazas o logísticos - de todos los intentos de
+conexión que se han producido sobre nuestro sistema o sobre otro que nosotros
+hayamos señalado, así como intentos de ataque de forma sistemática a puertos tanto
+de TCP como de UDP (herramientas de tipo SATAN).
+Este tipo de herramientas nos permite tener un control sobre todos los paquetes
+que entran por la interfaz de red de la máquina: IP (TCP, UDP) e ICMP, o analizando
+paquetes a nivel de aplicaciones (TELNET, FTP, SMTP, LOGIN, SHELL, etc.). Estas
+herramientas pueden ser utilizadas junto con otras que nos permitan definir desde qué
+máquinas permitimos ciertas conexiones y cuales se prohiben. Algunas de las
+herramientas descritas en este apartado no necesitan estar instaladas en la máquina
+que se quiere controlar, ya que se puede poner en una máquina cuya interfaz de red
+funcione en modo promiscuo, permitiendo seleccionar la dirección IP o máquina que
+queremos auditar.
+Algunas de las herramientas descritas en este apartado pueden tener un doble
+uso. Es decir, nos permiten protegernos ante posibles ataques, pero también podrían
+ser utilizadas para intentar comprometer los sistemas. Por eso es importante que el uso
+de estas herramientas esté restringido - en la manera que se pueda - para que no todo
+el mundo esté utilizándolas de forma aleatoria y nos oculten realmente un ataque.
+También podrán ser utilizadas para realizar seguimientos en la red cuando creamos que
+alguna de nuestras máquinas ha sido comprometida.
+Las herramientas que permiten este tipo de operatividad son: tcp-wrapper, netlog,
+argus, tcpdump, SATAN, ISS, courtney, gabriel, nocol, tcplist.
+5.1 - tcp-wrappers
+El tcp-wrappers es un software de domino público desarrollado por Wietse
+Venema (Universidad de Eindhoven, Holanda). Su función principal es: proteger a los
+sistemas de conexiones no deseadas a determinados servicios de red, permitiendo a su
+vez ejecutar determinados comandos ante determinadas acciones de forma automática.
+Con este paquete podemos monitorear y filtrar peticiones entrantes a distintos
+servicios TCP-IP, como: SYSTAT, FINGER, FTP, RLOGIN, RSH, REXEC, TFTP, TALK. El
+software está formado por un pequeño programa que se instala en el "/etc/inetd.conf".
+Una vez instalado, se pueden controlar los accesos mediante el uso de reglas y dejar
+una traza de todos los intentos de conexión tanto admitidos como rechazados (por
+servicios, e indicando la máquina que hace el intento de conexión).
+Veremos, en primer lugar, el tema de las trazas que genera este software.
+El programa utiliza el syslogd (puerto 514 udp) para mandar esa información; por
+defecto utilizará la salida de mail, la cual estará indicada en el archivo de configuración
+de syslogd (/etc/syslog.conf) con la línea mail.debug. Esto se puede cambiar en
+los fuentes del programa y se puede re-dirigir a otro lugar mediante el uso de las
+variables de usuario que deja libres el syslogd (LOCAL_0,...LOCAL_7, estas variables
+vienen definidas en el archivo /usr/include/syslog.h). Una vez modificados los
+fuentes, se deberá indicar al syslogd donde debe dejar la información de esa variable
+local.
+En referencia al control de conexiones a distintos servicios, el software utiliza dos
+archivos de información (hosts.allow, hosts.deny) situados en el directorio "/etc". Es en
+estos archivos donde se definirán las reglas que deben utilizarse para el filtrado de los
+paquetes. El filtrado se puede realizar teniendo en cuenta tanto a máquinas como a
+servicios o una mezcla de ambos. En el caso de las máquinas hay varias formas de
+hacerlo. Por ejemplo se le puede indicar que sólo se conecten las máquinas
+pertenecientes al mismo dominio (esto se puede ampliar a los que tengan el mismo
+rango de direcciones IP, para evitar que máquinas no definidas en el DNS no puedan
+conectarse), o sólo aquéllas cuyos nombres sean especificados de forma explícita.
+Veremos, a continuación, un ejemplo que consiste en permitir las conexiones sólo
+de aquellas máquinas de mi dominio. Para ellos tendríamos que disponer de lo
+siguiente:
+hosts.deny
+ALL: ALL
+hosts.allow
+ALL: LOCAL, sfp.gov.ar
+La secuencia es la siguiente: en el primer archivo denegamos todas las
+conexiones; mientras que en el segundo, permitimos las conexiones de las máquinas
+definidas en mi mismo dominio.
+Una utilidad que puede ser interesante a la hora de tener información de
+conexiones de forma automática es el uso de comandos en estos archivos. Es decir,
+podemos decirle al programa que cuando se produzcan ciertas conexiones ejecute un
+comando.
+Veamos un ejemplo:
+hosts.deny
+ALL: ALL (/usr/ucb/finger -l @%h | /usr/ucb/mail -s %d%h e-mail) &
+hosts.allow
+ALL: LOCAL, uc3m.es
+Según este ejemplo, cuando se produzca una conexión no deseada, de forma
+automática se ejecutará un finger a la máquina que origine esa conexión y el resultado
+del mismo, se mandará vía correo electrónico al usuario especificado (el administrador
+de la máquina o el responsable de seguridad de la organización), indicando en el
+"subject" del mensaje el al cual se servicio intento la conexión y la máquina que lo
+originó, y como cuerpo el resultado del finger sobre esa máquina.
+Además de estas reglas podemos incluir protocolos específicos de control, veamos
+un pequeño ejemplo de esta utilidad:
+hosts.deny
+ALL: ALL
+hosts.allow
+in.ftpd: LOCAL, sfp.gov.ar
+Según este ejemplo, sólo permitimos conexiones ftp desde nuestro dominio,
+prohibiendo las demás conexiones que estén filtradas por el programa.
+Estos ejemplos son muy básicos, pero el grado de complejidad de las reglas puede
+aumentar incluyendo distintos protocolos y listas de máquinas por protocolos.
+Como mencionábamos anteriormente, este tipo de programa genera trazas de las
+conexiones establecidas. Veremos, a continuación, unas recomendaciones referentes a
+las trazas que pueden extenderse a otro tipo de utilidades.
+Es aconsejable disponer de una o varias máquinas para centralizar las trazas que
+creamos convenientes.
+Describiremos ahora una posible organización para tener información de todas las
+conexiones que se producen en nuestro grupo de máquinas.
+Podemos clasificar nuestras máquinas por sistema operativo o por funciones que
+realizan. A cada uno de estos grupos se le asigna una variable en el syslog (como
+veíamos anteriormente), y se envía (vía syslog) a una o varias máquinas (cuya finalidad
+es que tengan todas las conexiones que se produzcan en tiempo real). Disponer de
+varias máquinas de este tipo es muy útil ya que los hackers suelen correr programas
+del tipo "zap", que borran las huellas en el sistema asaltado, y este tipo de herramienta
+(tcp-wrapper) que deja las trazas en un archivo tipo texto, sería muy fácil su
+modificación editando el archivo con un editor de texto, tal como el “vi” en sistemas
+UNIX para eliminar las huellas.
+De hecho, esto puede constituir una pista de que un sistema ha sido asaltado. Es
+decir, que los archivos de trazas relativos a una máquina sean distintos en la máquina
+que lo originan y en las máquinas que lo centralizan. Debemos tener en cuenta que las
+máquinas que centralizan esta información deben estar muy protegidas ante los
+posibles ataques.
+Para concluir, podemos decir que el tcp-wrappers es una simple pero efectiva
+herramienta para controlar y monitorear la actividad de la red en nuestra máquina, y
+nos permite un control sobre las conexiones que se efectúan en nuestra red.
+Veamos un pequeño ejemplo del archivo de trazas que genera este software.
+May 29 13:21:22 lince.uc3m.es in.ftpd[237]: connect from acme.uc3m.es
+5.2.5. - nstat
+Esta herramienta que originariamente fue diseñada para obtener estadísticas de
+uso de varios protocolos, se puede utilizar para detectar cambios en los patrones de
+uso de la red, que nos puedan hacer sospechar que algo raro está pasando en la
+misma.
+Esta herramienta viene acompañada por dos utilidades que nos permiten analizar
+la salida que origina nstat, a saber: nsum, nload. La primera de ellas, nos da
+información de ciertos periodos de tiempo. La segunda, es un programa awk que
+produce una salida que puede ser vista de forma gráfica por herramientas como xvgr.
+Para concluir este apartado, podemos decir que esta herramienta es muy útil para
+detectar ciertos tipos de ataques, tal como hemos reflejado anteriormente (con
+etherscan), así como dar una idea de qué tipo de protocolos están viajando por la red.
+Además, tiene la ventaja de que al estar en modo promiscuo, con sólo tenerlo en
+una máquina del segmento se puede tener monitoreado todo el segmento en el que
+esté conectado.
+5.3. - argus
+Es una herramienta de dominio público que permite auditar el tráfico IP que se
+produce en nuestra red, mostrándonos todas las conexiones del tipo indicado que
+descubre.
+Este programa se ejecuta como un demonio, escucha directamente la interfaz de
+red de la máquina y su salida es mandada bien a un archivo de trazas o a otra máquina
+para allí ser leída. En la captura de paquetes IP se le puede especificar condiciones de
+filtrado como protocolos específicos, nombres de máquinas, etc.
+A la hora de leer esa información disponemos de una herramienta que incluye el
+software (llamado ra) y que nos permite también realizar filtros de visualización. Una
+característica de esta herramienta es la posibilidad de filtrar paquetes de acuerdo a las
+listas de acceso de los routers CISCO. Es posible por tanto decirle que nos capture
+aquellos paquetes que no cumplen las reglas de la lista de acceso definida para esa
+interfaz del router. Como en el caso anterior (netlog) es posible ejecutar el comando en
+modo promiscuo (si lo que queremos es auditar todo nuestro segmento). Este
+programa divide las transacciones en cuatro grupos: TCP, UDP/DNS, MBONE, ICMP.

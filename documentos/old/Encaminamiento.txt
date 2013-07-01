@@ -1,0 +1,97 @@
+ *.   Encaminamiento IP        @
+
+
+
+
+     hernet o fisicas.  Esto se hace con el Protocolo de Resolucion de Direcciones  o ARP3. De
+
+     hecho, ARP no se limita a las redes Ethernet, sino que se extiende a otros tipos de redes
+
+     como las de radio paquetes.  La idea es la misma que tendriamos para localizar al se"nor X
+
+     entre 150 personas: preguntar por su nombre a todo el mundo; y el se"nor X nos respondera.
+
+
+          Cuando queremos localizar la direccion fisica correspondiente a una direccion IP, hare-
+
+     mos uso de una caracteristica de la red Ethernet que es la posibilidad de enviar mensajes
+
+     a escuchar por todos los nodos, o mensajes broadcast.  En el mensaje ARP, que es de este
+
+     tipo, se incluye la direccion IP cuyo propietario estamos buscando.  El nodo que posea esa
+
+     direccion enviara una respuesta ARP al nodo llamante, con la direccion fisica suya.
+
+
+          Por supuesto, le preocupara saber como puede funcionar esto para localizar un nodo
+
+     entre millones de Ethernets conectadas en el mundo.  Esto se trata en la proxima seccion:
+
+     se trata del encaminamiento.
+
+
+          Sigamos hablando, de momento, sobre ARP. Una vez que se conoce la direccion fisica
+
+     del nodo, el que hizo la peticion guardara la informacion obtenida en una cache ARP, para
+
+     asi no preguntar por lo mismo cada vez que envie un paquete a ese nodo. Sin embargo, no
+
+     podemos guardar esa direccion para siempre ya que puede perder su validez (por ejemplo,
+
+     si cambiamos la tarjeta de red a los nodos por averia, sus nuevas direcciones fisicas seran
+
+     distintas).  Por  ello,  cada  cierto  tiempo,  lo  que  hay  en  la  cache  ARP  pierde  su  validez,
+
+     obligando a realizar de nuevo la pregunta ARP.
+
+
+          A  veces,  un  nodo  necesita  tambien  conocer  su  direccion  IP  a  partir  de  su  direccion
+
+     fisica.   Por  ejemplo,  en  terminales  X  o  PCs  sin  disco,  que  cuando  arrancan  solo  saben
+
+     la direccion de su tarjeta pues esta grabada en memoria no volatil.  Para ello,  se usa el
+
+     protocolo de Resolucion Inversa de Direcciones o RARP4: la peticion RARP la hace el nodo
+
+     cuando arranca, mediante mensaje broadcast, y es contestado por un servidor de direcciones
+
+     que,  a  partir  de  la  direccion  fisica,  consulta  su  base  de  datos  y  conoce  la  direccion  IP
+
+     correspondiente.  Existe ademas otro protocolo, el BOOTP o protocolo de arranque, que
+
+     permite a las maquinas sin disco conocer como ponerse en marcha en la red.
+
+     2.4       Encaminamiento  IP
+     2.4.1      Redes IP
+
+
+
+3    Cuando escribimos una carta a alguien, normalmente incluimos la direccion completa en el
+
+     sobre:  pais, provincia, codigo postal, etc.  De este modo el servicio de correos podra llevar
+
+     la carta a su destino:  un servicio la enviara al del pais que corresponda, yesteultimo la
+     _____________________________________________3
+          Address Resolution Protocol
+        4 Reverse Address Resolution Protocol
+ 
+_______________________________________________________________________________________________________________2.4.   E*
+ *ncaminamiento IP        @
+
+
+
+
+entregara al de la provincia o ciudad de destino.  La ventaja de este esquema jerarquico es
+
+que el servicio postal del remitente apenas tiene que saber acerca del destino final, sino solo
+
+a que pais entregarla.
+
+
+     Las redes IP se organizan de manera similar. Internet consta de varias redes, conocidas
+
+como  sistemas  autonomos  y  cada  una  realiza  por  su  cuenta  el  encaminamiento  interno
+
+entre sus nodos miembro.  Cuando un paquete tiene como destino un nodo de otra red, se
+
+entregara al encaminador correspondiente, sin preocuparse del destino final del paquete.

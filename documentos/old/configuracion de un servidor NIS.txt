@@ -1,0 +1,204 @@
+10.5        Configurar  un  Cliente  NIS  con  NYS
+A lo largo de lo que queda deeste capitulo, cubriremos la configuracion de un cliente NIS.
+
+
+     Su  primer  paso  deberia  ser  indicarle  a  NYS  que  servidor  usar  para  el  servicio  NIS,
+
+estableciendolo  en  el  fichero  de  configuracion  /etc/yp.conf.   Un  fichero  de  ejemplo  muy
+
+sencillo para un nodo en la red de la Bodega seria algo asi:
+
+
+
+       #  yp.conf  -  YP  configuration  for  NYS  library.
+       #
+       domainname  winery
+       server  vbardolino
+     La primera sentencia indica a los clientes NIS que pertenecen al dominio NIS winery.
+
+Si omiteesta linea, NYS usara el nombre de dominio que usted asigno a su sistema con
+
+el  comando  domainname.   La  sentencia  server  indica  el  servidor  a  usar.   Por  supuesto,
+
+la direccion IP correspondiente a vbardolino debe estar establecida en el fichero hosts;
+
+alternativamente, podria usar directamente la direccion IP con la sentencia server.
+
+
+     En el fichero mostrado mas arriba, el comando server indica a NYS que use el servidor
+
+indicado  sea  cual  sea  el  dominio  NIS  actual.   Sin  embargo,  si  mueve  frecuentemente  su
+
+maquina entre diferentes dominios NIS, tal vez le interesaria mantener informacion de varios
+
+dominios en el fichero yp.conf.  Puede tener informacion sobre los servidores para varios
+
+dominios NIS en yp.conf  a"nadiendo el nombre de dominio NIS a la sentencia server.  Por
+
+ejemplo, podria cambiar el fichero del ejemplo anterior para que que sea algo asi:
+
+
+
+       #  yp.conf  -  YP  configuration  for  NYS  library.
+       #
+       server  vbardolino  winery
+       server  vstout       brewery
+     Esto le permite mover su maquina a cualquiera de los dos dominios simplemente con
+
+establecer el dominio NIS deseado durante el arranque con el comando domainname.
+
+
+     Una vez creadoeste fichero de configuracion basico y de asegurarnos que tiene permiso
+
+de  lectura  para  todo  el  mundo,  deberia  realizar  su  primer  test  para  chequear  si  puede
+
+conectar con su servidor.  Asegurese de elegir cualquier mapa que su servidor distribuya,
+
+como  hosts.byname,  e  intente  obtenerlo  usando  la  utilidad  ypcat.  ypcat,  como  todas  las
+
+demas herramientas NIS, debe encontrarse en /usr/sbin.
+
+
+
+       #  ypcat  hosts.byname
+       191.72.2.2        vbeaujolais   vbeaujolais.linus.lxnet.org
+
+        191.72.2.3        vbardolino    vbardolino.linus.lxnet.org
+        191.72.1.1        vlager          vlager.linus.lxnet.org
+        191.72.2.1        vlager          vlager.linus.lxnet.org
+        191.72.1.2        vstout          vstout.linus.lxnet.org
+        191.72.1.3        vale            vale.linus.lxnet.org
+        191.72.2.4        vchianti       vchianti.linus.lxnet.org
+
+
+
+      La salida que obtenga debe ser algo parecido a lo expuesto arriba. Si recibe un mensaje
+
+ de  error  en  su  lugar  que  diga  "Can't  bind  to  server  which  serves  domain",  o  algo
+
+ similar,  entonces,  o  el  nombre  de  dominio  NIS  que  ha  establecido  no  tiene  definido  su
+
+ servidor correspondiente en yp.conf, o el servidor, por alguna razon, no esta disponible. En
+
+esteultimo caso, asegurese de que un ping  a esa maquina da un resultado positivo, y de
+
+ que esta en efecto ejecutando un servidor NIS. Puede verificarestoultimo usando rpcinfo,
+
+ que deberia producir la siguiente salida:
+
+
+
+        #  rpcinfo  -u  serverhost  ypserv
+
+        program  100004  version  2  ready  and  waiting
+
+ 10.6        Elegir  los  Mapas  Correctos
+ Una vez que este seguro de que puede llegar al servidor NIS, debe decidir que ficheros de
+
+ configuracion sustituir o aumentar con mapas NIS. Comunmente, deseara usar mapas NIS
+
+ para las funciones de busqueda de passwords y de nodos. El primero es especialmenteutil si
+
+ no utiliza BIND. El segundo permite a todos los usuarios entrar en su cuenta desde cualquier
+
+ sistema dentro del dominio NIS;esto suele requerir compartir un directorio /home central
+
+ entre todos los nodos via NFS. Todoesto se explica en detalle en la seccion 10.7 mas abajo.
+
+ Otros mapas, como services.byname, no proporcionan una ganancia tan dramatica, pero
+
+ ahorran algo de trabajo de edicion si instala alguna aplicacion de red que use un nombre
+
+ de servicio que no este en el fichero services estandar.
+
+
+      Por lo general, usted deseara tener alguna libertad de eleccion acerca de cuando una
+
+ funcion  de  busqueda  usara  ficheros  locales  y  cuando  hara  una  peticion  al  servidor  NIS.
+
+ NYS le permite configurar el orden en que una funcion accede aestos servicios.  Estos es
+
+ controlado mediante el fichero /etc/nsswitch.conf, que quiere decir Interruptor del Nombres
+
+ de  Servicio11  pero  por  supuesto  no  esta  limitado  a  los  nombres  de  servicios.   Contiene
+
+ una  linea,  para  cualquiera  de  las  funciones  de  busqueda  de  datos  soportadas  por  NYS,
+
+ nombrando los servicios a usar.
+
+
+      El orden correcto de servicios depende del tipo de datos.  Es improbable que el mapa
+
+ services.byname contenga entradas diferentes que las que se encuentran en el fichero services
+local; unicamente  podria  contener  mas.   Asi  que  una  buena  eleccion  seria  consultar  los
+
+ficheros locales primero, y probar con NIS solo si el nombre del servicio no fue encontrado.
+
+Por otro lado, la informacion de nombres de nodos puede cambiar muy frecuentemente, de
+
+forma que el DNS o el servidor NIS tendrian siempre la informacion mas precisa, mientras
+
+que el fichero hosts local solo se mantiene como backup si el DNS y NIS fallasen.  Eneste
+
+caso, habria que chequear el fichero local enultimo lugar.
+
+
+     El siguiente ejemplo muestra como configurar las funciones gethostbyname(2), gethostb-
+
+yaddr(2), y getservbyname(2)  de la forma descrita anteriormente.  Probaran los servicios
+
+listados  por  turnos;  si  una  busqueda  es  satisfactoria,  se  devuelve  el  resultado,  si  no,  se
+
+intentara con el siguiente servicio.
+
+
+
+       #  small  sample  /etc/nsswitch.conf
+       #
+       hosts:       nis  dns  files
+       services:   files  nis
+     La lista completa de servicios que pueden ser usados en una entrada del fichero nss-
+
+witch.conf  se lista mas abajo.  Los mapas,  ficheros,  servidores y objetos que pueden ser
+
+consultados dependen del nombre de la entrada.
+
+
+
+nisplus o nis+
+
+                   Usa  el  servidor  NIS+  paraeste  dominio.   La  localizacion  del  servidor  se
+
+                   obtiene del fichero /etc/nis.conf.
+
+
+nis                Usa  el  servidor  NIS  actual  deeste  dominio.   La  localizacion  del  servidor
+
+                   consultado esta configurada en el fichero yp.conf  como se mostro en la sec-
+
+                   cion previa.  Para la entrada hosts  se consultan los mapas hosts.byname  y
+
+                   hosts.byaddr.
+
+
+dns                Usa el servidor de nombres DNS. Este tipo de servicio solo es util con la
+
+                   entrada hosts. Los servidores de nombres consultados siguen estando deter-
+
+                   minados por el fichero estandar resolv.conf.
+
+
+files              Usa el fichero local. Como el fichero /etc/hosts para la entrada hosts.
+
+
+dbm                Busca la informacion en ficheros DBM localizados en /var/dbm. El nombre
+
+                   usado para el fichero es el del mapa NIS correspondiente.
+
+
+
+     Actualmente  NYS  soporta  las  siguientes  entradas  en  nsswitch.conf :  hosts,  networks,
+
+passwd, group, shadow, gshadow, services, protocols, rpc, and ethers.  Es probable que sean
+
+a"nadidas mas entradas.

@@ -1,0 +1,36 @@
+Búsqueda por aproximación
+La búsqueda por aproximación o búsqueda incremental consiste en la localización de registros en función de los que sucesivamente se van proporcionando como condición, de forma que se va avanzando progresivamente por el cursor hasta llegar al registro deseado. Por ejemplo, si el texto a buscar es una "J", este tipo de búsqueda supone que el cursor se sitúe en el primer registro que comience por "J". Si a continuación introducimos un nuevo carácter de búsqueda, por ejemplo la "a", el cursor avanza hasta el primer registro que comienza por "Ja". Y así sucesivamente hasta llegar al registro deseado. En Visual Basic es fácil implementar este tipo de búsqueda. 
+
+El código utilizado hace uso del método FindFirst para localizar el primer registro que cumple una determinada condición en el cursor (recordset) asociado al control de datos. Este método es invocado cada vez que se produce un cambio en el contenido del cuadro de texto. Para permitir la introducción del resto de caracteres, cada vez que se invoca a este método el foco vuelve al cuadro de texto. 
+Las distintas informaciones contenidas en la base de datos estas agrupadas en clases y subclases para permitir una búsqueda por aproximación progresiva. Esta forma de uso de los buscadores es muy sencilla, pero lenta, solamente aconsejable cuando un uso lúdico de la red y no se tiene prisa. Por otro lado, el sistema de categorías, tanto como los términos y su número, las establece cada buscador de forma normalizada y no coinciden exactamente entre los distintos sistemas.
+Otra gran habilidad es, la búsqueda por aproximación que facilita la recuperación de documentos en los que el reconocimiento automático de  (OCR) no haya alcanzado una total precisión.
+
+
+BÚSQUEDA APROXIMADA - Se pretende encontrar unidades textuales que contenga una determinada frase de búsqueda completa. Los textos buscados pueden contener la frase exacta o una versión aproximada de ella, o incluso puede contener palabras que son sinónimos de las que realmente están en el texto buscado.
+( - ) Si la frase comienza por un guión, se realizará una búsqueda aproximada.
+ALGORITMO DE BÚSQUEDA APROXIMADA
+Se localizará dentro del texto los párrafos que contengan como clave la primera palabra de nuestra frase (QUE, en el ejemplo propuesto). Si la primera palabra no es clave en el texto, se podría trasladar el método a la segunda palabra, con la consiguiente penalización.
+Se realizará una doble comparación entre la frase de búsqueda y la oración (en el texto), que sigue a la palabra clave encontrada. La primera comparación se realizará carácter a carácter y la segunda palabra a palabra.
+Se valorarán las coincidencias con 1 punto, sin incluir los espacios. Cuando no exista coincidencia, se adelantará un carácter, primero en la frase de búsqueda y luego en el texto y se volverá a realizar la comparación.
+En caso positivo, se continuará la comparación. En caso negativo se rechazará la oración del texto.
+Se podría seguir la idea, continuando la comparación con 2, 3 o más espacios, aunque la experiencia demuestra que el sentido de la frase se aleja del original. (QUE TE PARECE MI FRASE y QUE MI FRASE sea..., faltando TE y PARECE).
+Los puntos obtenidos se dividen por el número total de caracteres o palabras, según el caso, y se obtiene así un coeficiente de aproximación para cada frase comparada.
+Todas las oraciones cuya puntuación supere cierto umbral, en alguna de las dos comparaciones, serán presentadas como frases aproximadas. Este umbral debe poder ser fijado libremente por el operador, que lo ajustará según los resultados obtenidos.
+Según nuestra experiencia, parece que un umbral (coeficiente) del 65% separa bastante bien las frases que mantienen un mismo sentido o significado, con la frase de búsqueda, tanto en la comparación por caracteres como en la comparación por palabras. Veamos el proceso de comparación con uno de los supuestos citados en el punto anterior.
+Frases de partida: QUE TE PARECE MI FRASE 22 caracteres
+QUE TAL PARECE MI FASE 
+Primera intercalación: QUE TE PARECE MI FRASE 4 caracteres no blancos
+QUE TAL PARECE MI FASE
+Segunda intercalación: QUE TE PARECE MI FRASE 9 caracteres no blancos
+QUE TAL PARECE MI F ASE +2 exactos
+Puntuación: Caracteres comparados: 22
+
+
+
+Coincidencias: 15
+Coeficiente de aproximación: 68%
+El mismo proceso se seguirá para realizar la comparación por palabras. Aquí, además se incluye la posibilidad de realizar la comparación con una palabra, y en caso de fallo, con todos sus sinónimos. El éxito con cualquiera de los sinónimos da como buena la comparación.
+QUE TE PARECE MI FRASE y QUE TE PARECE MI ORACION darán un coeficiente de aproximación del 100% siempre que frase y oración formen pareja en un fichero de sinónimos.
+Realizadas las dos comparaciones, se tomará el coeficiente mayor de los dos obtenidos y se dará como coeficiente final.
+
+

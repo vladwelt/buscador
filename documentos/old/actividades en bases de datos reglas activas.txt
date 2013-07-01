@@ -1,0 +1,30 @@
+2.5 Caracter´isticas de las reglas activas
+Adem´as de las caracter´isticas que poseen los disparadores que incorporan
+los sistemas relacionales, algunos sistemas m´as avanzados y algunos prototipos
+de bases de datos activas ofrecen algunas caracter´isticas que incrementan la
+expresividad de las reglas activas:
+• Respecto a los eventos, ´estos pueden ser temporales o definidos por el
+usuario. Los eventos temporales permiten utilizar expresiones dependientes
+del tiempo, como por ejemplo: cada viernes por la tarde, a las 17:30
+del 29/06/2002. Los eventos definidos por el usuario son eventos a los que
+el usuario da un nombre y que son activados por los programas de usuario.
+Por ejemplo, se podr´ia definir el evento de usuario ’nivel-alto-azufre’ y que
+una aplicaci´on lo activara; esto activar´ia la regla que reacciona al evento.
+• La activaci´on de los disparadores puede que no dependa de un solo evento
+sino que dependa de un conjunto de eventos relacionados en una expresi
+´on booleana que puede ser una simple disyunci´on o una combinaci´on
+m´as compleja que refleje la precedencia entre eventos y la conjunci´on de
+eventos.
+• La consideraci´on y/o ejecuci´on de reglas se puede retrasar. En este caso, la
+consideraci´on y/o la ejecuci´on tienen lugar durante transacciones distintas,
+que pueden ser completamente independienes o pueden estar coordinadas
+con la transacci´on en la que se ha verificado el evento.
+• Los conflictos entre reglas que se activan por el mismo evento se pueden
+resolver mediante prioridades expl´icitas, definidas directamente por
+el usuario cuando se crea la regla. Se pueden expresar como una ordenaci
+´on parcial (utilizando relaciones de precendencia entre reglas), o como
+una ordenaci´on total (utilizando prioridades num´ericas). Las prioridades
+expl´icitas sustituyen a los mecanismos de prioridades impl´icitos que
+poseen los sistemas.
+• Las reglas se pueden organizar en conjuntos y cada conjunto se puede
+habilitar y deshabilitar independientemente.

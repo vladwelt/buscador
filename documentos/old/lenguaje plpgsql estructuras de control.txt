@@ -1,0 +1,310 @@
+Estructuras de Control
+Las estructuras de control son probablemente la parte más útil (e importante) de
+PL/pgSQL. Con las estructuras de control de PL/pgSQL puede manipular los datos de
+PostgreSQL de una manera flexible y poderosa.
+Regreso de una Función
+Existen dos comandos que le permiten regresar datos desde una función: RETURN
+y RETURN NEXT.
+RETURN
+RETURN expresión;
+RETURN con una expresión termina la función y regresa el valor de expresión a
+quién la está llamando. Esta forma debe ser usada para las funciones PL/pgSQL que
+no regresan un conjunto.
+Cuando se regresa un tipo escalar puede usarse cualquier expresión. El resultado de
+la expresión será transformado (cast) automáticamente al tipo de retorno de la función,
+tal como se definió en la asignación. Para regresar un valor compuesto (renglón)
+debe escribir una variable registro o renglón como la expresión.
+El valor de retorno de una función no puede quedarse indefinido. Si el control alcanza
+el final de bloque más externo de la función sin encontrar una sentencia RETURN,
+se producirá un error en tiempo de ejecución.
+Si declaró que la función regrese void, también debe proporcionar una sentencia RETURN,
+pero en este caso la expresión que sigue a RETURN será opcional y será
+ignorada si está presente.
+RETURN NEXT
+RETURN NEXT expresión;
+Cuando se declara que una función PL/pgSQL regrese SETOF alguntipo, el procedimiento
+a seguir es ligeramente diferente. En este caso, los items individuales a retornar
+se especifican en comandos RETURN NEXT, y después un comando final
+RETURN sin argumentos se utiliza para indicar que la función ha terminado de ejecutarse.
+RETURN NEXT puede usarse con tipos escalares y compuestos; en el último
+caso, sera regresado una “tabla” completa de resultados.
+Las funciones que usan RETURN NEXT deben se llamadas de la siguiente manera:
+SELECT * FROM alguna_func();
+Es decir, las funciones deben se usadas como una tabla fuente en una claúsula FROM.
+RETURN NEXT realmente no regresa de la función, simplemente almacena el valor
+de la expresión. Después, continúa la ejecución de la siguiente sentencia en la función
+PL/pgSQL. Al ejecutarse los comandos sucesivos RETURN NEXT, se va armando el
+resultado. Un RETURN final, sin argumentos, ocasiona que el control salga de la
+función.
+Nota: La implementación actual de RETURN NEXT para PL/pgSQL almacena el conjunto
+resultante completo antes de regresar de la función, como es explica arriba. Esto significa
+que si una función PL/pgSQL produce un conjunto resultante muy grande, el desempeño
+puede empobrecerse: los datos serán escritos en el disco para evitar el consumo de
+memoria, pero la función misma no regresará hasta que todo el conjunto resultante haya
+sido generado. Una versión futura de PL/pgSQL puede permitir a los usuarios el definir
+funciones que regresen conjuntos que no tengan esa limitante. Por lo pronto, el momento
+en que los datos empiezan a escribirse en el disco es controlado por la variable
+de configuración work_mem. Los administradores que cuenten con suficiente memoria
+para almacenar conjuntos resultantes más grandes en la memoria, deben considerar el
+aumentar este parámetro.
+Condicionales
+Las sentencias IF le permiten ejecutar comandos cuando se dan ciertas condiciones.
+PL/pgSQL tiene cinco formas de IF:
+• IF ... THEN
+• IF ... THEN ... ELSE
+• IF ... THEN ... ELSE IF
+• IF ... THEN ... ELSIF ... THEN ... ELSE
+• IF ... THEN ... ELSEIF ... THEN ... ELSE
+IF-THEN
+IF expresión-lógica THEN
+sentencias
+END IF;
+Las sentencias IF-THEN son las formas más simples de IF. Las sentencias entre THEN
+y END IF serán ejecutadas si la condición es verdadera. De otra manera, serán ignoradas.
+Ejemplo:
+IF v_id_usuario <> 0 THEN
+UPDATE usuarios SET email = v_email WHERE id_usuario= v_id_usuario;
+END IF;
+IF-THEN-ELSE
+IF expresión-lógica THEN
+sentencias
+ELSE
+sentencias
+END IF;
+Las sentencias IF-THEN-ELSE añaden funcionalidad a IF-THEN permitiéndole especi-
+ficar un conjunto de sentencias alternativo que debe ejecutarse si la condición produce
+un valor de falso.
+Ejemplo:
+IF parentid IS NULL OR parentid = ”
+THEN
+RETURN fullname;
+ELSE
+RETURN hp_true_filename(parentid) || ’/’ || fullname;
+END IF;
+IF v_cuenta> 0 THEN
+INSERT INTO usuarios_cuenta(count) VALUES (v_cuenta);
+RETURN ’t’;
+ELSE
+RETURN ’f’;
+END IF;
+IF-THEN-ELSE IF
+Las sentencias IF pueden anidarse, como se muestra en el siguiente ejemplo:
+IF demo_renglon.sexo = ’m’ THEN
+pretty_sex := ’hombre’;
+ELSE
+IF demo_renglon.sexo = ’f’ THEN
+pretty_sex := ’mujer’;
+END IF;
+END IF;
+Cuando se usa esta forma, realmente se está anidano la sentencia IF dentro de la parte
+ELSE de la sentencia IF. Así, require una sentencia END IF para cada IF anidado y
+una para el padre IF-ELSE. Esto funciona, pero se vuelve tedioso cuando existen
+varias alternativas por revisar. De ahi que exista la siguiente forma.
+IF-THEN-ELSIF-ELSE
+IF expresión-lógica THEN
+sentencias
+[ ELSIF expresión-lógica THEN
+sentencias
+[ ELSIF expresión-lógica THEN
+sentencias
+...]]
+[ ELSE
+sentencias ]
+END IF;
+IF-THEN-ELSIF-ELSE proporciona un método más conveniente para revisar varias
+alternativas en una sentencia. Formalmente es equivalente a los comandos anidados
+IF-THEN-ELSE-IF-THEN, pero solo se necesita un END IF.
+A continuación en ejemplo:
+IF numero = 0 THEN
+resultado := ’cero’;
+ELSIF numero > 0 THEN
+resultado := ’positivo’;
+ELSIF numero < 0 THEN
+resultado := ’negativo’;
+ELSE
+-- hmm, la única otra posibilidad que el número sea nulo
+resultad := ’NULL’;
+END IF;
+IF-THEN-ELSEIF-ELSE
+ELSEIF es un alias de ELSIF.
+Ciclos Simples
+Con las sentencia LOOP, EXIT, WHILE y FOR, usted puede hacer que en sus funciones
+PL/pgSQL se repitan una serie de comandos.
+LOOP
+[<<etiqueta>>]
+LOOP
+sentencias
+END LOOP;
+LOOP define un ciclo incondicional que se repite indefinidamente hasta que encuentra
+alguna sentencia EXIT o RETURN. La etiqueta opcional puede usarse por las sentencias
+EXIT en los ciclos anidados para especificar que nivel de anidamiento debe
+terminarse.
+EXIT
+EXIT [ etiqueta ] [ WHEN expresión ];
+Si no se proporciona una etiqueta se termina el ciclo más interno y se ejecuta a
+continuación la sentencia posterior a END LOOP. Si se define una etiqueta, ésta debe
+ser la etiqueta del nivel actual o de algún otro más externo del ciclo anidado o del
+bloque. Entonces, el ciclo o bloque nombrado se termina y el control continúa con la
+sentencia posterior al END del ciclo/bloque correspondiente.
+Si WHEN está presente, la salida del ciclo ocurre solo si la condición especificada es
+verdadera, de otra manera, el control pasa a la sentencia después del EXIT.
+EXIT puede utilizarse para provocar una salida temprana de todo tipo de ciclos; no
+está limitado al uso de ciclos condicionales.
+Ejemplos:
+LOOP
+-- algun procesamiento
+IF count > 0 THEN
+EXIT; -- salir del ciclo
+END IF;
+END LOOP;
+LOOP
+-- algún procesamiento
+EXIT WHEN count > 0; -- mismo resultado que en el ejemplo anterior
+END LOOP;
+BEGIN
+-- algún procesamiento
+IF stocks > 100000 THEN
+EXIT; -- causa la salida del bloque BEGIN
+END IF;
+END;
+WHILE
+[<<etiqueta>>]
+WHILE expresión LOOP
+sentencia
+END LOOP;
+La sentencia WHILE repite una secuencia de sentencias tanto como la expresión de la
+condición produzca un valor de verdadero. La condición se revisa justo antes de cada
+entrada al cuerpo del ciclo.
+Por ejemplo:
+WHILE cantidad_adeudo > 0 AND balance_certificado_regalo > 0 LOOP
+-- algún procesamiento
+END LOOP;
+WHILE NOT expresión_lógica LOOP
+-- algún procesamiento
+END LOOP;
+FOR (variante con enteros)
+[<<etiqueta>>]
+FOR nombre IN [ REVERSE ] expresión .. expresión LOOP
+sentencias
+END LOOP;
+Este forma de FOR crea un ciclo que itera sobre un rango de valores enteros. La variable
+nombre se define de manera automática como de tipo integer y existe solo dentro
+del ciclo. Las dos expresiones que generan los límites inferior y superior del rango,
+son evaluados una sola vez al entrar al ciclo. El paso de la iteración es 1 generalmente,
+pero es -1 cuando se especifica REVERSE.
+Algunos ejemplos de ciclos enteros FOR:
+FOR i IN 1..10 LOOP
+-- algún procesamiento aquí
+RAISE NOTICE ’i es %’, i;
+END LOOP;
+FOR i IN REVERSE 10..1 LOOP
+-- algún procesamiento aquí
+END LOOP;
+Si el límite inferior es mayor que el límite superior (o menor que, en el caso de
+REVERSE), el cuerpo del ciclo no se ejecuta en absoluto. No se genera un error.
+Ciclos a Través de Resultados de Consultas
+Usando un tipo diferente de un ciclo FOR, puede iterar a lo largo de los resultados de
+una consulta y manipular los datos correspondientes. La sintaxis es:
+[<<etiqueta>>]
+FOR registro_o_renglón IN consulta LOOP
+sentencias
+END LOOP;
+A las variables registro o renglón les es asignado, de manera sucesiva, cada renglón
+resultante de la consulta (la cual debe ser un comando SELECT) y el cuerpo del
+ciclo se ejecuta para cada renglón. He aquí un ejemplo:
+CREATE FUNCTION cs_refresca_mvistas() RETURNS integer AS $$
+DECLARE
+mvistas RECORD;
+BEGIN
+PERFORM cs_log(’Refrescando las vistas materializadas...’);
+FOR mvistas IN SELECT * FROM cs_vistas_materializadas
+ORDER BY llave_orden LOOP
+-- Ahora "mvistas" tiene un registro de cs_vistas_materializadas
+PERFORM cs_log(’Refrescando vistas materializadas’ ||
+quote_ident(mvistas.mv_nombre) || ’ ...’);
+EXECUTE ’TRUNCATE TABLE ’ || quote_ident(mvistas.mv_nombre);
+EXECUTE ’INSERT INTO ’ ||
+quote_ident(mvistas.mv_nombre) || ’ ’ || mvistas.mv_consulta;
+END LOOP;
+PERFORM cs_log(’Terminado el refresco de las vistas
+materializadas.’);
+RETURN 1;
+END;
+$$ LANGUAGE plpgsql;
+Si el ciclo se termina por una sentencia EXIT, el valor del último renglón asignado se
+encuentra accesible después del ciclo.
+La sentencia FOR-IN-EXECUTE es otra manera de iterar sobre los renglones:
+[<<etiqueta>>]
+FOR registro_o_renglón IN EXECUTE texto_expresión LOOP
+sentencia
+END LOOP;
+Esta es similar a la forma anterior, excepto que la sentencia SELECT fuente se especi-
+fica como una expresion en cadena, la cual es evaluada y replaneada en cada entrada
+al ciclo FOR. Esto le permite al programador el seleccionar la velocidad de una consulta
+previamente planeada o la flexibilidad de una consulta dinámica, exactamente
+como una simple sentencia EXECUTE.
+Nota: El analizador de PL/pgSQL distingue actualmente las dos clases de ciclos FOR
+(enteros o resultados de consultas) revisando si los símbolos .. aparecen fuera de los
+paréntesis entre IN y LOOP. Si no se observan los símbolos .. entonces se presume que
+es un ciclo sobre renglones. Si se escriben mal los símbolos .. llevará seguramente a
+una queja entre las líneas de “loop variable of loop over rows must be a record or row
+variable”, en lugar de un simple error de sintaxis que usted esperaría obtener.
+Atrapar los Errores
+Por omisión, cualquier error que ocurra en una función PL/pgSQL aborta la ejecución
+de la función, en consecuencia, también la transacción que la envuelve. Usted puede
+atrapar los errores y recuperarse de ellos usando un bloque BEGIN con una cláusula
+EXCEPTION. La sintaxis es una extensión de la sintaxis normal de un bloque BEGIN.
+[ <<etiqueta>> ]
+[ DECLARE
+declaraciones ]
+BEGIN
+sentencia
+EXCEPTION
+WHEN condición [ OR condición ... ] THEN
+sentencias_del_manejador
+[ WHEN condición [ OR condición ... ] THEN
+sentencias_del_manejador
+... ]
+END;
+Si no ocurre un error, esta forma de bloque simplemente ejecuta todas las
+sentencias, y el control pasa a la siguiente sentencia después de END. Pero si
+ocurre un error dentro de las sentencias, se abandona el resto del procesamiento,
+y el control se pasa a la lista EXCEPTION. En la lista se busca la primera condición
+que coincida con el error ocurrido. Si hay una coincidencia, se ejecuta la
+sentencia_del_manejador correspondiente, y el control pasa a la siguiente
+sentencia después de END. Si no hay alguna coincidencia, el error se propaga como si
+la cláusula EXCEPTION no estuviera ahí en absoluto: el error puede ser atrapado por
+un bloque envolvente con EXCEPTION, o si no hay ninguno se aborta el proceso de la
+función.
+Los nombres de las condiciones pueden ser cualquiera de los mostrados en el
+apéndice de códigos de error. Una nombre de categoría coincide con cualquier error
+dentro de su categoría. El nombre de la condición especial OTHERS coincide con
+cualquier error, excepto QUERY_CANCELED. (Es posible, pero en ocasiones improbable,
+atrapar QUERY_CANCELED por nombre). Los nombres de las condiciones no son
+sensibles a las mayúsculas.
+Si ocurre un error dentro de las sentencias_del_manejador, no puede ser atrapado
+por esta cláusula EXCEPTION, pero si se propaga. Una cláusula EXCEPTION envolvente
+podría atraparla.
+Cuando se atrapa un error por una cláusulaEXCEPTION, las variable locales de la función
+PL/pgSQL se mantienen como estaban cuando ocurrió el error, pero todos los
+cambios al estado persistente de la base de datos dentro del bloque se deshacen.
+Como ejemplo, considere este fragmento:
+INSERT INTO miagenda(nombre, apellido) VALUES(’Joaquín’, ’Sabina’);
+BEGIN
+UPDATE miagenda SET nombre = ’Joe’ WHERE apellido = ’Sabina’;
+x := x + 1;
+y := x / 0;
+EXCEPTION
+WHEN division_by_zero THEN
+RAISE NOTICE ’division_by_zero atrapado’;
+RETURN x;
+END;
+Cuando el control alcanza la asignación a y, fallará con un error division_by_zero.
+Este será atrapado por la cláusula EXCEPTION. El valor regresado en la sentencia
+RETURN será el valor incrementado de x, pero los efectos del comando UPDATE
+habrán sido deshechos. El comando INSERT que precede al bloque no se deshace,
+sin embargo, al final resulta que la base de datos contiene Joaquín Sabina, no Joe
+Sabina.
+Sugerencia: Un bloque que contiene una cláusula EXCEPTION es significativamente más
+costoso, para entrar y salir, que un bloque sin ella. Por tanto, no use EXCEPTION, a menos
+que sea necesario.

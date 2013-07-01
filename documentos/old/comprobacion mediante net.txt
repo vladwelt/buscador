@@ -1,0 +1,236 @@
+-arp               Inhabilita el uso de ARP para esta interface.
+
+
+promisc            Pone la interface en modo promiscuo. En una red con emision, esto hace que
+
+                   la interface reciba todos los paquetes, independientemente de si eran para
+
+                   ella o no.  Esto permite el analisis del trafico de red utilizando utilidades
+
+                   como filtros de paquetes, tambien llamado fisgar 19 Se trata de una buena
+
+                   tecnica para localizar problemas de red que de otra forma resultan dificiles.
+
+                   Por otro lado, esto tambien posibilita ataques permitiendo al atacante hus-
+
+                   mear el trafico de la red en busca de claves u otras cosas peligrosas.  Una
+
+                   proteccion  posible  contra  este  tipo  de  ataques  es  impedir  que  cualquiera
+
+                   pueda  conectarse  a  la  Ethernet.   Otra  es  la  utilizacion  de  protocolos  de
+
+                   autentificacion seguros como Kerberos, o los programas SRA de ingreso en
+
+                   el sistema.20
+
+                   (Esta opcion corresponde al indicador PROMISC.)
+
+
+-promisc           Desactiva el modo promiscuo.
+
+
+allmulti           Las direcciones de envio multiple son un tipo de emision pero a un grupo de
+
+                   maquinas que no tienen necesariamente que pertenercer a la misma subred.
+
+                   El nucleo no soporta direcciones de envio multiple todavia21
+
+                   (Esta opcion corresponde al indicador ALLMULTI.)
+
+
+-allmulti          Desactiva las direcciones de envio multiple.
+
+5.9       Comprobacion  mediante  netstat
+A continuacion describire una herramientautil para comprobar la configuracion y actividad
+
+de su red.  Se llama netstat  aunque se trata en realidad de una coleccion de herramientas
+
+combinadas. Describiremos cada una de las funciones en las secciones siguientes.
+5.9.1      Consulta de la Tabla de Encaminamiento
+
+
+
+Si ejecuta netstat usando el indicador -r, puede ver la informacion de la tabla de encami-
+
+namiento del nucleo igual que como hemos venido haciendo hasta ahora con route.  Para
+
+vstout, tendriamos:
+
+       Kernel  routing  table
+       Destination       Gateway            Genmask            Flags  Metric  Ref  Use      Iface
+       127.0.0.1          *                    255.255.255.255  UH      1        0          50  lo
+       191.72.1.0        *                    255.255.255.0    U       1        0        478  eth0
+       191.72.2.0        191.72.1.1        255.255.255.0    UGN    1        0        250  eth0
+     La opcion -n hace que netstat imprima las direcciones de IP en notacion de cuaterna en
+
+vez de usar los nombres simbolicos de las maquinas o las redes.  Esto es especialmenteutil
+
+si pretende evitar consultas para esos nombres a traves de la red (por ejemplo consultas a
+
+un servidor NFS o NIS).
+
+
+     La segunda columna de la salida producida por netstat informa sobre las pasarelas a las
+
+que apunta la informacion de encaminamiento.  Si una ruta no usa pasarela, el programa
+
+imprime un asterisco.  La tercera columna imprime el nivel de generalizacion de una ruta.
+
+Dada una direccion IP, el nucleo recorre la tabla registro a registro haciendo un "Y" logico
+
+de la direccion y la mascara de nivel de generalizacion antes de compararla con el destino
+
+que muestra dicho registro.
+
+
+     La cuarta columna muestra varios indicadores que describen la ruta:
+
+
+
+G                  La ruta utiliza una pasarela.
+
+
+U                  La interface esta activa.
+
+
+H                  Esta interface permite el acceso a una sola maquina.  Este es el caso de la
+
+                   interface de lazo 127.0.0.1 en nuestro ejemplo.
+
+
+D                  Este indicador se activa cuando el registro es generado por un mensaje de
+
+                   redireccion ICMP (ver seccion 2.5).
+
+
+M                  Presente cuando este registro ha sido modificado por un mensaje de redirec-
+
+                   cion ICMP.
+
+
+
+     La columna Ref de la salida de netstat  muestra el numero de referencias a esta ruta,
+
+esto es, cuantas otras rutas dependen deesta (por ejemplo a traves de pasarelas).  Las dos
+
+ultimas columnas muestran el numero de veces que cada ruta ha sido usada y la interface
+
+que procesa los datagramas para dicha ruta.
+5.9.2      Consulta de las Estadisticas de una Interface
+
+
+
+Cuando se ejecuta con el indicador -i, netstat presenta las estadisticas de cada una de las
+
+interfaces de red configuradas en ese momento. Si se usa tambien la opcion -a, el resultado
+cson todas las interfaces presentes en el nucleo, no solo aquellas que ya han sido configuradas.
+
+En vstaout, netstat producira:
+
+
+
+       $  netstat  -i
+       Kernel  Interface  table
+       Iface    MTU  Met   RX-OK  RX-ERR  RX-DRP  RX-OVR   TX-OK  TX-ERR  TX-DRP  TX-OVR  Flags
+       lo           0    0    3185        0        0        0    3185        0        0        0  BLRU
+       eth0    1500    0  972633       17       20      120  628711      217        0        0  BRU
+     Los campos MTU y Met informan de los valores de MTU y metrica validos para la
+
+interface.   Las  columnas  RX  y  TX  muestran  el  total  de  paquetes  recibidos  y  enviados
+
+respectivamente sin errores (RX-OK/TX-OK), da"nados (RX-ERR/TX-ERR), cuantos han
+
+sido descartados (RX-DRP/TX-DRP), y cuantos se han perdido por desbordamiento (RX-
+
+OVR/TX-OVR).
+
+
+     La ultima  columna  muestra  los  indicadores  activos  para  cada  interface.  Se  trata  de
+
+abreviaturas de una sola letra correspondientes a los nombres de los indicadores usados
+
+para configurar la interface mediante ifconfig.
+
+
+
+B                  Direccion de emision activa.
+
+
+L                  Interface correspondiente a un dispositivo de lazo.
+
+
+M                  Recepcion de todos los paquetes (modo promiscuo).
+
+
+N                  No se usan pistas22
+
+
+O                  ARP esta desactivado en esta interface.
+
+
+P                  Se trata de una conexion punto-a-punto.
+
+
+R                  Interface en uso.
+
+
+U                  Interface activa.
+5.9.3      Mostrar Conexiones
+
+
+
+netstat soporta una serie de opciones que permiten mostrar sockets23 activos y pasivos. Las
+
+opciones -t,  -u,  -w,  y  -x muestran conexiones con sockets TCP, UDP, RAW, o UNIX.
+
+Si, adicionalmente incluye el indicador -a, tambien se muestran sockets en espera de una
+
+conexion (a la escucha).  Esto le permite listar todos los servidores que se ejecutan en su
+
+sistema.
+
+
+     La ejecucion de netstat -ta en vlager produce
+
+
+
+       $  netstat  -ta
+       Active  Internet  connections
+       Proto  Recv-Q  Send-Q  Local  Address      Foreign  Address      (State)
+       tcp           0        0  *:domain            *:*                      LISTEN
+       tcp           0        0  *:time               *:*                      LISTEN
+       tcp           0        0  *:smtp               *:*                      LISTEN
+       tcp           0        0  vlager:smtp        vstout:1040           ESTABLISHED
+       tcp           0        0  *:telnet            *:*                      LISTEN
+       tcp           0        0  localhost:1046    vbardolino:telnet   ESTABLISHED
+       tcp           0        0  *:chargen           *:*                      LISTEN
+       tcp           0        0  *:daytime           *:*                      LISTEN
+       tcp           0        0  *:discard           *:*                      LISTEN
+       tcp           0        0  *:echo               *:*                      LISTEN
+       tcp           0        0  *:shell              *:*                      LISTEN
+       tcp           0        0  *:login              *:*                      LISTEN
+     Vemos  que  la  mayoria  de  los  servidores  estan  simplemente  esperando  una  conexion
+
+entrante. Sin embargo, la cuarta linea muestra una conexion entrante SMTP desde vstout,
+
+y la sexta informa que hay una conexion saliente tipo telnet hacia vbardolino.24
+
+
+     El uso del indicador -aunicamente genera informacion de los sockets de todas las clases.
+
+5.10        Comprobacion  de  las  Tablas  ARP
+En ciertas ocasiones, resultautil poder ver o incluso alterar parte de las tablas ARP del
+
+nucleo, por ejemplo cuando sospecha que una direccion de IP duplicada causa problemas
+
+intermitentes en su red. La herramienta arp fue creada con este objeto. Sus opciones son
+       arp  [-v]  [-t  tipohw ]  -a  [maquina ]
+
+       arp  [-v]  [-t  tipohw ]  -s  maquna  direccionhw
+
+       arp  [-v]  -d  maquina  [maquina ...]
+_____________________________________________24
+     Para saber si la conexion es entrante o saliente basta mirar los puertos.  El puerto correspondiente a
+la maquina que llama es siempre un entero simple, mientras que la maquina receptora utiliza el puerto
+correspondiente al servicio en uso y que ademas es representado por netstat usando el nombre simbolico
+contenido en /etc/services.

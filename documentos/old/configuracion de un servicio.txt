@@ -1,0 +1,211 @@
+Capitulo  9
+Varias   Aplicaciones   de   Red
+Despues de instalar correctamente el IP y el resolvedor, tiene que dedicarse a los servicios
+
+que quiera proporcionar a traves de la red.  Este capitulo trata la configuracion de algunas
+
+sencillas aplicaciones de red,  incluyendo el servidor inetd,  y los programas de la familia
+
+rlogin.   El  interface  Remote  Procedure  Call1  en  el  que  estan  basados  servicios  como  el
+
+Network File System2 (NFS) y el Network Information System3 (NIS) sera tambien tratado
+
+brevemente aqui. Las configuraciones de NFS y de NIS, sin embargo, ocupan mas espacio y
+
+seran descritas en capitulos aparte. Lo mismo sucede con el correo electronico y las netnews.
+
+
+     Por supuesto, no podemos cubrir todas las aplicaciones de red eneste libro.  Si desea
+
+instalar alguna no tratada aqui,  como talk,  gopher,  o Xmosaic,  por favor,  refierase a su
+
+documentacion.
+
+9.1       El  Super-Servidor  inetd
+Frecuentemente, los servicios son llevados a cabo por los llamados demonios.  Un demonio
+
+es un programa que abre un determinado puerto, y espera a recibir peticiones de conexion.
+
+Si  se  recibe  una  peticion  de  conexion,  lanza  un  proceso  hijo  que  aceptara  la  conexion,
+
+mientras el padre continua escuchando a la espera de mas peticiones. Este concepto tiene el
+
+inconveniente de que por cada servicio ofrecido, se necesita ejecutar un demonio que escuche
+
+por su puerto a que ocurra una conexion, lo que generalmente significa un desperdicio de
+
+recursos de sistema como, por ejemplo, de espacio de intercambio.
+
+
+     Por ello, casi todas las instalaciones un?x corren un "super-servidor" que crea sockets
+
+para varios servicios, y escucha en todos ellos simultaneamente usando la llamada al sistema
+_____________________________________________1
+     N. del T. Literalmente, Llamada a Procedimiento Remoto.
+   2 N. del T. Sistema de Ficheros de Red.
+   3 N. del T. Sistema de Informacion de Red.
+select(2).  Cuando un nodo remoto requiere uno de los servicios, el super-servidor lo recibe
+
+y llama al servidor especificado para ese puerto.
+
+
+     El  super-servidor  usado  comunmente  es  inetd,  el  demonio  Internet.   Es  iniciado  en
+
+tiempo de arranque del sistema, y toma la lista de servicios que debe tratar de un fichero
+
+de arranque denominado /etc/inetd.conf.  Aparte de esos servidores invocados por inetd,
+
+hay varios servicios triviales que el propio inetd  se encarga de llevar a cabo denominados
+
+servicios internos. Entre ellos, el chargen que simplemente genera una cadena de caracteres,
+
+y el daytime que devuelve la idea del sistema de la hora del dia.
+
+
+     Una  entrada  deeste  fichero  consiste  en  una unica  linea  compuesta  de  los  siguientes
+
+campos:
+       servicio  tipo  protocolo  espera  usuario  servidor  linea_de_comando
+El significado de cada campo es como sigue:
+
+
+
+servicio           proporciona el nombre del servicio. El nombre del servicio debe ser traducido
+
+                   a un numero de puerto consultando en el fichero /etc/services.  Este fichero
+
+                   sera descrito mas adelante en la seccion 9.3.
+
+
+tipo               especifica un tipo de socket, ya sea stream (para protocolos orientados a la
+
+                   conexion) o dgram (para protocolos no orientados a la conexion).  Servicios
+
+                   basados en TCP deberan, por lo tanto, usar siempre stream, mientras que
+
+                   los servicios basados en UDP deberan usar siempre dgram.
+
+
+protocolo          indica el protocolo de transporte usado por el servicio.  Este debe ser un
+
+                   nombre de protocolo valido que se pueda encontrar en el fichero protocols,
+
+                   tambien descrito mas adelante.
+
+
+espera             Esta opcion se aplica solo en sockets de tipo dgram. Puede tomar los valores
+
+                   wait  o nowait.  Si se especifica wait, inetd  ejecutara solo un servidor cada
+
+                   vez para el puerto especificado.  De otro modo, continuara escuchando por
+
+                   el puerto inmediatamente despues de ejecutar el servidor.
+
+                   Esto esutil para servidores "single-threaded" que leen todos los datagramas
+
+                   que entran hasta que no llegan mas, y despues acaban.  La mayor parte de
+
+                   los servidores RPC son deeste tipo y deberan por ello especificar wait.  El
+
+                   otro tipo de servidores, los "multi-threaded", permiten un numero ilimitado
+
+                   de  instancias  corriendo  concurrentemente; estos  son  raramente  utilizados.
+
+                   Estos servidores deberan especificar nowait.
+
+                   Con sockets de tipo stream se debera especificar siempre nowait.
+usuario            Este es el identificador de login del usuario bajo el que se ejecutara el proceso.
+
+                   Por lo general,este suele ser el usuario root, aunque algunos servicios pueden
+
+                   usar diferentes cuentas.  Es una buena idea el aplicar aqui el principio de
+
+                   el  menor  privilegio,  que  indica  que  uno  no  deberia  ejecutar  un  comando
+
+                   bajo una cuenta privilegiada si el programa no lo requiere para funcionar
+
+                   correctamente. Por ejemplo, el servidor de noticias NNTP se ejecutara como
+
+                   news, mientras que otros servicios que podrian significar un riesgo para la
+
+                   seguridad (como tftp o finger ) son normalmente ejecutados como nobody.
+
+
+servidor           proporciona el camino completo del programa servidor a ejecutar.  Los ser-
+
+                   vicios internos son marcados con la palabra internal.
+
+linea_de_comando
+
+                   Esta es la linea de comando a pasar al servidor. Esto incluye el argumento 0,
+
+                   es  decir,  el  nombre  del  comando.   Normalmente, este  sera  el  nombre  de
+
+                   programa del servidor, salvo que el programa se comporte de forma distinta
+
+                   cuando se le invoque con un nombre diferente.
+
+                   Este campo se deja vacio para los servicios internos.
+
+
+
+     En  la  figura  9.1  se  muestra  un  ejemplo  de  fichero  /etc/inetd.   La  linea  del  servicio
+
+finger  esta comentada, de forma que no este disponible.  Esto se suele hacer normalmente
+
+por razones de seguridad porque podria ser usado por atacantes para obtener nombres de
+
+usuarios del sistema.
+
+
+     El tftp tambien se muestra deshabilitado. tftp implementa el Trivial File Transfer Pro-
+
+tocol que permite transferir cualquier fichero del sistema que tenga permiso de lectura global
+
+sin chequeo de passwords, etc.  Esto es especialmente peligroso con el fichero /etc/passwd,
+
+sobre todo si no se usa shadow password.
+
+
+     TFTP  es  usado  comunmente  por  clientes  y  terminales  X  sin  unidad  de  discos  para
+
+obtener  su  codigo  de  un  servidor  de  arranque.  Si  necesita  ejecutar  tftp  poresta  razon,
+
+asegurese de limitar su accion a los directorios de los que los clientes obtendran los ficheros
+
+a"nadiendo esos nombres de directorio a la linea de comando del tftpd.  Esto se muestra en
+
+la segunda linea tftp del ejemplo.
+
+9.2       La  herramienta  de  control  de  acceso  tcpd
+Como abrir un ordenador al acceso en red implica muchos riesgos de seguridad, las apli-
+
+caciones estan dise"nadas para protegerse ante varios tipos de ataques.  Algunas deestas
+
+aplicaciones, sin embargo, pueden ser reventadas (lo que quedo bastante demostrado con
+
+el RTM Internet worm), o pueden no distinguir entre un nodo seguro cuyas peticiones de
+       #
+       #  servicios  inetd
+       ftp          stream  tcp  nowait  root    /usr/sbin/ftpd      in.ftpd  -l
+       telnet      stream  tcp  nowait  root    /usr/sbin/telnetd  in.telnetd  -b/etc/issue
+       #finger      stream  tcp  nowait  bin      /usr/sbin/fingerd  in.fingerd
+       #tftp        dgram   udp  wait    nobody  /usr/sbin/tftpd    in.tftpd
+       #tftp        dgram   udp  wait    nobody  /usr/sbin/tftpd    in.tftpd  /boot/diskless
+       login       stream  tcp  nowait  root    /usr/sbin/rlogind  in.rlogind
+       shell       stream  tcp  nowait  root    /usr/sbin/rshd      in.rshd
+       exec        stream  tcp  nowait  root    /usr/sbin/rexecd   in.rexecd
+       #
+       #          servicios  internos  inetd
+       #
+       daytime    stream  tcp  nowait  root  internal
+       daytime    dgram   udp  nowait  root  internal
+       time        stream  tcp  nowait  root  internal
+       time        dgram   udp  nowait  root  internal
+       echo        stream  tcp  nowait  root  internal
+       echo        dgram   udp  nowait  root  internal
+       discard    stream  tcp  nowait  root  internal
+       discard    dgram   udp  nowait  root  internal
+       chargen    stream  tcp  nowait  root  internal
+       chargen    dgram   udp  nowait  root  internal
+                         Figura 9.1: Un ejemplo de fichero /etc/inetd.conf.

@@ -1,0 +1,208 @@
+6.1       La  biblioteca  de  resolucion
+Cuando hablamos del "sistema de resolucion", no nos referiremos a una aplicacion en par-
+
+ticular, sino a la biblioteca de resolucion: un conjunto de funciones que pueden encontrarse
+
+en las bibliotecas estandar del lenguaje C. Las rutinas principales son gethostbyname(2) y
+
+gethostbyaddr(2), que buscan la direccion IP de una maquina a partir del nombre y vicever-
+
+sa. Es posible configurarlas para que simplemente miren en el fichero hosts local (o remoto,
+
+si se usa NIS). Otras aplicaciones, como smail, pueden incluir diferentes rutinas para esto
+
+y necesitan cierto cuidado.
+6.1.1      El fichero host.conf
+
+
+
+El fichero host.conf  es fundamental para controlar la configuracion del sistema de resolucion
+
+de nombres. Se encuentra en el directorio /etc e indica al sistema de resolucion que servicios
+
+debe usar y en que orden.
+
+
+     Las opciones del fichero host.conf  deben estar en lineas distintas.  Los campos deben
+
+separarse por blancos (espacios o tabuladores). Un simbolo almohadillado (#) supone desde
+
+ese punto hasta el final de la linea un comentario del fichero.
+
+
+     Las opciones disponibles son las siguientes:
+
+
+
+order              Determina el orden en el que los servicios de resolucion se usan.  Opciones
+
+                   validas  son  bind  para  usar  el  servidor  de  nombres,  hosts  para  buscar  en
+
+                   /etc/hosts y nis para buscar con NIS. Puede especificarse cualquiera de las
+
+                   anteriores, y el orden de aparicion determina que servicio se prueba en primer
+
+                   lugar para intentar resolver el nombre.
+
+
+multi              Va con las opciones on u off. Determina si una maquina del fichero /etc/hosts
+
+                   puede tener distintas direcciones IP o no.  Esta opcion no tiene efecto en
+
+                   peticiones via NIS o DNS.
+
+
+nospoof            Como se explico en el capitulo anterior, DNS le permite encontrar un nom-
+
+                   bre de maquina perteneciente a una direccion IP dada utilizando el dominio
+
+                   in-addr.arpa.  Los intentos de los servidores de nombres de proporcionar
+
+                   un nombre falso se conocen en Ingles como "spoofing"1. Para evitar esto, el
+
+                   sistema puede configurarse para comprobar si las direcciones IP originales
+
+                   estan de hecho asociadas con el nombre obtenido.  Si no, el nombre sera re-
+
+                   chazado y se retornara un error.  Esta opcion se activa poniendo nospoof
+
+                   on.
+alert              Esta opcion puede ir con las palabras on u off. Si se activa, cualquier intento
+
+                   de dar nombre falso sera anotado con un mensaje enviado al sistema syslog.
+
+
+trim               Esta opcion lleva un nombre de dominio como argumento, que se quitara a
+
+                   los nombres antes de buscar su direccion. Esutil para las entradas del fiche-
+
+                   ro hosts, que podran asi ir solos los nombres de maquinas, sin el dominio.
+
+                   Cuando se busque una maquina con el nombre de dominio localeste sera eli-
+
+                   minado, haciendo que la busqueda en el fichero /etc/hosts tengaexito.
+
+                   Esta opcion puede ir repetida con varios dominios, de modo que su maquina
+
+                   podria ser local a varios dominios.
+
+
+
+     Un ejemplo de este fichero para la maquina vlager seria:
+
+
+
+       #  /etc/host.conf
+       #  Tenemos  servidor  de  nombres,  pero  no  NIS  (de  momento)
+       order    bind  hosts
+       #  Permitir  multiples  direcciones
+       multi    on
+       #  Contra  los  nombres  falsos
+       nospoof  on
+       #  Dominio  local  por  defecto  (no  necesario).
+       trim      vbrew.com.
+6.1.2      Variables de entorno
+
+
+
+Existen algunas variables de entorno que establecen opciones que tienen mas prioridad sobre
+
+las puestas en el fichero host.conf. Estas son:
+
+
+
+RESOLV_HOST_CONF
+
+                   Especifica un fichero alternativo a /etc/host.conf.
+
+RESOLV_SERV_ORDER
+
+                   Establece la opcion equivalente a la orden order del fichero anterior. Los ser-
+
+                   vicios pueden ser hosts, keywordbind y/o keywordnis, separados por comas,
+
+                   espacios, puntos o puntos y coma.
+
+RESOLV_SPOOF_CHECK
+
+                   Determina la politica seguida frente a los nombres falsos.  Estara completa-
+
+                   mente desactivada con la opcion off.  Con las opciones warn  y warn off  se
+
+                   realizaran comprobaciones contra los nombres falsos, pero en el primer caso
+
+                   se mandaran los avisos al log.  Un valor *  activa las comprobaciones contra
+
+                   nombres falsos,  pero las anotaciones en log se dejan como diga el fichero
+
+                   host.conf.
+ 
+RESOLV_MULTI       El valor on activa la opcion "multi", y el valor off  la desactiva.
+
+                   ditem[RESOLV_OVERRIDE_TRIM_DOMAINS] Esta variable lleva una lista de dominios
+                   por defecto, similar a la puesta en el fichero host.conf  con la opcion trim.
+
+RESOLV_ADD_TRIM_DOMAINS
+                   Esta variable lleva una lista de dominios por defecto que se a"nade a las que se dan
+                   en el fichero host.conf.
+6.1.3      Configuracion del fichero resolv.conf
+
+
+
+Cuando  se  configura  la  libreria  de  resolucion  para  utilizar  los  servicios  de  BIND,  tiene
+
+que indicarse tambien que servidores utilizar.  El fichero resolv.conf  contiene una lista de
+
+servidores, que si esta vacia hara considerar al sistema que el servidor esta en su maquina.
+
+
+     Si  ejecuta  un  servidor  de  nombres  en  su  maquina  local,  tendra  que  configurarlo  por
+
+separado,  como se explicara despues.  Si se encuentra en una red local y puede usar un
+
+servidor de nombres existente, mejor.
+
+
+     La opcion mas importante del fichero resolv.conf  es nameserver, que tiene la direccion IP
+
+del  servidor  de  nombres  a  usar.   Si  especifican  varios  servidores  poniendo  varias  lineas
+
+nameserver, se intentaran usar en el orden dado; por lo que deberia poner en primer lugar
+
+el servidor de nombres mas rapido o cercano.  Actualmente, puede ponerse un maximo de
+
+tres servidores distintos.
+
+
+     Si no hay ninguna linea nameserver, se intentara buscar el servidor en la propia maquina
+
+local.
+
+
+     Hay dos opciones mas:  domain y search, indicando la primera dominios alternativos a
+
+probar si la busqueda inicial del nombre falla.  Estos dominio iran separados por blancos o
+
+tabuladores.
+
+
+     Si no se incluye una opcion search, se construira una lista de busqueda por defecto por
+
+el dominio local mas todos los dominios padre hasta el raiz.  El dominio local puede darse
+
+con la opcion domain, y si no se da ninguno el sistema de resolucion lo obtendra mediante
+
+la llamada al sistema getdomainname(2).
+
+
+Como lo anterior puede resultar confuso, sea el siguiente ejemplo de fichero resolv.conf  para
+
+la Cerveceria Virtual:
+
+
+
+       #  /etc/resolv.conf
+       #  Nuestro  dominio
+       domain            vbrew.com
+       #
+       #  Nuestro  servidor  principal  va  a  ser  vlager:

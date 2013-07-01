@@ -1,0 +1,145 @@
+Capítulo 1. El Lenguaje Procedimental SQL - PL/pgSQL
+Nota: Este documento fue traducido y adaptado por Roberto Andrade Fonseca (randradefonseca@
+gmail.com), tomando como base el capítulo llamado ’PL/pgSQL - SQL
+Procedural Language’ de la documentación de PostgreSQL, versión 8.04, en octubre de
+2005. Esta es una versión reducida del capítulo mencionado.
+PL/pgSQL es un lenguaje procedimental cargable para el sistema de base de datos
+PostgreSQL. Los objetivos propuestos para PL/pgSQL consisten en crear un lenguaje
+procedimental cargable que
+• pueda ser usado para crear funciones y procedimientos disparadores,
+• adicione estructuras de control al lenguaje SQL,
+• sea capaz de realizar cálculos complejos,
+• herede todos los tipos, las funciones y los operadores definidos por el usuario,
+• pueda ser definido como confiable (trusted) por el servidor,
+• sea fácil de usar.
+Excepto por las conversiones de entrada/salida y las funciones de cálculo para los
+tipos definidos por el usuario, todo lo que puede definirse por medio de funciones
+en el lenguaje C puede definirse también con PL/pgSQL. Por ejemplo, es posible crear
+funciones computacionales condicionales complejas que pueden ser usadas posteriormente
+para definir operadores o usarlas en expresiones asociadas a los índices.
+Visión General
+El manejador de llamadas de PL/pgSQL analiza sintácticamente el texto del código
+fuente de la función y produce un árbol de instrucciones binario interno la primera
+vez que se llama una función (dentro de cada sesión). El árbol de instrucciones traduce
+completamente la estructura de los comandos PL/pgSQL, pero las expresiones
+individuales SQL y los comandos SQL usados en las funciones no son traducidas de
+inmediato.
+Cada vez que es usado por primera vez un comando SQL en la función el intérprete
+PL/pgSQL crea un plan preparado de ejecución (usando las funciones SPI_prepare
+y SPI_saveplan del administrador SPI). Las visitas subsecuentes a esa expresión o
+comando reutilizan el plan preparado. Así, una función con código condicional que
+contiene varias sentencias para las cuales se requiere del plan de ejecución, solamente
+preparará y guardará aquellos planes que realmente sean usados durante el ciclo de
+vida de la conexión de la base de datos. Esto puede reducir de manera importante
+el tiempo total requerido para revisar y generar los planes de ejecución para las sentencias
+en una función de PL/pgSQL. Una desventaja es que aquellos errores de un
+comando o expresión específica pueden no ser detectados hasta que esa parte de la
+función sea alcanzada en la ejecución.
+Una vez que PL/pgSQL haya generado un plan de ejecución para un comando particular
+en una función, éste será reutilizado durante el ciclo de vida de la conexión de
+la base de datos. Generalmente esto es una ventaja para el desempeño, pero puede
+causar algunos problemas si se modifica dinámicamente el esquema de la base de
+datos. Por ejemplo:
+CREATE FUNCTION populate() RETURNS integer AS $$
+DECLARE
+-- declaraciones
+BEGIN
+PERFORM my_function();
+END;
+$$ LANGUAGE plpgsql;
+Si ejecuta la función anterior, ésta hará referencia al OID de my_function() en el plan
+de ejecución generado para el comando PERFORM. Más tarde, si elimina (drop) y
+recrea my_function(), entonces populate() no podrá encontrar de ninguna manera
+my_function(). Tendría que recrear populate(), o al menos iniciar una nueva
+sesión de la base de datos para que se recompile nuestra función. Otra manera de
+evitar este problema es usar CREATE OR REPLACE FUNCTION cuando se actualice
+la definición de my_function (cuando una función es “reemplazada”, su OID no
+sufre cambios).
+Debido a que PL/pgSQL guarda los planes de ejecución de esta manera, los comandos
+SQL que aparecen directamente en una función PL/pgSQL deben referirse a las mismas
+tablas y columnas en cada ejecución; es decir, usted no puede usar un parámetro
+como el nombre de una tabla o una columna en un comando SQL. Para darle la
+vuelta a esta restricción, puede construir comandos dinámicos usando la sentencia
+EXECUTE de PL/pgSQL—pagando el precio de generar un nuevo plan de ejecución
+en cada ejecución.
+Nota: La sentencia EXECUTE de PL/pgSQL no está relacionada con el comando SQL
+que es soportado por el servidor PostgreSQL. La sentencia EXECUTE del servidor no
+puede usarse dentro de las funciones PL/pgSQL (y no es necesaria).
+Ventajas del Uso de PL/pgSQL
+SQL es el lenguaje que PostgreSQL y la mayoría de la bases de datos relacionales
+usan como lenguaje de consulta. Es portable y fácil de aprender. Pero cada sentencia
+SQL debe ser ejecutada individualmente por el servidor de la base de datos.
+Esto significa que su aplicación cliente debe enviar cada consulta al servidor de la
+base de datos, esperar a que sea procesada, recibir los resultados, hacer algunos cálculos,
+y enviar después otras consultas al servidor. Todo esto implica la comunicación
+entre procesos y puede también implicar una sobrecarga a la red si su cliente se encuentra
+en una máquina diferente a la del servidor de la base de datos.
+Con PL/pgSQL usted puede agrupar un bloque de cálculos y una serie de consultas
+dentro del servidor de la base de datos, obteniendo de esta manera el poder de un
+lenguaje procedimental y la facilidad de uso de SQL, pero ahorrando una gran cantidad
+de tiempo debido a que no tiene la sobrecarga de la comunicación completa
+cliente/servidor. Esto puede aumentar el desempeño de una manera considerable.
+También, con PL/pgSQL usted puede usar todos los tipos de datos, operadores y funciones
+de SQL.
+Argumentos y Tipos de Datos de los Resultados Soportados
+Las funciones escritas en PL/pgSQL pueden aceptar como argumentos cualquier tipo
+de datos escalar o matriz soportados por el servidor, y pueden regresar un resultado
+de cualquiera de esos tipos. Tambien pueden aceptar o regresar cualquier tipo
+compuesto (tipo renglón, row type) especificado por su nombre. También es posible
+declarar una función de PL/pgSQL que regrese un registro (record), lo cual significa
+que el resultado es del tipo renglón, cuyas columnas son definidas por la especifi-
+cación de la llamada a la consulta.
+Las funciones PL/pgSQL también pueden declararse para que acepten y regresen los
+tipos polimórficos anyelement y anyarray. Los tipo de datos actuales manejados por
+una función polimórfica pueden variar de llamada en llamada. En la sección de nombre
+Aliases para los Parámetros de las Funciones se muestra un ejemplo.
+Las funciones PL/pgSQL también pueden declararse para que regresen un “conjunto
+(set)”, o tabla, de cualquier tipo de datos del cual puedan regresar una sola instancia.
+Tal función genera su salida ejecutando RETURN NEXT para cada elemento deseado
+del conjunto de resultados.
+Finalmente, una función PL/pgSQL puede ser declarada para que regrese void si
+acaso no se utiliza el valor de retorno.
+PL/pgSQL no tiene actualmente el soporte completo para tipos dominio: trata un dominio
+de la misma manera que el tipo escalar subyacente. Esto significa que las restricciones
+asociadas con el dominio no serán forzadas. Esto no es un problema para
+los argumentos de las funciones, pero es un peligro si usted declara una función
+PL/pgSQL que devuelva un tipo dominio.
+Sugerencias para Desarrollar en PL/pgSQL
+Una buena manera de programar en PL/pgSQL es utilizar su editor de textos favorito
+para crear sus funciones y, en otra ventana, usar psql para cargar y probar esas funciones.
+Si lo hace de esta manera, es una buena idea escribir la función usando CREATE
+OR REPLACE FUNCTION. De esta manera usted puede recargar el archivo
+para actualizar la definición de la función. Por ejemplo:
+CREATE OR REPLACE FUNCTION testfunc(integer) RETURNS integer AS $$
+....
+$$ LANGUAGE plpgsql;
+Desde psql usted puede cargar o recargar la definición de la función con
+\i nombrearchivo.sql
+e inmediatamente teclear los comandos SQL necesarios para probar la función.
+Otra manera adecuada de programar en PL/pgSQL es por medio de una herramienta
+GUI de acceso a la base de datos, que le facilite el desarrollo de un lenguaje procedimental.
+Un ejemplo es PgAccess, aunque existen otras. Estas herramientas suelen
+ofrecer prestaciones convenientes para escapar las comillas sencillas y facilitar la
+recreación y depuración de las funciones.
+Manejo de las Comillas
+El código de una función PL/pgSQL se especifica en CREATE FUNCTION como una
+cadena literal. Si usted escribe la cadena literal de la manera común, con comillas
+sencillas como delimitadores, entonces cada comilla sencilla dentro del cuerpo de
+la función debe ser duplicada; de igual manera cualquier diagonal inversa debe ser
+duplicada. La duplicación de las comillas es, por lo menos, tedioso, y en los casos
+complejos el código se vuelve incomprensible, debido a que se pueden necesitar media
+docena o más de comillas sencillas contiguas. Es recomendable que mejor escriba
+el cuerpo de la función como una cadena literal “dollar-quoted”. Con el estilo dollarquoting
+usted nunca necesitará duplicar las comillas, en cambio deberá cuidar el uso
+de un delimitador dollar-quoting diferente para cada nivel de anidamiento que necesite.
+Por ejemplo, usted debe escribir el comando CREATE FUNCTION como
+CREATE OR REPLACE FUNCTION testfunc(integer) RETURNS integer AS $PROC$
+....
+$PROC$ LANGUAGE plpgsql;
+Dentro de éste, usted puede usar comillas para las cadenas literales simples en los
+comandos SQL y $$ para delimitar fragmentos de comandos SQL que esté ensamblando
+para crear cadenas más largas. Si necesita incluir en su texto $$, puede usar
+$Q$ y así consecutivamente.
+La siguiente tabla le muestra lo que debe hacer cuando escriba comillas sin delimitar
+su cadena con $$. Puede serle útil cuando traduzca sus funciones hechas con código
+en el que no se usaba $$ y para hacer más claro el código.

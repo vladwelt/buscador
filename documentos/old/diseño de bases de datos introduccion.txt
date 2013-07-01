@@ -1,0 +1,115 @@
+Cap´itulo 1
+Dise˜no de bases de datos
+relacionales
+1.1 Introducci´on
+Se inicia este cap´itulo con fragmentos extra´idos de dos libros. El primer
+fragmento es del libro titulado “Database design for mere mortals” de Michael
+J. Hern´andez (1997), en donde se justifica la importancia del dise˜no de bases de
+datos:
+“Algunas de las personas que trabajan con SGBD relacionales parecen preguntarse
+porqu´e deber´ian preocuparse del dise˜no de las bases de datos que utilizan.
+Despu´es de todo, la mayor´ia de los SGBD vienen con bases de datos de
+ejemplo que se pueden copiar y despu´es modificar, para que se adecuen a cada
+caso particular, e incluso las tablas de esas bases de datos de ejemplo se pueden
+cortar y pegar en una nueva base de datos. Algunos SGBD tienen ‘asistentes’,
+herramientas que gu´ian al usuario a trav´es del proceso de definici´on y creaci´on
+de tablas. Sin embargo, esas herramientas no sirven para dise˜nar una base de
+datos, tan solo ayudan a crear las tablas f´isicas que se incluir´an en la base de
+datos.
+Lo que la mayor´ia de la gente no parece entender es que esas herramientas
+se deben utilizar despu´es de que se haya realizado el dise˜no l´ogico de la base
+de datos. Los asistentes y las bases de datos de ejemplo se suministran para
+minimizar el tiempo que lleva implementar la estructura f´isica de la base de
+datos. La idea es que si se ahorra tiempo en la implementaci´on de la estructura
+de la base de datos una vez se ha realizado el dise˜no l´ogico, habr´a m´as tiempo
+para centrarse en la creaci´on y construcci´on de las aplicaciones que se utilizar´an
+para trabajar con los datos de la base de datos.
+Por lo tanto, la raz´on para preocuparse por el dise˜no de las bases de datos
+es que es crucial para la consistencia, integridad y precisi´on de los datos. Si una
+base de datos est´a mal dise˜nada, los usuarios tendr´an dificultades a la hora de
+acceder a ciertos tipos de informaci´on y existe el riesgo a˜nadido de que ciertas
+b´usquedas puedan producir informaci´on err´onea. La informaci´on err´onea es,
+probablemente, el peor de los resultados de un mal dise˜no de la base de datos.
+Puede repercutir muy negativamente a la empresa u organizaci´on propietaria de
+los datos. De hecho, si los datos de una base de datos van a influir en la gesti´on
+del negocio, si van a servir para decidir las actuaciones de la empresa, la base
+de datos debe ser una preocupaci´on.
+Vi´endolo desde una perspectiva diferente, la base de datos es como una casa
+que queremos que nos construyan. ¿Qu´e es lo primero que hay que hacer? Desde
+luego, lo que no vamos a hacer es buscar a un constructor que haga la casa sobre
+la marcha y como ´el quiera. Seguramente, buscaremos primero a un arquitecto
+que dise˜ne nuestra nueva casa y despu´es haremos que el constructor la edifique.
+El arquitecto expresar´a nuestras necesidades en una serie de planos, anotando
+todos los requisitos de los diversos sistemas (estructural, mec´anico y el´ectrico).
+Despu´es, el constructor pondr´a los materiales necesarios, tal y como se indica
+en los planos y en las especificaciones.
+Volviendo a la perspectiva de las bases de datos, el dise˜no l´ogico corresponde
+con la fase de elaboraci´on de los planos arquitect´onicos, y la implementaci´on
+f´isica de la base de datos es la casa ya construida. El dise˜no l´ogico describe el
+tama˜no, la forma y los sistemas necesarios para la base de datos: contiene las
+necesidades en cuanto a informaci´on y modo de operaci´on del negocio. Despu
+´es, se construye la implementaci´on f´isica del dise˜no l´ogico de la base de datos
+mediante el SGBD. Si pensamos en un sistema relacional, una vez creadas las
+tablas, establecidas las relaciones y los niveles de integridad necesarios, la base
+de datos est´a finalizada. Ahora ya se pueden crear las aplicaciones que permiten
+interactuar con los datos de la base de datos, y podemos estar seguros de
+que estas aplicaciones proporcionar´an la informaci´on oportuna y, sobre todo, la
+informaci´on correcta.
+Se pueden hacer malos dise˜nos, pero una base de datos bien dise˜nada contendr
+´a informaci´on correcta, almacenar´a los datos m´as eficientemente y ser´a
+m´as f´acil de gestionar y de mantener.”
+El segundo fragmento es del libro de Batini, Ceri y Navathe (1994) titulado
+“Dise˜no conceptual de bases de datos”. Este texto incide en la importancia del
+uso de t´ecnicas estructuradas de dise˜no.
+“El dise˜no de bases de datos es el proceso por el que se determina la organizaci
+´on de una base de datos, incluidos su estructura, contenido y las aplicaciones
+que se han de desarrollar. Durante mucho tiempo, el dise˜no de bases de datos
+fue considerado una tarea para expertos: m´as un arte que una ciencia. Sin
+embargo, se ha progresado mucho en el dise˜no de bases de datos y ´este se considera
+ahora una disciplina estable, con m´etodos y t´ecnicas propios. Debido
+a la creciente aceptaci´on de las bases de datos por parte de la industria y los
+gobiernos en el plano comercial, y a una variedad de aplicaciones cient´ificas y
+t´ecnicas, el dise˜no de bases de datos desempe˜na un papel central en el empleo
+de los recursos de informaci´on en la mayor´ia de las organizaciones. El dise˜no
+de bases de datos ha pasado a constituir parte de la formaci´on general de los
+inform´aticos, en el mismo nivel que la capacidad de construir algoritmos usando
+un lenguaje de programaci´on convencional.”
+“Las ´ultimas dos d´ecadas se han caracterizado por un fuerte crecimiento
+en el n´umero e importancia de las aplicaciones de bases de datos. Las bases
+de datos son componentes esenciales de los sistemas de informaci´on, usadas
+rutinariamente en todos los computadores [. . . ]. El dise˜no de bases de datos se
+ha convertido en una actividad popular, desarrollada no s´olo por profesionales
+sino tambi´en por no especialistas.
+A finales de la d´ecada de 1960, cuando las bases de datos entraron por primera
+vez en el mercado del software, los dise˜nadores de bases de datos actuaban
+como artesanos, con herramientas muy primitivas: diagramas de bloques y estructuras
+de registros eran los formatos comunes para las especificaciones, y el
+dise˜no de bases de datos se confund´ia frecuentemente con la implantaci´on de
+las bases de datos. Esta situaci´on ahora ha cambiado: los m´etodos y modelos
+de dise˜no de bases de datos han evolucionado paralelamente con el progreso
+de la tecnolog´ia en los sistemas de bases de datos. Se ha entrado en la era
+de los sistemas relacionales de bases de datos, que ofrecen poderosos lenguajes
+de consulta, herramientas para el desarrollo de aplicaciones e interfaces amables
+con los usuarios. La tecnolog´ia de bases de datos cuenta ya con un marco
+te´orico, que incluye la teor´ia relacional de datos, procesamiento y optimizaci´on
+de consultas, control de concurrencia, gesti´on de transacciones y recuperaci´on,
+etc.
+Seg´un ha avanzado la tecnolog´ia de bases de datos, as´i se han desarrollado las
+metodolog´ias y t´ecnicas de dise˜no. Se ha alcanzado un consenso, por ejemplo,
+sobre la descomposici´on del proceso de dise˜no en fases, sobre los principales
+objetivos de cada fase y sobre las t´ecnicas para conseguir estos objetivos.”
+“Desafortunadamente, las metodolog´ias de dise˜no de bases de datos no son
+muy populares; la mayor´ia de las organizaciones y de los dise˜nadores individuales
+conf´ia muy poco en las metodolog´ias para llevar a cabo el dise˜no y esto se
+considera, con frecuencia, una de las principales causas de fracaso en el desarrollo
+de los sistemas de informaci´on. Debido a la falta de enfoques estructurados para
+el dise˜no de bases de datos, a menudo se subestiman el tiempo o los recursos
+necesarios para un proyecto de bases de datos, las bases de datos son inadecuadas
+o ineficientes en relaci´on a las demandas de la aplicaci´on, la documentaci´on es
+limitada y el mantenimiento es dif´icil.
+Muchos de estos problemas se deben a la falta de una claridad que permita
+entender la naturaleza exacta de los datos, a un nivel conceptual y abstracto. En
+muchos casos, los datos se describen desde el comienzo del proyecto en t´erminos
+de las estructuras finales de almacenamiento; no se da peso a un entendimiento
+de las propiedades estructurales de los datos que sea independiente de los detalles
+de la realizaci´on.”

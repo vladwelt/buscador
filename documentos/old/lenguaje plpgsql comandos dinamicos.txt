@@ -1,0 +1,93 @@
+Ejecución de Comandos Dinámicos
+Con frecuencia tendrá necesidad de generar comandos dinámicos dentro de sus funciones
+PL/pgSQL, esto es, comandos que involucren diferentes tablas o diferentes
+tipos, cada vez que son ejecutados. Los intentos normales de PL/pgSQL para guardar
+los planes para los comandos no trabajarán es tales escenarios. Para manejar esa clase
+de problemas se proporcion el comando EXECUTE:
+EXECUTE cadena-de-comando;
+En donde cadena-de-comando es una expresión que da como resultado una cadena
+(de tipo text), la cual contiene el comando a ser ejecutado. Esta cadena se alimenta,
+literalmente, a la máquina SQL.
+Observe en particular que no se realiza ninguna sustitución de variables PL/pgSQL en
+la cadena de comando. Los valores de las variables deben ser insertados en la cadena
+de comando al momento de construirse.
+A diferencia de otros comandos en PL/pgSQL, un comando ejecutado por una sentencia
+EXECUTE no se prepara y guarda sólo una vez durante la vida de la sesión.
+En cambio, el comando se prepara cada vez que se ejecuta la sentencia. La cadena de
+comando puede se creada dinámicamente dentro de la función para ejecutar acciones
+en diferentes tablas y columnas.
+Los resultados de un SELECT son descartados por el comando EXECUTE y el SELECT
+INTO no está soportado actualmente dentro de EXECUTE. Así que no hay
+manera de extraer un resultado de un SELECT creado dinámicamente usando el
+comando EXECUTE simple. Sin embargo, existen otras maneras de hacerlo: una implica
+el usar la forma del ciclo FOR-IN-EXECUTE descrita en la sección de nombre
+Ciclos a Través de Resultados de Consultas, y la otra es utilizar un cursor con OPENFOR-
+EXECUTE, como se describe en la sección de nombre Apertura de Cursores.
+Cuando trabaje con comandos dinámicos tendrá que contender frecuentemente con
+el escape de las comillas sencillas. El método recomendado para entrecomillar texto
+fijo en el cuerpo de su función es el entrecomillar con el signo de dólares. (Si tiene
+código heredado que no use el entrecomillado con el signo de dólares, refiérase a
+la visión general en la sección de nombre Manejo de las Comillas, la cual de ahorrará
+algunos esfuerzos al traducir dicho código a un esquema más razonable).
+Los valores dinámicos que se van a insertar dentro de la consulta construída requieren
+un manejo especial, puesto que ellos mismos pueden contener comillas. Un
+ejemplo (presupone que usted está usando entrecomillado con el signo de dólares
+para toda la función, de tal manera que las comillas no necesitan ser dobles):
+EXECUTE ’UPDATE tbl SET ’
+|| quote_ident(nombrecol)
+|| ’ = ’
+|| quote_literal(nuevovalor)
+|| ’ WHERE llave= ’
+|| quote_literal(llavevalor);
+Este ejemplo ilustra el uso de las funciones quote_ident(text) y
+quote_literal(text). Por seguridad, las variables que contienen valores
+que deben ser cadenas literales en el comando construído deben pasarse a
+quote_literal. Ambas siguen los pasos apropiados para regresar el texto de
+entrada encerrado en comillas sencillas o dobles respectivamente, con cualquier
+caracter especial embebido escapado de la manera correcta.
+Observe que el entrecomillado con el símbolo de dólares es útil solamente para entrecomillar
+texto fijo. Sería muy mala idea el tratar de hacer el ejemplo anterior como
+EXECUTE ’UPDATE tbl SET ’
+|| quote_ident(nombrecol)
+|| ’ = $$’
+|| nuevovalor
+|| ’$$ WHERE llave= ’
+|| quote_literal(llavevalor);
+debido a que podría fallar si el contenido de nuevovalor contiene $$. La misma
+objeción podría aplicarse a cualquier otro delimitador del tipo dólar que usara. Asi
+que, para entrecomillar de manera segura el texto que no conozca de inicio, debe usar
+quote_literal.
+Obteniendo el Estado del Resultado
+Existen varias maneras para determinar el efecto de un comando. El primer método
+consiste en usar el comando GET DIAGNOSTICS, que tiene la forma:
+GET DIAGNOSTICS variable = item [ , ... ] ;
+Este comando permite recuperar los indicadores del estado del sistema. Cada item
+es una palabra reservada que identifica a un valor del estado que se asignará a una
+variable específica (la cual debe ser del tipo adecuado para recibirlo). Los ítems de
+los estados disponibles actualmente son ROW_COUNT, la cantidad de renglones procesados
+por el último comando enviado al motor SQL, y RESULT_OID, el OID del último
+renglón insertado por el comando SQL. Observe que RESULT_OID solamente es útil
+después de un comando INSERT.
+Un ejemplo:
+GET DIAGNOSTICS integer_var = ROW_COUNT;
+El segundo método para determinar los efectos de un comando es revisar la variable
+espacial llamada FOUND, la cual es de tipo boolean. FOUND es falso de entrada dentro
+de cualquier llamada a una función PL/pgSQL. Su valor se establece por cada uno de
+los siguientes tipos de sentencias:
+• Una sentencia SELECT INTO establece FOUND como verdadero si regresa un
+renglón, falso si ningún renglón es regresado.
+• Un comando PERFORM define a FOUND como verdadero si produce (y descarta)
+un renglón, falso si ningún renglón es producido.
+• Las sentencias UPDATE, INSERT y DELETE definen a FOUND como verdadero si
+al menos se afecta un renglón, como falso si ningún renglón es afectado.
+• Una sentencia FETCH define a FOUND como verdadero si regresa un renglón, como
+falso si ningún renglón en regresado.
+• Una sentencia FOR deja a FOUND con el valor de verdadero si itera una o más veces,
+en caso contrario lo pone en falso. Esto aplica a las tres variantes de la sentencias
+FOR (ciclos FOR enteros, ciclos FOR de conjuntos de registros y ciclos FOR de conjuntos
+de registros dinámicos). FOUND se establece de esta manera cuando se sale
+del ciclo FOR; dentro del la ejecución del ciclo, FOUND no se modifica por la sentencia
+FOR, aunque puede ser cambiado por la ejecución de otra sentencia dentro del
+cuerpo del ciclo.
+FOUND es una variable local dentro de cada función PL/pgSQL; así que cualquier cambio
+en ella, afecta solo a la función actual.

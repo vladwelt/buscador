@@ -1,0 +1,227 @@
+9.4       Llamada a Procedimientos Remotos (Remote Procedure
+
+          Call)
+Un mecanismo muy general para aplicaciones cliente-servidor lo proporciona RPC, el paque-
+
+te Remote Procedure Call. RPC fue desarrollado por Sun Microsystems, y es una coleccion
+
+de herramientas y funciones de libreria.  Ejemplos de aplicaciones construidas sobre RPC
+
+son NFS, el sistema de ficheros de la red, y NIS, el sistema de informacion de la red, que
+
+seran presentados en proximos capitulos.
+
+
+     Un servidor RPC consiste en una coleccion de procedimientos a los que el cliente puede
+
+llamar enviando una peticion RPC al servidor, junto con los parametros del procedimiento.
+
+El servidor invocara al procedimiento indicado en nombre del cliente, devolviendo el valor
+
+del  resultado,  si  lo  hay.   Para  que  sea  independiente  de  la  plataforma,  todos  los  datos
+
+intercambiados entre el cliente y el servidor son convertidos al formato denominado eXternal
+
+Data Representation6  (XDR) por el servidor, y convertidos otra vez a la representacion de
+
+la maquina local por el receptor.
+
+
+     A veces, mejoras en una aplicacion RPC introducen cambios incompatibles en el interface
+
+de llamada a procedimiento. Por supuesto, solo cambiando el servidor dejaria de funcionar
+
+cualquier aplicacion que todavia espere el comportamiento original. Por ello, los programas
+
+RPC  tienen  numeros  de  version  asignados,  normalmente  empezando  con  1,  y  con  cada
+
+nueva version del interface RPCeste contador se incrementara.  A menudo,  un servidor
+
+puede  ofrecer  varias  versiones  a  la  vez;  entonces  los  clientes  indicaran  en  sus  peticiones
+
+mediante el numero de version que implementacion del servicio desean usar.
+     La  comunicacion  por  red  entre  servidores  y  clientes  RPC  es  un  poco  peculiar.   Un
+
+servidor RPC ofrece una o mas colecciones de procedimientos; cada conjunto deestos es
+
+llamado programa, y es identificado univocamente por un numero de programa. En /etc/rpc
+
+se suele mantener una lista que mapea nombres de servicios con numeros de programa,
+
+reproduciremos un extracto deeste en la figura 9.2.
+
+       #
+       #  /etc/rpc  -  servicios  variados  basados  en  RPC
+       #
+       portmapper        100000   portmap  sunrpc
+       rstatd              100001   rstat  rstat_svc  rup  perfmeter
+       rusersd            100002   rusers
+       nfs                  100003   nfsprog
+       ypserv              100004   ypprog
+       mountd              100005   mount  showmount
+       ypbind              100007
+       walld               100008   rwall  shutdown
+       yppasswdd          100009   yppasswd
+       bootparam          100026
+       ypupdated          100028   ypupdate
+                             Figura 9.2: Un ejemplo de fichero /etc/rpc.
+
+
+
+     En redes TCP/IP, los autores de RPC se encontraron con el problema de mapear nume-
+
+ros de programa a servicios de red genericos.  Decidieron que cada servidor proporcionara
+
+ambos, un puerto TCP y otro UDP, para cada programa y para cada version. Generalmen-
+
+te, las aplicaciones RPC usaran UDP cuando envien datos, y solo recaeran en TCP cuando
+
+los datos a transferir no quepan en un datagrama UDP sencillo.
+
+
+     Por supuesto, los programas clientes tienen que tener una forma de encontrar a que puer-
+
+to mapea un numero de programa. Usando un fichero de configuracion paraesto seria muy
+
+inflexible; como las aplicaciones RPC no usan puertos reservados, no hay garantias de que
+
+un puerto originalmente pensado para ser usado por nuestra aplicacion de base de datos no
+
+haya sido cogido por algun otro proceso.  Por lo tanto, las aplicaciones RPC escogen cual-
+
+quier puerto que puedan utilizar, y lo registran con el denominado demonio mapeador de
+
+puertos.  Esteultimo actua como un distribuidor de servicios para todos los servidores que
+
+corren en su maquina:  un cliente que desee contactar con un servicio que tiene un numero
+
+de programa dado, preguntara primero al mapeador de puertos del nodo del servidor quien
+
+devolvera los numeros de puerto TCP y UDP por los que el servicio puede ser accedido.
+
+
+     Este metodo tiene como mayor inconveniente que introduce un punto de rupturaunico,
+
+muy parecido al que crea el demonio inetd  en los servicios Berkeley estandar.  De todas
+
+formas,este caso es un poco mas grave, porque cuando el mapeador de puertos cae, toda la
+informacion de puertos RPC se pierde;esto normalmente implica que hay que rearrancar
+
+todos los servidores RPC manualmente, o rearrancar toda la maquina.
+
+
+     En Linux, el mapeador de puertos se llama rpc.portmap y reside en /usr/sbin.  Aparte
+
+de asegurarse de que es arrancado desde rc.inet2, el mapeador de puertos no necesita mas
+
+trabajo de configuracion.
+
+9.5       Configurar  los  Comandos  r
+Hay varios comandos para ejecutar comandos en nodos remotos.  Son rlogin,  rsh,  rcp  y
+
+rcmd.  Todos ellos lanzan un shell en el nodo remoto y permiten al usuario ejecutar co-
+
+mandos.  Por supuesto, el cliente necesita tener una cuenta en el nodo en el que se van a
+
+ejecutar los comandos.  Por ello todosestos comandos llevan a cabo un procedimiento de
+
+autorizacion.  Normalmente, el cliente indicara el nombre de login del usuario al servidor,
+
+el cual requerira un password que sera validado de la forma habitual.
+
+
+     A veces, sin embargo, es deseable el relajarestos chequeos de autorizacion para ciertos
+
+usuarios.  Por ejemplo, si usted tiene que entrar frecuentemente en otras maquinas de su
+
+LAN, tal vez desee ser admitido sin tener que escribir su password cada vez.
+
+
+     Deshabilitar autorizaciones solo es aconsejable en un numero reducido de nodos cuyas
+
+bases de datos de passwords esten sincronizadas, o para un numero reducido de usuarios pri-
+
+vilegiados que necesiten acceder a muchas maquinas por razones administrativas.  Siempre
+
+que desee permitir a gente entrar en su nodo sin tener que especificar un login o password,
+
+debe asegurarse de que no permite acceso accidentalmente a nadie mas.
+
+
+     Hay dos formas de deshabilitar chequeos de autorizacion para los comandos r.  Una es
+
+que el super usuario permita a ciertos o a todos los usuarios el entrar, sin ser preguntados
+
+por un password, en ciertos o en todos los nodos (lo cual es ciertamente una mala idea).
+
+Este acceso es controlado por un fichero denominado /etc/hosts.equiv.  Este contiene una
+
+lista de nodos y nombres de usuarios que son considerados equivalentes a usuarios en el
+
+nodo local.  Una opcion alternativa es que un usuario permita acceso a otros usuarios de
+
+ciertos nodos a su cuenta.  Estos serian listados en el fichero .rhosts en el directorio home
+
+del usuario.  Por razones de seguridad,este fichero debe pertenecer al usuario o al super
+
+user, y no debe ser un enlace simbolico, de otro modo sera ignorado.7
+
+
+     Cuando un cliente pide un servicio r,  su nodo y nombre de usuario son buscados en
+
+el fichero /etc/hosts.equiv, y despues en el fichero .rhosts  del usuario con cuyo nombre se
+
+pretende entrar.  Como ejemplo, asumamos que janet esta trabajando en gauss e intenta
+entrar en la cuenta de joe en euler.  A partir de ahora, nos referiremos a Janet como el
+
+usuario cliente, y a Joe como el usuario local. Ahora, cuando Janet escriba
+
+
+
+       $  rlogin  -l  joe  euler
+
+
+
+en gauss, el servidor primero chequeara en hosts.equiv 8 si a Janet se le puede proporcionar
+
+acceso libre y, siesto falla, intentara localizarla en el fichero .rhosts del directorio home de
+
+joe.
+
+
+     El fichero hosts.equiv en euler es algo asi:
+
+
+
+       gauss
+       euler
+       -public
+       quark.physics.groucho.edu       andres
+
+
+
+     Una entrada consiste en un nombre de nodo, seguido opcionalmente por un nombre de
+
+usuario.  Si aparece un nombre de nodo y nada mas, todos los usuarios de ese nodo seran
+
+admitidos en sus cuentas locales sin ninguna comprobacion.  En el ejemplo anterior, Janet
+
+hubiera sido permitida a entrar en su cuenta janet si llamaba desde gauss, y lo mismo
+
+se aplicaria a cualquier otro usuario exceptuando a root.  De todas formas, si Janet desea
+
+entrar como joe, se le pediria un password como siempre.
+
+
+     Si un nombre de nodo va seguido de un nombre de usuario, como en la ultima linea
+
+del fichero ejemplo, a ese usuario se le permite acceso libre de password a todas las cuentas
+
+excepto a la cuenta root.
+
+
+     El nombre de nodo tambien puede ir precedido de un signo menos, como en la entrada
+
+"-public".  Esto requiere autorizacion para todas las cuentas en public, sin importar lo
+
+que permitan los usuarios individuales en sus ficheros .rhosts.

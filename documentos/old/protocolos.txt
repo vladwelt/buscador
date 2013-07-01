@@ -1,0 +1,142 @@
+_______________________________________________________________________________________________________________2.4.   E*
+ *ncaminamiento IP        @
+
+
+                              ____________________________________________________
+                              |  interfaz  |   direccion  |           mascara  |
+                              |____________|______________|____________________|___
+                              |  eth0      |149.76.4.1  |    255.255.255.0  |
+                              |            |            |                   |
+                              |  fddi0     |149.76.1.4  |    255.255.255.0  |
+                              |            |            |                   |
+                              |  lo         | 127.0.0.1  |         255.0.0.0  |
+                              |_____________|____________|____________________|___
+
+
+     Laultima entrada describe el dispositivo loopback, que se comento anteriormente.
+
+
+     En la figura 2.2 se muestra una parte de la topologia de la red de la Universidad de
+
+Groucho Marx (UGM). Los nodos que estan en dos subredes tendran dos direcciones IP.
+
+
+
+                     Departamento de Matematicas             Departamento de Fisica Teorica
+                4.23                              4.17                                      12.4
+
+                                 4.0                                     12.0
+               gauss                              erdos                                    quark
+
+
+
+                                  4.1                                      12.1
+
+                                      sophus                                    niels
+                             1.4                                     1.12
+
+
+                        Dorsal del Campus                  1.1      gcc1
+
+
+                                                                2.1
+                                                               1.0
+
+                          Centro de Calculo de la UGM
+
+                 Figura 2.2: Vista parcial de la topologia de la red de la UGM.
+2.4.4      Tablas de Encaminamiento
+
+
+
+Vamos ahora a centrarnos en como se selecciona una pasarela para entregar un datagrama
+
+a una red remota.
+
+
+     Hemos visto que erdos,  cuando envia un datagrama para quark,  comprueba que la
+
+direccion destino no se encuentra en la red local, por lo que lo envia a la pasarela, sophus,
+ 
+_______________________________________________________________________________________________________________2.4.   E*
+ *ncaminamiento IP        @
+
+
+
+
+quien basicamente hace lo mismo:  ve que quark no esta en una de las redes a las que
+
+se conecta directamente y busca otra pasarela a quien entregarle el paquete.  La eleccion
+
+correcta es niels, la pasarela del Departamento de Fisicas.  sophus necesita informacion
+
+para poder tomar estas decisiones.
+
+
+     La informacion de encaminamiento que se usa en IP es basicamente una tabla donde se
+
+relacionan (sub)redes y pasarelas.  Ademas, debe incluirse una entrada de encaminamiento
+
+por defecto, que se asocia en la tabla a la red 0.0.0.0.  Todos los paquetes que van a una
+
+red desconocida, se enviaran a la pasarela del encaminamiento por defecto.  Asi pues,esta
+
+seria la tabla para sophus:
+
+
+                                 _______________________________________________
+                                 |  Red           | Pasarela     |   Interfaz  |
+                                 |________________|______________|_____________|__
+                                 |  149.76.1.0  |   -               |fddi0    |
+                                 |              |                   |         |
+                                 |  149.76.2.0  |   149.76.1.2  |    fddi0    |
+                                 |              |               |             |
+                                 |  149.76.3.0  |   149.76.1.3  |    fddi0    |
+                                 |              |               |             |
+                                 |  149.76.4.0  |   -               |eth0     |
+                                 |              |                   |         |
+                                 |  149.76.5.0  |   149.76.1.5  |    fddi0    |
+                                 |              |               |             |
+                                 |  . . .           .|. .            |. . .        |
+                                 |                   |               |             |
+                                 |  0.0.0.0       | 149.76.1.2  |    fddi0    |
+                                 |________________|_____________|_____________|_
+
+
+
+     Las rutas a una red a la que sophus este directamente conectado no necesitan pasarela,
+
+sino que los datagramas se entregan directamente. Esto se indica en la tabla anterior cuando
+
+en lugar de la pasarela aparece un "-".
+
+
+     Las  tablas  de  encaminamiento  pueden  construirse  de  varias  formas.   Para  redes  pe-
+
+que"nas, sera mas eficiente construirlas a mano usando el comando route del Linux (vease el
+
+capitulo 5). Para redes mas grandes, las tablas se mantienen y modifican automaticamente
+
+mediante los demonios de encaminamiento. Estos corren en nodos centrales e intercambian
+
+informacion de encaminamiento entre ellos para tener en todo momento las rutas "optimas"
+
+entre subredes.
+
+
+     Dependiendo del tama"no de la red, se utilizan distintos protocolos de encaminamien-
+
+to.  Dentro de los sistemas autonomos (como la Universidad Groucho Marx) se utilizan
+
+los protocolos internos  o IGP6. El mas utilizado es RIP7  o protocolo de informacion de
+
+encaminamiento, que implementa el demonio routed  de BSD. Para encaminamiento entre
+
+redes se usan protocolos EGP8, como BGP. Se implementan en programas como gated  de
+
+la Universidad de Cornell.9.
+_____________________________________________6
+     Internal Gateway Protocol
+   7 Routing Information Protocol
+   8 External Gateway Protocol
+   9 gated tambien implementa RIP y en general se recomienda usarlo en lugar de routed

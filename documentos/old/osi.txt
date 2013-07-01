@@ -1,0 +1,180 @@
+Protocolos y capas 
+ Contenido
+ 
+?	Términos claves 
+?	Introducción 
+?	Necesidad de protocolos 
+?	Plan para diseño de protocolos 
+?	Las siete capas 
+?	Pilas: software en capas 
+?	Funcionamiento del software en capas 
+?	Cabeceras múltiples anidadas 
+?	Base  científica de las capas 
+?	Técnicas usadas por los protocolos 
+?	El arte del diseño de protocolos 
+  
+Que es un protocolo?? 
+  
+Protocolo: Es el conjunto de normas y reglas, organizadas y convenidas de mutuo acuerdo entre todos los participantes en una comunicación. 
+
+Su misión es: hacer que la comunicación entre todos los ordenadores de una red que están usando ese protocolo sea compatible y regular algún aspecto de la misma. Estos protocolos son estandarizados por las asociaciones u organizaciones de estandarización, y los fabricantes toman en cuenta estos estándares para la realización de dispositivos tele-informáticos. 
+  
+Que son las capas?? 
+Capas: Las redes de ordenadores, proveen al usuario de una serie de servicios, e internamente poseen unas funciones. Todo esto es realizado por las capas o niveles de la arquitectura que posee el tipo de red. Las arquitecturas de las redes tienen una serie de capas superpuestas, una encima de otra, en la que cada una desempeña su función. 
+Funciones y características de las capas:
+-Permiten fraccionar el desarrollo del prottocolo, que usa.
+-Las capas facilitan el entendimiento del ffuncionamiento global de un protocolo.
+-Facilitan las compatibilidades, tanto de ssoftware como hardware de los distintos ordenadores conectados.
+-Las arquitectura o estructuras de capas soon flexibles a la hora de modificarlas.
+
+  
+Introducción
+  
+•En lugar de usar el hardware de red directamente, las redes usan módulos de software que ofrecen interfaces de alto nivel para desarrollar aplicaciones. 
+Los Protocolos de red: son un conjunto de reglas que especifican el formato de los mensajes y las acciones apropiadas en cada caso para transferir información entre computadores. 
+ 
+  
+Necesidad   de protocolos 
+  
+Las familias de protocolos ocurre cuando En lugar de tener un solo protocolo gigante que especifique todos los detalles de todas las formas posibles de comunicación El problema de la comunicación entre computadores es divido en subpartes. Así los protocolos son más fáciles de diseñar, analizar, implementar, y probar. (Esta es básicamente la aplicación de la idea de diseño estructurado de software. También se puede aplicar al hardware) 
+•Esta partición el problema da origen a un conjunto de protocolos relacionados llamados Familias de Protocolos. 
+  
+PLAN PARA DISEÑO DE PROTOCOLOS 
+Se han diseñado varias herramientas para ayudar a los diseñadores de protocolos a entender las partes del problema de comunicación y planear la familia de protocolos. Una de estas herramientas y la mas importante es el modelo de capas esto es solo una manera de dividir el problema de la comunicación en partes llamadas capas. La familia de protocolos puede diseñarse especificando un protocolo que corresponda a cada capa. 
+ La organización internacional de Normalizacion OSI definio uno de los modelos mas importantes y el mas utilizado  el modelo de siete capas. 
+  
+Aplicación 	Capa 7 
+Presentación 	Capa 6 
+Sesion 	Capa 5 
+Transportación 	Capa 4 
+Red 	Capa 3 
+Enlace de datos 	Capa 2 
+fisica 	Capa 1 
+  
+LAS SIETE CAPAS 
+Aunque los conceptos sobre el diseño de protocolos han cambiado en los 20 años transcurridos desde el desarrollo del modelo OSI y muchos protocolos modernos no encajan en el modelo anterior, prevalece buena parte de la terminología de la OSI. 
+El modelo OSI es conocido porque ofrece una explicación sencilla de la relación entre los complejos componentes de hardware y de protocolo de red. En el modelo OSI, la capa inferior corresponde al hardware y las capas sucesivas al software que usa la red. 
+  
+ EL SOFTWARE DE RED consiste en programas informáticos que establecen protocolos, o normas, para que las computadoras se comuniquen entre sí. Estos protocolos se aplican enviando y recibiendo grupos de datos formateados denominados paquetes. Los protocolos indican cómo efectuar conexiones lógicas entre las aplicaciones de la red, dirigir el movimiento de paquetes a través de la red física y minimizar las posibilidades de colisión entre paquetes enviados simultáneamente. 
+  
+7 	APLICACIÓN 	Se entiende directamente con el usuario final, al proporcionarle el servicio de información distribuida para soportar las aplicaciones y administrar las comunicaciones por parte de la capa de presentación. 
+6 	PRESENTACIÓN 	Permite a la capa de aplicación interpretar el significado de la información que se intercambia. Esta realiza las conversiones de formato mediante las cuales se logra la comunicación de dispositivos. 
+5 	SESIÓN 	Administra el diálogo entre las dos aplicaciones en cooperación mediante el suministro de los servicios que se necesitan para establecer la comunicación, flujo de datos y conclusión de la conexión. 
+4 	TRANSPORTE 	Esta capa proporciona el control de extremo a extremo y el intercambio de información con el nivel que requiere el usuario. 
+Representa el corazón de la jerarquía de los protocolos que permite realizar el transporte de los datos en forma segura y económica. 
+3 	RED 	Proporciona los medios para establecer, mantener y concluir las conexiones conmutadas entre los sistemas del usuario final. Por lo tanto, la capa de red es la más baja, que se ocupa de la transmisión de extremo a extremo. 
+2 	ENLACE 	Asegura con confiabilidad del medio de transmisión, ya que realiza la verificación de errores, retransmisión, control fuera del flujo y la sequenciación de la capacidades que se utilizan en la capa de red. 
+1 	FISICO 	Se encarga de las características eléctricas, mecánicas, funcionales y de procedimiento que se requieren para mover los bits de datos entre cada extremo del enlace de la comunicación. 
+  
+  
+Pilas: software en capas 
+Cuando se diseña de acuerdo con un modelo de capas, el protocolo se apega a la organización  en capas. El protocolo de cada computadora se divide e modulos, de los que cada uno corresponde a una capa. Es mas, las capas determinan la sinteraccioenes entre los modulos: en teoria, cuando
+el software de protocolo envia o recibe datos, cada modulo solo se comunica con el modulo de la siguiente capa mas alta y el de la siguiente mas baja. Asi los datos de salida pasan hacia abajo en cada capa y los de entrada suben por cada capa.
+  
+Sibujos staks 
+Como se muestra en la figura cada computadora contiene el software de una familia de protocolos. Los proveedores usan el termino pila para referirse a este software, puesto que el modelo de capas del que se construye muchas veces se dibuja como un grupo de rectángulos. 
+A continuación se enlistan seis pilas de protocolos conocidas 
+proveedor 	pila 
+Novell corporation 	NETWARE 
+Banyan systems corporation 	VINES 
+Apple computer corporation 	APPLE TALK 
+Digital Euipment corporation 	DECNET 
+iBM 	SNA 
+Varios proveedorres 	TCP/IP 
+ 
+ 
+ 
+ 
+•Debido a la estructura de capas, es común referirse al modelo de capas como (pila). 
+•Debido a que cada  pila fue diseñada independientemente, protocolos de diferentes pilas no pueden interactuar con los de otro. 
+  
+Funcionamiento del software en capas 
+Como se ha dicho con anterioridad cada capa de software de protocolo resuelve una parte del problema de comunicación, para hacerlo, el software de cada capa de la computadora transmOSIra también agrega información a los datos de salida y el software de la misma capa de la computadora receptora usa la información adicional para procesar los datos de entradas. 
+  
+Cabeceras multiples anidadas 
+En general, cada capa one información adicionalen la cabecera antes de enviar los datos a una capa inferior, por lo tanto un cuadro que Viaja por una 
+ red contiene una serie de cabeceras anidadas como se ilustra continuación 
+  
+   
+  
+  
+  
+  
+  
+  
+  
+ 
+Cabeceras de protocolo anidadas que aparecen en un cuadro a medida que viaja por una red. Cada protocolo agrega una cabecera al cuadro de salida. 
+ Explicación del diagrama: la cabecera que corresponde al protocolo de mas bajo nivel sucede primero. En el modelo de capas OSI, la cabecera del protocolo de enlace de datos ocurre primero. Aunque la capa 1 especifica las señales eléctricas u ópticas para la transmisión de cuadros no agrega cabeceras de la misma manera que las demás capas. 
+   
+BASE CIENTÍFICA DE LAS CAPAS 
+La importancia de las capas proviene de un principio sencillo conocido como principio de capas: 
+La capa N de la computadora destino debe recibir el mismo mensaje enviado por el software de capa N del transmOSIr. 
+ 	
+TÉCNICAS USADAS POR LOS PROTOCOLOS 
+ 
+Se han visto algunos de los problemas que surgen en los sistemas de comunicación y la manera en que los protocolos resuelven algunos. Algunos protocolos hacen mas que detectar errores: se esfuerzan por reparar o dar la vuelta a los problemas, en resumen los protocolos de transportación usan varias herramientas para manejar los problemas de comunicación mas complicados. 
+  
+SECUENCIAS PARA ENTREGA FUERA DE ORDEN 
+  
+Los sistemas de red sin conexiones que cambian sus rutas  pueden entregar los paquetes  fuera de  orden , una secuencia  de paquetes  y recuerde  que las redes  intentan usar la trayectoria mas corta  disponible . Si queda disponible una trayectoria mas corta después  de la transmisión  de paquete i  de  la secuencia, la red  puede enviar el paquete i+1 por la trayectoria mas corta por lo que llegara mas pronto que el paquete i. 
+  
+Para manejar las entregas  fuera de orden, los protocolos  de transportación se sirven de la  secuenciación: el lado transmOSIr agrega un numero  de secuencia a cada paquete  y el lado receptor almacena un numero de secuencia del ultimo  paquete recibido en orden , así como una lista  de los paquetes que llegaron  fuera de orden . Al llegar  un paquete, el receptor  examina su numero de secuencia para decidir el trato que ha de darle. 
+  
+Si  es el siguiente ( es decir, si ha llegado en orden) , el protocolo lo entrega a la siguiente capa  superior y busca en su lista paquetes  adicionales que también pueda entregar. Si ha llegado  fuera de orden , el protocolo agrega el paquete a la lista. 
+   
+SECUENCIACION PARA ELIMINAR PAQUETES DUPLICADOS 
+El hardware con fallas puede causar la duplicación de paquetes,, que con frecuencia aparece en las WAN, pero que también puede ocurrir en las LAN. Por ejemplo, la falla de un tranceptor de una LAN que usa CSMA / CD puede hacer que el receptor detecte una transmisión valida cuando el transmOSIr ve una colisión. Como resultado, el transmOSIr retrocederá de la colisión  y retransmitirá, con lo que llegaran dos copias del cuadro al receptor. 
+La secuenciación resuelve el problema de la duplicación. El software receptor busca duplicados cuando examina el numero de secuencia de cada paquete que llega. Si ya ha sido entregado o la secuencia es igual a la de algún paquete de la lista de espera, se descarta la copia nueva. 
+   
+RETRANSMISION DE PAQUETES PERDIDOS 
+La perdida de paquetes es un problema fundamental de las redes porque los errores de transmisión pueden corromper los bits e invalidar el cuadro. Al detectar tales problemas, el receptor lo descarta. Para garantizar la transferencia confiable, los protocolos usan acuse de recibo positivo con retransmisión. Cada vez que llega intacto un cuadro, el protocolo receptor regresa un mensaje que informa de la recepción exitosa. Se conoce el mensaje como acuse de recibo. El transmOSIr se hace responsable de que cada paquete se transfiera con éxito. Al enviar un paquete, el protocolo transmOSIr inicia un cronometro, si el acuse de recibo llega antes de terminar el cronometro, el software lo cancela, si expira antes de su llegada, envía otra copia del paquete y reinicia el cronometro, la acción de enviar otra copia se llama retransmitir y la copia retransmisión. 
+  
+La retransmisión no puede tener éxito si una falla de hardware ha desconectado la red o si la computadora receptora se ha caído. Por lo tanto, los protocolos se retransmiten mensajes suelen limitar la cantidad máxima de retransmisiones. Cuando se alcanza el limite, cesa la retransmisión y se declara que es imposible la comunicación.    
+ PREVENCION DE REPETICIONES CAUSADAS POR RETARDO EXCESIVO 
+El método de almacenamiento y reenvió es una fuente de retardo de los sistemas de conmutación de paquetes. Al llegar un paquete al conmutador, se coloca en una cola. Si han llegado varios paquetes a mayor velocidad de la que puede reenviarlos el conmutador, la cola crecerá y podría ser mayor el retardo. Los retardos extraordinarios pueden generar errores por petición. 
+“Repetición” significa que un paquete viejo retardado afecta la comunicación posterior. 
+Para evitar las repeticiones, los protocolos marcan cada sesión con un identificador único, el protocolo descarta cualquier paquete que contenga una identificación incorrecta. Para evitar repeticiones, la identificación no debe emplearse de nuevo hasta después de que haya pasado un tiempo razonable. 
+  
+CONTROL DE FLUJO PARA EVITAR REBASAMIENTOS DE DATOS 
+ Los rebasamientos ocurren cuando una computadora envía datos por una red mas rápido de lo que el destino puede absorberlos. En consecuencia hay perdida de información. Hay varias técnicas para manejar los rebasamientos de datos. En conjunto, las técnicas se conocen como mecanismos de control de flujo. La manera mas sencilla de control de flujo es el sistema de parada y continuación, en el que el transmOSIr espera tras la transmisión de cada paquete. 
+  
+Ya enviados
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+Explicación del diagrama 
+En la parte a se envía un paquete y luego un acuse de recibo. Si envío es N, entonces tiempo toral es 8N. 
+  
+En la parte b se utiliza ventana deslizante. El envío y acuse se tardan solo 2N. Solo tendríamos que añadir la parte de  un pequeño retardo , la fórmula queda como sigue: 
+ Tw = Tg X W
+  
+Tw es el rendimiento de la ventana deslizante. 
+Tg es el rendimiento del protocolo de parada y continuación. 
+W es el tamaño de la ventana 
+  
+S consideramos el ancho de banda  como factor entonces podría quedar asi: 
+Tw =min (B,  Tg X W)
+B es el ancho de banda. 
+   
+Mecanismos para evitar congestionamientos en las redes. 
+PROBLEMA: el congestionamiento. Una terminal de una red se sobrecarga  de paquetes porque llegan a una velocidad  superior a la que esta puede enviarlos, por lo que los acomoda en colas de espera, que al ir aumentando hace que aumente el retardo efectivo. 
+CONSECUENCIA: el conmutador de la terminal agota su memoria y la red queda completamente inutilizada, Colapso de Congestionamiento.   
+SOLUCIONES. Que los conmutadores informen sobre los congestionamiento a los conmutadores transmOSIres o,  tomar la pérdida de paquetes como estimación del congestionamiento.. 
+UTILIZANDO UN CONTROL DE RAZON, algunos protocolos reducen la razón a la que se transmiten los paquetes, por un tiempo determinado, o reduciendo el tamaño de su ventana. 
+   
+DISEÑO DE PROTOCOLOS. 
+a.	Para hacer eficiente la comunicación, deben escogerse con cuidado los detalles, ya que los pequeños errores de diseño pueden dar una operación incorrecta, paquetes innecesarios o retardos. 
+b.	Los mecanismo de control pueden actuar de maneras inesperadas. 
+c.	Debe de alcanzar el equilibrio entre ventana deslizante y control de congestionamiento, para evitar los colapsos de red y la pérdida de rendimiento. 
+  
+

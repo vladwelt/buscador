@@ -1,0 +1,194 @@
+
+       nameserver       191.72.1.1
+     Cuando se trate de traducir el nombre vale, el sistema empezara por buscar directamente
+
+vale y si falla, probara con vale.vbrew.com y finalmente vale.com.
+6.1.4      Robustez del sistema de resolucion
+
+
+
+Si tiene en funcionamiento una red local dentro de otra mas grande, debera usar servidores
+
+de nombres principales siempre que sea posible. La ventaja de hacerlo asi es que se consiguen
+
+generosas memorias cache, ya que todas las peticiones de nombres les llega a ellos.  Este
+
+esquema, sin embargo, tiene un inconveniente: cuando un incendio inutilizo el cable de red
+
+dorsal de nuestro departamento en la Universidad, no pudimos trabajar, pues ninguno de
+
+los servidores de nombres estaban accesibles.  No funcionaban ni los terminales X ni las
+
+impresoras...
+
+
+     Aunque no es muy habitual que las redes dorsales de las universidades sean pasto de las
+
+llamas, deberian tomarse precauciones para casos comoeste.
+
+
+     Una solucion es poner un servidor de nombres local que se ocupe de sus nombres locales,
+
+y reenvie todas las peticiones de otros nombres a los servidores principales.  Por supuesto,
+
+esto solo es posible si usted tiene un dominio propio.
+
+
+     Alternativamente, puede mantener una copia de la tabla de nombres para su dominio
+
+o red local en el fichero /etc/hosts.  En el fichero /etc/host.conf  debera incluir la opcion
+
+"order bind hosts" para obligar a usar el fichero local si el servidor principal de nombres
+
+falla.
+
+6.2       Ejecucion  de  named
+El programa que proporciona servicio de nombres en las maquinas un?x suele ser named 2.
+
+Es un servidor desarrollado inicialmente para Unix tipo BSD, con el proposito de propor-
+
+cionar servicio de nombres a maquinas clientes y posiblemente otros servidores de nombres.
+
+
+     La version actualmente utilizada en casi todos los sistemas Linux es BIND-4.8.3.  La
+
+nueva version, BIND-4.9.3, esta en este momento en version Beta, y pronto estara disponible
+
+para Linux.
+
+
+     Esta seccion requiere ideas acerca de como funciona el Sistema de Nombres y Dominios
+
+(DNS). Si lo que sigue a continuacion le suena a chino, puede releer el capitulo 2, que le
+
+dara informacion acerca de como funciona basicamente el DNS.
+     El programa named  suele iniciarse al arrancar la maquina, y ejecutarse hasta que se
+
+apaga.  Obtiene la informacion que necesita de un fichero llamado /etc/named.boot, y di-
+
+versos ficheros que contienen datos acerca de nombres de dominio y direcciones, llamados
+
+ficheros de zona. Los formatos y semantica de estos ficheros seran explicados en la siguiente
+
+seccion.
+
+
+     Para ejecutar named, solo tiene que teclear:
+       #  /usr/sbin/named
+El  programa  named  se  iniciara  y  leera  el  fichero  named.boot  y  los  ficheros  de  zona
+
+que  se  especifiquen  en el.   Su  numero  de  proceso  sera  anotado  en  ASCII  en  el  fichero
+
+/var/run/named.pid, recibira ficheros de zona de los servidores principales si es necesario y
+
+comenzara a escuchar las peticiones de DNS por el puerto 53.3
+6.2.1      El fichero named.boot
+
+
+
+El fichero named.boot suele ser muy peque"no y contiene punteros a ficheros con informacion
+
+de zonas y a otros servidores de nombres. Los comentarios en este fichero comienzan con un
+
+punto y coma y se extienden hasta el siguiente fin de linea.  Antes de que veamos con mas
+
+detalle el formato de este fichero, observaremos el ejemplo para la maquina vlager dado en
+
+la figura 6.1.4
+
+       ;
+       ;  Fichero  /etc/named.boot  para  vlager.vbrew.com
+       ;
+       directory       /var/named
+       ;
+       ;                  dominio                        fichero
+       ;---------------------------------------------------
+       cache            .                                named.ca
+       primary          vbrew.com                      named.hosts
+       primary          0.0.127.in-addr.arpa       named.local
+       primary          72.191.in-addr.arpa        named.rev
+                           Figura 6.1: El fichero named.boot para vlager.
+_____________________________________________3
+     Hay varios binarios de named  disponibles en los servidores de FTP, cada uno configurado de forma
+diferente. Algunos anotan su fichero de numero de proceso en el directorio /etc/, otros en /tmp y otros en
+/var/tmp.
+   4 Observar que los nombres de dominio del ejemplo se dan sin el punto final.  Versiones anteriores del
+
+programa named parece que traten los puntos al final como errores y sin avisar descartan la linea afectada.
+En la version BIND-4.9.3 se intenta arreglar este tema.
+     Los comandos cache  y primary  sirven para cargar informacion en named.  Esta infor-
+
+macion se obtiene de los ficheros espeficados en el segundo argumento. Contienen represen-
+
+taciones textuales de los registros DNS, que veremos a continuacion.
+
+
+     En este ejemplo, se configura named  como el servidor de nombres principal para tres
+
+dominios:  los que se indican con el comando primary.  La primera linea dice que named
+
+actue como servidor principal para vbrew.com, tomando la informacion de zona del fichero
+
+named.hosts.  El comando directory dice que todos los ficheros de zona se encuentran en el
+
+directorio indicado.
+
+
+     La entrada iniciada con la palabra cache es muy especial y debe estar presente en casi
+
+todas las maquinas que ejecuten un servidor de nombres.  Su funcion es doble:  indica a
+
+named  que  active  su  cache,  y  tambien  que  cargue  la  informacion  de  servidores  raiz  del
+
+fichero indicado (en este caso, named.ca). Regresaremos a este concepto mas tarde.
+
+
+     A continuacion se presenta una lista de las opciones mas importantes que podemos poner
+
+en el fichero named.boot :
+
+
+
+directory          Especifica un directorio donde esten los ficheros de zona.  Pueden ponerse
+
+                   varios directorios repitiendo comandos directory. De acuerdo con el estandar
+
+                   de sistema de ficheros para Linux, el directorio deberia ser /var/named.
+
+
+primary            Los  argumentos  que  lleva  son  un  nombre  de  dominio  y  un  nombre  de
+
+                   fichero , declarando el servidor local primario para el dominio de named.
+
+                   Como  servidor  primario,  named  carga  la  informacion  de  zona  del  fichero
+
+                   dado.
+
+                   Normalmente,  siempre habra por lo menos un comando primary  en cada
+
+                   fichero named.boot, para traduccion inversa del IP 127.0.0.1, que es la red
+
+                   en "loopback".
+
+
+secondary          Esta sentencia tiene como parametros un nombre  de  dominio , una lista
+
+                   de  direcciones y un nombre  de  fichero . Declara el servidor local como
+
+                   servidor maestro secundario para el dominio indicado.
+
+                   Un servidor secundario mantiene tambien informacion "autorizada" como
+
+                   el primario, pero en lugar de obtenerla de un fichero, la intenta obtener de
+
+                   un servidor primario.  Debe proporcionarse al menos una direccion IP de
+
+                   servidor primario en la lista de direcciones. El servidor local ira contactando
+
+                   con cada uno de ellos hasta que transfiera conexito la base datos de zona, que
+
+                   sera almacenada en el fichero de respaldo -copia de seguridad o backup- dado
+
+                   en el tercer argumento del comando. Si ninguno de los servidores primarios
+
+                   responde, se obtendra la informacion de zona del fichero de respaldo.

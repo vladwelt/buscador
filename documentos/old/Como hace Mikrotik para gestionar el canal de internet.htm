@@ -1,0 +1,127 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0068)http://listas.inf.utfsm.cl/pipermail/linux/2005-November/025496.html -->
+<HTML><HEAD><TITLE>Como hace Mikrotik para gestionar el canal de internet?</TITLE><LINK 
+href="index.html" rel=Index><LINK 
+href="mailto:linux%40listas.inf.utfsm.cl?Subject=Como%20hace%20Mikrotik%20para%20gestionar%20el%20canal%20de%20internet%3F&amp;In-Reply-To=" 
+rel=made>
+<META content=index,nofollow name=robots>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><LINK 
+href="025621.html" rel=Previous><LINK href="025499.html" rel=Next>
+<META content="MSHTML 6.00.2900.2873" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<H1>Como hace Mikrotik para gestionar el canal de internet? </H1><B>kazabe</B> 
+<A title="Como hace Mikrotik para gestionar el canal de internet?" 
+href="mailto:linux@listas.inf.utfsm.cl?Subject=Como hace Mikrotik para gestionar el canal de internet?&amp;In-Reply-To=">kazabe 
+en gmail.com </A><BR><I>Jue Nov 24 19:29:32 CLST 2005</I> 
+<P>
+<UL>
+  <LI>Mensaje anterior: <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/025621.html">configuracion 
+  tarjeta inambrica en suse 9.1 </A>
+  <LI>Pr󸩭o mensaje: <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/025499.html">Como 
+  hace Mikrotik para gestionar el canal de internet? </A>
+  <LI><B>Mensajes ordenados por:</B> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/date.html#25496">[ 
+  fecha ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/thread.html#25496">[ 
+  hilo ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/subject.html#25496">[ 
+  asunto ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/author.html#25496">[ 
+  autor ]</A> </LI></UL>
+<HR>
+<!--beginarticle--><PRE>Buenas!
+
+Un cliente me comenta que usa mikrotik (que es un enrutador por
+hardware y/o software tipo linux) para controlar su salida a internet,
+pero le molesta que esa solucion solo pueda hacer las veces de
+enrutador (desea escalarla a servidor de correo, servidor jabber y
+servidor web para su red de 20 usuarios).
+
+Le ofreci montar un debian para que viera todas las ventajas que
+podria tener con un inux completo en el servidor (al decir completo,
+me refiero a que puedo instalar todo lo que yo quiera sin limitaciones
+por parte del sistema operativo); y le monte un sistema para el
+control de ancho de banda, usando el tan conocido cbq.init.
+
+Aunque esta muy contento con ver como ya puede tener su propio
+servidor web, de correo, y de todo lo que quiera, lastimosamente la
+gestion del canal con debian no parece funcionar.  Una de las subredes
+que deberia tener solo un 15% del canal, se lo esta llevando
+todo!!!!!!!!!!!!!!!!!
+
+Lo unico extra񯠥n esa red es que hay dos subredes, y una de ellas se
+conecta al servidor por una interfaz virtual (eth0:1).
+
+Puede ser que por usar una interfaz virtual no aplique las politicas
+de QoS???????
+
+Como lo hace entonces Mikrotik????
+
+Las politicas de QoS.  son las siguientes:
+
+#cbq-0384.general
+DEVICE=eth1,100Mbit,10Mbit
+RATE=384Kbit
+WEIGHT=38Kbit
+PRIO=5
+ISOLATED=no
+
+#cbq-0064.limitada
+DEVICE=eth1
+RATE=64Kbit
+WEIGHT=6Kbit
+PRIO=8
+PARENT=0384
+LEAF=tbf
+BOUNDED=yes
+ISOLATED=no
+RULE=10.2.0.0/24,0.0.0.0/0
+
+#cbq-0192.general
+DEVICE=eth1
+RATE=192Kbit
+WEIGHT=19Kbit
+PARENT=0384
+PRIO=5
+LEAF=sfq
+BOUNDED=no
+ISOLATED=no
+RULE=10.0.1.0/16,0.0.0.0/0
+
+la red 10.0.1.0 esta conectada a la tarjeta eth1,  y la red 10.2.0.0
+esta conectada a la tarjeta eth1:0.   Internet esta en eth0.
+
+Que me puede estar faltando para poder gestionar bien la conexion? 
+con ese microtik funciona sin problemas el canal ......
+
+Gracias por su ayuda.
+
+--
+"Imagination is more important than knowlege"
+A.E.
+
+</PRE><!--endarticle-->
+<HR>
+
+<P>
+<UL><!--threads-->
+  <LI>Mensaje anterior: <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/025621.html">configuracion 
+  tarjeta inambrica en suse 9.1 </A>
+  <LI>Pr󸩭o mensaje: <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/025499.html">Como 
+  hace Mikrotik para gestionar el canal de internet? </A>
+  <LI><B>Mensajes ordenados por:</B> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/date.html#25496">[ 
+  fecha ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/thread.html#25496">[ 
+  hilo ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/subject.html#25496">[ 
+  asunto ]</A> <A 
+  href="http://listas.inf.utfsm.cl/pipermail/linux/2005-November/author.html#25496">[ 
+  autor ]</A> </LI></UL>
+<HR>
+<A href="https://listas.inf.utfsm.cl/mailman/listinfo/linux">M᳠informaci󮠳obre 
+la lista de distribuci󮠌inux </A><BR></BODY></HTML>

@@ -1,0 +1,132 @@
+2 - Políticas generales de seguridad
+2.1 - ¿Qué son las políticas de seguridad informática (PSI)?
+Una política de seguridad informática es una forma de comunicarse con los
+usuarios y los gerentes [3, pág.382]. Las PSI establecen el canal formal de actuación
+del personal, en relación con los recursos y servicios informáticos, importantes de la
+organización.
+No se trata de una descripción técnica de mecanismos de seguridad, ni de una
+expresión legal que involucre sanciones a conductas de los empleados. Es más bien una
+descripción de los que deseamos proteger y el por qué de ello.
+Cada PSI es consciente y vigilante del personal por el uso y limitaciones de los
+recursos y servicios informáticos críticos de la compañía.
+2.2 - Elementos de una política de seguridad informática
+Como mencionábamos en el apartado anterior, una PSI debe orientar las
+decisiones que se toman en relación con la seguridad. Por tanto, requiere de una
+disposición por parte de cada uno de los miembros de la empresa para lograr una visión
+conjunta de lo que se considera importante.
+Las PSI deben considerar entre otros, los siguientes elementos: [4]
+· Alcance de las políticas, incluyendo facilidades, sistemas y personal sobre la
+cual aplica. Es una invitación de la organización a cada uno de sus miembros a
+reconocer la información como uno de sus principales activos así como, un
+motor de intercambio y desarrollo en el ámbito de sus negocios. Invitación que
+debe concluir en una posición.
+· Objetivos de la política y descripción clara de los elementos involucrados en su
+definición.
+· Responsabilidades por cada uno de los servicios y recursos informáticos a
+todos los niveles de la organización.
+· Requerimientos mínimos para configuración de la seguridad de los sistemas
+que cobija el alcance de la política.
+· Definición de violaciones y de las consecuencias del no cumplimiento de la
+política.
+· Responsabilidades de los usuarios con respecto a la información a la que ella
+tiene acceso.
+Las PSI deben ofrecer explicaciones comprensibles acerca de por qué deben
+tomarse ciertas decisiones, transmitir por qué son importantes estos u otros recursos o
+servicios.
+
+De igual forma, las PSI establecen las expectativas de la organización en relación
+con la seguridad y lo que ella puede esperar de las acciones que la materializan en la
+compañía. Deben mantener un lenguaje común libre de tecnicismos y términos legales
+que impidan una comprensión clara de las mismas, sin sacrificar su precisión y
+formalidad dentro de la empresa.
+Por otra parte, la política debe especificar la autoridad que debe hacer que las
+cosas ocurran, el rango de los correctivos y sus actuaciones que permitan dar
+indicaciones sobre la clase de sanciones que se puedan imponer. No debe especificar
+con exactitud qué pasara o cuándo algo sucederá; no es una sentencia obligatoria de la
+ley. [4, pág.383]
+Finalmente, las PSI como documentos dinámicos de la organización, deben seguir
+un proceso de actualización periódica sujeto a los cambios organizacionales relevantes:
+crecimiento de la planta de personal, cambio en la infraestructura computacional, alta
+rotación de personal, desarrollo de nuevos servicios, cambio o diversificación de
+negocios entre otros.
+2.3 - Algunos parámetros para establecer políticas de seguridad
+Si bien las características de la PSI que hemos mencionado hasta el momento, nos
+muestran una perspectiva de las implicaciones en la formulación de estas directrices,
+revisaremos a continuación, algunos aspectos generales recomendados para la
+formulación de las mismas.
+· Considere efectuar un ejercicio de análisis de riesgos informático, a través del
+cual valore sus activos, el cual le permitirá afinar las PSI de su organización.
+· Involucre a las áreas propietarias de los recursos o servicios, pues ellos poseen
+la experiencia y son fuente principal para establecer el alcance y las
+definiciones de violaciones a la PSI.
+· Comunique a todo el personal involucrado en el desarrollo de las PSI, los
+beneficios y riesgos relacionados con los recursos y bienes, y sus elementos de
+seguridad.
+· Recuerde que es necesario identificar quién tiene la autoridad para tomar
+decisiones, pues son ellos los responsables de salvaguardar los activos críticos
+de la funcionalidad de su área u organización.
+· Desarrolle un proceso de monitoreo periódico de las directrices en el hacer de
+la organización, que permita una actualización oportuna de las mismas.
+Un último consejo: no dé por hecho algo que es obvio. Haga explícito y concreto
+los alcances y propuestas de seguridad, con el propósito de evitar sorpresas y malos
+entendidos en el momento de establecer los mecanismos de seguridad que respondan a
+las PSI trazadas.
+
+2.4 - Proposición de una forma de realizar el análisis para llevar a
+cabo un sistema de seguridad informática
+
+Tal como puede visualizarse, en el gráfico están plasmados todos los elementos
+que intervienen para el estudio de una política de seguridad.
+Se comienza realizando una evaluación del factor humano interviniente -
+teniendo en cuenta que éste es el punto más vulnerable en toda la cadena de
+seguridad -, de los mecanismos con que se cuentan para llevar a cabo los procesos
+necesarios ( mecanismos técnicos, físicos ó lógicos), luego, el medio ambiente en que
+se desempeña el sistema, las consecuencias que puede traer aparejado defectos en la
+seguridad (pérdidas físicas, pérdidas económicas, en la imagen de la organización,
+etc.), y cuáles son las amenazas posibles.
+Una vez evaluado todo lo anterior, se origina un programa de seguridad, que
+involucra los pasos a tomar para poder asegurar el umbral de seguridad que se desea.
+Luego, se pasa al plan de acción, que es cómo se va a llevar a cabo el programa de
+seguridad. Finalmente, se redactan los procedimientos y normas que permiten llegar
+a buen destino.
+
+Con el propósito de asegurar el cumplimiento de todo lo anterior, se realizan los
+controles y la vigilancia que aseguran el fiel cumplimiento de los tres puntos
+antepuestos. Para asegurar un marco efectivo, se realizan auditorías a los controles y a
+los archivos logísticos que se generen en los procesos implementados (de nada vale
+tener archivos logísticos si nunca se los analizan o se los analizan cuando ya ha ocurrido
+un problema).
+Con el objeto de confirmar el buen funcionamiento de lo creado, se procede a
+simular eventos que atenten contra la seguridad del sistema. Como el proceso de
+seguridad es un proceso dinámico, es necesario realizar revisiones al programa de
+seguridad, al plan de acción y a los procedimientos y normas. Estas revisiones, tendrán
+efecto sobre los puntos tratados en el primer párrafo y, de esta manera, el proceso se
+vuelve a repetir.
+Es claro que el establecimiento de políticas de seguridad es un proceso
+dinámico sobre el que hay que estar actuando permanentemente, de manera
+tal que no quede desactualizado; que, cuando se le descubran debilidades,
+éstas sean subsanadas y, finalmente, que su práctica por los integrantes de
+la organización no caiga en desuso.
+2.5 - ¿Por qué las políticas de seguridad informática generalmente
+no consiguen implantarse?
+Muchas veces, las organizaciones realizan grandes esfuerzos para definir sus
+directrices de seguridad y concretarlas en documentos que orienten las acciones de las
+mismas, con relativo éxito. Según algunos estudios [5] resulta una labor ardua
+convencer a los altos ejecutivos de la necesidad de buenas políticas y prácticas de
+seguridad informática.
+Muchos de los inconvenientes se inician por los tecnicismos informáticos y por la
+falta de una estrategia de mercadeo de los especialistas en seguridad que, llevan a los
+altos directivos a pensamientos como: "más dinero para los juguetes de los ingenieros".
+Esta situación ha llevado a que muchas empresas con activos muy importantes, se
+encuentren expuestas a graves problemas de seguridad que, en muchos de los casos,
+lleva a comprometer su información sensible y por ende su imagen corporativa.
+Ante esta encrucijada, los encargados de la seguridad deben asegurarse de que
+las personas relevantes entienden los asuntos importantes de la seguridad, conocen sus
+alcances y están de acuerdo con las decisiones tomadas en relación con esos asuntos.
+En particular, la gente debe conocer las consecuencias de sus decisiones, incluyendo lo
+mejor y lo peor que podría ocurrir. [3, pág.394] Una intrusión o una travesura puede
+convertir a las personas que no entendieron, en blanco de las políticas o en señuelos de
+los verdaderos vándalos. Luego, para que las PSI logren abrirse espacio en el interior
+de una organización deben integrarse a las estrategias del negocio, a su misión y
+visión, con el propósito de que los que toman las decisiones reconozcan su importancia
+e incidencias en las proyecciones y utilidades de la compañía.

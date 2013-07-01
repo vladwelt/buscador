@@ -1,0 +1,166 @@
+4 - Tipos de Ataques y Vulnerabilidades
+4.1 - Negación de servicio ( denial of service )
+En el presente apartado, se describirán los modos de ataques que podrían ocurrir
+más frecuentemente en las redes de información. Debido a la pérdida de dinero y de
+tiempo que estos ataques pueden ocasionar, se presentarán también algunas formas
+de prevención y de respuesta a los mismos.
+4.1.1 - ¿Qué es “Denial of service”?. Descripción de ataques.
+Denial of service es un tipo de ataque cuya meta fundamental es la de negar el
+acceso del atacado a un recurso determinado o a sus propios recursos.
+Algunos ejemplos de este tipo de ataque son:
+· tentativas de “floodear” (inundar) una red, evitando de esta manera el tráfico
+legítimo de datos en la misma;
+· tentativas de interrumpir las conexiones entre dos máquinas evitando, de esta
+manera, el acceso a un servicio;
+· tentativas de evitar que una determinada persona tenga acceso a un servicio;
+· tentativas de interrumpir un servicio específico a un sistema o a un usuario;
+Cabría tener en cuenta que, el uso ilegítimo de recursos puede también dar lugar
+a la negación de un servicio. Por ejemplo, un “hacker” puede utilizar un área del FTP
+anónimo como lugar para salvar archivos, consumiendo, de esta manera, espacio en el
+disco y generando tráfico en la red.
+Como consecuencia, los ataques de negación de servicio pueden esencialmente
+dejar inoperativa una computadora o una red. De esta forma, toda una organización
+puede quedar fuera de Internet durante un tiempo determinado.
+4.1.2 - Modos de ataque
+Algunos ataques de negación de servicio se pueden ejecutar con recursos muy
+limitados contra un sitio grande y sofisticado. Este tipo de ataque se denomina “ataque
+asimétrico”. Por ejemplo, un atacante con una vieja PC y un módem puede poner fuera
+de combate a máquinas rápidas y sofisticadas. Ultimamente, esto es común con
+ataques de los denominados “nukes” en los cuales caen instalaciones grandes, por
+ejemplo, de clusters Windows NT.
+Hay tres tipos de ataques básicos de negación de servicios:
+a.- Consumo de recursos escasos, limitados, o no renovables
+b.- Destrucción o alteración de información de configuración
+c.- Destrucción o alteración física de los componentes de la red
+4.1.3 - Consumo de recursos escasos, limitados, o no renovables
+Las computadoras y las redes necesitan para funcionar ciertos recursos: ancho de
+banda de la red, espacio de memoria y disco, tiempo de CPU, estructuras de datos,
+acceso otras computadoras y redes, entre otros.
+Conectividad
+Los ataques de Negación de servicio se ejecutan, con frecuencia, contra la
+conectividad de la red. La meta del hacker es evitar que las computadoras se
+comuniquen en la red.
+Un ejemplo de este tipo de ataque es el “SYN flood” :
+En este tipo de ataque, el hacker comienza el proceso de establecer una conexión
+TCP a la máquina de la víctima, pero lo hace de manera tal que evita que la conexión
+se complete. En este tiempo, la máquina del atacado ha reservado uno entre un
+número limitado de las estructuras de datos requeridas para terminar la conexión
+inminente. El resultado es que las conexiones legítimas se rechazan mientras que la
+máquina del atacado se queda esperando para terminar esas falsas conexiones “medio
+abiertas”.
+Debe tenerse en cuenta que este tipo de ataque no depende del ancho de banda
+que disponga el atacante. En este caso, el hacker está consumiendo las estructuras de
+datos del kernel, implicadas en establecer una conexión TCP. Un hacker con una simple
+conexión dial-up puede realizar este ataque contra una poderosa Workstation (este
+último es un buen ejemplo de un ataque asimétrico).
+Aprovechamiento de los recursos del otro
+Un hacker también puede utilizar los recursos que usted dispone contra usted
+mismo, de maneras inesperadas. Por ejemplo, el caso de Negación de servicio UDP. En
+este ataque, el hacker utiliza los paquetes “falsificados” de UDP para conectar el
+servicio de generación de eco en una máquina con el servicio de chargen en otra
+máquina.
+El resultado es, que los dos servicios consumen todo el ancho de banda de red
+entre ellos. Así, la conectividad para todas las máquinas en la misma red desde
+cualquiera de las máquinas atacadas se ve afectada.
+Consumo de ancho de banda
+Un hacker puede, también, consumir todo el ancho de banda disponible en su red
+generando una gran cantidad de paquetes dirigidos a la misma. Típicamente, estos
+paquetes son de generación de eco de ICMP (ping), pero pueden ser cualquier otra
+cosa. Además, el hacker no necesita operar desde una sola máquina; él puede poder
+coordinar varias máquinas en diversas redes para alcanzar el mismo efecto.
+Consumo de otros recursos
+Además del ancho de banda de la red, los hackers pueden consumir otros
+recursos que su sistema necesite para funcionar. Por ejemplo, en muchos sistemas, un
+número limitado de las estructuras de datos en el kernel está disponible para
+almacenar información de procesos (identificadores, entradas en tablas de procesos,
+slots , etc.).
+Un hacker puede consumir estas estructuras de datos escribiendo un programa o
+un script que no haga nada pero que cree en varias ocasiones copias de sí mismo.
+Muchos sistemas operativos modernos, aunque no la totalidad de ellos, tienen recursos
+para protegerse contra este problema. Además, aunque las tablas de procesos no se
+llenen, se consume CPU por la gran cantidad de procesos y conmutación entre los
+mismos.
+Un hacker puede también consumir su espacio en disco de otras maneras, por
+ejemplo:
+· Generar miles de mails (Spam, Bombing. Para ampliar este tema, consultar el
+próximo).
+· Generar intencionalmente errores que deben ser logueados. En este tipo de
+ataque, podemos citar también la utilización indebida del syslog en unix. Es
+decir, utilizar el proceso syslog de la víctima para que registre eventos de otra
+máquina, llenando el espacio en disco con el archivo de syslog.
+· Colocar archivos en su disco, utilizando ftp anónimo.
+En general, se puede utilizar cualquier cosa que permita que los datos sean
+escritos en su disco para ejecutar un ataque de negación de servicio si no hay límites
+en la cantidad de datos que se pueden escribir (quotas).
+No obstante, muchos sitios tienen esquemas de “lockout” de cuenta después de
+un cierto número de logins fallados. Un setup típico bloquea el login después de 3 o 5
+tentativas falladas. Un hacker puede utilizar este esquema para evitar que los usuarios
+legítimos entren. En algunos casos, incluso las cuentas privilegiadas, tales como root o
+administrator, pueden ser víctimas de este tipo de ataque.
+Recuerde: siempre disponga de un método para acceder ante la
+emergencia de este tipo de ataques.
+Un hacker puede hacer caer su sistema o ponerlo inestable, enviando datos
+inesperados. Un ejemplo de tal ataque es el “ping flood” o Pings de tamaño demasiado
+grande. Si su sistema está experimentando caídas frecuentes sin causa evidente, podría
+deberse a este tipo de ataque.
+Hay otros componentes que pueden ser vulnerables a la negación de servicio y
+que deben vigilar se. Estos incluyen:
+· Impresoras
+· Unidades de cinta
+· Conexiones de red
+· Otros recursos limitados importantes para la operación de su sistema.
+4.1.4 - Destrucción o alteración de la información de
+configuración
+Una computadora incorrectamente configurada puede no funcionar bien o
+directamente no arrancar. Un hacker puede alterar o destruir la información de
+configuración de su sistema operativo, evitando de esta forma que usted use su
+computadora o red.
+Veamos algunos ejemplos:
+Si un hacker puede cambiar la información de ruteo de sus routers, su red puede
+ser deshabilitada.
+Si un hacker puede modificar la registry en una máquina Windows NT, ciertas
+funciones pueden ser imposibles de utilizar, o directamente el sistema puede no volver
+a bootear.
+4.1.5. - Destrucción o alteración física de los componentes de la
+red
+Es muy importante la seguridad física de la red. Se debe resguardar contra el
+acceso no autorizado a las computadoras, los routers, los racks de cableado de red,
+los segmentos del backbone de la red, y cualquier otro componente crítico de la red.
+4.1.6 - Prevención y respuesta
+Tal como se ha expresado anteriormente, los ataques de Negación de servicio
+pueden dar lugar a pérdidas significativas de tiempo y dinero para muchas
+organizaciones, por lo que se recomiendan una serie de medidas:
+· Coloque access lists en los routers. Esto reducirá su exposición a ciertos
+ataques de negación de servicio
+· Instale patches a su sistema operativo contra flooding de TCP SYN. Esta acción
+permitirá reducir sustancialmente su exposición a estos ataques aunque no
+pueda eliminar el riesgo en forma definitiva.
+· Invalide cualquier servicio de red innecesario o no utilizado. Esto puede limitar
+la capacidad de un hacker de aprovecharse de esos servicios para ejecutar un
+ataque de negación de servicio. Por ejemplo: chargen, Echo, etc.
+· Si su sistema operativo lo permite, implemente sistemas de cuotas. Por
+ejemplo, si su sistema operativo soporta “disk Quotas” impleméntelo para
+todos los logins. Si su sistema operativo soporta partición o volúmenes, separe
+lo crítico de lo que no lo es.
+· Observe el funcionamiento del sistema y establezca valores base para la
+actividad ordinaria. Utilice estos valores para calibrar niveles inusuales de la
+actividad del disco, del uso de la CPU, o del tráfico de red.
+· Incluya como parte de su rutina, el examen de su seguridad física. Considere,
+entre otras cosas, los servidores, routers, terminales desatendidas, ports de
+acceso de red y los gabinetes de cableado.
+· Utilice Tripwire o una herramienta similar para detectar cambios en la
+información de configuración u otros archivos.
+· Trate de utilizar configuraciones de red redundantes y fault-tolerant.
+4.2 - Cracking de passwords
+En este apartado, se presentarán una serie de consideraciones referidas al
+“cracking de passwords” basadas en UNIX1.
+El objetivo inicial consiste en entrar al server. Para ello, se procede como si se
+tratase de una máquina remota (telnet). Pero, debido a que se permite el acceso a
+múltiples usuarios, los sistemas UNIX nos solicitarán un nombre de identificación
+acompañado de una clave. Dicho nombre darse de alta en el sistema para que se
+pueda acceder.
+Cuando un usuario desea entrar en una máquina, el sistema solicitará:
+Un login de acceso o nombre de usuario. Si el login es incorrecto, el sistema no lo
+notificará para impedirle conocer qué accesos se encuentran dados de alta.
+Una password o palabra clave. Si la password coincide con la que tiene asignada
+el login que se emplea, el sistema permitirá el acceso.

@@ -1,0 +1,56 @@
+8.11        Configuracion  de  un  Servidor  PPP
+Hacer funcionar el pppd como servidor es solo cuestion de a"nadir las opciones adecuadas en la
+
+linea de comando.  Idealmente, crearia una cuenta especial, digamos ppp, y la adjudicaria
+
+un script o programa como shell de entrada que llame al pppd  con estas opciones.  Por
+
+ejemplo, podria a"nadir la siguiente linea a /etc/passwd :
+
+
+
+       ppp:*:500:200:Cuenta  PPP  Publica:/tmp:/etc/ppp/ppplogin
+     Por  supuesto,  puede  usar  uids  y  gids  diferentes  a  estas  mostradas  arriba.   Tambien
+
+tendra que establecer la contrase"na para la cuenta de arriba usando el comando passwd.
+
+
+     El script ppplogin tendra entonceseste aspecto:
+
+
+
+       #!/bin/sh
+       #  ppplogin  -  script  para  lanzar  el  pppd  al  entrar
+       mesg  n
+       stty  -echo
+       exec  pppd  -detach  silent  modem  crtscts
+     El comando mesg  deshabilita la opcion de que otros usuarios puedan escribir a la tty
+
+usada  utilizando,  por  ejemplo,  el  comando  write.   El  comando  stty  desactiva  el  eco  de
+
+caracteres.  Esto es necesario, pues de otra forma todo lo que el otro ordenador envie le
+
+sera devuelto a modo de eco.  La opcion del pppd  mas importante de las incluidas en el
+
+script es -detach, porque evita que el pppd  se separe de el tty controlado.  Si no especi-
+
+ficasemos esta opcion, se iria a segundo plano, haciendo que el script del shell terminase.
+
+Esto provocaria que la linea de serie colgase y se perdiera la conexion.  La opcion silent
+
+hace que el pppd espere hasta recibir un paquete del sistema llamante antes de comenzar a
+
+enviar.  Esto evita la aparicion de timeouts al transmitir cuando el sistema que nos llama
+
+es lento en lanzar su cliente PPP. La opcion modem hace al pppd vigilar la linea DTR para
+
+ver si el otro sistema ha colgado, y crtscts activa el control de flujo por hardware.
+
+
+     Ademas de estas opciones, se puede forzar alguna clase de autentificacion, por ejemplo
+
+especificando auth en la linea de comando del pppd, o en el fichero de opciones globales. La
+
+pagina del manual tambien habla sobre opciones mas especificas para activar o desactivar
+
+los protocolos de autentificacion individuales.

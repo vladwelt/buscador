@@ -1,0 +1,188 @@
+un servicio particular deberian ser aceptadas, y otro nodo que no lo es y cuyas peticiones
+
+deberian ser rechazadas.  Ya hemos discutido brevemente los servicios finger  y tftp  mas
+
+arriba.  Asi, uno podria querer limitar el acceso a esos servicios solamente a los "nodos de
+
+confianza", lo cual es imposible con la configuracion usual, donde inetd  o proporciona un
+
+servicio a todos los clientes, o a ninguno.
+
+
+     Una herramientautil paraesto es tcpd,4  el denominado demonio envoltorio.  Para los
+
+servicios TCP que quiera monitorizar o proteger,este es invocado en lugar del programa
+
+servidor. tcpd informa de la peticion al demonio syslog, chequea si el nodo remoto esta auto-
+
+rizado para usar ese servicio, y solo si la respuesta es satisfactoria, ejecutara el programa
+
+servidor real. Observa queesto no funciona con servicios basados en UDP.
+
+
+     Por ejemplo, para proteger el demonio finger, debe cambiar la linea correspondiente en
+
+inetd.conf  asi
+
+
+
+       #  wrap  finger  daemon
+       finger   stream   tcp       nowait   root      /usr/sbin/tcpd    in.fingerd
+     Asi, sin a"nadir ningun control de acceso,esto le hara parecer al cliente que es la tipica
+
+configuracion  de  finger,  salvo  que  toda  peticion  sera  registrada  con  la  utilidad  auth  del
+
+syslog.
+
+
+     El control de acceso esta implementado mediante dos ficheros llamados /etc/hosts.allow
+
+y /etc/hosts.deny.  Estos ficheros contienen entradas permitiendo y denegando acceso, res-
+
+pectivamente, para ciertos servicios y nodos.  Cuando tcpd  trata una peticion de un servi-
+
+cio como finger  de un nodo cliente denominado biff.foobar.com, busca en hosts.allow  y
+
+hosts.deny (eneste orden) una entrada en la que el servicio y el nodo cliente coincidan.  Si
+
+la entrada coincidente aparece en hosts.allow, se garantiza el acceso, sin importar lo que
+
+haya en hosts.deny.  Si la coincidencia se encuentra en hosts.deny, la peticion se rechaza
+
+cerrando la conexion. Si no hay coincidencia en ninguno, la peticion es aceptada.
+
+
+     Las entradas en los ficheros de acceso tienen la siguiente estructura:
+       lista_servicios :   lista_nodos  [:cmd_shell ]
+     lista_servicios  es una lista de nombres de servicios de /etc/services,  o la palabra
+
+clave ALL. Para especificar todos los servicios excepto finger  y tftp, usa "ALL EXCEPT
+
+finger, tftp".
+
+
+     lista_nodos  es una lista de nombres de nodos o direcciones IP, o las palabras clave
+
+ALL, LOCAL, o UNKNOWN. ALL hace coincidir todos los nodos mientras que LOCAL
+hace coincidir todos los nombres de nodos que no contengan un punto5. UNKNOWN  hace
+
+coincidir todos los nodos cuya busqueda de nombre o direccion fallo. Un nombre comenzado
+
+por  un  punto  incluye  a  todos  los  nodos  cuyo  dominio  es  el  mismo  a  ese  nombre.   Por
+
+ejemplo, .foobar.com coincidira con biff.foobar.com. Tambien hay formas de especificar
+
+direcciones de red IP y numeros de subred.  Por favor, refierase a la pagina del manual de
+
+hosts_access(5) para mas detalles.
+
+
+     Para denegar acceso a los servicios finger  y tftp a todos los nodos menos a los locales,
+
+ponga lo siguiente en /etc/hosts.deny, y deje /etc/hosts.allow vacio:
+       in.tftpd,  in.fingerd:   ALL  EXCEPT  LOCAL,  .su.dominio
+     El campo opcional cmd_shell puede contener un comando de shell para que sea invocado
+
+cuando una busqueda coincida con la entrada.  Esto es util para establecer trampas que
+
+puedan delatar a atacantes potenciales:
+
+
+
+       in.ftpd:  ALL  EXCEPT  LOCAL,  .vbrew.com  :  \
+                echo  "petici\'on  de  %d@%h"  >>  /var/log/finger.log;  \
+                if  [  %h  !=  "vlager.vbrew.com"  ];  then  \
+          finger  -l  @%h  >>  /var/log/finger.log  \
+                fi
+     Los  argumentos  %h  y  %d  son  expandidos  por  tcpd  al  nombre  del  nodo  cliente  y  al
+
+nombre del servicio, respectivamente.  Refierase a la pagina del manual de hosts_access(5)
+
+para mas detalles.
+
+9.3       Los  ficheros  services  y  protocols
+Los numeros de puerto en los que se ofrecen ciertos servicios "estandar" estan definidos en
+
+el RFC "Numeros Asignados".  Para permitir a los programas cliente y servidor convertir
+
+nombres de servicios enestos numeros, al menos una parte de la lista es mantenida en cada
+
+nodo; esta almacenada en un fichero llamado /etc/services. Una entrada se construye asi:
+       servicio  puerto /protocolo  [aliases ]
+     Aqui, servicio especifica el nombre del servicio, puerto define el puerto por el que se
+
+ofrece el servicio, y protocolo  define que protocolo de transporte se usa.  Comunmente,
+este es udp o tcp.  Es posible que un servicio sea ofrecido a mas de un protocolo, lo mismo
+
+ que es posible ofrecer distintos servicios por el mismo numero de puerto, siempre que el
+
+ protocolo sea distinto. El campo aliases permite especificar nombres alternativos para el
+
+ mismo servicio.
+
+
+      Usualmente,  no  se  necesita  cambiar  el  fichero  de  servicios  que  viene  con  el  software
+
+ de red en su sistema Linux.  De todas formas, presentaremos un peque"no extracto de ese
+
+ fichero.
+
+
+
+        #  El  fichero  services:
+        #
+        #  servicios  conocidos  (well-known)
+        echo               7/tcp                       #  Echo
+        echo               7/udp                       #
+        discard           9/tcp   sink  null        #  Discard
+        discard           9/udp   sink  null        #
+        daytime          13/tcp                       #  Daytime
+        daytime          13/udp                       #
+        chargen          19/tcp   ttytst  source   #  Character  Generator
+        chargen          19/udp   ttytst  source   #
+        ftp-data        20/tcp                       #  File  Transfer  Protocol  (Data)
+        ftp               21/tcp                       #  File  Transfer  Protocol  (Control)
+        telnet           23/tcp                       #  Virtual  Terminal  Protocol
+        smtp              25/tcp                       #  Simple  Mail  Transfer  Protocol
+        nntp            119/tcp   readnews          #  Network  News  Transfer  Protocol
+        #
+        #  servicios  UNIX
+        exec            512/tcp                       #  BSD  rexecd
+        biff            512/udp   comsat            #  mail  notification
+        login           513/tcp                       #  remote  login
+        who              513/udp   whod               #  remote  who  and  uptime
+        shell           514/tcp   cmd                #  remote  command,  no  passwd  used
+        syslog          514/udp                       #  remote  system  logging
+        printer        515/tcp   spooler           #  remote  print  spooling
+        route           520/udp   router  routed   #  routing  information  protocol
+      Observa que, por ejemplo, el servicio echo  es ofrecido en el puerto 7 tanto para TCP
+
+ como para UDP, y que el puerto 512 es usado para dos servicios diferentes,  el demonio
+
+ COMSAT  (que  notifica  a  los  usuarios  de  correo  recien  llegado,  vea  xbiff(1x)),  mediante
+
+ UDP, y la ejecucion remota (rexec(1)), usando TCP.
+
+
+      Similar el fichero de servicios, la libreria de red necesita una forma de convertir nombres
+
+ de protocolo _ por ejemplo, los usados en el fichero services _ a numeros de protocolo
+
+ entendibles por el nivel IP en otros nodos.  Esto se hace buscando el nombre en el fichero
+/etc/protocols. Contiene una entrada por linea, cada una conteniendo un nombre de proto-
+
+colo y el numero asociado.  Necesitar modificareste fichero es todavia mas improbable que
+
+tener que hurgar en /etc/services. Le mostramos un fichero ejemplo:
+
+
+
+       #
+       #  Internet  (IP)  protocols
+       #
+       ip        0          IP                   #  internet  protocol,  pseudo  protocol  number
+       icmp      1          ICMP                #  internet  control  message  protocol
+       igmp      2          IGMP                #  internet  group  multicast  protocol
+       tcp       6          TCP                  #  transmission  control  protocol
+       udp       17        UDP                  #  user  datagram  protocol
+       raw       255       RAW                  #  RAW  IP  interface

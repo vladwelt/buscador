@@ -1,0 +1,76 @@
+     _______________________________________________________________________________________________________________2.6*
+ *.   El sistema de nombres DNS@
+
+
+
+
+     red mediante mensajes ICMP. Por ello, algunas versiones del codigo de Linux tratan los
+
+     mensajes de redireccion que afectan a rutas de red como si fueran redirecciones de rutas a
+
+     nodos.
+
+     2.6       El  sistema  de  nombres  DNS
+     2.6.1      Resolucion de nombres
+
+
+
+3    Como se comento antes, el direccionamiento en TCP/IP se basa en numeros de 32 bits.
+
+     Evidentemente, esos numeros no son faciles de recordar, mientras que si lo es el nombre que
+
+     se le asigna a cada maquina, como gauss o strange.  Existe una aplicacion que es capaz
+
+     de traducir nombres a direcciones IP, es conocida como sistema de resolucion de nombres
+
+     o DNS11 .
+
+
+          Una aplicacion que desee encontrar la direccion IP correspondiente a una maquina de
+
+     la  que  conoce  su  nombre,  no  tiene  que  incluir  rutinas  para  ello,  ya  que  en  las  librerias
+
+     estandares (libc) existen ya rutinas preparadas, como gethostbyname(3) o gethostbyaddr(3).
+
+     En otros sistemas se encuentran en otras librerias distintas de la libc pero esto no sucede
+
+     en Linux.  Al conjunto de rutinas que hacen estas tareas se les conoce como "sistema de
+
+     resolucion".
+
+
+          En una red peque"na no es dificil mantener una tabla /etc/hosts  en cada maquina, y
+
+     modificarla al agregar, eliminar o modificar nodos. Aunque resulta complicado cuando hay
+
+     muchas maquinas ya que, en principio, cada una necesita una copia de /etc/hosts.
+
+
+          Una  solucion  a  esto  es  compartir  esta  y  otras  bases  de  datos  con  el  NIS,  o  sistema
+
+     de  informacion  de  red 12,  desarrollado  por  Sun  Microsystems  y  conocido  tambien  como
+
+     paginas amarillas.  En este caso, las bases de datos como la de /etc/hosts se mantienen en
+
+     un servidor NIS central y los clientes accederan a ellas de forma transparente al usuario. En
+
+     todo caso, esta solucion solo es aconsejable para redes peque"nas o medianas, ya que implican
+
+     mantener un fichero central /etc/hosts  que puede crecer mucho, y luego distribuirlo entre
+
+     los servidores NIS.
+
+
+          En  Internet,  se  comenzo  almacenando  la  informacion  en  un  fichero  similar  al  hosts,
+
+     mantenido por el NIC, y obtenido regularmente por los demas servidores.  Cuando la red
+
+     crecio comenzaron los problemas de sobrecarga de servidores, ademas de que el NIC tenia
+
+     que ocuparse de todos los nombres de los nodos de internet, y evitar la duplicidad de los
+
+     mismos.
+     _____________________________________________11
+          Domain Name System
+        12Network Information System
+ 

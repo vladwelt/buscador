@@ -1,0 +1,1779 @@
+Capítulos tesisINDICE
+              I. Introducción 
+              II. Trabajo relacionado 
+              III. Extracción de estructura en FDL 
+              IV. Prototipo y evaluación 
+              V. Conclusiones 
+              Bibliografía 
+              Apéndice 1 
+              Apéndice 2
+      I. INTRODUCCIÓN 
+        
+          Se han estado generando bibliotecas tradicionales a lo largo de 
+      cientos de años. Hoy en día es posible proveer nuevos servicios gracias a 
+      la colaboración de escritores, investigadores y especialistas en 
+      tecnología de información. Actualmente podemos hacer uso de la 
+      información, en su formato original, desde cualquier parte del mundo a 
+      través de la computadora. De este modo, el conocimiento puede ser accesado 
+      desde cualquier lugar y por cualquiera que tenga acceso a la red global de 
+      computadoras y comunicaciones, principalmente a través de World Wide Web. 
+           Las bibliotecas digitales continúan llevando a cabo importantes 
+      funciones como recolección de información, organización, presentación y 
+      localización de información. Además extienden los servicios que 
+      actualmente proporcionan las bibliotecas convencionales haciendo uso de 
+      las ventajas que ofrece el medio digital [Lesk 1997]. 
+           El presente trabajo se ubica en el contexto de una biblioteca digital 
+      accesible vía web. El problema principal a tratar se refiere a la 
+      dificultad de extraer información que se encuentra en diversos formatos 
+      para organizarla en una base de datos. 
+          A continuación se introducen a las bibliotecas digitales con el fin de 
+      tener un panorama de lo que son y sus objetivos principales. 
+        
+        
+      1.1 BIBLIOTECAS DIGITALES 
+          Esta era y la que estamos construyendo, conocida como ciberespacio, la 
+      era de la información, la supercarretera de la información o el 
+      interespacio, por nombrar algunos términos populares, están soportadas por 
+      un sistema de red. Sin embargo, su esencia es la información. Información 
+      es lo que viaja en la red, lo que se presenta en distintos modos 
+      electrónicos, lo que se manipula en nuestras computadoras, o lo que se 
+      ofrece a través de las bibliotecas digitales [Fox et al. 1993]. 
+          Con el crecimiento de Internet y la gran demanda de los usuarios por 
+      accesar información de manera rápida y eficiente, se ha generado el 
+      concepto de biblioteca digital. Una biblioteca digital se considera 
+      popularmente como una versión electrónica de una biblioteca convencional. 
+      Sin embargo, la sustitución del papel por documentos electrónicos nos 
+      lleva a tres grandes diferencias: acceso y almacenamiento de información 
+      en forma digital, comunicación directa con la biblioteca desde cualquier 
+      parte del mundo para obtener material, y obtención de una copia del 
+      material de la versión original [Wiederhold 1995]. 
+           Actualmente, el concepto de "biblioteca digital" suele dar una 
+      impresión distinta a cada lector. Para algunos significa nuevos métodos 
+      para almacenar la información y preservarla. Para otros significa nuevas 
+      técnicas para clasificar, catalogar, para interactuar con el usuario, 
+      mayor seguridad en sistemas electrónicos, y cambios dramáticos en lo 
+      organizacional [Fox 1995]. Para los profesionales en la computación, una 
+      biblioteca digital es simplemente una colección de servicios distribuidos 
+      de información; es un espacio distribuido de información interrelacionada 
+      [Slonim 1995]. 
+           Algunas de las ventajas que ofrece el uso de bibliotecas digitales, a 
+      diferencia de las bibliotecas convencionales son: uso de multimedios, 
+      hiper-referencias, mejor control de la información, trabajo académico 
+      cooperativo y remoto, ordenamientos múltiples, flujo más libre de 
+      información [Sánchez 1994]. Otras ventajas de las bibliotecas digitales 
+      incluyen un mejor uso de los recursos existentes, mayor protección de 
+      libros y documentos históricos contra el rápido deterioro y vandalismo, 
+      solución a problemas masivos de almacenamiento y por último un acceso 
+      instantáneo a cualquiera desde cualquier lugar del mundo. 
+        
+          Las bibliotecas digitales se enfrentan a problemas tales como el 
+      manejo de mucha información en distintos formatos, seguridad, 
+      actualizaciones, recuperación de información, búsquedas, manejo de la base 
+      de datos de la biblioteca, costos elevados en software y hardware, entre 
+      otros. 
+          Este proyecto se desarrolla dentro de una de las bibliotecas digitales 
+      que actualmente se están construyendo: la Biblioteca Digital Florística. 
+      En la sección que sigue se explicará el propósito de su creación. 
+        
+       1.2 BIBLIOTECA DIGITAL FLORÍSTICA 
+           Existe gran preocupación por parte de los investigadores en 
+      biodiversidad acerca de la extinción de especies botánicas antes de que 
+      hayan podido estudiarse o incluso identificarse dadas las limitaciones de 
+      los métodos tradicionales de recolección y de intercambio de información. 
+      Las tecnologías de información y comunicación pueden apoyar actividades 
+      científicas para ofrecer lo que se conoce como bibliotecas digitales. 
+          La Biblioteca Digital Florística (FDL) es un espacio virtual 
+      distribuido que comprende información botánica y una variedad de servicios 
+      ofrecidos a los usuarios para facilitar el uso y la extensión del 
+      conocimiento acerca de las plantas [Schnase et al. 1997]. La Biblioteca 
+      Digital Florística abre un espacio a investigadores y expertos en el área 
+      para compartir conocimiento y para tener información actualizada de manera 
+      accesible. 
+           En la Biblioteca Digital Florística participan proyectos 
+      internacionales de investigación y desarrollo financiados por la Fundación 
+      Nacional para la Ciencia (NSF) como la Flora de Norte América (FNA), la 
+      Flora de China (FOC) y la Flora de Mesoamérica (FM) bajo la dirección del 
+      Centro de Informática Botánica (CBI) del Jardín Botánico de Missouri y con 
+      la participación del Laboratorio de Tecnologías Interactivas y 
+      Cooperativas (ICT) de la Universidad de las Américas Puebla (UDLAP). 
+          FNA es un proyecto que tiene como objetivo tener documentos, mapas, 
+      ilustraciones y sobre todo la base de datos de la Flora de Norte América, 
+      la cual se refiere a aproximadamente 20,000 especies de plantas de 
+      Norteamérica al norte de México [Schnase et al. 1997]. FOC y FM persiguen 
+      objetivos similares para especies de China y de Mesoamérica 
+      respectivamente. FNA se comenzó en 1987 y se pretende que esté terminado 
+      alrededor del 2006 [Tranter 1994]. Aproximadamente se cuenta con la 
+      colaboración de 800 investigadores contribuyendo a este proyecto. 
+           Para los proyectos de Flora de Norteamérica (FNA) y Flora de China 
+      (FOC) se ha manejado información de forma masiva, la cual se encuentra en 
+      formato libre. La Biblioteca Digital Florística (FDL) se encuentra en 
+      desarrollo y está basada en un modelo objeto-relacional. Es deseable que 
+      la información que ya se encuentra en documentos no estructurados sea 
+      incorporada a la base de datos de FDL. Esto conllevaría múltiples 
+      beneficios, entre los que cabe mencionar: 
+        
+      · la información puede ser accesada en línea en un formato uniforme; 
+      · facilidad en búsquedas más precisas al utilizar mecanismos de consulta 
+      disponibles para una base de datos; 
+      · la información puede extraerse de varios formatos para su distribución 
+      en papel o de manera electrónica (como HTML); 
+      · la validación y corrección de la información puede hacerse de manera más 
+      eficiente por los editores al utilizar una forma electrónica con campos 
+      donde el usuario puede corregir antes de actualizar la base de datos; y 
+      · es posible aplicar técnicas de traducción para interfaces multilingües a 
+      FDL. 
+        
+      La transformación de descripciones morfológicas en un formato libre a un 
+      formato estructurado presenta varios problemas, como se describe a 
+      continuación. 
+        
+      1.3 EL PROBLEMA DE EXTRAER INFORMACIÓN EN FDL. 
+           Para la Biblioteca Digital Florística (FDL), los investigadores 
+      escriben descripciones de las especies botánicas llamadas "descripciones 
+      morfológicas" que se encuentran dentro de un "tratamiento taxonómico", el 
+      cual entre otras cosas contiene discusiones sobre su uso, toxicidad, 
+      referencias bibliográficas y los nombres de los investigadores. Los 
+      taxonomistas consideran como la esencia de una descripción taxonómica a 
+      una lista de propiedades que posee una taxonomía [Taylor 1994]. 
+        
+        
+
+              Figura 1. Ejemplo de un tratamiento taxonómico.
+        
+          La Figura 1 muestra un ejemplo de un tratamiento taxonómico el cual 
+      contiene una descripción morfológica (en el recuadro). Este tratamiento 
+      para su presentación ha sido condensado y se ha tomado del volumen 2 de 
+      FNA [Morin et al 1993]. Esta descripción utiliza un lenguaje natural 
+      restringido, en este caso el de los botánicos, lo cual nos lleva al 
+      estudio del lenguaje que comúnmente ocupan estos investigadores. Podemos 
+      observar que un tratamiento taxonómico, además de contener las 
+      características principales de la planta descrita, también maneja 
+      información sobre las referencias utilizadas y sobre los autores de dicha 
+      descripción. Para el caso de FDL, nos interesa tener en la base de datos, 
+      por ejemplo, información como la bibliografía citada en cada tratamiento, 
+      los autores, las localidades y la descripción morfológica. Este proyecto 
+      se enfoca sólo a la extracción de la descripción morfológica. 
+           La información de FDL se almacenará en un esquema objeto-relacional. 
+      Sin embargo, existen ya gran cantidad de descripciones que no se 
+      encuentran en esta forma, incluyendo algunas en FNA y FOC. Además de que 
+      existen descripciones archivadas en papel, las cuales no han sido 
+      almacenadas en la base de datos. 
+        
+          El proceso para obtener la información que nos interesa con el 
+      objetivo de almacenarla en una base de datos requiere de un proceso de 
+      análisis. Este análisis generalmente comienza con la identificación de 
+      términos, en este caso como el nombre, origen, tamaño, forma y color de 
+      cada planta o grupo de plantas. Para la Biblioteca Digital Florística 
+      requerimos de un método que nos permita identificar lenguaje natural 
+      restringido utilizado en las descripciones morfológicas. 
+        
+        
+      1.4 ESTRUCTURA EN LAS BIBLIOTECAS DIGITALES 
+          La proliferación de textos en WWW ha motivado a muchos de los 
+      proyectos de extracción de información ya sea a una base de datos para 
+      poder llevar a cabo consultas. No obstante que la mayoría de los volúmenes 
+      de información se encuentran accesibles a bajos costos en texto de formato 
+      libre, la gente no puede leer y asimilar tanta información al mismo 
+      tiempo. De esta manera se requiere que la información se almacene en un 
+      formato estructurado, por ejemplo una base de datos relacional, o indexada 
+      sistemáticamente y ligada hacia otros textos en que contengan información 
+      relacionada. La mayoría de los procesos de extracción de información 
+      consisten en responder a preguntas a las que el usuario desea dar 
+      respuesta. Un diagrama de este proceso de extracción se muestra en la 
+      Figura 2, donde se responden ciertas preguntas a partir de su búsqueda en 
+      un texto. 
+        
+        
+
+        
+               Figura 2. Proceso de extracción de información
+        
+          Entender la estructura es un paso crítico en el proceso de desarrollo 
+      en el diseño de una biblioteca digital [Furuta 1994]. Entender la 
+      estructura implica analizar una gran cantidad de información para crear un 
+      método mediante el cual pueda extraerse la mayoría de la información. 
+      Cuando hablamos acerca de estructura nos referimos a la organización del 
+      texto. 
+          La colección de una biblioteca representa esfuerzos de miles de 
+      autores, trabajando juntos y separados a través de muchos años y 
+      utilizando un amplio rango de herramientas para capturar sus pensamientos 
+      [Furuta 1994]. Existen distintas formas de representar lo que cada uno 
+      piensa, de esta manera se obtiene un trabajo con una organización en 
+      especial para cada autor. 
+          La extracción de la estructura en la Biblioteca Digital Florística se 
+      basa en la identificación de las palabras contenidas en las descripciones 
+      morfológicas. Sin embargo, la utilización de las palabras puede variar de 
+      acuerdo a la descripción en la qué se está aplicando. Por ejemplo, la 
+      palabra "bundled" puede referirse a arquitectura o a distribución. Además, 
+      cada descripción morfológica contiene un tipo y número de características 
+      en especial. Es indudable que entonces, se complica la definición de una 
+      estructura o gramática que se aplique a todas las descripciones. 
+        
+        
+      1.5 X-TRACT: UN MÉTODO HEURÍSTICO DE EXTRACCIÓN DE ESTRUCTURA 
+          En este documento se presenta una alternativa de solución al proceso 
+      de extracción de información a partir de descripciones textuales de 
+      especies botánicas. Se plantea un sistema llamado X-tract que a partir de 
+      una descripción dada en HTML (HyperText Markup Language) extrae la 
+      información hacia la base de datos. Este sistema fue creado en base a las 
+      descripciones que se encuentran en HTML en el catalogo en línea de FNA. 
+          Esta alternativa resulta ser un mecanismo menos tedioso y cansado para 
+      el usuario que un proceso manual en el que se debe estar buscando cada 
+      palabra en un glosario con el fin de saber a qué característica se refiere 
+      y obtener así el valor correspondiente. De esta manera, se agiliza el 
+      proceso manual de introducción de datos a la base de datos. 
+          A continuación se proporcionan algunas definiciones y una descripción 
+      general de la solución propuesta. 
+          Los investigadores escriben descripciones morfológicas que contienen 
+      términos que pueden ser características tales como arquitectura, color, 
+      orientación o maduración; o bien puede tratarse de estructuras. Una 
+      estructura se refiere a una parte de la planta descrita y es esta 
+      precisamente la que se describe mediante características como las antes 
+      mencionadas, además de que contiene uno o más valores. Finalmente, los 
+      valores pueden ser un adjetivo calificativo como verde, flexible, plano, 
+      delgado, entre otros; o bien puede ser un valor numérico. Basándonos en 
+      esto se desarrolló X-tract, un método heurístico para extraer los 
+      atributos e inferir la estructura de descripciones morfológicas expresadas 
+      en formato libre. 
+        
+      1.6 OBJETIVOS DEL PROYECTO 
+          Los objetivos del proyecto se definieron de la siguiente manera: 
+      · Creación de una gramática para poder analizar las descripciones 
+      localizadas dentro de un tratamiento taxonómico cuando se trata de un 
+      texto en formato HTML como las descripciones existentes en el catalogo en 
+      línea de FNA y cuando se trata de formato libre. 
+      · Investigación de técnicas para el análisis de textos. Existen 
+      actualmente analizadores de texto que nos permiten una variedad de 
+      opciones en la búsqueda de información dentro de un documento. 
+      · Construcción de un sistema capaz de identificar el conocimiento descrito 
+      en descripciones morfológicas para guardarlo en una base de datos. En este 
+      caso, algunas palabras de importancia para la descripción aparecerán con 
+      "<" Y ">" como si se tratara de HTML, entonces debe de identificarse 
+      cuando estas palabras deben de almacenarse para su análisis posterior o si 
+      se trata de texto irrelevante. Por ejemplo: <B>Plants</B>. 
+      · Desarrollo de programas para inferir la estructura implícita en 
+      descripciones morfológicas textuales. Es decir, el análisis de cómo está 
+      organizada generalmente un texto dado. 
+      · Una vez que se ha analizado la descripción morfológica su integración a 
+      la base de datos. Cada palabra debe de guardarse de acuerdo a su tipo y a 
+      su jerarquía dentro de la descripción. 
+      · Desarrollo de interfaces de usuario para facilitar el análisis de 
+      descripciones morfológicas. Esto con el fin de ayudar al usuario experto 
+      en la verificación del análisis antes de actualizar la base de datos. 
+        
+        
+      1.7 ORGANIZACIÓN DEL DOCUMENTO 
+          Las secciones restantes de este documento están organizadas de la 
+      siguiente manera: En el capítulo 2 se introduce a la investigación 
+      realizada de los sistemas y programas que actualmente existen enfocados al 
+      área de extracción de información, mostrando el resultado de dicho 
+      análisis. En el capítulo 3 se describe el diseño conceptual del sistema 
+      desarrollado en este trabajo. En el capítulo 4 se describe un prototipo 
+      del sistema, se hace una evaluación en términos de los objetivos 
+      planteados al inicio del proyecto y se evalúa su funcionalidad en 
+      comparación con otros sistemas. Finalmente, el capítulo 5 provee una 
+      síntesis del trabajo realizado y conclusiones derivadas del desarrollo, 
+      así como una descripción del trabajo a realizar en el futuro. 
+        
+        
+                                                                                 
+                                                                                 
+                                                                                 
+                II. TRABAJO RELACIONADO 
+           Para hacer un uso eficiente de la información contenida en un texto, 
+      es útil que la información sea almacenada en alguna clase de formato 
+      estructurado; por ejemplo, una base de datos relacional. Generalmente, el 
+      proceso de extraer la información requerida de un documento hacia una base 
+      de datos o un índice es usualmente un proceso manual muy costoso. De esta 
+      manera, los textos que se encuentran en el web crean la necesidad de tener 
+      métodos de procesamiento automático para extraer la información debido a 
+      su enorme volumen. 
+           Existen algunos métodos que pueden analizar volúmenes significativos 
+      de texto a una velocidad considerable usando un tipo de examinador del 
+      texto ("text skimming"), generalmente utilizando una gramática que 
+      contiene todas las posibilidades en las que un texto puede estar 
+      organizado [Jacobs 1995]. Estos métodos se basan, por lo general, en la 
+      identificación de palabras claves y en el dominio de cómo pueden 
+      organizarse las palabras dentro de una oración para identificar contenido 
+      importante del texto. 
+      Actualmente, dentro del área de procesamiento del lenguaje natural varios 
+      trabajos se encuentran enfocados al área de Extracción de Información. A 
+      continuación se describe esta área, la cual es de gran relevancia para 
+      este proyecto. 
+        
+        
+        
+      2.1 EXTRACCIÓN DE INFORMACIÓN 
+        
+          Los sistemas de extracción de información (IE) tienen como objetivo 
+      analizar texto con el fin de extraer información específica. IE no tiene 
+      como objetivo entender todo el texto sino analizar porciones de cada 
+      documento con el fin de obtener información relevante. Un sistema IE 
+      convierte texto, generalmente sin una estructura específica, a entradas de 
+      una base de datos. Desde el punto de vista de procesamiento del lenguaje 
+      natural, los sistemas IE deben operar en muchos niveles, desde el 
+      reconocimiento de una palabra hasta el análisis de una oración y desde 
+      entender dicha oración hasta completar el entendimiento de todo el 
+      documento. El trabajo de IE requiere un mejor procesamiento del lenguaje 
+      natural de lo que generalmente se necesita ya que no siempre las palabras 
+      tienen la misma aplicación, sino que su significado varía de acuerdo al 
+      contexto, por lo que se necesita de un dominio completo del lenguaje 
+      utilizado [Croft 1995]. 
+           Algunos ejemplos de sistemas actuales de extracción de información 
+      incluyen los siguientes: 
+        
+      · En el área de la salud, los sistemas de extracción de información están 
+      diseñados con el fin de extraer diagnósticos, síntomas obtenidos, 
+      resultados de exámenes y resultados de tratamientos terapéuticos. Estos 
+      sistemas pueden ser usados para respaldar la información del médico y 
+      ofrecer una mejor calidad en los estudios realizados [Lenhert 1996]. 
+        
+        
+          · En el área de monitoreo técnico y literatura científica se han 
+      desarrollado algunos sistemas para monitorear artículos técnicos en cuanto 
+      a su empaquetación y su distribución [Lenhert 1996]. Así también se han 
+      analizado artículos de periódicos para encontrar información relevante. 
+      Alguna información relevante puede ser la identificación de corporaciones 
+      relacionadas, productos y servicios asociados. 
+        
+      2.1.1 EXTRACCIÓN DE INFORMACIÓN EN LA UNIVERSIDAD DE MASSACHUSETTS 
+        
+      En el Laboratorio de Procesamiento del Lenguaje Natural de la Universidad 
+      de Massachusetts se ha estado trabajando con la extracción de información 
+      desde 1990. Se han diseñado sistemas IE que operan en una variedad de 
+      dominios incluyendo el terrorismo latinoamericano, fabricación de chips 
+      microelectrónicos y en el área de la salud en el seguimiento de pacientes. 
+
+        
+      Durante 1994 se realizó un analizador de oraciones llamado CIRCUS 
+      implementado en LISP. La extracción de información está basada en una 
+      tecnología llamada "extracción selectiva de conceptos". Esta tecnología es 
+      un tipo de "text skimming" donde se ignora el texto que es irrelevante. Se 
+      enfoca a la búsqueda de palabras relacionadas. CIRCUS es un analizador de 
+      oraciones que contiene varios glosarios de dominio específico. Por 
+      ejemplo, si la búsqueda se basa en la palabra "kidnapped" entonces 
+      utilizará un glosario que contiene oraciones como "was kidnapped" y "were 
+      kidnapped". Dada una oración, CIRCUS genera una lista de conceptos, para 
+      saber en cuál glosario basarse durante la extracción de información 
+      [Lehnert, 1990]. 
+      Se trabajó en un nuevo sistema llamado BADGER, implementado en Perl, C, y 
+      AWK, lo que asegura su portabilidad a través de plataformas UNIX [Lenhert 
+      1996]. El analizador de oraciones ("sentence analyzer") BADGER no utiliza 
+      una gramática basada en cómo deben ir ordenadas las palabras en una 
+      oración y no produce grafos mientras va analizando las oraciones. BADGER 
+      utiliza conocimiento léxico para saber si una determinada palabra es un 
+      verbo, un adjetivo o una preposición. También se implementó una 
+      herramienta de construcción para un diccionario nuevo y completo, CRYSTAL, 
+      escrito en C. CRYSTAL utiliza una técnica para que la máquina vaya 
+      aprendiendo las definiciones de los conceptos a partir de ejemplos. El 
+      primer paso en la construcción del diccionario fue ir anotando un conjunto 
+      de textos con su respectiva referencia a la información relevante [Lenhert 
+      1996]. De esta manera, se otorgó la definición de la información que 
+      CRYSTAL necesitaba para extraer. 
+        
+        
+      2.2 ANALIZADORES DE TEXTO 
+       En esta sección se describen otros trabajos relacionados en el que uno de 
+      los objetivos principales es buscar información precisa dentro de un 
+      texto. 
+        
+        
+      2.2.1 TIPSTER 
+        
+      No obstante que ha habido trabajo independiente en esta área, y se 
+      encuentran muchos sistemas de uso comercial, el progreso más reciente en 
+      esta área proviene de los programas de evaluación de conferencias del 
+      gobierno de Estados Unidos, incluyendo TIPSTER [Jacobs 1995]. Estos 
+      programas de evaluación de conferencias tienen como objetivo analizar su 
+      significado y la redundancia de palabras o frases. 
+      TIPSTER es auspiciado por DARPA (Defense Advanced Research Projects 
+      Agency) lo que ha permitido que investigadores y desarrolladores del 
+      gobierno de Estados Unidos, la industria y la academia puedan cooperar en 
+      la realización de este proyecto. 
+        
+      TIPSTER se enfoca a tres tecnologías principalmente: 
+        
+      1) Detección de documento: la capacidad para encontrar el documento que el 
+      usuario desea. 
+        
+      2) Extracción de información: la capacidad de encontrar dentro del 
+      documento la información requerida o solicitada. 
+      3) Capacidad para resumir el documento con las ideas principales. 
+      TIPSTER es un programa que extrae la información requerida por el usuario 
+      y crea un resumen del documento analizado. 
+        
+      La construcción de TIPSTER se divide en tres fases de acuerdo a la 
+      tecnología con la que en un momento dado se llegó a trabajar, en la cual 
+      se enfocaron los desarrolladores e investigadores. A continuación se 
+      resumen las tres fases con sus características principales. 
+      Primera fase: se hicieron mayores avances en la creación de algoritmos 
+      para la detección del documento y la extracción de información. Estos 
+      avances se llevaron a cabo mediante actividades como MUC (Message 
+      Understanding Conferences) y TREC (Text Retrieval Conferences) gracias al 
+      manejo de consultas en lenguaje natural. 
+      Segunda fase: el objetivo principal fue la creación de una arquitectura 
+      para el software para poder estandarizar los componentes tecnológicos. 
+      Dentro de la arquitectura se encontraban capacidades de "plug and play" lo 
+      que permitía al usuario compartir software con todos los participantes. Se 
+      realizaron varios proyectos de investigación y se completó la demostración 
+      de sistemas. También se desarrollaron una variedad de herramientas como 
+      diccionarios correspondientes al léxico chino. 
+      Tercera fase: Se continuó con el desarrollo comenzado durante la primera y 
+      segunda fase, al igual que nuevos proyectos en investigación, desarrollo y 
+      áreas de evaluación. 
+        
+      TIPSTER ha fomentado el desarrollo de sistemas que pueden extraer detalles 
+      de historias en inglés y japonés. Los objetivos planeados para esta tarea 
+      han sido alcanzados en mayor proporción que en proyectos previos. Sin 
+      embargo todavía no alcanza a extraer toda la información de importancia y 
+      se continúa trabajando en la fase 3. 
+        
+      2.2.2 Hector 
+        
+      Hector es un sistema desarrollado entre 1991 y 1993 por Digital Equipment 
+      Corporation y Oxford University Press. Su propósito es el de compilar las 
+      entradas de un diccionario utilizando evidencias de una colección de 
+      textos representativa de un lenguaje o de un dialecto. El glosario 
+      utilizado por Hector contiene aproximadamente 17.3 millones de palabras 
+      utilizadas en el inglés británico, de las cuales casi todas provienen de 
+      textos escritos y también algunos del lenguaje hablado [Kavanagh 1995]. Se 
+      utilizó un analizador sintáctico para el texto, y se guardó el número de 
+      ocurrencias de una palabra y de su utilización en pares. 
+        
+      Hector funciona de la siguiente manera: el usuario le da una palabra de 
+      entrada a Hector que es llamada "target". Esta palabra puede ser buscada 
+      incluyendo todas sus variaciones tipográficas (por ejemplo, cat, Cat y 
+      CAT), formas verbales (como punch, punched, punches y punching). De esta 
+      forma, las palabras se buscan en el glosario, y si no se encuentran se 
+      actualiza el glosario. 
+      Este sistema permite llevar a cabo búsquedas mucho más rápidas al utilizar 
+      un botón que le permite contar el número de ocurrencias de una palabra 
+      determinada, en lugar de hacer una búsqueda completa para todo el 
+      documento. 
+        
+      Hector es una herramienta utilizada para un uso especializado, en este 
+      caso, para la compilación de entradas de un diccionario. Permite guardar 
+      la salida con el propósito de mostrar la concordancia que hubo en cada 
+      oración analizada. De esta manera, limita su uso hacia áreas como la 
+      lexicografía en donde no interesa ver cuántas veces se repite una 
+      determinada palabra. 
+        
+        
+      2.2.3 Translator's Workbench 
+        
+      El proyecto de Translator's Workbench desarrollado entre 1989 y 1992 por 
+      la Comission of the European Communities, tiene como objetivo ser un 
+      intérprete. En 1995 la Comunidad Europea tenía 9 idiomas oficiales y el 
+      Transalator's Workbench es un software de apoyo para evitar el trabajo 
+      tedioso de estar traduciendo. Este software incluye detección de errores 
+      en la escritura, el estilo y la gramática y un editor para varios idiomas. 
+
+        
+      El Translator's Workbench ayuda a identificar, describir y estandarizar el 
+      significado de los términos hallados. El objetivo principal es buscar 
+      términos, nombres de conceptos [Kavanagh 1995]. Cada término se va 
+      guardando en una lista junto con la forma en que se utilizó dicho término 
+      y su ocurrencia. De esta forma se busca dentro del glosario la palabra que 
+      se acerca más al significado. 
+        
+      La búsqueda se lleva a cabo mediante MATE (Machine Assisted Terminology 
+      Elicitation) desarrollado por la Universidad de Surrey. El trabajo de MATE 
+      consiste en ayudar a la identificación de términos mediante la compilación 
+      de una lista de palabras, generalmente ordenadas alfabéticamente, creando 
+      una concordancia de la palabra con el uso o las co-localizaciones dentro 
+      del texto. 
+        
+      Al igual que Hector, es un software especializado, en este caso para 
+      llevar a cabo traducciones. 
+        
+      2.2.4 TACT 
+        
+      TACT (Text Analysis Computing Tools) es una colección de 15 programas para 
+      MS-DOS o Windows que tiene como objetivo la recuperación de información de 
+      textos escritos con el alfabeto romano o griego. TACT se basa en la 
+      identificación de palabras que son marcadas con "<>". Una vez que se han 
+      marcado todas las palabras se guardan en una base de datos, donde cada 
+      palabra tiene un apuntador para poder localizarla con mayor rapidez. Se 
+      utiliza un programa llamado Makebase que trabaja mejor con archivos de 
+      200k o menos. Cuando se utilizan archivos muy largos deben de segmentarse. 
+      Las tablas resultantes se unen después para formar una sola. 
+        
+      La ventaja de la utilización de índices mediante los apuntadores es la 
+      velocidad en la recuperación de la información. Entre las desventajas se 
+      encuentran: 
+      - tiempo de compilación del índice y 
+      - se requiere de gran espacio para su almacenamiento. 
+        
+      TACT es utilizado por la Universidad de Ottawa para un análisis profundo 
+      de la utilización de las palabras. Se puede buscar rápidamente en un texto 
+      el número de ocurrencias de cada palabra lo que lleva a utilizar más 
+      tiempo en el análisis de la utilización. Debido a que TACT fue 
+      originalmente diseñado para la investigación literaria nunca se utilizó en 
+      largos textos por lo cual no los maneja adecuadamente. Actualmente 
+      investigadores de la Universidad de Ottawa utilizan el Analizador de 
+      Textos que se describirá en la sección 2.2.6 en lugar de TACT por las 
+      siguientes razones: 
+        
+      · TACT no puede manejar bien los textos largos, 
+      · tiene problemas en algunas operaciones en las cuales el Analizador de 
+      textos lleva a cabo en un sólo paso, 
+      · el Analizador de textos provee de más opciones al usuario. 
+        
+      2.2.5 Xtract 
+      Xtract es un programa desarrollado para buscar las co-localizaciones en un 
+      texto. Una co-localización según M. Benson [Benson 1990] es " una 
+      combinación arbitraria y recurrente de una palabra". El estudio de las 
+      co-localizaciones es importante ya que al ser arbitrarias hace que un 
+      traductor sea mucho más difícil, son dependientes del dominio por lo que 
+      tienen distinto significado dependiendo de lo que se este tratando. 
+        
+      La entrada del programa es una palabra para la cual se quiere buscar sus 
+      co-localizaciones en un texto. El primer paso es la extracción de pares de 
+      palabras llamadas "bigrams", es decir, la palabra buscada con 1 palabra 
+      antes y 1 después. Con estos bigrams Xtract busca la palabra que procede a 
+      la segunda palabra, por ejemplo "air traffic" sería reemplazado por "air 
+      traffic controller". El último paso, consiste en darle sentido [Kavanagh 
+      1995]. Puede ser que aparezcan verbos y esto ayuda a que los 
+      investigadores tengan un conocimiento del dominio que están estudiando. 
+        
+      2.2.6 El Analizador de Textos 
+        
+      Esta herramienta ha sido desarrollada como tesis de maestría en la 
+      Universidad de Ottawa por el departamento de ciencias de la computación. 
+      El analizador utiliza una combinación de métodos de lingüística 
+      computacional e inteligencia artificial. El objetivo principal es proveer 
+      a los usuarios con una variedad de opciones para encontrar información 
+      relevante en documentos, verificar la consistencia de la información y 
+      para llevar a cabo un análisis conceptual sobre las palabras y entre otras 
+      operaciones como la búsqueda de verbos. 
+      El analizador de textos no extrae la información hacia una base de datos. 
+      Lo que hace es crear un nuevo texto donde va almacenando la información. 
+      El analizador de textos permite algunas operaciones como: cambio del 
+      archivo a analizar, escoger una oración que delimite hasta que punto se 
+      desea analizar, obtención de la frecuencia con la que aparecen las 
+      palabras o una en específico, obtención de número de verbos y obtención de 
+      palabras según su uso. 
+      El análisis se lleva a cabo mediante una enumeración de las oraciones 
+      contenidas en el texto, basándose en el punto como delimitador de cada 
+      oración. Cada oración a su vez es dividida en sub-secciones para poder 
+      analizar por ejemplo adjetivos, verbos y pronombres de acuerdo a un 
+      diccionario que se construye previamente. 
+        
+      Este sistema fue implementado en Icon, Smalltalk y C para ser utilizado 
+      con Unix. El problema principal es la incapacidad de los programas 
+      realizados en Icon para comunicarse con otros lenguajes. De esta manera, 
+      se debe obtener un texto para ser entregado a Smalltalk, el cual comenzará 
+      un proceso nuevo [Kavanagh 1995]. 
+        
+      2.3 DELTA 
+      El arribo de las computadoras trajo consigo un medio más favorable para el 
+      rápido desarrollo de sistemas de identificación en botánica. El más 
+      exitoso de estos sistemas es DELTA (DEscription Language for TAxonomy). El 
+      formato de DELTA puede ser utilizado para producir descripciones en 
+      lenguaje natural, llaves convencionales e interactivas y ciertas 
+      clasificaciones. El corazón de DELTA es un lenguaje en el cual deben 
+      codificarse las descripciones taxonómicas para hacer uso del sistema 
+      [Taylor 1994]. 
+        
+      Los componentes de DELTA generalmente son una lista de caracteres, una 
+      descripción del taxón, tipos de caracteres, valores implícitos y 
+      dependencias de caracteres. Otro de los principales componentes de DELTA 
+      es INTKEY. Este componente es un programa que permite una identificación 
+      interactiva. Dado un conjunto de descripciones en formato DELTA se pueden 
+      llevar a cabo identificaciones eficientemente. La descripción está formada 
+      por una lista de características, cada una de las cuales indica un 
+      conjunto de estados. La Figura 3 demuestra una lista de caracteres. Los 
+      caracteres 1, 2 y 3 son multiestados sin un orden, mientras el caracter 4 
+      tiene un orden. Así también el caracter 5 es un número entero, el 6 es un 
+      real y el 7 es un texto. 
+        
+        
+
+        
+          Figura 3. Ejemplo de una lista de caracteres
+        
+      Se puede observar en la tabla que cada nueva descripción empieza con un 
+      número (#), el cual indica el inicio de una nueva linea o de un caracter 
+      en blanco. El slash (/) indica la terminación de una linea. 
+        
+      El éxito de DELTA, en parte, proviene de su integración a la tecnología 
+      más que del buen uso de INTKEY. Si se pone especial atención a la creación 
+      de descripciones en DELTA entonces se puede realizar una buena conversión 
+      a lenguaje natural. Se sabe que el lenguaje natural está y estará 
+      dominando el trabajo sobre taxonomías ya que actualmente la mayoría de las 
+      descripciones se encuentran en esta forma. 
+        
+      Un ejemplo de un sistema que produce archivos del tipo DELTA es DDCONV. Lo 
+      que se hace es recorrer el documento y si algunas palabras se encuentran 
+      subrayadas entonces pueden almacenarse al conjunto de archivos con los que 
+      ya cuenta DELTA [Taylor 1994]. 
+        
+      En este proyecto no se utiliza DELTA ya que se está utilizando HTML y por 
+      lo tanto se debe construir una gramática que nos identifique código que 
+      pertenece a este formato. Además DELTA define un número fijo de 
+      características y estructuras, mientras que en el presente proyecto busca 
+      determinar la estructura de descripciones arbitrarias. 
+        
+        
+      2.4 CREACIÓN DE BASES DE DATOS 
+        
+      A continuación se analizan algunas herramientas que se han estado 
+      desarrollando, paralelas a este proyecto y que tienen como objetivo la 
+      creación de una base de datos a partir de descripciones que se encuentran 
+      en lenguaje natural. 
+        
+      2.4.1 Macros utilizados en MS Office 
+        
+      Estos macros permiten copiar la información extraída de descripciones 
+      morfológicas y recorrer el documento para irlo guardando en casillas de 
+      una hoja de cálculo o base de datos. El usuario requerirá abrir este 
+      documento para obtener los resultados. 
+        
+      Existe un problema al intentar guardar toda la información ya que cada 
+      casilla en Excel sólo acepta 255 caracteres. En este caso, deben de 
+      separarse las descripciones en series de pequeñas tablas conectadas a 
+      través de una consulta. Otro problema es que el analizador sintáctico 
+      funciona en base a la puntuación. Es decir, que no se analiza el contenido 
+      de la descripción y simplemente se guarda en una casilla el contenido de 
+      lo que esta delimitado por un punto en sus extremos. 
+        
+      2.4.2 Terminator/NEMISYS 
+        
+      Este proyecto ha sido programado por Jim Diederick, Jack Milton y Renaud 
+      Fortuner en SmallTalk. Su propósito principal es la construcción de una 
+      base de datos a partir de descripciones que se encuentran en lenguaje 
+      natural. 
+        
+      Terminator/NEMISYS trabaja con una lista formal de caracteres morfológicos 
+      e información relacionada para ser usada en el manejador de la base de 
+      datos. Trabaja a través de la descomposición de su estructura y analiza la 
+      descripción a partir de su sintaxis y su terminología. La descripción 
+      también se analiza de acuerdo a la información que ya se tiene almacenada. 
+
+        
+      La información puede almacenarse en cualquier manejador de base de datos, 
+      pero desafortunadamente sólo alcanza a extraer cerca de un 71% a un 76% de 
+      las características contenidas en una descripción. 
+        
+      2.4.3 El programa de Taylor 
+        
+      Este sistema analiza texto contenido en grandes conjuntos de descripciones 
+      biológicas que se encuentran en lenguaje natural restringido y construye 
+      una base de conocimiento [Taylor, 1994]. El programa de Taylor construye 
+      de manera automática formas en HTML para proveer de una interfaz accesible 
+      a través del web. 
+      El trabajo consiste en encontrar la descripción más adecuada de una 
+      especie dada un conjunto de descripciones taxonómicas. Una de las 
+      soluciones planteadas es la búsqueda lineal en las descripciones. Sin 
+      embargo, esta opción consume mucho tiempo y difícilmente se encontrará la 
+      descripción adecuada al menos que existan fotografías para comparar con la 
+      especie en consulta. 
+        
+      Otra opción es la construcción de árboles de decisión. Desafortunadamente 
+      habrá preguntas que no se podrán contestar en todas las especies por la 
+      falta de características. Otro problema es que al realizar el análisis 
+      existen varias ramas por las que se puede optar, cuando el diagnóstico no 
+      es el adecuado es difícil identificar en qué nodo el diagnóstico se desvío 
+      de la rama correcta [Taylor 1994]. 
+        
+      En este sistema se utiliza una gramática que fue adoptada con cerca de 70 
+      cláusulas finitas con las que un texto puede estar organizado, más que 
+      adoptar una gramática existente. Los analizadores sintácticos cubren en 
+      parte algo del texto pero quedan lejos de cubrirlo por completo. Esto se 
+      debe a que se trabajó con dos floras y ambas contienen distinta 
+      información aparte de la descripción de las plantas. 
+        
+      El análisis se lleva a cabo reconociendo términos que existen en la 
+      gramática que se creó. Analiza el texto no obstante que algunas palabras 
+      queden sin analizarse. Actualmente se le agregan nuevas reglas a la 
+      gramática para que poco a poco se puedan analizar mayor número de palabras 
+      dentro de una descripción. 
+        
+      Este sistema fue probado con dos floras, una de la cual tiene 20 autores y 
+      la otra sólo uno [Taylor 1994], a diferencia de la Flora de Norteamérica 
+      con la que se tienen contemplados cerca de 800 autores lo que dificulta 
+      aún más la creación de la gramática. 
+        
+      La implementación constó de 3,000 lineas en SICStus Prolog, más 120 lineas 
+      de Tcl/Tk que fueron utilizadas para la implementación de una interfaz X y 
+      varios pequeños scripts para procesar los textos así como para obtener 
+      resultados en HTML. Se estima un rango del 60 al 80% de éxito con el uso 
+      del Programa de Taylor. Sin embargo existen algunas limitaciones como son 
+      la creación de un conjunto de caracteres ad-hoc, utilización de reglas 
+      específicas para el idioma inglés y algunas que son de un dominio 
+      específico, y la utilización de una gramática difícil de crear y con uso 
+      limitado. 
+        
+      2.5 RESULTADO DEL ANÁLISIS 
+      A continuación en la Tabla 1 se muestra un análisis de todos los trabajos 
+      relacionados presentados anteriormente. La eficiencia fue reportada por 
+      cada uno de los programadores de acuerdo a las limitaciones con las que se 
+      enfrenta cada sistema. Por ejemplo el programa de Taylor tiene algunas 
+      dificultades para construir un conjunto de caracteres ad-hoc, además de 
+      usar reglas que son de dominio-específico o del dominio del idioma inglés 
+      [Taylor 1994]. 
+        
+
+        
+              Tabla 1. Análisis de trabajos relacionados (continúa)
+        
+        
+
+      Tabla 1. Continuación de análisis de trabajos relacionados 
+        
+        
+      III. EXTRACCIÓN DE ESTRUCTURA EN FDL 
+        
+      Como se mencionó en el Capítulo 1, los proyectos Flora de Norteamérica 
+      (FNA) y Flora de China (FOC) manejan información de forma masiva que en su 
+      mayor parte se encuentra en formato libre. Es deseable que dicha 
+      información se incorpore a una base de datos. La incorporación a la base 
+      de datos proveerá al usuario con algunas ventajas como el acceso en línea, 
+      y búsquedas más precisas. En este proyecto se analiza la incorporación de 
+      descripciones morfológicas a la base de datos FDL. 
+        
+      A continuación se explica el proceso manual (tomado en base a lo que se ha 
+      realizado en el Jardín Botánico de Missouri) que se lleva a cabo para 
+      analizar cada una de las descripciones morfológicas para ser 
+      posteriormente almacenadas en la base de datos y los problemas a los que 
+      se enfrenta el usuario. Además se explicará de qué partes esta constituido 
+      un sistema de extracción de información y con cuáles cuenta el sistema 
+      propuesto. 
+        
+      3.1 PROCESO DE ANÁLISIS DE UNA DESCRIPCIÓN MORFOLÓGICA 
+      Las descripciones morfológicas están formadas por un conjunto de 
+      estructuras con ciertas características y valores taxonómicos. En la 
+      Figura 4 se muestra una descripción que fue tomada del volumen 2 de FNA 
+      
+      palabras que prosiguen a la estructura, en este caso "Plants". Para la 
+      oración número 1, se buscaría las palabras "terrestrial" y "epiphytic". 
+      Las dos palabras corresponden a la característica "habit", por lo tanto 
+      quedarían agrupadas dentro de la misma casilla. 
+       
+        
+      Figura 6. Construcción de tabla 
+        
+      De esta forma se va construyendo una tabla como la de la Figura 6 que está 
+      formada por las estructuras, características y valores correspondientes a 
+      la descripción. El problema comienza cuando hay subestructuras. Las 
+      subestructuras son estructuras que se encuentran dentro de otra 
+      estructura. Existen dos casos de subestructuras: 
+        
+      1. Cuando la subestructura se encuentra en la siguiente oración. Por 
+      ejemplo en la oración 5 se encuentra "petioles" que a su vez es una 
+      estructura correspondiente a "leaves" que se encuentra en la oración 4. 
+        
+      2. Cuando la subestructura se encuentra dentro de la misma oración. Por 
+      ejemplo en la oración 5 que contiene "petioles" y también se describen 
+      "blades". 
+        
+      Pueden existir subestructuras que a su vez tengan subestructuras y estas a 
+      su vez tengan otras subestructuras, lo cual dificulta el análisis. 
+      Uno de los principales problemas en la determinación de la estructura 
+      ocurre cuando existen valores sin que se haya nombrado a la 
+      característica. Por ejemplo, cuando se tiene "Leaves 2.5--6cm, 3mm, 
+      2-ranked to spiraled, ..." podemos inferir que el tamaño de las hojas es 
+      2.5 a 6 centímetros, sin embargo el siguiente valor de 3 mm no sabemos a 
+      qué pertenece, aunque podemos inferir que se refiere tal vez al ancho de 
+      las hojas. Por lo tanto, el usuario debe de conocer o inferir cuando se 
+      está hablando por ejemplo de altura, de ancho o de largo. 
+        
+        
+      3.2 COMPONENTES DE UN SISTEMA DE EXTRACCIÓN DE INFORMACIÓN 
+      Jerry Hobbs [Hobbs 1994] define un sistema de extracción de información 
+      como una cascada de traductores o módulos que en cada paso añaden una 
+      estructura y pierden información irrelevante a través de la aplicación de 
+      ciertas reglas. Un sistema de extracción también es la respuesta a un 
+      conjunto de preguntas. 
+        
+      Un sistema de extracción de información está formado por un conjunto de 
+      módulos, la mayoría de los sistemas realizan funciones de estos módulos en 
+      alguna parte. Los módulos que generalmente forman un sistema son: 
+      · Separador de texto, divide el texto en un conjunto de segmentos de 
+      texto. 
+      · Preprocesador, divide el conjunto de segmentos de texto en una secuencia 
+      de oraciones. 
+      · Filtro, analiza el conjunto de oraciones para eliminar aquellas que son 
+      irrelevantes. 
+      · Scanner o pre-analizador sintáctico, analiza una parte del conjunto de 
+      oraciones resultantes para identificar pequeñas estructuras como cadenas o 
+      dígitos. 
+      · Analizador sintáctico, su entrada son las estructuras localizadas y su 
+      salida es un conjunto de fragmentos de árboles, posiblemente completos. 
+        
+      · Agrupador de fragmentos, agrupa los diferentes fragmentos de árboles 
+      para obtener como salida un conjunto de frases en su mayoría totalmente 
+      analizadas. 
+      · Intérprete semántico, genera una estructura semántica, es decir analiza 
+      el orden en el que debe de estar cada frase para obtener una estructura 
+      semántica. 
+      · Resolución de referencias o procesamiento de texto, identifica las 
+      diferentes descripciones que se localizan dentro de un texto. 
+        
+      En la figura 7 se observa un diagrama con la entrada y salida de cada 
+      componente de un sistema de extracción de estructura. 
+       
+      Figura 7. Componentes de un sistema de extracción de estructura 
+        
+      3.3 COMPONENTES DE X-TRACT 
+      Como se describió en la sección 3.1, las descripciones morfológicas están 
+      formadas por un conjunto de estructuras con ciertas características y 
+      valores taxonómicos. El proceso de extracción de información de manera 
+      manual es lento y para el reconocimiento de ciertos valores como la altura 
+      y el tamaño se requiere de una persona que conozca de botánica. Esto se 
+      debe a que no siempre se puede construir la tabla con sólo la ayuda del 
+      glosario, por ejemplo debe conocerse qué estructuras pueden incluirse en 
+      otra estructura, o a qué característica se está describiendo cuando 
+      aparece un rango numérico. 
+        
+      El objetivo principal del prototipo implementado, denominado "X-tract", es 
+      el de proveer al usuario con una herramienta para el análisis y la 
+      extracción de estructuras a partir de descripciones textuales de especies 
+      botánicas con el fin de almacenarlas en la base de datos FDL. Estas 
+      descripciones textuales puede estar en formato libre o en HTML. Las tareas 
+      principales que lleva a cabo X-tract son: 
+      · análisis gramático de un texto dado, 
+      · extracción automática de una descripción localizada en el texto, 
+      · uso de diccionarios para determinar estructuras, características y 
+      valores para todas las palabras localizadas en la descripción, 
+      · actualización de las tablas de la base de datos que contienen estas 
+      descripciones. 
+        
+        
+      En la figura 8, se puede observar el proceso que sigue a cabo X-tract para 
+      realizar sus tareas principales. 
+       
+        
+      Figura 8. Procesos llevados a cabo por X-tract 
+        
+      A continuación se describe el pre-analizador sintáctico, el analizador 
+      sintáctico, el filtro, el intérprete semántico y la resolución de 
+      referencias o el procesamiento de texto de X-tract. 
+      3.3.1 PRE-ANALIZADOR SINTÁCTICO DE X-TRACT 
+      El pre-analizador sintáctico tiene como objetivo identificar y etiquetar 
+      cada uno de los componentes de un texto. De esta forma por ejemplo, 
+      sabemos cuando una palabra se refiere a una cadena o un valor. Como se 
+      explicó en la sección 3.1 la entrada al sistema es un texto que se 
+      encuentra en HTML. Este texto es un tratamiento taxonómico que contiene a 
+      su vez una descripción morfológica con estructuras que por lo general se 
+      encuentran en "negritas". Por ejemplo, la estructura "Plants" se 
+      encontraría de la forma: "<B>Plants</B>". 
+        
+      Para la construcción del pre-analizador sintáctico también llamado 
+      "scanner" se utilizó lex. Este permite al programador crear sus propias 
+      definiciones y, en base a la agrupación de estas, identificar y etiquetar 
+      cada parte del texto. 
+        
+       
+      Figura 9. Ejemplo de código utilizando lex 
+        
+        
+      En la Figura 9 se muestra código (numerado para su explicación) utilizando 
+      lex. El renglón 2 indica que el scanner nombrará como "letra" si encuentra 
+      cualquier letra de la "a" a la "z" en minúscula o mayúscula. El renglón 3 
+      indica que el scanner nombrará como "dígito" si encuentra un número del 0 
+      al 9. El renglón 4 indica que el scanner nombrará como "combinación" si 
+      encuentra una letra o un dígito. El signo de "%%" se refiere a la 
+      separación de las definiciones con el etiquetado. El renglón 6 indica que 
+      si encuentra "<" seguido de una o más letras, seguido de ">", seguido de 
+      uno o más dígitos o letras en cualquier orden, seguido de "</" seguido de 
+      una o más letras, seguido de ">", entonces lo encontrado lo etiquetará 
+      como HTML. Por ejemplo: 
+      <form> prueba9 </form> 
+      <HTML> Hola </HTML> 
+      ambos casos serían identificados como "HTML". 
+        
+      Es así como el scanner está formado por declaraciones en base a estas 
+      definiciones. El analizador sintáctico recibe como entrada la lista de 
+      etiquetas encontradas por el scanner. 
+        
+        
+      3.3.2 ANALIZADOR SINTÁCTICO DE X-TRACT 
+      El analizador sintáctico (o parser) intenta producir a partir de una 
+      secuencia de etiquetas y palabras que llamaremos "items" o frases, y a 
+      través de un análisis de cómo se encuentra organizado el texto, un árbol 
+      representando la jerarquía u organización de las palabras localizadas. El 
+      análisis sintáctico se lleva a cabo a través de la utilización de una 
+      gramática. 
+      Para la construcción de la gramática de X-tract se tomaron en cuenta los 
+      siguientes puntos: 
+        
+      1) Se trató de identificar la estructura implícita en una descripción 
+      morfológica. Esto se llevó a cabo mediante un análisis de las 
+      descripciones con las que se cuenta en FNA. Se planteó una gramática 
+      únicamente tomando en cuenta el orden que tienen las estructuras dentro de 
+      una descripción. La gramática es muy general tomando en cuenta que aún 
+      faltaron descripciones por analizar puesto que sólo se analizó el volumen 
+      2 de FNA. Por lo tanto, esta gramática se descartó ya que tendría que 
+      modificarse cada vez que se quisieran incluir otras descripciones que 
+      tuvieran estructuras en otro orden. 
+        
+      2) Una gran proporción de las descripciones existentes son dadas en HTML, 
+      por lo que la gramática debería incluir la identificación de este código. 
+        
+      Gracias a la investigación llevada a cabo en trabajos relacionados [Taylor 
+      1994], [Kavanagh 1995] se tomaron en cuenta algunos aspectos que fueron de 
+      importancia en la creación de la gramática para este proyecto. Uno de 
+      ellos es que la mayoría de los programas actuales utilizan la 
+      identificación mediante un esquema creado previamente. Es decir, mediante 
+      la creación de un glosario que contiene las posibles palabras que se 
+      pueden hallar en el texto, además de sus posibles combinaciones. Se 
+      utilizó un glosario amplio de las palabras que utilizan los investigadores 
+      para sus descripciones. Este glosario indica a qué tipo de característica 
+      se refiere cada palabra. 
+        
+      3.3.3 FILTRO DE X-TRACT 
+        
+      estructura, de una cadena de caracteres, de un paréntesis o de un 
+      corchete, de un punto, de una coma o es un dígito. Esto es de gran 
+      importancia ya que ahorrará tiempo en la búsqueda, puesto que sólo se 
+      analizarán en el glosario las cadenas de caracteres y las estructuras con 
+      el fin de hallar su característica correspondiente. 
+        
+      3.3.4 INTÉRPRETE SEMÁNTICO DE X-TRACT 
+      El intérprete semántico, como su nombre lo indica, interpreta o traduce 
+      fragmentos dados de una oración o frase a través del análisis de cada 
+      parte de una forma lógica. En la gramática se especifica como estará 
+      formado un texto. Por ejemplo, el intérprete semántico para nombrar algo 
+      como "Statement" estaría formado por HTML seguido por ejemplo de una 
+      estructura o una nueva línea o un signo de puntuación. En la Tabla 2 se 
+      muestra el código utilizado en la gramática de X-tract para especificar lo 
+      que es "Statement". Como se puede observar cuando dentro de "Statement" se 
+      encuentra una estructura entonces está se guarda y el analizador busca 
+      ahora en "Statement1" donde se guardará en una tabla todo lo que 
+      encuentre. 
+        
+
+      Tabla 2. Representación de "Statement" en la gramática 
+        
+      A continuación en las secciones 3.3.4.1 y 3.3.4.2 se describen las 
+      principales heurísticas consideradas en el desarrollo de X-tract, así como 
+      se explica toda la gramática utilizada por X-tract en el análisis de 
+      textos. 
+        
+        
+      HEURÍSTICAS 
+      En la creación de la gramática se tomaron en cuenta varios factores para 
+      determinar partes de la descripción como lo son: 
+      · Las principales estructuras, nombres de una parte de la planta, 
+      generalmente se encuentran entre "<B>" y "</B>". De esta forma la 
+      gramática contempla que cuando se encuentra "<B>" todo lo que sigue 
+      corresponde a una estructura excepto por la primera vez que se encuentra 
+      dentro del documento. Esto se debe a que la primera vez que se encuentra 
+      "<B>" se refiere al nombre o título del tratamiento taxonómico. 
+        
+      · Dentro de una descripción morfológica lo único que se encuentra con 
+      formato HTML son las estructuras. No se encontró una descripción que 
+      contuviera HTML dentro de la descripción y no tratarse de un estructura. 
+      Es así como, cuando se encuentra una descripción se almacena todo lo que 
+      se encuentra hasta encontrar HTML. Las estructuras se encuentran entre 
+      "<B>" y "</B>" y lo demás no contiene código en HTML. 
+        
+      · Algunos tratamientos taxonómicos contienen más de una descripción 
+      morfológica. Al estudiarse estos tratamientos se llegó a la conclusión de 
+      que las descripciones se encuentran numeradas de la siguiente forma: <B>1. 
+      La gramática busca dentro del texto dado si existe numeración de esta 
+      forma para concluir que se trata de la existencia de más de una 
+      descripción. 
+        
+      GRAMÁTICA 
+        
+      La gramática utilizada por X-tract está basada en la investigación de las 
+      descripciones existentes en el índice electrónico de FNA. En general, 
+      estas descripciones en formato HTML se ven como la descripción de la 
+      Figura 10. 
+       
+      Figura 10. Descripción morfológica en formato HTML 
+      A continuación se analiza cada parte de la descripción de la Figura 10 con 
+      el fin de comprender, posteriormente, la gramática aplicada. La Figura 11 
+      muestra cada parte de la descripción morfológica. 
+       
+        
+      Figura 11. Partes de una descripción morfológica. 
+        
+      En la descripción morfológica se le ha denominado "html" a todo lo que es 
+      irrelevante para el análisis del documento. Para esta demostración se ha 
+      subrayado lo que a X-tract le interesa almacenar para su análisis 
+      posterior. 
+      Cuando existe más de una descripción morfológica dentro de un tratamiento 
+      taxonómico o texto dado, este se encuentra como se observa en la Figura 
+      12. 
+       
+      Figura 12. Descripción morfológica enumerada. 
+        
+      En la Figura 12 antes de la enumeración de la descripción se encuentra 
+      código HTML seguido del título del tratamiento y de código HTML. Al 
+      finalizar la descripción morfológica puede seguir código HTML para iniciar 
+      un nuevo ciclo. 
+        
+      Una vez que se ha comprendido la organización de un texto dado en formato 
+      HTML, la gramática es sólo un reflejo de esta organización. Como se 
+      mencionó en la sección 3.3.4 lo primero que realiza el analizador 
+      semántico se encuentra "Statement". En esta parte de la gramática se 
+      espera localizar el título del tratamiento taxonómico o texto dado. Una 
+      vez que se ha encontrado la gramática utiliza "Statement1" que como se 
+      verá a continuación, esta formado de la misma forma que "Statement" 
+      excepto que cuando encuentra la primera estructura la guarda con el 
+      indicador de "structure". Desde aquí se empezará a almacenar todo lo que 
+      se encuentra hasta encontrar lo que se ha denominado "html". 
+      En este caso se ha omitido el código para sólo comentar que es lo que 
+      realiza X-tract dentro de cada parte de la gramática. La gramática 
+      completa se incluye en la Figura 13: 
+       
+      Figura 13 . Representación de la gramática 
+        
+       
+      Figura 13 . Continuación representación de la gramática 
+        
+      De esta forma se analiza un texto de igual manera sin importar qué tan 
+      largo es o con cuántas descripciones cuenta. Como se muestra en la 
+      gramática, las palabras correspondientes a la descripción son guardadas 
+      junto con el nombre del tipo al que corresponden como dígitos, cadena, 
+      estructura, paréntesis y punto. 
+        
+        
+        
+        
+      3.3.5 RESOLUCIÓN DE REFERENCIAS DE X-TRACT 
+        
+      La resolución de referencias o el procesamiento de texto se refiere a la 
+      capacidad que tiene X-tract para recibir como entrada un texto que 
+      contiene más de una descripción morfológica. El objetivo principal del 
+      procesamiento de texto es identificar qué es una descripción y separarla 
+      del resto del texto. 
+        
+      La localización de las descripciones se lleva a cabo usando la gramática 
+      para identificar cuando después del resto del texto aún existe el nombre 
+      de otro taxón o especie. Para esto, la gramática fue planteada tomando en 
+      cuenta las descripciones existentes en formato HTML que se encuentran en 
+      el índice de FNA en el web. Se llegó a la conclusión de que cuando en un 
+      texto aparecen varias descripciones a la vez estas siempre se encuentran 
+      numeradas. La resolución de referencias se basa en la búsqueda de la 
+      numeración de las distintas descripciones. 
+        
+      Dentro del sistema X-tract existe también el módulo separador de texto que 
+      de cierta manera se lleva a cabo durante el filtrado donde se separa el 
+      texto que corresponde a una descripción con el que corresponde a código 
+      HTML o texto que no es de nuestro interés. El agrupado de fragmentos se 
+      lleva a cabo dentro de la gramática al lograr analizar la descripción 
+      completa. 
+        
+        
+      3.4 X-TRACT DENTRO DE LA ARQUITECTURA DE FDL 
+        
+      La arquitectura de la Biblioteca Digital Florística (FDL) se basa en las 
+      necesidades de colaboración, intercambio de información y comunicación 
+      entre todos los miembros que participan en el desarrollo de FDL. La 
+      arquitectura esta compuesta, por una parte, de un acervo de descripciones, 
+      mapas, ilustraciones, referencias bibliográficas y documentos 
+      electrónicos. Por otra parte se encuentran los servicios y las interfaces 
+      desarrolladas para la interacción con el usuario desde cualquier parte del 
+      mundo. 
+        
+      Entre los servicios que provee FDL se encuentran: 
+      · mecanismos de intercambio de información, 
+      · procesamiento de imágenes, 
+      · servicios de recomendación, 
+      · y administración de agentes. 
+        
+      X-tract se localiza dentro de los mecanismos de recuperación o extracción 
+      de información. Dentro de esta área, X-tract, ofrece al usuario una 
+      herramienta para analizar descripciones morfológicas, así como un apoyo a 
+      la construcción de la base de datos de FDL y apoyo en la construcción de 
+      descripciones entre otros servicios. X-tract también se localiza dentro 
+      del área de interfaces donde se provee al usuario experto con la opción de 
+      corrección de errores antes de almacenarse en la base de datos. 
+        
+      En la Figura 14 se representa a X-tract dentro de la arquitectura de FDL 
+      como un servicio de recuperación de información (information retrieval 
+      service) así como un tipo de editor de descripciones que ayuda al usuario 
+      a verificar y corregir una descripción. 
+        
+       
+      Figura 14. X-tract dentro de la arquitectura de FDL 
+      En el capítulo siguiente se analiza un prototipo del sistema X-tract de 
+      acuerdo a su funcionalidad y a los objetivos propuestos y se compara con 
+      otros trabajos desarrollados por investigadores. 
+        
+        
+      IV.PROTOTIPO Y EVALUACIÓN 
+        
+      Con el fin de evaluar el diseño del sistema propuesto en el capítulo 3 y 
+      demostrar su viabilidad, se desarrolló un prototipo implementando las 
+      funciones principales. En este capítulo se presenta dicho prototipo y se 
+      explica el ambiente y las herramientas utilizadas. El prototipo 
+      implementado se ha denominado "X-tract". Se muestra un ejemplo del uso del 
+      prototipo. 
+        
+        
+      4.1 PROTOTIPO X-TRACT 
+      X-tract es un prototipo que utiliza un método heurístico para extraer los 
+      atributos e inferir la estructura de descripciones morfológicas expresadas 
+      en formato libre o en HTML. Como se ha mencionado anteriormente, este 
+      prototipo tiene como principal objetivo facilitar el proceso manual de 
+      análisis que se lleva a cabo para guardar una descripción morfológica en 
+      una base de datos. 
+        
+      4.1.1 HERRAMIENTAS Y AMBIENTE 
+      Como herramientas de software se desarrolló el prototipo en dos versiones, 
+      una utilizando el manejador de base de datos Illustra (de tipo 
+      objeto-relacional) y otra utilizando el manejador de base de datos 
+      Informix Universal Server (IUS) para almacenar las descripciones 
+      morfológicas. Se usaron lex y yacc para llevar a cabo el análisis léxico y 
+      sintáctico de un tratamiento taxonómico dado, y se utilizó C como lenguaje 
+      de programación. El ambiente de acceso es un navegador de Web, por la 
+      facilidad que este ofrece de independencia de plataforma. 
+        
+      La implementación del prototipo está basada principalmente en programas 
+      que utilizan CGI (Common Gateway Interface). Con ellos se maneja la 
+      interacción tanto con Illustra e IUS como con el usuario a través de 
+      formas en HTML. 
+        
+      A continuación se describe un escenario típico de operación del prototipo 
+      "X-tract". 
+        
+        
+      4.1.2 DESCRIPCIÓN DE LA INTERFAZ 
+        
+      Se desarrollaron interfaces de usuario con el fin de facilitar el uso de 
+      X-tract y el análisis de descripciones morfológicas. X-tract ha sido 
+      desarrollado pensando en que sólo tendrán acceso a él ciertos usuarios, 
+      por lo tanto, para entrar a X-tract se debe de introducir el nombre de 
+      usuario y una contraseña. La Figura 15 muestra el acceso a la pantalla 
+      principal de X-tract. 
+       
+        
+      Figura 15. Acceso a la pantalla principal de X-tract 
+        
+        
+      4.1.3 EJEMPLO ESPECÍFICO 
+        
+      X-tract ofrece dos opciones para el análisis de descripciones 
+      morfológicas. La pantalla principal, como se observa en la Figura 16, 
+      muestra una de las opciones con las que cuenta el usuario. Esta opción es 
+      la introducción del nombre del archivo para que sea analizado. Como se 
+      mencionó en el capítulo 3, el archivo para su análisis debe contener texto 
+      en formato HTML. En el ejemplo, el usuario ha introducido el nombre 
+      "example.html" (Figura 16). 
+       
+        
+      Figura 16. Opciones que ofrece X-tract 
+      El proceso que sigue X-tract al recibir el nombre de un archivo es el 
+      siguiente: 
+        
+      · Busca el archivo en el directorio local, en caso de no encontrarlo manda 
+      un mensaje de error. 
+        
+      · Si encontró el archivo entonces aplica la gramática para localizar en 
+      qué parte del texto se encuentra la descripción morfológica. En caso de 
+      encontrar la descripción guarda cada palabra, signo de puntuación o dígito 
+      para analizarlo posteriormente. 
+        
+      · Cada cadena se guarda de acuerdo a su tipo. Es decir, el analizador 
+      sintáctico reconoce cuando una palabra se refiere a una estructura, un 
+      dígito o simplemente una cadena. 
+        
+      · Todo lo que ha sido guardado como una cadena de caracteres o una 
+      estructura es buscado dentro de un glosario. Esto se lleva a cabo para 
+      saber si la estructura o la cadena son una subestructura o si la cadena es 
+      simplemente un valor. 
+        
+      · En caso de que la cadena sea un valor entonces se busca el nombre de la 
+      característica a la que corresponde. Por ejemplo, si el valor es "verde" 
+      entonces su característica localizada será "color". 
+        
+      Una vez que se han realizado los pasos anteriores entonces se crea una 
+      forma por cada palabra y se organiza de acuerdo a estructura, 
+      subestructura, característica o valor como se muestra en la Figura 17. El 
+      usuario en ese momento si desea puede actualizar la base de datos. La 
+      información se presenta en campos que el usuario puede modificar, de 
+      manera que el usuario experto puede manejar las inferencias de X-tract 
+      antes de actualizar la base de datos. 
+       
+      Figura 17. Tabla creada por X-tract 
+        
+      La actualización de la base de datos se hace en dos tablas. La primera 
+      tabla se llama "characteristics" y como su nombre lo dice, guarda todas 
+      las características que fueron halladas en el texto analizado. Esta tabla 
+      es una lista de características, estructuras y subestructuras. La segunda 
+      tabla se llama "morph_descrips" y guarda el número de descripción 
+      analizada, el número del valor y su nombre, así como una relación 
+      jerárquica del orden en el que aparece dentro de la descripción además del 
+      número de su padre. De esta forma, se construye una especie de árbol. La 
+      Figura 18 muestra el resultado que se obtuvo al actualizar la base de 
+      datos. 
+       
+        
+      Figura 18. Resultados de actualizar la base de datos 
+        
+      La segunda opción con la que cuenta el usuario es la introducción de 
+      texto. La Figura 19, muestra un ejemplo de este caso y la Figura 17 y 18 
+      muestran los resultados correspondientes. 
+       
+      Figura 19. Introducción de texto 
+        
+      El proceso que sigue X-tract al recibir el nombre de un archivo es el 
+      mismo que en la primera opción sólo que X-tract con el texto escrito 
+      genera un archivo de texto el cual se analizará. Esta opción le da al 
+      usuario la ventaja de analizar descripciones que no se encuentran en un 
+      formato específico (como HTML). 
+        
+        
+      4.2 EVALUACIÓN 
+      4.2.1. APLICABILIDAD 
+        
+      Como se mencionó en la sección 3.1, el proceso de análisis manual de una 
+      descripción requiere de tiempo por lo laborioso que significa buscar cada 
+      palabra dentro de un glosario y darle un significado. Así como la 
+      actualización de la base de datos al ir llevando una jerarquía de en qué 
+      orden se encuentran organizados cada elemento de la descripción como lo 
+      son las características, los valores o las estructuras halladas. X-tract 
+      facilita la introducción de descripciones morfológicas a la base de datos, 
+      al utilizar glosarios y una gramática especializada en la identificación 
+      de la estructura implícita en un texto dado. 
+      Para el proyecto de Flora de Norteamérica (FNA) desarrollado por el Centro 
+      de Bioinformática del Jardín Botánico de Missouri se tiene el problema de 
+      introducción masiva de información. En dicho proyecto se están 
+      clasificando aproximadamente 20,000 especies de plantas vasculares y 
+      briofitas del norte de América [FNA 1996; Schnase et al. 1997]. 
+        
+      Entre los datos más importantes para la Biblioteca Digital del proyecto se 
+      encuentran los tratamientos taxonómicos. Cada tratamiento es revisado por 
+      un Comité Editorial formado por 34 taxonomistas distribuidos en los 
+      Estados Unidos y Canadá. Una vez revisado el documento, éste es 
+      introducido en la biblioteca digital para que pueda ser accesado e ir 
+      formando los volúmenes de la biblioteca. El proceso de revisión y edición 
+      tiene cerca de 100 eventos asociados por cada tratamiento que se revisa y 
+      edita. Dichas actividades requieren de la coordinación a distancia de los 
+      autores [Schnase et al. 1997]. 
+      Actualmente, los editores construyen enormes matrices en Excel, donde 
+      vacían los datos de las descripciones. Cada columna se refiere a una 
+      característica de la descripción, por lo cual, se complica el análisis por 
+      el gran tamaño que una descripción puede llegar a tener. En cambio, 
+      X-tract, organiza los datos dentro de la base de datos lo que provee al 
+      usuario con búsquedas especializadas de un manejador de base de datos. 
+        
+      Como puede apreciarse, uno de los problemas principales en la construcción 
+      de la biblioteca digital de FNA es la captura de la información contenida 
+      en los tratamientos. X-tract permite llevar actividades para facilitar la 
+      captura de la información como son: 
+        
+      · el que cada autor puede verificar su tratamiento taxonómico desde 
+      cualquier parte del mundo, gracias a que X-tract está accesible vía WWW, 
+        
+      · introducir nuevos tratamientos para analizar la descripción morfológica 
+      contenida, 
+      · verificación de errores por parte de los autores o de un usuario experto 
+      antes de actualizar la base de datos, 
+        
+      · y la actualización de la base de datos. 
+        
+        
+      4.2.2. COMPARACIÓN CON TRABAJO RELACIONADO 
+      A diferencia del Programa de Taylor, X-tract no contiene reglas que son de 
+      dominio específico o que pertenecen sólo al idioma inglés. Al contrario, 
+      X-tract permite el análisis de cualquier descripción y lo importante es la 
+      actualización constante del glosario. DDCONV sólo genera archivos DELTA, 
+      mientras que X-tract genera una tabla en la que el usuario experto puede 
+      modificar la manera en que quedó analizada una descripción. Además, ayuda 
+      al análisis de una descripción durante su creación, lo que le permite al 
+      autor tener una idea más clara de cómo organizarla. 
+        
+        
+      V.CONCLUSIONES 
+      En este trabajo se demuestra el potencial del uso de una gramática para 
+      determinar la estructura de la información en una biblioteca digital 
+      botánica. En particular se muestra su utilidad para enfrentar problemas en 
+      la introducción de información de forma manual a la base de datos. A 
+      continuación se resumen los logros de X-tract, los problemas que se 
+      encontraron en su desarrollo, así como el trabajo a futuro que puede 
+      aumentar su utilidad. 
+        
+      Para sustentar la solución propuesta se analizaron diferentes trabajos 
+      relacionados con la extracción de información. X-tract, principal 
+      resultado del trabajo desarrollado, es un sistema que permite el análisis 
+      de descripciones morfológicas para su almacenamiento en la base de datos 
+      FDL. Una de las características más importantes de X-tract radica en su 
+      interfaz con el usuario. La interfaz le permite al usuario participar en 
+      la corrección de las palabras analizadas antes de actualizar la base de 
+      datos. 
+        
+      La operación de X-tract es muy sencilla. Primeramente el usuario introduce 
+      el nombre del archivo de texto que debe encontrarse en HTML o introduce 
+      texto en formato libre para su análisis. X-tract analiza en ambos casos el 
+      archivo dado o crea un archivo con el texto introducido si se refiere a la 
+      segunda opción. Con la ayuda de un analizador sintáctico y un analizador 
+      gramatical despliega una tabla con la organización propuesta y el nombre 
+      de las características a las que se refieren los valores. Para actualizar 
+      la base de datos, X-tract recorre toda la tabla creada para saber el orden 
+      en el que se encuentra cada palabra y saber si se refiere a una 
+      estructura, una subestructura, una característica o un valor. 
+        
+      5.1 LOGROS 
+        
+      Algunas de los logros de X-tract a diferencia de otros sistemas se 
+      encuentran los siguientes: 
+        
+      · interfaz con el usuario, lo que permite verificar el resultado del 
+      análisis de la descripción antes de actualizar la base de datos, 
+        
+      · sistema fácil de manejar ya que sólo requiere de dar el nombre del 
+      archivo o el texto a analizar, 
+        
+      · X-tract permite el análisis de textos en HTML o en formato libre lo que 
+      ayuda al usuario a analizar una descripción completa o sólo parte de ella 
+      o incluso buscar una palabra en el glosario para saber a que 
+      característica se refiere, 
+      · X-tract cuenta con una gramática capaz de localizar descripciones 
+      morfológicas dentro de un archivo de texto dado, 
+      · X-tract muestra el resultado de haber actualizado la base de datos. 
+        
+        
+        
+      5.2 PROBLEMAS 
+        
+      Un problema que fue hallado al analizar los resultados de X-tract se 
+      presenta cuando aparece la estructura después del valor. Por ejemplo, 
+      "subterranean axes". En este caso axes corresponde a una estructura y 
+      subterranean es el valor de dicha estructura. Esto se debe a que la 
+      gramática no está enfocada al orden gramatical que debe de llevar una 
+      oración. Generalmente las estructuras vienen primero y por lo tanto 
+      existirían varios casos por analizar, además del número de ocurrencias de 
+      este problema. 
+        
+        
+      5.3 TRABAJO A FUTURO 
+      Como se mencionó anteriormente las pruebas y el desarrollo del trabajo se 
+      basaron en la creación de un sistema capaz de analizar los tratamientos 
+      taxonómicos localizados en la página electrónica de FNA. Estos 
+      tratamientos están formados por descripciones precedidas y seguidas de 
+      código HTML. Además, las estructuras principales se encuentran entre "<B>" 
+      y "</B>". Es así como se desarrolló una gramática capaz de analizar textos 
+      con esta organización. Es decir, siempre una descripción morfológica 
+      comienza con una palabra entre "<B>" y "</B>". Como trabajo a futuro queda 
+      la programación del caso de descripciones que no comienzan de esta forma. 
+        
+      X-tract sólo actualiza las tablas correspondientes a la descripción ya que 
+      la gramática sólo analiza esta parte. Queda pendiente entonces, el 
+      análisis del nombre de la descripción como de los autores y demás partes 
+      que componen un tratamiento taxonómico. 
+        
+        
+      5.4. COMENTARIOS FINALES 
+        
+      La construcción de una biblioteca digital es un esfuerzo de miles de 
+      autores trabajando juntos con un amplio rango de herramientas para 
+     
+        
+      Al finalizar el sistema se logró demostrar que es posible mejorar 
+      notablemente la rapidez y facilidad para introducir las descripciones 
+      morfológicas a la biblioteca digital. 
+        
+      X-tract forma parte de un sistema, más general, de apoyo a los autores de 
+      descripciones morfológicas. Con su uso se espera agilizar la construcción 
+      de la biblioteca digital además de constituir un paso en la investigación 
+      en el área de extracción de información en la Biblioteca Digital 
+      Florísitica. 
+        
+        
+        
+      BIBLIOGRAFÍA 
+      Benson M. 1990 Colocations and general-purpose dictionar-ies, 
+      International Journal of Lexicography,2, 1-14. 
+        
+      Croft W. B. 1995, NSF Center for Intelligent Information Retrieval. 
+      Communications of the ACM, 38, 4. (April) 42-43. 
+        
+      Fox E., Hix D., Nowell L. 1993. Users, user interfaces, objects: Envision, 
+      a digital library. Journal of Am. Soc Inf. Sci. 44, 8 (Sept), 480-491. 
+        
+      Fox A. E. 1995. Digital Libraries. Communications of the ACM, 38, 4 
+      (April) 24-25. 
+        
+      FNA, 1996: FNA Internet Information Service; julio. (http://www.fna.org) 
+        
+      Furuta, R. 1994. Defining and using structure in digital documents. 
+      Proceedings of Digital Libraries' 94. (DL'94, College Station, TX). 
+        
+      Galloway E.A. and Michalek V. G. 1995. The Heinz Electronic Library 
+      Interactive Online System (HELIOS): Building a Digital Archive Using 
+      Imaging, OCR and Natural Language Processing Technologies. The 
+      Public-Access Computer Systems Review 6, 4. 
+        
+      Gordon K. S and Timothy B. P., 1994: Translating Data to Knowledge in 
+      Digital Libraries. Proceedings of Digital Libraries' 94. (DL'94, College 
+      Station, TX, June) 
+      Hobbs R. J. 1994 Generic Information Extraction System. Artificial 
+      Intelligence Center SRI International. 
+        
+      Jacobs P. 1995 Text interpetation: extracting information. SRA, 
+      International, Arlington, Virginia USA. 
+        
+      Kavanagh, J. 1995 The Text Analyzer: A Tool for Extracting Knowledge From 
+      Text. Master of Computer Science Thesis, project of the Language Analysis 
+      & Knowledge Engineering (LAKE) Group Department of Computer Science, 
+      University of Ottawa. 
+        
+      Lenhert, W. 1990. Symbolic/Subsymbolic Sentence Analysis: Exploiting the 
+      Best of Two Worlds. In Barnden, J. and Pollack, J., editors 1990. Advances 
+      in Connectionist and Neural Computation Theory, vol 1. Ablex Publishers, 
+      Norwood, NJ. 135-164. 
+        
+      Lenhert, W. 1996. Information Extraction. Computer Science Departament at 
+      the University of Massachusets. Morgan Kaufmann Publishers, Inc. 
+        
+      Morgan, E. L. 1994 The World-Wide Web and Mosaic: An Overview for 
+      Librarians. The Public-Access computer Systems Review 5, 6, 5-26 
+        
+      Sánchez J. A. 1994. User agents in the interface to digital libraries. 
+      Proceedings of Digital Libraries' 94. (DL'94, College Station, TX, June) 
+      217-218. 
+        
+      Morin N. 1993 Flora of North America, vol 2. Oxford University Press. 
+        
+      Schnase, J. L., Kama, D.L. Tomlinson, K.L., Sánchez, J. A., Cunnius, E.L. 
+      y Morin, N. R. 1997: The Flora of North America Digital Library: a case 
+      study in biodiversity database publishing; Journal of Network and Computer 
+      Applications, 21, 20; enero. 
+        
+      Slonim J. 1995 Networked information systems as digital libraries. Summary 
+      Report from IBM Academy Digital Library Workshop, (Briarcliff Manor, New 
+      York, Sept 12-13, 1994), IBM Academy Technology. 
+        
+      Taylor A. 1994. Extracting Knowledge from Biological Descriptions. 
+      Department of Computer Science and Engineering. University of New South 
+      Wales. Sydney, Australia. 
+      Tranter, W.H. 1994: Report of the NSF Workshop on Research Priorities in 
+      Networking and Communications (NSF 94-165). NSF Science and Technology 
+      Information Systems(STIS) No. NSF94165, http://www.nsf.gov/wais/pubs.html. 
+
+        
+      Wiederhold, G. April, 1995. Digital Libraries, Value, and Productivity. 
+      Communications of the ACM, 38, 4, 85-86. 
+        
+        
+      APÉNDICE 1 
+      %{ 
+      /*======================================================================*/ 
+
+      /* Programa correspondiente al analizador léxico, xtract.l */ 
+      /*======================================================================*/ 
+
+        
+      #include "y.tab.h" 
+        
+      int linea=1; 
+        
+      %} 
+        
+      /*====================================================================*/ 
+      /*========================= DEFINITIONS =============================*/ 
+      /*===================================================================*/ 
+        
+      digit [0-9] 
+      word [A-Za-z/'&;] 
+      words [A-Za-z / ,:] 
+      character1 [A-Za-z0-9 /!:)_/";.#\]\[\+('=~&-] 
+      character [A-Za-z /'&;] 
+      eol [\n] 
+        
+      /*====================================================================*/ 
+      /*=========================== RULES ==================================*/ 
+      /*====================================================================*/ 
+        
+      %% 
+        
+        
+      [\t ]+ ; /* ignore spaces */ 
+        
+      "<B>"{character}+" "{character}+" </B>" { strcpy(yylval.text,yytext); 
+      return STRUCTURE;} 
+      "<B>"{character}+" "{character}+"</B>" { strcpy(yylval.text,yytext); 
+      return STRUCTURE;} 
+      "<B>"{words}+" </B>" { strcpy(yylval.text,yytext); return STRUCTURE;} 
+      "<B>"{words}+" </B>," { strcpy(yylval.text,yytext); return STRUCTURE;} 
+      "<B>"{words}+"</B>" { strcpy(yylval.text,yytext); return STRUCTURE;} 
+      "<B>" { printf("");} 
+      {words}+"</B>" { printf("");} 
+      {word}+ { strcpy(yylval.text,yytext); return STRING;} 
+      {word}+"-"{word}+ { strcpy(yylval.text,yytext); return STRING;} 
+      "," { return COMMA; } 
+      "." { return PERIOD; } 
+      "(" { return P_OPEN;} 
+      ")" { return P_CLOSE;} 
+      "[" { return C_OPEN;} 
+      "]" { return C_CLOSE;} 
+      {digit}+ { strcpy(yylval.text,yytext); return NUMBERS; } 
+      "-"{digit}+ { strcpy(yylval.text,yytext); return NUMBERS; } 
+      "+"{digit}+ { strcpy(yylval.text,yytext); return NUMBERS; } 
+      {digit}+"--"{digit}+ { strcpy(yylval.text,yytext); return NUMBERS; } 
+      {digit}+"/"{digit}+ { strcpy(yylval.text,yytext); return NUMBERS; } 
+      {digit}+"-"{word}+ { strcpy(yylval.text,yytext); return STRING;} 
+      ":" { return SEMICOLON; } 
+      "<B>"{digit}+ { strcpy(yylval.text,yytext); return HTML_NUM; } 
+      "<B>"{digit}+"." { strcpy(yylval.text,yytext); return HTML_NUM; } 
+      "<A NAME=""{digit}+""></A><I>"{word}+"</I>" { strcpy(yylval.text,yytext); 
+      return NAME;} 
+      "<"{character1}+">"{digit}+"." { return HTML; } 
+      "<"{character1}+">" { return HTML; } 
+      "-" { return DASH;} 
+      ";" { return COLON;} 
+      "<TITLE>TREATMENT:"{character1}+"</TITLE>" { strcpy(yylval.text,yytext); 
+      return NAME;} 
+      . {printf ("");}; 
+      %% 
+        
+       
+    APÉNDICE 2 
+      %{ 
+      /*======================================================================*/ 
+
+      /* Programa correspondiente al analizador sintáctico, xtract.y */ 
+      /*======================================================================*/ 
+
+        
+      #include <stdio.h> 
+        
+      %} 
+        
+      /*=========================================================================*/ 
+
+      /*=========================== 
+      DECLARATIONS===============================*/ 
+      /*=========================================================================*/ 
+
+        
+      %union { 
+      int intval; 
+      float floatval; 
+      char text[70]; 
+      } 
+        
+        
+      %token C_OPEN 
+      %token C_CLOSE 
+      %token P_OPEN 
+      %token P_CLOSE 
+      %token COMMA 
+      %token PERIOD 
+      %token COLON 
+      %token DASH 
+      %token SEMICOLON 
+      %token NEW_LINE 
+      %token <text> STRING 
+      %token <text> NUMBERS 
+      %token <text> STRUCTURE 
+      %token <text> NAME 
+      %token <text> HTML 
+      %token <text> HTML_NUM 
+      %% 
+        
+        
+      /*========================================================================*/ 
+
+      /*============================= RULES 
+      ====================================*/ 
+      /*========================================================================*/ 
+
+        
+      Description : HTML Statement Description 
+      | empty 
+      ; 
+        
+      Punctuation : NEW_LINE | COLON | P_OPEN | SEMICOLON | DASH | P_CLOSE | 
+      PERIOD | C_OPEN | C_CLOSE | COMMA 
+      ; 
+        
+        
+        
+      Statement : HTML Statement 
+      | HTML 
+      | STRUCTURE Statement1 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_html(compare,name); 
+      }; 
+      | NAME Statement 
+      | STRING Statement 
+      | Punctuation Statement 
+      | PERIOD 
+      | NUMBERS Statement 
+      ; 
+        
+        
+      Statement1 : HTML Statement1 
+      | STRUCTURE Statements 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_html(compare,new1); 
+      insertar_arbbin(new1,"structure"); 
+      cont++; 
+      }; 
+      | HTML_NUM Statement2 
+      { 
+      flag=1; 
+      }; 
+      | HTML 
+      | STRING Statement1 
+      | Punctuation Statement1 
+      | NUMBERS Statement1 
+      ; 
+        
+      Statement2 : HTML Statement2 
+      { 
+      flag++; 
+      } 
+      ; 
+      | STRUCTURE Statements 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_html(compare,new1); 
+      insertar_arbbin(new1,"structure"); 
+      cont++; 
+      }; 
+      | HTML 
+        
+      | Punctuation Statement2 
+        
+      | STRING Statement2 
+      { 
+      strcpy(compare, $1); 
+      count++; 
+      if((count=1)||(count=2)) 
+      { 
+      if ((flag==6) || (flag==7)) 
+      { 
+      insertar_arbbin(compare,"name"); 
+      cont++; 
+      } 
+      } 
+      }; 
+        
+      | NUMBERS Statement2 
+      ; 
+        
+        
+        
+        
+      Statements : STRUCTURE Statements 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_html(compare,new1); 
+      insertar_arbbin(new1,"structure"); 
+      cont++; 
+      }; 
+      |STRING Statements 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_coma(compare,new1); 
+      insertar_arbbin(new1,"string"); 
+      cont++; 
+      }; 
+      | PERIOD Statements 
+      { 
+      insertar_arbbin(".","period"); 
+      cont++; 
+      } 
+      ; 
+      | SEMICOLON Statements 
+      { 
+      insertar_arbbin(";","period"); 
+      cont++; 
+      } 
+      ; 
+      | HTML Statements1 
+      | HTML 
+      | COMMA Statements 
+      { 
+      insertar_arbbin(",","comma"); 
+      cont++; 
+      } 
+      ; 
+      | P_OPEN Statements 
+      { 
+      insertar_arbbin("(","p_open"); 
+      cont++; 
+      } 
+      ; 
+      | P_CLOSE Statements 
+      { 
+      insertar_arbbin(")","p_close"); 
+      } 
+      ; 
+      | C_OPEN Statements 
+      { 
+      insertar_arbbin("[","c_open"); 
+      cont++; 
+      } 
+      ; 
+      | C_CLOSE Statements 
+      { 
+      insertar_arbbin("]","c__close"); 
+      cont++; 
+      } 
+      ; 
+      | NUMBERS Statements 
+      { 
+      insertar_arbbin($1,"numbers"); 
+      cont++; 
+      }; 
+      | DASH Statements 
+      { 
+      insertar_arbbin("-","dash"); 
+      cont++; 
+      } 
+      ; 
+      | HTML_NUM Statement2 
+      {flag=1; 
+      count=0; 
+      }; 
+      ; 
+      Statements1 : HTML_NUM Statement2 
+      { 
+      count=0; 
+      flag=1; 
+      }; 
+      | STRUCTURE Statement1 
+      { 
+      strcpy(compare, $1); 
+      strcpy(new1," "); 
+      word_without_html(compare,new1); 
+      insertar_arbbin(new1,"structure"); 
+      cont++; 
+      } 
+      ; 
+      | Punctuation Statements1 
+      | HTML Statements1 
+      | HTML 
+      | PERIOD 
+      | NUMBERS Statements1 
+      ; 
+        
+      vacio : ' ' 
+      ; 
+        
+      %% 
+        
+      extern FILE *yyin; 
+      extern char compare[70]; 
+      extern char new1[70]; 
+      extern char name[70]; 
+      extern int flag; 
+      extern int count; 
+      extern int cont; 
+        
+      /*=========================================================================*/ 
+
+        
+      yyerror(s) 
+      char *s; 
+      { 
+      /*fprintf(stderr,"%s\n",s);*/ 
+      } 
+        
+       

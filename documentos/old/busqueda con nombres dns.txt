@@ -1,0 +1,129 @@
+ 2.6.3      Busquedas de nombres con DNS
+
+
+
+ Trataremos aqui el problema de como resolver el nombre de un determinado nodo.
+
+
+      DNS es una gigantesca base de datos distribuida. Se implementa a traves de los llamados
+
+ servidores de nombres. Cada uno deestos mantiene la informacion de uno o varios dominios.
+
+ Para cada zona hay al menos dos (o mas) servidores de nombres que mantienen informacion
+
+ autorizada sobre los nodos de esa zona.  Para obtener la direccion IP del nodo erdos, lo
+
+ que hay que hacer es contactar con el servidor de nombres de la zona para groucho.edu y
+
+este nos devolvera los datos pedidos.
+
+
+      Esto  parece  facil  de  decir  pero  dificil  de  implementar  pues  nos  preguntaremos  como
+
+ localizar  al  servidor  de  nombres  de  la  UGM.  Si  su  ordenador  no  implementa  un  adivi-
+
+ no,  le ayudara el DNS. Cuando su aplicacion desea encontrar informacion acerca de er-
+
+ dos,  contactara  en  primer  lugar  con  un  servidor  de  nombres  local,  quien  realizara  una
+
+ busqueda por otros servidores.  Empieza por preguntar a un servidor de nombres raiz por
+
+ erdos.maths.groucho.edu.  Al comprobaresteultimo queel no mantiene ese dominio,
+
+ contactara con los servidores del dominio edu y les preguntara las direcciones de los servi-
+
+ dores de nombres, que retornara al servidor local. Ahora nuestro servidor preguntara a estos
+
+ ultimos yestos a su vez iran haciendo llegar a nuestro servidor hasta los que mantienen la
+
+ zona groucho.edu. Finalmente, se preguntara a uno de estosultimos por el nodo erdos y
+
+ se enviara la respuesta al usuario.
+
+
+      Aparentemente esto provoca mucho trafico, aunque en todo caso siempre sera menor que
+
+ preguntar siempre a los mismos servidores que mantenian el fichero HOSTS.TXT  antes de
+
+ que se dise"nara el DNS.
+
+
+      Sin embargo, aun se puede mejorar algo mas. La informacion obtenida en una busqueda
+
+ puede que se necesite despues.  Por ello, el servidor de nombres local la guardara en una
+
+ cache local.  Asi, cuando volvamos a preguntar por un nodo de groucho.edu, el servidor
+
+ local ya podra dirigirse directamente el servidor de nombres de esa zona sin pasar por los
+
+ servidores raiz.
+ 
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+     Por supuesto,  el servidor de nombres no puede mantener la cache eternamente,  sino
+
+descartarla cada cierto tiempo. Este tiempo de expiracion se conoce como TTL14 o tiempo
+
+de vida. En la base de datos del DNS queda especificado este parametro.
+2.6.4      Servidores de Nombres
+
+
+
+Cuando un servidor de nombres mantiene toda la informacion acerca de una zona se le
+
+llama autorizado  para esa zona.  Cualquier peticion para esa zona sera enviada a uno de
+
+esos servidores maestros.
+
+
+     Para tener una representacion coherente de la zona, sus servidores maestros deben estar
+
+sincronizados.   Para  ello,  a  uno  de  ellos  se  le  nombra  servidor  primario,  que  obtiene  la
+
+informacion de zona a partir de unos ficheros locales, y a los demas se les nombra servidores
+
+secundarios.  Estosultimos cargan la informacion de la zona pidiendosela al primario cada
+
+cierto tiempo.
+
+
+     Las razones para que existan varios servidores autorizados por cada zona son dos:  re-
+
+partir la carga de trabajo y lograr tolerancia a fallos.  Asi,  si un servidor cae,  todas las
+
+peticiones se repartiran entre los demas servidores autorizados que haya.  Por supuesto,
+
+esto no protege contra fallos internos o bugs del propio software DNS.
+
+
+     Por supuesto, tambien es posible tener servidores de nombres que no mantengan infor-
+
+macion autorizada de ningun dominio15 .  Este tipo de servidores esutil pues, al mantener
+
+una cache con los nombres que resuelven disminuye la carga de la red y de otros servidores.
+2.6.5      La Base de Datos DNS
+
+
+
+En las bases de datos del DNS se mantiene mas informacion que la necesaria para traducir
+
+nombres a direcciones IP. Dicho de otra forma,  en DNS se mantienen distintos  tipos  de
+
+registros.
+
+
+     Un elemento simple de informacion en el DNS se conoce como registro de recurso o RR.
+
+Cada registro tiene un tipo asociado ael, describiendo que clase de datos contiene, y una
+
+clase indicando el tipo de red al que se aplica. Se trata de acomodarse a diferentes esquemas
+
+de red, aunque para direcciones IP se usa siempre la clase IN (INternet), pero hay otras
+
+como las redes Hesiod (que se usan en el MIT16 ). El registro mas habitual es el de tipo A,
+
+que relaciona un nombre totalmente cualificado con una direccion IP.

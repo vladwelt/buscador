@@ -1,0 +1,252 @@
+6. - Herramientas que chequean la integridad
+del sistema
+Veremos, a continuación, una serie de herramientas que nos ayudarán a proteger
+nuestro sistema. Para conseguirlo, tenemos dos tipos de herramientas. Las primeras, se
+basan en chequeos a los archivos. Las segundas, nos alertan de posibles modificaciones
+de archivos y de programas "sospechosos" que puedan estar ejecutándose en la
+máquina de forma camuflada.
+Veremos, en primer lugar, las que chequean la integridad de los sistemas de
+archivos.
+6.1. - COPS (Computer Oracle and Password System)
+Cops es un conjunto de programas diseñado por la Universidad de Purdue que
+chequea ciertos aspectos del sistema operativo UNIX relacionados con la seguridad.
+Existen dos versiones de este paquete: una versión escrita en "sh" y "C" y otra
+versión escrita en "perl", aunque su funcionalidad es similar. Este programa es fácil de
+instalar y configurar y se ejecuta en gran cantidad de plataformas UNIX.
+En el primer caso, necesitaremos un compilador de lenguaje C y un shell estándar
+(sh). En el segundo, nos bastará con tener instalado el interprete de perl (versión 3.18
+o superior). Entre las funcionalidades que tiene Cops podemos destacar.
+· Chequeo de modos y permisos de los archivos, directorios y dispositivos
+· Passwords pobres. En el caso que tengamos una herramienta como crack,
+podemos comentar la línea de chequeo de passwords.
+· Chequeo de contenido, formato y seguridad de los archivos de "password" y
+"group".
+· Chequeo de programas con root-SUID.
+· Permisos de escritura sobre algunos archivos de usuario como ".profile" y
+".cshrc"
+· Configuración de ftp "anonymous".
+· Chequeo de algunos archivos del sistema como "hosts.equiv", montajes de
+NFS sin restricciones, "ftpusers", etc.
+Veamos un ejemplo del archivo creado por este programa:
+ATTENTION:
+Security Report for Tue Apr 11 13:33:33 WET DST 1995
+from host acme
+Warning! Root does not own the following file(s):
+/dev /usr/etc
+Warning! NFS file system exported with no restrictions!
+Warning! NFS file system exported with no restrictions!
+Warning! NFS file system exported with no restrictions!
+Warning! /dev/fd0 is _World_ writable!
+Warning! /dev/fd0 is _World_ readable!
+Warning! /etc/ethers is _World_ writable!
+Warning! /etc/motd is _World_ writable!
+Warning! /etc/utmp is _World_ writable!
+Warning! /usr/adm/snm is _World_ writable!
+Warning! File /etc/motd (in /etc/rc.local.orig) is _World_ writable!
+Warning! User uucp's home directory /var/spool/uucppublic is mode 03777!
+Warning! Password file, line 12, user sysdiag has uid = 0 and is not root
+sysdiag:*:0:1:Old System
+Diagnostic:/usr/diag/sysdiag:/usr/diag/sysdiag/sysdiag
+Warning! Password file, line 13, user sundiag has uid = 0 and is not root
+sundiag:*:0:1:System Diagnostic:/usr/diag/sundiag:/usr/diag/sundiag/sundiag
+Warning! YPassword file, line 2, user sundiag has uid = 0 and is not root
+sundiag:*:0:1:System Diagnostic:/usr/diag/sundiag:/usr/diag/sundiag/sundiag
+Warning! YPassword file, line 3, user sysdiag has uid = 0 and is not root
+sysdiag:*:0:1:Old System
+Diagnostic:/usr/diag/sysdiag:/usr/diag/sysdiag/sysdiag
+Warning! /etc/ftpusers should exist!
+Warning! Anon-ftp directory pub is World Writable!
+6.2. - Tiger
+Es un software desarrollado por la Universidad de Texas que está formado por un
+conjunto de shell scripts y código C que chequean el sistema para detectar problemas
+de seguridad de forma parecida a COPS.
+Una vez chequeado el sistema, se genera un archivo con toda la información
+recogida por el programa. Tiger dispone de una herramienta (tigexp) que recibe como
+parámetro dicho archivo y da una serie de explicaciones adicionales de cada línea que
+generó el programa anterior. El programa viene con un archivo de configuración donde
+es posible informarle qué tipo de chequeo se quiere realizar. Podemos comentar las
+operaciones más lentas y ejecutar éstas de forma menos continuada, mientras que las
+más rápidas pueden ser ejecutadas más frecuentemente.
+Entre la información que chequea el programa tenemos:
+· Configuración del sistema.
+· Sistemas de archivos.
+· Archivos de configuración de usuario.
+· Chequeo de caminos de búsqueda.
+· Chequeos de cuentas.
+· Chequeos de alias.
+· Comprueba la configuración de ftp "anonymous".
+· Chequeo scripts de cron.
+· NFS.
+· Chequeo de servicios en el archivo /etc/inetd.conf
+· Chequeo de algunos archivos de usuario (.netrc, .rhosts, .profile, etc)
+· Comprobación archivos binarios (firmas). Para poder chequear éstos es
+necesario disponer de un archivo de firmas.
+6.3. - Crack
+Este paquete de dominio público realizado por Alex Muffet permite chequear el
+archivo de contraseñas de UNIX y encontrar passwords triviales o poco seguras.
+Para ello, usa el algoritmo de cifrado (DES) utilizado por el sistema UNIX y va
+comprobando a partir de reglas y de diccionarios las passwords que se encuentran en el
+archivo de contraseñas, creando un archivo con todos los usuarios y palabras
+descubiertas. Se realiza una serie de pasadas sobre el archivo de contraseñas,
+aplicando la secuencia de reglas que se especifique. Estas reglas se encuentran en dos
+archivos (gecos.rules y dicts.rules) y pueden ser modificadas utilizando un lenguaje
+bastante simple. Para una mayor efectividad pueden utilizarse diccionarios
+complementarios (existen en gran diversidad servidores ftp) en diferentes idiomas y
+sobre diversos temas.
+Experiencias realizadas en la Universidad Carlos III de Madrid sobre diversas
+máquinas han arrojado resultados de 16% de passwords triviales en máquinas donde
+no se tenía ninguna norma a la hora de poner contraseñas de usuario.
+Es una buena norma pasar de forma periódica el crack para detectar contraseñas
+poco seguras, además de tener una serie de normas sobre passwords, tanto en su
+contenido como en la periodicidad con que deben ser cambiadas.
+6.4. - Tripwire
+Este software de dominio público desarrollado por el Departamento de Informática
+de la Universidad de Purdue, es una herramienta que comprueba la integridad de los
+sistemas de archivos y ayuda al administrador a monitorizar éstos frente a
+modificaciones no autorizadas.
+Esta herramienta avisa al administrador de cualquier cambio o alteración de
+archivos en la máquina (incluido binarios). El programa crea una base de datos con un
+identificador por cada archivo analizado y puede comparar, en cualquier momento, el
+actual con el registrado en la base de datos, avisando ante cualquier alteración,
+eliminación o inclusión de un nuevo archivo en el sistema de archivos.
+La base datos está compuesta por una serie de datos como la fecha de la última
+modificación, propietario, permisos, etc. con todo ello se crea una firma para cada
+archivo en la base de datos.
+Esta herramienta debería ser ejecutada después de la instalación de la máquina
+con el objeto de tener una "foto" de los sistemas de archivos en ese momento y puede
+ser actualizada cada vez que añadimos algo nuevo. Dispone de un archivo de
+configuración que permite decidir qué parte del sistema de archivos va a ser introducida
+en la base de datos para su posterior comprobación.
+6.5 .- chkwtmp
+Es un pequeño programa que chequea el archivo "/var/adm/wtmp" y detecta
+entradas que no tengan información (contienen sólo bytes nulos).
+Estas entradas son generadas por programas tipo "zap" que sobreescriben la
+entrada con ceros, para, de esta manera, ocultar la presencia de un usuario en la
+máquina. Este programa detecta esa inconsistencia y da un aviso de modificación del
+archivo y entre qué espacio de tiempo se produjo.
+6.6. - chklastlog
+Es parecido al programa anterior. Éste chequea los archivos "/var/adm/wtmp" y
+"/var/adm/lastlog". El primero, es la base de datos de login, y el segundo, la
+información del último login de un usuario. En el segundo archivo nos indica qué
+usuario ha sido eliminado del archivo.
+6.7.- spar
+Software de dominio público diseñado por CSTC (Computer Security Technology
+Center) realiza una auditoría de los procesos del sistema, mucho más flexible y potente
+que el comando lastcomm de UNIX.
+El programa lee la información recogida por el sistema y puede ser consultada con
+una gran variedad de filtros como usuario, grupo, dispositivo, admitiendo también
+operadores (=, >, <, >=, &&...).
+Por defecto, el programa obtiene la información del archivo "/var/adm/pacct". No
+obstante, se le puede indicar otro archivo. La información puede ser mostrada en ASCII
+o en binario para su posterior proceso con spar.
+6.8.- lsof (List Open Files)
+Este programa de dominio público creado por Vic Abell, nos muestra todos los
+archivos abiertos por el sistema, entendiendo por archivo abierto: un archivo regular,
+un directorio, un archivo de bloque , archivo de carácter, un archivo de red (socket,
+archivo NFS).
+El programa admite varios parámetros que nos permiten filtrar información,
+dependiendo qué tipo de procesos queramos ver en ese instante. Este software está
+disponible para una gran variedad de plataformas: Aix 3.2.3, HP-UX 7.x y 8.x, IRIX
+5.1.1, SunOs 4.1.x, Ultrix 2.2 y 4.2, Solaris 2.3, NetBSD ...
+Veamos a continuación un pequeño extracto de una salida de este programa:
+COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODENAME
+0 root cwd VDIR 7, 0 1536 2 / (/dev/sd0a)
+init 1 root cwd VDIR 7, 0 1536 2 / (/dev/sd0a)
+init 1 root txt VREG 7, 0 65536 1252 / (/dev/sd0a)
+2 root cwd VDIR 7, 0 1536 2 / (/dev/sd0a)
+portmap 57 root cwd VDIR 7, 0 1536 2 / (/dev/sd0a)
+portmap 57 root txt VREG 7, 6 24576 6115 /usr (/dev/sd0g)
+ypserv 62 root 12u unix 0xff64ee0c 0x0 >(none)
+ypbind 66 root 8uW VREG 7, 0 14 1279 / (/dev/sd0a)
+rpc.ypupd 68 root cwd VDIR 7, 0 512 3670 /var/yp
+rpc.ypupd 68 root txt VREG 7, 6 16384 6204 /usr (/dev/sd0g)
+rpc.ypupd 68 root txt VREG 7, 6 24576 7334 /usr (/dev/sd0g)
+named 83 root cwd VDIR 7, 0 512 2484 /etc/namedb
+named 83 root txt VREG 7, 0 106496 130 / (/dev/sd0a)
+named 83 root 7u inet 0xff64988c 0x0 UDP *:domain
+named 83 root 8r VREG 7, 0 2268 30 / (/dev/sd0a)
+named 83 root 9u inet 0xff64958c 0x0 UDP *:681
+syslogd 99 root 22w VREG 7, 14 102657 73779 /usr/local (/dev/sd1g)
+syslogd 99 root 23w VREG 7, 14 102657 73779 /usr/local (/dev/sd1g)
+syslogd 99 root 24w VREG 7, 14 280321 276653 /usr/local
+(/dev/sd1g)
+sendmail 107 root cwd VDIR 7, 0 512 2468 /var/spool/mqueue
+sendmail 107 root txt VREG 7, 6 172032 7302 /usr (/dev/sd0g)
+6.9. - cpm (Check Promiscuous Mode)
+Este pequeño programa realizado por la Universidad de Carnegie Mellon, chequea
+la interfaz de red de la máquina descubriendo si está siendo utilizada en modo
+promiscuo (escuchando todo el tráfico de la red).
+Está herramienta es muy útil, porque nos alerta de la posible existencia de un
+"sniffer" (olfateador) que intente capturar información en nuestra red como puedan ser
+las passwords. Este programa debería ser ejecutado de forma periódica para detectar lo
+antes posible el estado promiscuo en la placa de red. Una forma útil de utilizarlo es
+mandarnos el resultado vía correo electrónico.
+Es importante tener en cuenta que muchos de los programas descritos en este
+documento, pueden poner la placa en modo promiscuo con lo que deberemos
+asegurarnos que no son nuestros programas los que producen esa alerta.
+Generalmente los programas tipo "sniffer" suelen estar ejecutándose como procesos
+camuflados en el sistema.
+6.10. - ifstatus
+Software de dominio público creado por Dave Curry, permite, al igual que el
+anterior, descubrir si un interfaz de red está siendo utilizada en modo promiscuo para
+capturar información en la red. Sirven todas las recomendaciones mencionadas
+anteriormente.
+Veamos un ejemplo del mensaje que genera ésta aplicación, cuando encuentra
+una interfaz de red ejecutada en modo promiscuo:
+Checking interface le0... flags = 0x163
+WARNING: ACME INTERFACE le0 IS IN PROMISCUOUS MODE.
+Checking interface le0... flags = 0x49
+6.11. - osh (Operator Shell)
+Creado por Mike Neuman, este software de dominio público es una shell
+restringida con “setuid root”, que permite indicar al administrador mediante un archivo
+de datos qué comandos puede ejecutar cada usuario.
+El archivo de permisos está formado por nombres de usuario y una lista de los
+comandos que se permite a cada uno de ellos. También es posible especificar
+comandos comunes a todos ellos. Este shell deja una auditoría de todos los comandos
+ejecutados por el usuario, indicando si pudo o no ejecutarlos. Dispone, además, de un
+editor (vi) restringido.
+Este programa es de gran utilidad para aquellas máquinas que dispongan de una
+gran cantidad de usuarios y no necesiten ejecutar muchos comandos, o para dar
+privilegios a determinados usuarios “especiales” que tengan algún comando que en
+circunstancias normales no podrían con un shell normal.
+Veamos un ejemplo del logístico creado por el programa:
+LOGIN: acme ran osh at Wed Jun 7 12:09:09 1995
+acme (6/7/95 12:09:11)pwd -
+acme (6/7/95 12:09:13)ls +
+acme (6/7/95 12:09:16) ls –la +
+acme (6/7/95 12:09:20)elm -
+acme (6/7/95 12:09:23)quit -
+acme (6/7/95 12:09:27)exit -
+acme (6/7/95 12:09:30)logout -
+acme (6/7/95 12:09:33)exit -
+logout: acme left osh at Wed Jun 7 12:09:34 1995
+6.12. - noshell
+Este programa permite al administrador obtener información adicional sobre
+intentos de conexión a cuentas canceladas en una máquina.
+Para utilizarlo basta sustituir el shell del usuario en el archivo /etc/password por
+éste programa. A partir de ahí, cada intento de conexión generará un mensaje (vía email
+o syslog) indicando: usuario remoto, nombre de la computadora remota, dirección
+IP, día y hora del intento de login y tty utilizado para la conexión.
+Todas estas herramientas se pueden bajar de lince.uc3m.es o de cualquier
+sunsite.
+6.13. - trinux
+Trinux contiene las últimas versiones de las más populares herramientas de
+seguridad en redes y es usado para mapear y monitorear redes TCP/IP.
+El paquete es muy interesante pues, básicamente, se compone varios discos, con
+los cuales se bootea la máquina que se va a dedicar a realizar el trabajo y corre
+enteramente en RAM.
+Las aplicaciones que trae, principalmente, son:
+· mail -soporte simple de correo saliente usando smail.
+· netbase - utilitarios estándar de redes, tales como ifconfig, arp, ping, etc.
+· netmap - herramientas de escaneo de red, tal como fyodor's, strobe, nmap y
+netcat.
+· netmon - herramientas de monitoreo y sniffers, tal como sniffit, tcpdump y
+iptraf
+· perlbase - base del lenguaje Perl.
+· perli386 - archivos del sistema Perl.
+· perlmods - módulos de Perl.
+· pcmcia - soportes de módulos de kernel y scripts para laptop
+· snmp - herramientas seleccionadas desde CMU SNMP.
+· web - cliente Lynx.
+· win32 - herramientas de seguridad para Windows95/NT.
+Obtenible en www.trinux.org

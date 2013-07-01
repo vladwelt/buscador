@@ -1,0 +1,240 @@
+Capitulo  10
+Sistema   de   Informacion   de   Redes
+Cuando ejecuta una red dearea local, su objetivo fundamental es, normalmente, proporcio-
+
+nar a sus usuarios un entorno que haga a la red transparente. Paraeste fin una importante
+
+piedra de toque es mantener datos vitales, como la informacion de cuentas de usuario, sin-
+
+cronizadas entre todos los nodos. Hemos visto anteriormente que para resolver nombres de
+
+nodos existe un potente y sofisticado servicio denominado DNS. Para otras tareas, sin em-
+
+bargo, no existe un servicio especializado similar. Mas aun, si usted solo esta administrando
+
+una peque"na LAN sin conexion a Internet, puede que no le merezca la pena el esfuerzo de
+
+instalar un DNS.
+
+
+     Esta es la razon por la que Sun desarrollo NIS, el Sistema de Informacion de Redes.
+
+NIS proporciona facilidades de acceso generico a bases de datos que puede ser usado para
+
+distribuir informacion como la contenida en los ficheros passwd  y groups  entre todos los
+
+nodos de su red.  Esto hace que la red aparezca como un sistemaunico, con las mismas
+
+cuentas en todos los nodos. De forma similar usted puede usar NIS para distribuir el fichero
+
+de informacion de nombres de nodos /etc/hosts entre todas las maquinas de la red.
+
+
+     NIS esta basado en RPC, y comprende un servidor, una libreria para la parte del cliente,
+
+y varias herramientas de administracion. Originalmente NIS era denominado Yellow Pages1 ,
+
+o YP, que todavia son terminos ampliamente usados para referirse informalmente aeste
+
+servicio. Por otra parte Yellow Pages es una marca registrada de la British Telecom, la cual
+
+pidio que Sun dejara de utilizar ese nombre.  Mientras tanto, algunos nombres impactan
+
+mucho entre la gente, YP continua viviendo como prefijo en los nombres de la mayoria de
+
+los comandos relacionados con NIS como ypserv, ypbind, etc.
+
+
+     Hoy en dia NIS esta disponible en, virtualmente, todos los Unices, y hay incluso imple-
+
+mentaciones gratuitas deel.  Una de ellas es de la emision BSD Net-2, y que ha derivado
+
+de una implementacion de referencia de dominio publico donada por Sun.  El codigo de la
+libreria cliente deesta version existe en la GNU libc  desde hace mucho tiempo, mientras
+
+que los programas de administracion han sido recientemente portados a Linux por Swen
+
+Th"ummler.2  Falta, sin embargo, un servidor NIS en la implementacion de referencia.  To-
+
+bias Reber ha escrito otro paquete NIS incluyendo todas las herramientas y un servidor; se
+
+llama yps.3
+
+
+     Actualmente,el codigo del NIS esta siendo reescrito por completo por Peter Eriksson4,
+
+sera denominado NYS y soportara ambos, tanto el NIS normal como la amplia revision de
+
+Sun, el NIS+.  NYS no solo proporciona un conjunto de herramientas NIS y un servidor,
+
+sino que tambien a"nade un nuevo y completo conjunto de funciones de libreria que muy
+
+probablemente  lo  convertiran  con  el  tiempo  en  el  estandar  libc.   Esto  incluye  un  nuevo
+
+sistema de configuracion para resolver nombres de nodos que reemplace el sistema actual
+
+que  usa  el  fichero  host.conf.   Las  caracteristicas  de  esas  funciones  seran  discutidas  mas
+
+adelante.
+
+
+     Este capitulo se enfocara en NYS mas que en los otros dos paquetes, a los que nos referi-
+
+remos como el "tradicional" codigo NIS. Si usted desea utilizar alguno de esos paquetes, las
+
+instrucciones deeste capitulo podrian ser suficientes o tal vez no. Para obtener informacion
+
+adicional, por favor, obtenga un libro sobre NIS estandar como el NFS y NIS de Hal Stern
+
+(vease [Stern92   ]).
+
+
+     Por el momento NYS esta todavia en desarrollo y por lo tanto las utilidades estandar
+
+de Linux como los programas de red o el programa de login  todavia no tienen en cuenta
+
+el sistema de configuracion de NYS. Por lo tanto, hasta que NYS no sea incluido en la libc
+
+principal tendra que compilar todos esos programas por usted mismo si quiere conseguir que
+
+usen NYS. Para ello, en los Makefiles de cualquiera de esas aplicaciones debera especificar
+
+-lnsl como laultima opcion antes de libc al linkador. Esto enlazara las funciones relevantes
+
+de libnsl, la libreria NYS, en lugar de la libreria C estandar.
+
+10.1        Familiarizarse  con  NIS
+NIS mantiene informacion de la base de datos en los llamados mapas que contienen pares
+
+clave-valor. Los mapas son almacenados en un nodo central que esta ejecutando el servidor
+
+NIS y del que los clientes pueden obtener la informacion a traves de varias llamadas RPC.
+
+Muy frecuentemente, los mapas son almacenados en ficheros DBM.5
+     Los  mapas  en  si  mismos  suelen  ser  generados  a  partir  de  ficheros  de  texto  maestros
+
+como /etc/hosts o /etc/passwd. Para algunos ficheros se crean varios mapas, uno por cada
+
+tipo de clave de busqueda.  Por ejemplo, usted podria buscar en el fichero hosts tanto por
+
+un nombre de nodo como por su direccion IP. Asi pues, deel se derivan dos mapas NIS,
+
+llamados hosts.byname y hosts.byaddr respectivamente. La tabla 10.1 lista los mapas tipicos
+
+y los ficheros de los que son generados.
+
+                    _________________________________________________________________________
+                    |  Master File       |  Map(s)                                           |
+                    |____________________|___________________________________________________|_
+                    |  /etc/hosts         | hosts.byname            hosts.byaddr          |
+                    |                     |                                               |
+                    |  /etc/networks    |   networks.byname         networks.byaddr     |
+                    |                   |                                               |
+                    |  /etc/passwd      |   passwd.byname           passwd.byuid         |
+                    |                   |                                                |
+                    |  /etc/group        |  group.byname            group.bygid           |
+                    |                    |                                                |
+                    |  /etc/services     |  services.byname         services.bynumber   |
+                    |                    |                                              |
+                    |  /etc/rpc           | rpc.byname              rpc.bynumber         |
+                    |                     |                                              |
+                    |  /etc/protocols    |  protocols.byname        protocols.bynumber  |
+                    |                    |                                              |
+                    |  /usr/lib/aliases  |  mail.aliases                                     |
+                    |____________________|___________________________________________________|
+
+
+
+           Tabla 10.1: Algunos mapas NIS estandar y los ficheros correspodientes.
+
+
+
+     Hay otros ficheros y mapas para los que puede encontrar soporte en uno u otro paquete
+
+NIS. Estos pueden contener informacion sobre aplicaciones no tratadas eneste libro, como el
+
+mapa bootparams6  que puede ser usado por algunos servidores BOOTP, o que actualmente
+
+no tienen ninguna funcion en Linux (como los mapas ethers.byname7  y ethers.byaddr 8).
+
+
+     La gente para algunos mapas usa comunmente apodos que son mas cortos y por lo tanto
+
+mas faciles de escribir.  Para obtener una lista completa de apodos9  entendibles por sus
+
+herramientas NIS, ejecute el siguiente comando:
+
+
+
+       $  ypcat  -x
+       NIS  map  nickname  translation  table:
+                  "passwd"  ->  "passwd.byname"
+                  "group"  ->  "group.byname"
+                  "networks"  ->  "networks.byaddr"
+                  "hosts"  ->  "hosts.byname"
+                  "protocols"  ->  "protocols.bynumber"
+                  "services"  ->  "services.byname"
+                  "aliases"  ->  "mail.aliases"
+                  "ethers"  ->  "ethers.byname"
+                  "rpc"  ->  "rpc.bynumber"
+                  "netmasks"  ->  "netmasks.byaddr"
+                  "publickey"  ->  "publickey.byname"
+                  "netid"  ->  "netid.byname"
+                  "passwd.adjunct"  ->  "passwd.adjunct.byname"
+                  "group.adjunct"  ->  "group.adjunct.byname"
+                  "timezone"  ->  "timezone.byname"
+     El servidor NIS suele llamarse tradicionalmente ypserv.  Para una red de tipo medio
+
+un unico servidor suele ser suficiente;  en redes mayores pueden elegir ejecutar varios en
+
+maquinas diferentes y en diferentes segmentos para aliviar la carga en los servidores y en
+
+los routers.  Estos servidores estan sincronizados haciendo que uno de ellos sea el servidor
+
+maestro y que los demas sean servidores esclavos. Los mapas se crearan solo en la maquina
+
+del servidor maestro. A partir de ahi son distribuidos a todos los esclavos.
+
+
+     Habra notado usted que hemos estado hablando de "redes" todo el rato muy vagamente;
+
+por supuesto existe un concepto diferenciado en NIS que se refiere a una red asi,esto es,
+
+a la coleccion de todos los nodos que comparten parte de sus datos de configuracion del
+
+sistema a traves de NIS: el dominio NIS. Desafortunadamente los dominios NIS no tienen
+
+absolutamente nada que ver con los dominios que podemos encontrar en DNS. Por ello,
+
+para evitar cualquier tipo de ambig"uedad a lo largo deeste capitulo, especificare todo el
+
+rato el tipo de dominio al que me este refiriendo.
+
+
+     Los dominios NIS tienen solo una funcion puramente administrativa.  Son mayormente
+
+invisibles para los usuarios.  Por ello el nombre dado a un dominio NIS es solo relevante
+
+para administradores.  Por lo general cualquier nombre valdra con tal de que sea distinto
+
+de cualquier otro nombre de dominio NIS de su red local.  Por ejemplo, el administrador
+
+de Cerveceria Virtual puede decidir crear dos dominios NIS, uno para la Cerveceria en si,
+
+y otro para la Bodega del vino, a los que llama cerveceria y bodega respectivamente.
+
+Otro idea bastante utilizada es usar simplemente el nombre de dominio DNS tambien para
+
+el NIS. Para establecer y ver el nombre de dominio NIS de su nodo puede usar el comando
+
+domainname. Cuando se ejecuta sin ningun argumento, muestra el nombre de dominio NIS
+
+actual;  para establecer el nombre de dominio, debe usted entrar como super usuario10  y
+
+escribir:
+       #  domainname  brewery
+     Los  dominios  NIS  determinan  que  servidor  NIS  sera  preguntado  por  una  aplicacion.
+
+Por ejemplo, el programa login en un nodo de la Bodega deberia, por supuesto, preguntar
+
+por informacion del password de un usuario solo al servidor NIS de la Bodega (o a uno de

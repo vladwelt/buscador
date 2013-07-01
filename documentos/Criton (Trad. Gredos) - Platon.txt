@@ -1,0 +1,371 @@
+El Critón, el más breve de los escritos platónicos iniciales, está muy vinculado a la Apología. Tras la terrible sentencia, Sócrates y Critón repasan los conceptos y puntos de vista que ambos aceptaban anteriormente, para comprobar si siguen siendo válidos.
+
+
+
+
+
+Platón
+
+
+
+
+
+Critón (Trad. Gredos)
+
+
+Diálogos de juventud II
+
+
+
+ePUB v1.1
+
+jcastro94 17.09.12
+
+
+
+
+
+Título original: Κρίτων
+
+Platón, 399-385 a. C.
+
+Introducción a la obra, traducción y notas: Julio Calonge Ruiz
+
+Diseño/retoque portada: jcastro94
+
+Editor original: jcastro94 (v1.0 a v1.1)
+
+Corrección de erratas: No
+
+ePub base v2.0
+
+Basado en la edición de 1985 de la editorial Gredos
+
+
+
+
+
+...no debemos preocuparnos mucho de lo que nos vaya a decir la mayoría, sino de lo que diga el que entiende sobre las cosas justas e injustas, aunque sea uno sólo, y de lo que la verdad misma diga.
+
+Por tanto, tampoco si se recibe injusticia se debe responder con la injusticia, como cree la mayoría, puesto que de ningún modo se debe cometer injusticia.
+
+
+
+
+
+Introducción
+
+
+El Critón es el más breve de los escritos de la primera época de Platón. Por su contenido está muy próximo a la Apología. Se trata todavía de tomar decisiones que pueden salvar la vida. La prisión y la próxima ejecución son las secuencias obligadas de la sentencia dictada en el juicio. Encierra, incluso, una justificación de la actitud adoptada por Sócrates en su defensa. Esta última afirmación no se da aisladamente en ninguna parte del diálogo, como sucede en otras obras, sino que toda la exposición es una confirmación de la personalidad de Sócrates, tal como es posible deducirla de la Apología. Es un escrito que no se parece en nada al resto de los diálogos. No se trata de buscar una definición general de un concepto ni de rechazar un razonamiento por defecto en la argumentación. Se trata, sobre todo, de adoptar una posición definitiva. Aun en los momentos en que parece que nos movemos en el ámbito de la abstracción, ésta se halla en un segundo plano, puesto que lo único importante es la decisión que al fin se va a tomar.
+
+La propuesta que Sócrates hace a Critón es la de repasar los conceptos y los puntos de vista que ambos daban antes por buenos, para comprobar si ahora, en la nueva situación, siguen pareciendo los mismos o hay que rechazarlos. Éste es el tema del diálogo, pero con la circunstancia de que la confirmación va a ser hecha por un hombre al que quedan unas pocas horas de vida. Es el dramatismo que se añade a toda la argumentación. El heroísmo es, en principio, objeto de admiración para todos los hombres; pero el acto heroico no puede existir sin el héroe. Es ciertamente decepcionante que, una vez creadas las circunstancias para el acto heroico, el llamado a llevarlo a cabo se retire de la única manera en que esto es posible: vergonzosamente. El acto heroico es el resultado de una decisión personal y única, que supone la adecuación, más allá de toda dificultad, de la conducta a una idea o a un deber moral. De todo esto tuvo clara intuición Sócrates y, por ello, quizá, tomó una decisión, aun antes de comparecer ante el tribunal[1]. Parece lógico pensar que el Critón sigue a la Apología, pero esto no es necesariamente deducible de las referencias a hechos que aparecen también en la Apología[2]. Ésta es la opinión de Guthrie, con la que coincidimos plenamente[3]. Por las razones apuntadas más arriba, parece que el Critón es el diálogo más próximo a la Apología, pero de ello no se infiere que su redacción sea casi simultánea, aunque de hecho pudo haberlo sido. El gran número de diálogos escritos en un período limitado reduce mucho el tiempo que pudo transcurrir entre la redacción de ambos escritos.
+
+Parece fuera de duda que Sócrates fue invitado a huir de la prisión y que esta invitación no se limitó a su buen amigo Critón ni a los forasteros citados en 44b. Este propósito, nacido del dolor y la irritación de los discípulos y amigos, debió de encontrar un callado estímulo en el evidente desagrado que muchos atenienses tenían que sentir ante la monstruosidad que, inevitablemente, se iba a producir. Platón cita sólo a Critón y no nombra a otros atenienses; únicamente cita a dos extranjeros. La amistad de Critón con Sócrates y el que realmente éste se negara a evadirse eran atenuantes, si alguien hubiera querido presentar una acusación. Pero de que Platón no les cite no se puede deducir que su número fuera muy pequeño. Los «otros amigos», de 44e, aparecen más bien como un grupo de apoyo a Critón.
+
+El diálogo no sería concebible si no se hubiera dado esta incitación a que Sócrates se evadiera y sin que esta circunstancia fuera conocida, al menos, por una buena parte de los que iban a ser sus primeros lectores. No tuvo Platón que imaginar una situación a fin de que en ella Sócrates mostrara su entereza moral. La actitud de Sócrates se resume muy brevemente. Ninguna otra circunstancia va a ser válida, más que la razón. Si los razonamientos son buenos también ahora, hay que seguirlos sin tener en cuenta ningún peligro. La prosopopeya de las leyes, que no actúan sólo con argumentos sino tratando de hacer coherente el comportamiento de Sócrates con toda su vida anterior, es una presentación de máxima eficacia para contrastar su conducta, aunque algunos razonamientos nos resulten chocantes por nuestra diferente concepción del Estado. ¡Qué diferente resulta el Sócrates de este diálogo del que tuvo que presentar Meleto en la acusación!
+
+Sobre que, en realidad, esta conversación se hubiera producido es imposible decidir. Lo que parece menos probable es que fuera el día antes de que regresara el barco de Delos. Tan inquietos como Critón estarían los otros amigos que, como se nos dice en el Fedón, se reunían en la prisión desde el amanecer. Pero una conversación semejante pudo haberla tenido Critón en cualquiera de sus intentos de persuadir a Sócrates a que huyera. Critón habría hablado con Platón de esta conversación y éste, con su maravilloso estilo, habría compuesto esta pieza bellísima.
+
+El hecho de que, en el orden de la realidad cronológica., la continuación de este diálogo se halle en el comienzo y el final del Fedón no implica la menor relación de un diálogo con otro. En época posterior, cuando la temática apologética estaba cerrada, al menos formalmente, encontró Platón que era muy bello encuadrar un diálogo sobre la inmortalidad del alma entre las primeras luces del día de la muerte del maestro y las últimas palabras que éste pronunció cuando ya el veneno ponía fin a su vida.
+
+
+
+
+
+Nota sobre el texto
+
+
+Para la versión española se ha seguido el texto de BURNET, Platonis Opera, vol. I, Oxford, 1900 (reimpresión, 1973).
+
+
+
+
+
+Bibliografía
+
+
+Véase la bibliografía para la Apología en este volumen, pág. 147[*].
+
+
+
+
+
+Critón
+
+
+SÓCRATES Y CRITÓN
+
+SÓCRATES —¿Por qué vienes a esta hora, Critón? ¿No es pronto todavía?
+
+CRITÓN —En efecto, es muy pronto.
+
+SÓC. —¿Qué hora es exactamente?
+
+CRIT. —Comienza a amanecer.
+
+SÓC. —Me extraña que el guardián de la prisión haya querido atenderte.
+
+CRIT. —Es ya amigo mío, Sócrates, de tanto venir aquí; además ha recibido de mí alguna gratificación.
+
+SÓC. —¿Has venido ahora o hace tiempo?
+
+CRIT. —Hace ya bastante tiempo.
+
+SÓC. —¿Y cómo no me has despertado en seguida y te has quedado sentado ahí al lado, en silencio?
+
+CRIT. —No, por Zeus, Sócrates, en esta situación tampoco habría querido yo mismo estar en tal desvelo y sufrimiento, pero hace rato que me admiro viendo qué suavemente duermes, y a intención no te desperté para que pasaras el tiempo lo más agradablemente. Muchas veces, ya antes durante toda tu vida, te consideré feliz por tu carácter, pero mucho más en la presente desgracia, al ver qué fácil y apaciblemente la llevas.
+
+SÓC. —Ciertamente, Critón, no sería oportuno irritarme a mi edad, si debo ya morir.
+
+CRIT. —También otros de tus años, Sócrates, se encuentran metidos en estas circunstancias, pero su edad no les libra en nada de irritarse con su suerte presente.
+
+SÓC. —Así es. Pero, ¿por qué has venido tan temprano?
+
+CRIT. —Para traerte, Sócrates, una noticia dolorosa y agobiante, no para ti, según veo, pero ciertamente dolorosa y agobiante para mí y para todos tus amigos, y que para mí, según veo, va a ser muy difícil de soportar.
+
+SÓC. —¿Cuál es la noticia? ¿Acaso ha llegado ya desde Delos[1] el barco a cuya llegada debo yo morir?
+
+CRIT. —No ha llegado aún, pero me parece que estará aquí hoy, por lo que anuncian personas venidas de Sunio[2] que han dejado el barco allí. Según estos mensajeros, es seguro que estará aquí hoy, y será necesario, Sócrates, que mañana acabes tu vida.
+
+SÓC. —Pues, ¡buena suerte!, Critón. Sea así, si así es agradable a los dioses. Sin embargo, no creo que el barco esté aquí hoy.
+
+CRIT. —¿De dónde conjeturas eso?
+
+SÓC. —Voy a decírtelo. Yo debo morir al día siguiente de que el barco llegue.
+
+CRIT. —Así dicen los encargados de estos asuntos.
+
+SÓC. —Entonces, no creo que llegue el día que está empezando sino el siguiente. Me fundo en cierto sueño que he tenido hace poco, esta noche. Probablemente ha sido muy oportuno que no me despertaras.
+
+CRIT. —¿Cuál era el sueño?
+
+SÓC. —Me pareció que una mujer bella, de buen aspecto, que llevaba blancos vestidos se acercó a mí, me llamó y me dijo: «Sócrates,
+
+al tercer día llegarás a la fértil Ptía»[3].
+
+CRIT. —Extraño es el sueño, Sócrates.
+
+SÓC. —En todo caso, muy claro, según yo creo, Critón.
+
+CRIT. —Demasiado claro, según parece. Pero, querido Sócrates, todavía en este momento hazme caso y sálvate. Para mí, si tú mueres, no será una sola desgracia, sino que, aparte de verme privado de un amigo como jamás encontraré otro, muchos que no nos conocen bien a ti y a mí creerán que, habiendo podido yo salvarte, si hubiera querido gastar dinero, te he abandonado. Y, en verdad, ¿hay reputación más vergonzosa que la de parecer que se tiene en más al dinero que a los amigos? Porque la mayoría no llegará a convencerse de que tú mismo no quisiste salir de aquí, aunque nosotros nos esforzábamos en ello.
+
+SÓC. —Pero ¿por qué damos tanta importancia, mi buen Critón, a la opinión de la mayoría? Pues los más capaces, de los que sí vale la pena preocuparse, considerarán que esto ha sucedido como en realidad suceda.
+
+CRIT. —Pero ves, Sócrates, que es necesario también tener en cuenta la opinión de la mayoría. Esto mismo que ahora está sucediendo deja ver, claramente, que la mayoría es capaz de producir no los males más pequeños, sino precisamente los mayores, si alguien ha incurrido en su odio.
+
+SÓC. —¡Ojalá, Critón, que los más fueran capaces de hacer los males mayores para que fueran también capaces de hacer los mayores bienes! Eso sería bueno. La realidad es que no son capaces ni de lo uno ni de lo otro; pues, no siendo tampoco capaces de hacer a alguien sensato ni insensato, hacen lo que la casualidad les ofrece.
+
+CRIT. —Bien, aceptemos que es así. ¿Acaso no te estás tú preocupando de que a mí y a los otros amigos, si tú sales de aquí, no nos creen dificultades los sicofantes[4] al decir que te hemos sacado de la cárcel, y nos veamos obligados a perder toda nuestra fortuna o mucho dinero o, incluso, a sufrir algún otro daño además de éstos? Si, en efecto, temes algo así, déjalo en paz. Pues es justo que nosotros corramos este riesgo para salvarte y, si es preciso, otro aún mayor. Pero hazme caso y no obres de otro modo.
+
+SÓC. —Me preocupa eso, Critón, y otras muchas cosas.
+
+CRIT. —Pues bien, no temas por ésta. Ciertamente, tampoco es mucho el dinero que quieren recibir algunos para salvarte y sacarte de aquí. Además, ¿no ves qué baratos están estos sicofantes y que no sería necesario gastar en ellos mucho dinero? Está a tu disposición mi fortuna que será suficiente, según creo. Además, si te preocupas por mí y crees que no debes gastar lo mío, están aquí algunos extranjeros dispuestos a gastar su dinero. Uno ha traído, incluso, el suficiente para ello, Simias[5] de Bebas. Están dispuestos también Cebes y otros muchos. De manera que, como digo, por temor a esto no vaciles en salvarte; y que tampoco sea para ti dificultad lo que dijiste en el tribunal[6], que si salías de Atenas, no sabrías cómo valerte. En muchas partes, adonde quiera que tú llegues, te acogerán con cariño. Si quieres ir a Tesalia, tengo allí huéspedes que te tendrán en gran estimación y que te ofrecerán seguridad, de manera que nadie te moleste en Tesalia.
+
+Además, Sócrates, tampoco me parece justo que intentes traicionarte a ti mismo, cuando te es posible salvarte. Te esfuerzas porque te suceda aquello por lo que trabajarían con afán y, de hecho, han trabajado tus enemigos deseando destruirte. Además, me parece a mí que traicionas también a tus hijos; cuando te es posible criarlos y educarlos, los abandonas y te vas, y, por tu parte, tendrán la suerte que el destino les depare, que será, como es probable, la habitual de los huérfanos durante la orfandad. Pues, o no se debe tener hijos, o hay que fatigarse para criarlos y educarlos. Me parece que tú eliges lo más cómodo. Se debe elegir lo que elegiría un hombre bueno y decidido, sobre todo cuando se ha dicho durante toda la vida que se ocupa uno de la virtud. Así que yo siento vergüenza, por ti y por nosotros tus amigos, de que parezca que todo este asunto tuyo se ha producido por cierta cobardía nuestra: la instrucción del proceso para el tribunal, siendo posible evitar el proceso, el mismo desarrollo del juicio tal como sucedió, y finalmente esto, como desenlace ridículo del asunto, y que parezca que nosotros nos hemos quedado al margen de la cuestión por incapacidad y cobardía, así como que no te hemos salvado ni tú te has salvado a ti mismo, cuando era realizable y posible, por pequeña que fuera nuestra ayuda. Así pues, procura, Sócrates, que esto, además del daño, no sea vergonzoso para ti y para nosotros. Pero toma una decisión; por más que ni siquiera es ésta la hora de decidir, sino la de tenerlo decidido. No hay más que. una decisión; en efecto, la próxima noche tiene que estar todo realizado. Si esperamos más, ya no es posible ni realizable. En todo caso, déjate persuadir y no obres de otro modo.
+
+SÓC. —Querido Critón, tu buena voluntad sería muy de estimar, si le acompañara algo de rectitud; si no, cuanto más intensa, tanto más penosa. Así pues, es necesario que reflexionemos si esto debe hacerse o no. Porque yo, no sólo ahora sino siempre, soy de condición de no prestar atención a ninguna otra cosa que al razonamiento que, al reflexionar, me parece el mejor. Los argumentos que yo he dicho en tiempo anterior no los puedo desmentir ahora porque me ha tocado esta suerte, más bien me parecen ahora, en conjunto, de igual valor y respeto, y doy mucha importancia a los mismos argumentos de antes. Si no somos capaces de decir nada mejor en el momento presente, sabe bien que no voy a estar de acuerdo contigo, ni aunque la fuerza de la mayoría nos asuste como a niños con más espantajos que los de ahora en que nos envía prisiones, muertes y privaciones de bienes. ¿Cómo podríamos examinar eso más adecuadamente? Veamos, por lo pronto, si recogemos la idea que tú expresabas acerca de las opiniones de los hombres, a saber, si hemos tenido razón o no al decir siempre que deben tenerse en cuenta unas opiniones y otras no. ¿O es que antes de que yo debiera morir estaba bien dicho, y en cambio ahora es evidente que lo decíamos sin fundamento, por necesidad de la expresión, pero sólo era un juego infantil y pura charlatanería? Yo deseo, Critón, examinar contigo si esta idea me parece diferente en algo, cuando me encuentro en esta situación, o me parece la misma, y, según el caso, si la vamos a abandonar o la vamos a seguir. Según creo, los hombres cuyo juicio tiene interés dicen siempre, como yo decía ahora, que entre las opiniones que los hombres manifiestan deben estimarse mucho algunas y otras no. Por los dioses, Critón, ¿no te parece que esto está bien dicho? En efecto, tú, en la medida de la previsión humana, estás libre de ir a morir mañana, y la presente desgracia no va a extraviar tu juicio. Examínalo. ¿No te parece que está bien decir que no se deben estimar todas las opiniones de los hombres, sino unas sí y otras no, y las de unos hombres s1 y las de otros no? ¿Qué dices tú? ¿No está bien decir esto?
+
+CRIT. —Está bien.
+
+SÓC. —¿Se deben estimar las valiosas y. no estimar las malas?
+
+CRIT. —Sí.
+
+SÓC. —¿Son valiosas las opiniones de los hombres juiciosos, y malas las de los hombres de poco juicio?
+
+CRIT. —¿Cómo no?
+
+SÓC. —Veamos en qué sentido decíamos tales cosas. Un hombre que se dedica a la gimnasia, al ejercitarla ¿tiene en cuenta la alabanza, la censura y la opinión de cualquier persona, o la de una sola persona, la del médico o el entrenador?
+
+CRIT. —La de una sola persona.
+
+SÓC. —Luego debe temer las censuras y recibir con agrado los elogios de aquella sola persona, no los de la mayoría.
+
+CRIT. —Es evidente.
+
+SÓC. —Así pues, ha de obrar, ejercitarse, comer y beber según la opinión de ése solo, del que está a su cargo y entiende, y no según la de todas los otros juntos.
+
+CRIT. —Así es.
+
+SÓC. —Bien. Pero si no hace caso a ese solo hombre y desprecia su opinión y sus elogios, y, en cambio, estima las palabras de la mayoría, que nada entiende, ¿es que no sufrirá algún daño?
+
+CRIT. —¿Cómo no?
+
+SÓC. —¿Qué daño es este, hacia dónde tiende y a qué parte del que no hace caso?
+
+CRIT. —Es evidente que al cuerpo; en efecto, lo arruina.
+
+SÓC. —Está bien. Lo mismo pasa con las otras cosas, Critón, a fin de no repasarlas todas. También respecto a lo justo y lo injusto, lo feo y lo bello, lo bueno y lo malo, sobre lo que ahora trata nuestra deliberación, ¿acaso debemos nosotros seguir la opinión de la mayoría y temerla, o la de uno solo que entienda, si lo hay, al cual hay que respetar y temer más que a todos los otros juntos? Si no seguimos a éste, dañaremos y maltrataremos aquello que se mejora con lo justo y se destruye con lo injusto. ¿No es así esto?
+
+CRIT. —Así lo pienso, Sócrates.
+
+SÓC. —Bien, si lo que se hace mejor por medio de lo sano y se daña por medio de lo enfermo, lo arruinamos por hacer caso a la opinión de los que no entienden, ¿acaso podríamos vivir al estar eso arruinado? Se trata del cuerpo, ¿no es así?
+
+CRIT. —Sí.
+
+SÓC. —¿Acaso podemos vivir con un cuerpo miserable y arruinado?
+
+CRIT. —De ningún modo.
+
+SÓC. —Pero ¿podemos vivir, acaso, estando dañado aquello con lo que se arruina lo injusto y se ayuda a lo justo? ¿Consideramos que es de menos valor que el cuerpo la parte de nosotros, sea la que fuere, en cuyo entorno están la injusticia y la justicia?
+
+CRIT. —De ningún modo.
+
+SÓC. —¿Ciertamente es más estimable?
+
+CRIT. —Mucho más.
+
+SÓC. —Luego, querido amigo, no debemos preocuparnos mucho de lo que nos vaya a decir la mayoría, sino de lo que diga el que entiende sobre las cosas justas e injustas, aunque sea uno sólo, y de lo que la verdad misma diga. Así que, en primer término, no fue acertada tu propuesta de que debemos preocuparnos de la opinión de la mayoría acerca de lo justo, lo bello y lo bueno y sus contrarios. Pero podría decir alguien que los más son capaces de condenarnos a muerte.
+
+CRIT. —Es evidente que podría decirlo, Sócrates.
+
+SÓC. —Tienes razón. Pero, mi buen amigo, este razonamiento que hemos recorrido de cabo a cabo me parece a mí que es aún el mismo de siempre. Examina, además, si también permanece firme aún, para nosotros, o no permanece el razonamiento de que no hay que considerar lo más importante el vivir, sino el vivir bien.
+
+CRIT. —Sí permanece.
+
+SÓC. —¿La idea de que vivir bien, vivir honradamente y vivir justamente son el mismo concepto, permanece, o no permanece?
+
+CRIT. —Permanece.
+
+SÓC. —Entonces, a partir de lo acordado hay que examinar si es justo, o no lo es, el que yo intente salir de aquí sin soltarme los atenienses. Y si nos parece justo, intentémoslo, pero si no, dejémoslo. En cuanto a las consideraciones de que hablas sobre el gasto de dinero, la reputación y la crianza de los hijos, es de temer, Critón, que éstas, en realidad, sean reflexiones adecuadas a éstos que condenan a muerte y harían resucitar, si pudieran, sin el menor sentido, es decir, a la mayoría. Puesto que el razonamiento lo exige así, nosotros no tenemos otra cosa que hacer, sino examinar, como antes decía, si nosotros, unos sacando de la cárcel y otro saliendo, vamos a actuar justamente pagando dinero y favores a los que me saquen, o bien vamos a obrar injustamente haciendo todas estas cosas. Y si resulta que vamos a realizar actos injustos, no es necesario considerar si, al quedarnos aquí sin emprender acción alguna, tenemos que morir o sufrir cualquier otro daño, antes que obrar injustamente.
+
+CRIT. —Me parece acertado lo que dices, Sócrates, mira qué debemos hacer.
+
+SÓC. —Examinémoslo en común, amigo, y si tienes algo que objetar mientras yo hablo, objétalo y yo te haré caso. Pero si no, mi buen Critón, deja ya de decirme una y otra vez la misma frase, que tengo que salir de aquí contra la voluntad de los atenienses, porque yo doy mucha importancia a tomar esta decisión tras haberte persuadido y no contra tu voluntad; mira si te parece que está bien planteada la base del razonamiento e intenta responder, a lo que yo pregunte, lo que tú creas más exactamente.
+
+CRIT. —Lo intentaré.
+
+SÓC. —¿Afirmamos que en ningún caso hay que hacer el mal voluntariamente, o que en unos casos sí y en otros no, o bien que de ningún modo es bueno y honrado hacer el mal, tal como hemos convenido muchas veces anteriormente? Eso es también lo que acabamos de decir. ¿Acaso todas nuestras ideas comunes de antes se han desvanecido en estos pocos días y, desde hace tiempo, Critón, hombres ya viejos, dialogamos uno con otro, seriamente sin darnos cuenta de que en nada nos distinguimos de los niños? O, más bien, es totalmente como nosotros decíamos entonces, lo afirme o lo niegue la mayoría; y, aunque tengamos que sufrir cosas aún más penosas que las presentes, o bien más agradables, ¿cometer injusticia no es, en todo caso, malo y vergonzoso para el que la comete? ¿Lo afirmamos o no?
+
+CRIT. —Lo afirmamos.
+
+SÓC. —Luego de ningún modo se debe cometer injusticia.
+
+CRIT. —Sin duda.
+
+SÓC. —Por tanto, tampoco si se recibe injusticia se debe responder con la injusticia, como cree la mayoría, puesto que de ningún modo se debe cometer injusticia.
+
+CRIT. —Es evidente.
+
+SÓC. —¿Se debe hacer mal, Critón, o no?
+
+CRIT. —De ningún modo se debe, Sócrates.
+
+SÓC. —¿Y responder con el mal cuando se recibe mal es justo, como afirma la mayoría, o es injusto?
+
+CRIT. —De ningún modo es justo.
+
+SÓC. —Pues el hacer daño a la gente en nada se distingue de cometer injusticia.
+
+CRIT. —Dices la verdad.
+
+SÓC. —Luego no se debe responder con la injusticia ni hacer mal a ningún hombre, cualquiera que sea el daño que se reciba de él. Procura, Critón, no aceptar esto contra tu opinión, si lo aceptas; yo sé, ciertamente, que esto lo admiten y lo admitirán unas pocas personas. No es posible una determinación común para los que han formado su opinión de esta manera y para los que mantienen lo contrario, sino que es necesario que se desprecien unos a otros, cuando ven la determinación de la otra parte. Examina muy bien, pues, también tú si estás de acuerdo y te parece bien, y si debemos iniciar nuestra deliberación a partir de este principio, de que jamás es bueno ni cometer injusticia, ni responder a la injusticia con la injusticia, ni responder haciendo mal cuando se recibe el mal. ¿O bien te apartas y no participas de este principio? En cuanto a mí, así me parecía antes y me lo sigue pareciendo ahora, pero si a ti te parece de otro modo, dilo y explícalo. Pero si te mantienes en lo anterior, escucha lo que sigue.
+
+CRIT. —Me mantengo y también me parece a mí. Continúa.
+
+SÓC. —Digo lo siguiente, más bien pregunto: ¿las cosas que se ha convenido con alguien que son justas hay que hacerlas o hay que darles una salida falsa?
+
+CRIT. —Hay que hacerlas.
+
+SÓC. —A partir de esto, reflexiona. Si nosotros nos vamos de aquí sin haber persuadido a la ciudad, ¿hacemos daño a alguien y, precisamente, a quien me nos se debe, o no? ¿Nos mantenemos en lo que hemos acordado que es justo, o no?
+
+CRIT. —No puedo responder a lo que preguntas, Sócrates; no lo entiendo.
+
+SÓC. —Considéralo de este modo. Si cuando nosotros estemos a punto de escapar de aquí, o como haya que llamar a esto, vinieran las leyes y el común de la ciudad y, colocándose delante, nos dijeran: «Dime, Sócrates, ¿qué tienes intención de hacer? ¿No es cierto que, por medio de esta acción que intentas, tienes el propósito, en lo que de ti depende, de destruirnos a nosotras y a toda la ciudad? ¿Te parece a ti que puede aún existir sin arruinarse la ciudad en la que los juicios que se producen no tienen efecto alguno, sino que son invalidados por particulares y quedan anulados?» ¿Qué vamos a responder, Critón, a estas preguntas y a otras semejantes? Cualquiera, especialmente un orador, podría dar muchas razones en defensa de la ley, que intentamos destruir, que ordena que los juicios que han sido sentenciados sean firmes. ¿Acaso les diremos: «La ciudad ha obrado injustamente con nosotros y no ha llevado el juicio rectamente»? ¿Les vamos a decir eso?
+
+CRIT. —Sí, por Zeus, Sócrates.
+
+SÓC. —Quizá dijeran las leyes: «¿Es esto, Sócrates, lo que hemos convenido tú y nosotras, o bien que hay que permanecer fiel a las sentencias que dicte la ciudad?» Si nos extrañáramos de sus palabras, quizá dijeran: «Sócrates no te extrañes de lo que decimos, sino respóndenos, puesto que tienes la costumbre de servirte de preguntas y respuestas. Veamos, ¿qué acusación tienes contra nosotras y contra la ciudad para intentar destruimos? En primer lugar, ¿no te hemos dado nosotras la vida y, por medio de nosotras, desposó tu padre a tu madre y te engendró? Dinos, entonces, ¿a las leyes referentes al matrimonio les censuras algo que no esté bien?» «No las censuro», diría yo. «Entonces, ¿a las que se refieren a la crianza del nacido y a la educación en la que te has educado? ¿Acaso las que de nosotras estaban establecidas para ello no disponían bien ordenando a tu padre que te educara en la música y en la gimnasia?» «Sí disponían bien», diría yo. «Después que hubiste nacido y hubiste sido criado y educado, ¿podrías decir, en principio, que no eras resultado de nosotras y nuestro esclavo, tú y tus ascendientes? Si esto es así, ¿acaso crees que los derechos son los mismos para ti y para nosotras, y es justo para ti responder haciéndonos, a tu vez, lo que nosotras intentemos hacerte? Ciertamente no serían iguales tus derechos respecto a tu padre y respecto a tu dueño, si lo tuvieras, como para que respondieras haciéndoles lo que ellos te hicieran, insultando a tu vez al ser insultado, o golpeando al ser golpeado, y así sucesivamente. ¿Te sería posible, en cambio, hacerlo con la patria y las leyes, de modo que si nos proponemos matarte, porque lo consideramos justo, por tu parte intentes, en la medida de tus fuerzas, destruimos a nosotras, las leyes, y a la patria, y afirmes que al hacerlo obras justamente, tú, el que en verdad se preocupa de la virtud? ¿Acaso eres tan sabio que te pasa inadvertido que la patria merece más honor que la madre, que el padre y que todos los antepasados, que es más venerable y más santa y que es digna de la mayor estimación entre los dioses y entre los hombres de juicio? ¿Te pasa inadvertido que hay que respetarla y ceder ante la patria y halagarla, si está irritada, más aún que al padre; que hay que convencerla u obedecerla haciendo lo que ella disponga; que hay que padecer sin oponerse a ello, si ordena padecer algo; que si ordena recibir golpes, sufrir prisión, o llevarte a la guerra para ser herido o para morir, hay que hacer esto porque es lo justo, y no hay que ser débil ni retroceder ni abandonar el puesto, sino que en la guerra, en el tribunal y en todas partes hay que hacer lo que la ciudad y la patria ordene, o persuadirla de lo que es justo; y que es impío hacer violencia a la madre y al padre, pero lo es mucho más aún a la patria?» ¿Qué vamos a decir a esto, Critón? ¿Dicen la verdad las leyes o no?
+
+CRIT. —Me parece que sí.
+
+SÓC. —Tal vez dirían aún las leyes: «Examina, además, Sócrates, si es verdad lo que nosotras decimos, que no es justo que trates de hacernos lo que ahora intentas. En efecto, nosotras te hemos engendrado, criado, educado y te hemos hecho participe, como a todos los demás ciudadanos, de todos los bienes de que éramos capaces; a pesar de esto proclamamos la libertad, para el ateniense que lo quiera, una vez que haya hecho la prueba legal para adquirir los derechos ciudadanos y, haya conocido los asuntos públicos y a nosotras, las leyes, de que, si no le parecemos bien, tome lo suyo y se vaya adonde quiera. Ninguna de nosotras, las leyes, lo impide, ni prohíbe que, si alguno de vosotros quiere trasladarse a una colonia, si no le agradamos nosotras y la ciudad, o si quiere ir a otra parte y vivir en el extranjero, que se marche adonde quiera llevándose lo suyo.
+
+»El que de vosotros se quede aquí viendo de qué modo celebramos los juicios y administramos la ciudad en los demás aspectos, afirmamos que éste, de hecho, ya está de acuerdo con nosotras en que va a hacer lo que nosotras ordenamos, y decimos que el que no obedezca es tres veces culpable, porque le hemos dado la vida, y no nos obedece, porque lo hemos criado y se ha comprometido a obedecemos, y no nos obedece ni procura persuadirnos si no hacemos bien alguna cosa. Nosotras proponemos hacer lo que ordenamos y no lo imponemos violentamente, sino que permitimos una opción entre dos, persuadirnos u obedecernos; y el que no obedece no cumple ninguna de las dos. Decimos, Sócrates, que tú vas a quedar sujeto a estas inculpaciones y no entre los que menos de los atenienses, sino entre los que más, si haces lo que planeas».
+
+Si entonces yo dijera: «¿Por qué, exactamente?», quizá me respondieran con justicia diciendo que precisamente yo he aceptado este compromiso como muy pocos atenienses. Dirían: «Tenemos grandes pruebas, Sócrates, de que nosotras y la ciudad te parecemos bien. En efecto, de ningún modo hubieras permanecido en la ciudad más destacadamente que todos los otros ciudadanos[7], si ésta no te hubiera agradado especialmente, sin que hayas salido nunca de ella para una fiesta, excepto una vez al Istmo, ni a ningún otro territorio a no ser como soldado; tampoco hiciste nunca, como hacen los demás, ningún viaje al extranjero, ni tuviste deseo de conocer otra ciudad y otras leyes, sino que nosotras y la ciudad éramos satisfactorias para ti. Tan plenamente nos elegiste y acordaste vivir como ciudadano según nuestras normas, que incluso tuviste hijos en esta ciudad, sin duda porque te encontrabas bien en ella. Aún más, te hubiera sido posible, durante el proceso mismo, proponer para ti el destierro, si lo hubieras querido, y hacer entonces, con el consentimiento de la ciudad, lo que ahora intentas hacer contra su voluntad. Entonces tú te jactabas de que no te irritarías, si tenías que morir, y elegías, según decías, la muerte antes que el destierro. En cambio, ahora, ni respetas aquellas palabras ni te cuidas de nosotras, las leyes, intentando destruirnos; obras como obraría el más vil esclavo intentando escaparte en contra de los pactos y acuerdos con arreglo a los cuales conviniste con nosotras que vivirías como ciudadano. En primer lugar, respóndenos si decimos verdad al insistir en que tú has convenido vivir como ciudadano según nuestras normas con actos y no con palabras, o bien si no es verdad». ¿Qué vamos a decir a esto, Critón? ¿No es cierto que estamos de acuerdo?
+
+CRIT. —Necesariamente, Sócrates.
+
+SÓC. —«No es cierto —dirían ellas— que violas los pactos y los acuerdos con nosotras, sin que los hayas convenido bajo coacción o engaño y sin estar obligado a tomar una decisión en poco tiempo, sino durante setenta años[8], en los que te fue posible ir a otra parte, si no te agradábamos o te parecía que los acuerdos no eran justos. Pero tú no has preferido a Lacedemonia ni a Creta, cuyas leyes afirmas continuamente que son buenas, ni a ninguna otra ciudad griega ni bárbara; al contrario, te has ausentado de Atenas menos que los cojos, los ciegos y otros lisiados. Hasta tal punto a ti más especialmente que a los demás atenienses, te agradaba la ciudad y evidentemente nosotras, las leyes. ¿Pues a quién le agradaría una ciudad sin leyes? ¿Ahora no vas a permanecer fiel a los acuerdos? Sí permanecerás, si nos haces caso, Sócrates, y no caerás en ridículo saliendo de la ciudad.
+
+»Si tú violas estos acuerdos y faltas en algo, examina qué beneficio te harás a ti mismo y a tus amigos. Que también tus amigos corren peligro de ser desterrados, de ser privados de los derechos ciudadanos o de perder sus bienes es casi evidente. Tú mismo, en primer lugar, si vas a una de las ciudades próximas, Tebas o Mégara[9], pues ambas tienen buenas leyes, llegarás como enemigo de su sistema político y todos los que se preocupan de sus ciudades te mirarán con suspicacia considerándote destructor de las leyes; confirmarás para tus jueces la opinión de que se ha sentenciado rectamente el proceso. En efecto, el que es destructor de las leyes, parecería fácilmente que es también corruptor de jóvenes y de gentes de poco espíritu. ¿Acaso vas a evitar las ciudades con buenas leyes y los hombres más honrados? ¿Y si haces eso, te valdrá la pena vivir? O bien si te diriges a ellos y tienes la desvergüenza de conversar, ¿con qué pensamientos lo harás, Sócrates? ¿Acaso con los mismos que aquí, a saber, que lo más importante para los hombres es la virtud y la justicia, y también la legalidad y las leyes? ¿No crees que parecerá vergonzoso el comportamiento de Sócrates? Hay que creer que sí. Pero tal vez vas a apartarte de estos lugares; te irás a Tesalia con los huéspedes de Critón. En efecto, allí hay la mayor indisciplina y libertinaje, y quizá les guste oírte de qué manera tan graciosa te escapaste de la cárcel poniéndote un disfraz o echándote encima una piel o usando cualquier otro medio habitual para los fugitivos, desfigurando tu propio aspecto. ¿No habrá nadie que diga que, siendo un hombre al que presumiblemente le queda poco tiempo de vida, tienes el descaro de desear vivir tan afanosamente, violando las leyes más importantes? Quizá no lo haya, si no molestas a nadie; en caso contrario, tendrás que oír muchas cosas indignas. ¿Vas a vivir adulando y sirviendo a todos? ¿Qué vas a hacer en Tesalia sino darte buena vida como si hubieras hecho el viaje allí para ir a un banquete? ¿Dónde se nos habrán ido aquellos discursos sobre la justicia y las otras formas de virtud? ¿Sin duda quieres vivir por tus hijos, para criarlos y educarlos? ¿Pero, cómo? ¿Llevándolos contigo a Tesalia los vas a criar y educar haciéndolos extranjeros para que reciban también de ti ese beneficio? ¿O bien no es esto, sino que educándose aquí se criarán y educarán mejor, si tú estás vivo, aunque tú no estés a su lado? Ciertamente tus amigos se ocuparán de ellos. ¿Es que se cuidarán de ellos, si te vas a Tesalia, y no lo harán, si vas al Hades, si en efecto hay una ayuda de los que afirman ser tus amigos? Hay que pensar que sí se ocuparán.
+
+»Más bien, Sócrates, danos crédito a nosotras, que te hemos formado, y no tengas en más ni a tus hijos ni a tu vida ni a ninguna otra cosa que a lo justo, para que, cuando llegues al Hades, expongas en tu favor todas estas razones ante los que gobiernan allí. En efecto, ni aquí te parece a ti, ni a ninguno de los tuyos, que el hacer esto sea mejor ni más justo ni más pío, ni tampoco será mejor cuando llegues allí. Pues bien, si te vas ahora, te vas condenado injustamente no por nosotras, las leyes, sino por los hombres. Pero si te marchas tan torpemente, devolviendo injusticia por injusticia y daño por daño, violando los acuerdos y los pactos con nosotras y haciendo daño a los que menos conviene, a ti mismo, a tus amigos, a la patria y a nosotras, nos irritaremos contigo mientras vivas, y allí, en el Hades, nuestras hermanas las leyes no te recibirán de buen ánimo, sabiendo que, en la medida de tus fuerzas has intentado destruirnos. Procura que Critón no te persuada más que nosotras a hacer lo que dice».
+
+Sabe bien, mi querido amigo Critón, que es esto lo que yo creo oír, del mismo modo que los coribantes[10] creen oír las flautas, y el eco mismo de estas palabras retumba en mí y hace que no pueda oír otras. Sabe que esto es lo que yo pienso ahora y que, si hablas en contra de esto, hablarás en vano. Sin embargo, si crees que puedes conseguir algo, habla.
+
+CRIT. —No tengo nada que decir, Sócrates.
+
+SÓC. —Ea pues, Critón, obremos en ese sentido, puesto que por ahí nos guía el dios.
+
+
+
+
+
+Notas de la Introducción al Crátilo
+
+
+[1] Véase Introducción a la Apología (en su correspondiente ePub [añadido por el Editor]). <<
+
+
+
+[2] Véanse Critón 45b, 52c, y Apología 37c, 37d, respectivamente. La idea de que la vida lejos de Atenas fuera poco deseable para Sócrates no es una circunstancia de carácter limitado a la que Sócrates aludiera durante la defensa y que Critón cita, es una circunstancia a la que, sin duda, Sócrates daba gran importancia. Por otra parte, las referencias a la defensa misma, al tratarse de hechos reales, no suponen de ningún modo la existencia de la Apología. Lo mismo sucede con la referencia a que en el juicio pudo Sócrates contraproponer el exilio; se trata de algo que sucedió en el juicio y a ello se refiere Critón. <<
+
+
+
+[3] GUTHRIE, A History of Greek Philosophy, vol. IV: Plato. The man and his Dialogues. Earlier Period, Cambridge, 1975, pág. 93. <<
+
+
+
+[*] En nuestro caso, véase la bibliografía presente en el ePub Apología de Sócrates (Trad. Gredos). <<
+
+
+
+
+
+Notas de la Apología
+
+
+[1] Todos los años se enviaba una procesión a Delos en recuerdo de la victoria de Teseo sobre el Minotauro, victoria que liberó a Atenas del tributo humano que debía pagar a Minos. Desde que la nave salía hasta su regreso, no se podía ejecutar ninguna sentencia de muerte. <<
+
+
+
+[2] El cabo Sunio se halla en el vértice sur del Ática. A partir de ahí los barcos navegaban sin perder de vista la costa. <<
+
+
+
+[3] Es el verso 363 de Ilíada IX, en el que Platón ha cambiado la Primera persona por la segunda. Para Ptía, véase pág. 385, nota 9 (en nuestro caso, nota 9 del ePub Hipias Menor; [añadido por el Editor]). <<
+
+
+
+[4] Los sicofantes eran denunciantes profesionales. Generalmente cobraban del interesado en denunciar, que no deseaba hacerlo por sí mismo. Eran conocidos y temidos por las personas honradas que siempre podían verse envueltas en una denuncia falsa. El primer elemento sico- es la palabra higo (gr. sŷkon). <<
+
+
+
+[5] Simias y Cebes eran tebanos. En su ciudad habían sido discípulos del pitagórico Filolao. Después, en Atenas, fueron ambos discípulos de Sócrates. A los dos les hace Platón interlocutores de Sócrates en el Fedón, si bien el primer dialogante con Sócrates es Simias. <<
+
+
+
+[6] Véase la Introducción, pág. 90, nota 2 (en nuestro caso, nota 2 de la Introducción del presente ePub; [añadido por el Editor]). <<
+
+
+
+[7] Sócrates no había salido de Atenas, más que en cumplimiento de sus deberes militares. La fiesta en el Istmo no supone contradicción. El mismo cita, en Apología 28c, los lugares de las campañas. <<
+
+
+
+[8] Es la edad de Sócrates, y las leyes suponen que durante toda su vida ha podido reflexionar si le gustaban o no las leyes que regían la ciudad. <<
+
+
+
+[9] Estas ciudades están citadas también, en este mismo sentido, en Fedón 99a. <<
+
+
+
+[10] Los coribantes eran los seguidores de la diosa Cíbele, procedente de Asia Menor. Con sus danzas rituales y el sonido de sus flautas producían el éxtasis en los iniciados. <<
+
+
+
+
+

@@ -1,0 +1,125 @@
+4.6 - TFTP
+El Trivial File Transport Protocol ( TFTP ) es un mecanismo sencillo de file transfer
+basado en UDP. Este protocolo no tiene autenticación, constituyendo un potencial
+problema de seguridad. Es usado frecuentemente para bootear estaciones de trabajo
+X11, o para bootear routers desde sistemas unix, por ejemplo.
+El servicio TFTP, correctamente configurado, restringe el file transfer a uno o dos
+directorios, típicamente /usr/local/boot o /etc/tftpboot, según la variante de UNIX
+utilizada.
+Hasta no hace demasiado tiempo, la mayoría de los vendedores liberaban su
+software con acceso irrestricto al TFTP. Esto hacia el trabajo de los hackers sencillo:
+$ tftp victima.com.ar
+tftp> get /etc/passwd /tmp/passwd
+Received 4670 bytes in 0.8 seconds
+tftp> quit
+$ crack </tmp/passwdUn ataque de diccionario contra el /etc/passwd da normalmente con el 25% de las
+passwords.
+Se recomienda NO HABILITAR el tftp a menos que sea estrictamente necesario. Si
+se lo hace, verificar que este correctamente configurado, para enviar solo los archivos
+correctos a solo los clientes autorizados.
+4.7 - TELNET
+TELNET provee acceso de terminal a un sistema. El protocolo incluye previsiones
+para soportar varios seteos de terminal como ser raw mode, eco de caracteres, etc.
+Generalmente, el demonio de telnet llama al programa login para autenticar al usuario
+e iniciar la sesión. El mismo provee un nombre de cuenta y una password para el login.
+Una sesión de telnet puede ocurrir entre dos máquinas de la misma organización o
+confiables, en ese caso se puede utilizar un secure telnet para encriptar la sesión
+completa, protegiendo la password y la sesión completa.
+Pero en la mayoría de los casos, la mayoría de las sesiones de telnet vienen de
+sistemas no confiables. Es decir, no podemos confiar ni en el sistema operativo que
+hace telnet al nuestro, ni en las redes que intervienen en el proceso. La password y la
+sesión entera son fácilmente visible para los ojos de un espía, típicamente usando
+sniffers.
+Una técnica común de hackeo es “pinchar” el programa cliente de telnet, logrando
+que registre los nombres de usuario y password, e inclusive la sesión entera.
+De todas forma, si la red está bajo “sniffing”, es extremadamente sencillo obtener
+las passwords que circulan por sesiones de telnet. La mejor defensa para este tipo de
+ataque es el esquema de password de única vez.
+Una de las implementaciones de este esquema consiste en que el usuario
+disponga de un dispositivo programado mediante una clave secreta. El sistema que
+acepta el login envía un “challenge”, que el usuario digita en su dispositivo. Esto le
+devuelve la password adecuada para el código “challenge” enviado. Pero esa pasword
+que circulo por la red es válida solo para esa sesión, el hacker, si observo la sesión,
+deberá descifrar cual es el algoritmo utilizado para que en base al “challenge” variable y
+una clave secreta que no circulo por la red se obtenga la password de única vez.
+4.8 - Los comados “r”
+Los comandos “r” provienen del sistema de autenticación del UNIX BSD. Un
+usuario puede realizar un rlogin a una máquina remota sin ingresar password si el
+criterio de autenticación es el correcto. Estos criterios consisten en:
+· La conexión debe originarse desde un port TCP privilegiado. En sistemas
+como PC’s con Win95, por ejemplo, estas restricciones no existen con lo cual
+no tienen mucho sentido. Como corolario, rlogin y rsh deben ser permitidos
+sólo desde máquinas donde esta restriccion exista.
+· El usuario y la máquina cliente deben estar listados en la máquina server
+como socios autenticados. ( Típicamente /etc/hosts.equiv o en el directorio
+home del usuario, en el archivo .rhosts )
+· La máquina cliente y su dirección IP deben coincidir, estando listadas en el
+server.
+Desde el punto de vista del usuario, este esquema es muy interesante. El usuario
+no es molestado con prompts de passwords en logins que utilza frecuentemente. Pero
+desde el punto de vista del hacker, los comandos “r” ofrecen dos ventajas: una manera
+de entrar a un sistema, y una vez dentro, una forma de ganar acceso a maquinas de
+confianza de la primera máquina hackeada.
+El principal objetivo del hacker es colocar una entrada apropiada en
+/etc/hosts.equiv o .rhosts. Para ello utilizan FTP, UUCP, TFTP u otros medios. Por
+ejemplo, pueden utilizar FTP para dejar .rhosts en /usr/ftp . o UUCP, para dejarlo en
+/usr/spool/uucppublic. Obviamente, uno debe verificar la estructura de permisos de la
+máquina server para prohibir eso.
+Una vez adquirido el acceso no autorizado, muchas otras computadoras son
+accesibles. El hacker accede a /etc/hosts.equiv de la máquina atacada, y de ahí puede
+seguir su cadena de accesos, obteniendo mas archivos /etc/passwd.
+Notemos que la implementacion de comandos “r” presenta un problema adicional:
+Parte de la seguridad del sistema puede residir en decisiones del usuario y no del
+administrador. En efecto, el usuario puede hacer que su archivo .rhosts sea de lectura y
+escritura para todos los otros usuarios. Algunas implementaciones de rlogin y rsh
+solucionan esto: si el usuario no lo hace, un cron se ocupa que los archivos .rhosts
+esten con sus permisos en orden.
+Dado las debilidades del sistema de autenticación de los comandos “r” que hemos
+visto, no se recomienda que estos servicios estén disponibles en sistemas accesibles
+directamente en internet.
+Aquí hay un punto delicado. La alternativa usual a emplear rlogin es usar telnet,
+que como hemos visto transmite por la red una password, mientras que rlogin no lo
+hace. Las alternativas y los riesgos deben ser cuidadosamente evaluados.
+4.9 - Seguridad en NetBIOS
+Los sistemas operativos de Microsoft utilizan para comunicarse entre sí el
+protocolo NetBIOS (Network Basic Input Output System), desarrollado originalmente
+por IBM. Este protocolo a su vez debe ir sobre otro de inferior nivel que puede ser uno
+de los siguientes: NetBEUI, IPX/SPX, TCP/IP; es por ello que hablaremos de NetBIOS
+sobre TCP/IP o NetBIOS sobre NetBEUI. Otras aplicaciones y servicios acceden a la red
+utilizando directamente IPX/SPX o TCP/IP pero sin utilizar NetBIOS. A la
+implementación de NetBIOS sobre TCP/IP se la conoce como NBT. NetBIOS nos
+permite compartir archivos e impresoras en la red Microsoft.
+Las situaciones de conectividad frecuentes con las cuales uno se encuentra en la
+red Microsoft son:
+Pequeña red LAN sin acceso a Internet y sin intra o extranet
+Si se tienen clientes basados en DOS o algún equipo usando LAN Manager ,
+forzosamente se necesita NetBIOS sobre NetBEUI, si además se tiene algún servidor
+Novell también IPX/SPX aunque no se necesita activar el enlace de NetBIOS sobre
+IPX/SPX. Si los clientes son todos NT, 95 o Windows 3.x lo más recomendable es
+NetBIOS sobre IPX/SPX y de paso se tiene acceso a Novell.
+Redes LAN con Internet, intranet o extranet
+Se necesita claramente TCP/IP, si se desea mayor seguridad se puede usar
+NetBIOS sobre IPX/SPX y no activar el enlace NetBIOS-TCP/IP, si se tienen clientes
+DOS o LAN Manager se necesitará NetBEUI en cuyo caso se puede quitar IPX/SPX. Otra
+opción es usar NetBIOS sobre TCP/IP y filtrar en el router los ports 135 a 139 o usar
+un firewall.
+Redes WAN
+Se hace necesario NetBIOS sobre TCP/IP, se debe eliminar el resto de los
+protocolos si no son estrictamente necesarios.
+El problema con que nos enfrentamos es que el usuario muchas veces realiza
+share de discos en modo read only sin password, cuando no lo hace en modo read
+write, para compartir sus archivos en la red local. El usuario además cree que sólo lo
+comparte con gente conocida de su ámbito, por ejemplo. Pero lo que el ignora, es que
+si tiene habilitado TCP/IP, NetBIOS se montará encima de TCP/IP, permitiendo que sus
+shares de disco se vean en TODO INTERNET. Es más, una situación frecuente es que
+en una LAN uno de los usuarios haga una conexión dial-up: esto ya basta para que los
+shares de este usuario sean “vistos” en internet poniendo en potencial riesgo a toda la
+red.
+4.9.1 - Qué hacer
+Los ports usados por el servicio de NetBIOS/TCP ( NBT ) deben ser
+IMPERIOSAMENTE filtrados en el router que vincula la LAN con Internet. Además de
+permitir que un usuario cualquiera de la red acceda a shares de discos de la instalación,
+la implementacion de NBT particularmente en Windows 95 contiene bugs que lo hace
+vulnerables a ataques del tipo “WinNUKE”, como el OOB ( Out of Band) bug. Si bien
+estos ataques no comprometen la integridad de los datos, producen la caida del equipo
+o de al menos el stack de protocolo, dejando a la máquina aislada.

@@ -1,0 +1,129 @@
+3.4 Orientaci´on a objetos
+El t´ermino orientado a objetos tiene su origen en los lenguajes de programaci
+´on orientados a objetos. Hoy en d´ia los conceptos de orientaci´on a objetos se
+aplican al ´area de las bases de datos, la ingenier´ia del software, la inteligencia
+artificial, etc. Con los lenguajes orientados a objetos surgieron los tipos abstractos
+de datos, que ocultan las estructuras de datos internas y especifican todas
+las operaciones posibles que se pueden aplicar a un objeto. A esto es a lo que
+se denomina encapsulamiento.
+Un objeto tiene dos componentes: estado (valor) y comportamiento (operaciones).
+Es algo similar a una varible en un lenguaje de programaci´on, excepto
+en que tiene una estructura de datos compleja y una serie de operaciones espec
+´ificas definidas por el programador. Los objetos, en un lenguaje de programaci
+´on, s´olo existen durante la ejecuci´on del programa, por lo que se denominan
+objetos transitorios. Una base de datos orientada a objetos puede extender la
+existencia de los objetos de modo que est´an almacenados permanentemente,
+por lo que persisten a´un al finalizar los programas que los manipulan. Se dice
+que las bases de datos orientadas a objetos almacenan objetos persistentes, que
+pueden ser accedidos por distintos programas y aplicaciones.
+Un objetivo de las bases de datos orientadas a objetos es mantener una
+correspondencia directa entre los objetos del mundo real y los de la base de
+datos, de modo que los objetos no pierdan su integridad y su identidad, y
+puedan ser identificados y manipulados facilmente. Para ello, las bases de datos
+orientadas a objetos proporcionan un identificador de objeto (OID) que es ´unico
+y que es generado por el sistema autom´aticamente para cada objeto. Es similar
+a la clave primaria de una tabla en una base de datos relacional: si el valor
+de la clave primaria de una tupla cambia, la tupla tiene una nueva identidad,
+aunque representa al mismo objeto del mundo real. Por otra parte, un objeto
+del mundo real se puede identificar mediante claves con distintos nombres en
+distintas tablas, siendo dif´icil darse cuenta de que dichas claves representan al
+mismo objeto.
+Otra caracter´istica de las bases de datos orientadas a objetos es que los
+objetos pueden tener una estructura compleja, tanto como sea necesario para
+mantener toda la informaci´on necesaria que describe al objeto. En las bases de
+datos relacionales los objetos con estructura compleja se almancenan distribuidos
+en varias tablas, perdiendo toda correspondencia directa entre el objeto en
+el mundo real y el objeto en la base de datos.
+La estructura interna de un objeto en un lenguaje de programaci´on orientado
+a objetos incluye la especificaci´on de variables instancia, que guardan los
+valores que definen el estado interno del objeto. Aqu´i una variable instancia es
+similar al concepto de atributo, excepto que las variables instancia est´an encapsuladas
+en el objeto y no son visibles desde el exterior por los usuarios, mientras
+que en las bases de datos relacionales el usuario necesita saber los nombres de
+los atributos para poder especificar condiciones de selecci´on sobre ellos. Los
+sistemas orientados a objetos permiten la definici´on de operaciones o funciones
+(comportamiento) que se pueden aplicar a los objetos. Estas operaciones se
+definen en dos partes. La primera parte se denomina signatura o interface de la
+operaci´on y especifica su nombre y sus argumentos (par´ametros). La segunda
+parte es el m´etodo o cuerpo, que especifica la implementaci´on de la operaci´on.
+Las operaciones se invocan pasando un mensaje a un objeto que incluye el nombre
+de la operaci´on y los par´ametros. Entonces el objeto ejecuta el m´etodo de
+esa operaci´on. Esta encapsulaci´on permite que se pueda modificar la estructura
+interna de un objeto y la implementaci´on de sus operaciones, sin la necesidad de
+afectar a los programas externos que la invocan. Por lo tanto, la encapsulaci´on
+proporciona una forma de independencia de datos y operaciones.
+Otro concepto clave en los sistemas orientados a objetos son las jerarqu´ias
+de tipos y clases, y la herencia. Esto permite la especificaci´on de nuevos tipos
+o clases que heredan su estructura y sus operaciones de tipos o clases definidos
+previamente. Por lo tanto, la especificaci´on de los tipos de objetos se puede
+llevar a cabo sistem´aticamente. Eso hace m´as f´acil el desarollo de los tipos de
+datos y permite reutilizar definiciones de tipos en la creaci´on de nuevos tipos.
+Las relaciones entre objetos se representan mediante un par de referencias
+inversas, es decir, en cada relaci´on los dos objetos se hacen referencia el uno al
+otro y se mantiene la integridad referencial.
+Algunos sistemas orientados a objetos permiten trabajar con m´ultiples versiones
+del mismo objeto, algo esencial en las aplicaciones de dise˜no e ingenier´ia.
+Por ejemplo, se puede querer mantener la versi´on antigua de un objeto mientras
+no se haya verificado la nueva versi´on.
+Otro concepto de la orientaci´on a objetos es el polimorfismo de las operaciones
+que indica la capacidad de una operaci´on de ser aplicada a diferentes
+tipos de objetos, es decir, un nombre de operaci´on puede referirse a distintas
+implementaciones dependiendo del tipo del objeto al que se aplica. Por ejemplo,
+una operaci´on que calcula el ´area de un objeto geom´etrico tendr´a distinta
+implementaci´on dependiendo de si el objeto es un tri´angulo, un c´irculo o un
+cuadrado.
+El desarrollo del paradigma orientado a objetos aporta un gran cambio en
+el modo en que vemos los datos y los procedimientos que act´uan sobre ellos.
+Tradicionalemente, los datos y los procedimientos se han almacenado separadamente:
+los datos y sus relaciones en la base de datos, y los procedimientos en
+los programas de aplicaci´on. La orientaci´on a objetos, sin embargo, combina los
+procedimientos de una entidad con sus datos.
+Esta combinaci´on se considera como un paso adelante en la gesti´on de datos.
+Las entidades son unidades autocontenidas que se pueden reutilizar con relativa
+facilidad. En lugar de ligar el comportamiento de una entidad a un progama de
+aplicaci´on, el comportamiento es parte de la entidad en s´i, por lo en cualquier
+lugar en el que se utilice la entidad, se comporta de un modo predecible y
+conocido.
+El modelo orientado a objetos tambi´en soporta relaciones de muchos a muchos,
+siendo el primer modelo que lo permite. A´un as´i se debe ser muy cuidadoso
+cuando se dise˜nan estas relaciones para evitar p´erdidas de informaci´on.
+Por otra parte, las bases de datos orientadas a objetos son navegacionales:
+el acceso a los datos es a trav´es de las relaciones, que se almacenan con los
+mismos datos. Esto se considera un paso atr´as. Las bases de datos orientadas
+a objetos no son apropiadas para realizar consultas ad hoc, al contrario que las
+bases de datos relacionales, aunque normalmente las soportan. La naturaleza
+navegacional de las bases de datos orientadas a objetos implica que las consultas
+deben seguir relaciones predefinidas y que no pueden insertarse nuevas relaciones
+“al vuelo”.
+No parece que las bases de datos orientadas a objetos vayan a reemplazar a
+las bases de datos relacionales en todas las aplicaciones del mismo modo en que
+´estas reemplazaron a sus predecesoras.
+Los objetos han entrado en el mundo de las bases de datos de formas:
+• SGBD orientados a objetos puros: son SGBD basados completamente en
+el modelo orientado a objetos.
+• SGBD h´ibridos u objeto–relacionales: son SGBD relacionales que permiten
+almacenar objetos en sus relaciones (tablas).
+En el anexo C se definen los conceptos del paradigma orientado a objetos en
+programaci´on, ya que el modelo de datos orientado a objetos es una extensi´on
+del mismo. A continuaci´on, y como motivaci´on, se citan las ventajas de la
+orientaci´on a objetos en programaci´on:
+• Un programa orientado a objetos consta de m´odulos independientes, por
+lo que se pueden reutilizar en distintos programas, ahorrando tiempo de
+desarrollo.
+• El interior de una clase se puede modificar como sea necesario siempre
+que su interface p´ublica no cambie, de modo que estas modificaciones no
+afectar´an a los programas que utilizan la clase.
+• Los programas orientados a objetos separan la interface de usuario de la
+gesti´on de los datos, haciendo posible la modificaci´on de una independientemente
+de la otra.
+• La herencia a˜nade una estructura l´ogica al programa relacionando clases
+desde lo general a lo m´as espec´ifico, haciendo que el programa sea m´as
+f´acil de entender y, por lo tanto, m´as f´acil de mantener.
+3.5 Modelo de datos orientado a objetos
+El modelo de datos orientado a objetos es una extensi´on del paradigma de
+programaci´on orientado a objetos. Los objetos entidad que se utilizan en los
+programas orientados a objetos son an´alogos a las entidades que se utilizan en
+las bases de datos orientadas a objetos puras, pero con una gran diferencia:
+los objetos del programa desaparecen cuando el programa termina su ejecuci´on,
+mientras que los objetos de la base de datos permanecen. A esto se le denomina
+persistencia.

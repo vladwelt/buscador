@@ -1,0 +1,786 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://www.mikrotik.com/docs/ros/2.9/guide/basic -->
+<HTML xmlns:page = "http://apache.org/cocoon/paginate/1.0"><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<SCRIPT language=JavaScript src="basic_archivos/cookie.js"></SCRIPT>
+<LINK href="basic_archivos/mtdefault.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.2873" name=GENERATOR></HEAD>
+<BODY><A name=0></A>
+<DIV class=navback>
+<DIV id=buttons><A 
+onclick="javaScript:createCookie('viewmode','splitted',365);javaScript:document.location.reload();javaScript:document.location.reload();window.location.href=window.location.href" 
+href="http://www.mikrotik.com/docs/ros/2.9/guide/basic#"><IMG 
+src="basic_archivos/unclose.gif" border=0></A> </DIV>
+<DIV id=navfront>
+<TABLE cellSpacing=0 cellPadding=2 width="97%" border=0>
+  <COLGROUP span=4 width=1></COLGROUP>
+  <TBODY>
+  <TR>
+    <TD id=nav><A id=nav href="http://www.mikrotik.com/" 
+      target=_top>Home</A>&nbsp;&gt;</TD>
+    <TD id=nav><A id=nav href="http://www.mikrotik.com/documentation.html" 
+      target=_top>Documentation</A>&nbsp;&gt;</TD>
+    <TD id=nav><A id=nav href="http://www.mikrotik.com/docs/ros/2.9/" 
+      target=_top>V2.9</A>&nbsp;&gt;</TD>
+    <TD id=nav><A id=nav 
+      onclick=javaScript:parent.document.location.href=parent.document.location.href 
+      href="http://www.mikrotik.com/docs/ros/2.9/guide/basic#">Basic&nbsp;Setup&nbsp;Guide</A></TD>
+    <TD id=nav align=right><A id=nav 
+      href="http://www.mikrotik.com/docs/ros/2.9/guide/basic.pdf" 
+      target=_top>PDF&nbsp;version</A>&nbsp; </TD></TR></TBODY></TABLE></DIV></DIV>
+<DIV class=content><A name=12.1></A>
+<H1>Basic Setup Guide</H1>
+<P class=revision>
+<TABLE style="FONT-SIZE: 90%" border=0>
+  <TBODY>
+  <TR>
+    <TD><I>Document revision:</I></TD>
+    <TD><I>1.1 (Wed Sep 14 18:08:33 GMT 2005)</I></TD></TR>
+  <TR>
+    <TD>Applies to:</TD>
+    <TD>MikroTik RouterOS V2.9 </TD></TR></TBODY></TABLE></P><A name=12.1.1></A>
+<H2>General Information</H2><A name=12.1.1.1></A>
+<H3>Summary</H3>
+<P>MikroTik RouterOS™ is independent Linux-based Operating System for IA-32 
+routers and thinrouters. It does not require any additional components and has 
+no software prerequirements. It is designed with easy-to-use yet powerful 
+interface allowing network administrators to deploy network structures and 
+functions, that would require long education elsewhere simply by following the 
+Reference Manual (and even without it).</P><A name=12.1.1.2></A>
+<H3>Related Documents</H3>
+<DIV class=itemizedlist>
+<UL>
+  <LI><A 
+  href="javascript:openURL('../guide/packages',%20&quot;_top&quot;)">Software 
+  Package Management</A> 
+  <LI><A 
+  href="javascript:openURL('../guide/driverlist',%20&quot;_top&quot;)">Device 
+  Driver List</A> 
+  <LI><A 
+  href="javascript:openURL('../system/license',%20&quot;_top&quot;)">License 
+  Management</A> 
+  <LI><A href="javascript:openURL('../root/ping',%20&quot;&quot;)">Ping</A> 
+  <LI><A 
+  href="javascript:openURL('../root/queue',%20&quot;_top&quot;)">Bandwidth 
+  Control</A> 
+  <LI><A href="javascript:openURL('../ip/firewall',%20&quot;_top&quot;)"></A>
+  <LI><A 
+  href="javascript:openURL('../guide/winbox',%20&quot;_top&quot;)">WinBox</A> 
+  <LI><A 
+  href="javascript:openURL('../guide/netinstall',%20&quot;_top&quot;)">Installing 
+  RouterOS with NetInstall</A> 
+  <LI><A 
+  href="javascript:openURL('../guide/cdinstall',%20&quot;_top&quot;)">Installing 
+  RouterOS with CD-Install</A> 
+  <LI><A 
+  href="javascript:openURL('../guide/flopinstall',%20&quot;_top&quot;)">Installing 
+  RouterOS with Floppies</A> </LI></UL></DIV><A name=12.1.1.3></A>
+<H3>Description</H3>
+<P>MikroTik RouterOS™ turns a standard PC computer into a powerful network 
+router. Just add standard network PC interfaces to expand the router 
+capabilities. Remote control with easy real-time Windows application 
+(WinBox)</P>
+<DIV class=itemizedlist>
+<UL>
+  <LI>Advanced Quality of Service control with burst support 
+  <LI>Stateful firewall with P2P protocol filtering, tunnels and IPsec 
+  <LI>STP bridging with filtering capabilities 
+  <LI>WDS and Virtual AP features 
+  <LI>HotSpot for Plug-and-Play access 
+  <LI>RIP, OSPF, BGP routing protocols 
+  <LI>Gigabit Ethernet ready 
+  <LI>V.35, X.21, T1/E1 synchronous support 
+  <LI>async PPP with RADUIS AAA 
+  <LI>IP Telephony 
+  <LI>remote winbox GUI admin 
+  <LI>telnet/ssh/serial console admin 
+  <LI>real-time configuration and monitoring 
+  <LI>and much more (please see the Specifications Sheet) </LI></UL></DIV>
+<P>The Guide describes the basic steps of installing and configuring a dedicated 
+PC router running MikroTik RouterOS™.</P><A name=12.1.2></A>
+<H2>Setting up MikroTik RouterOS™</H2><A name=12.1.2.1></A>
+<H3>Description</H3><A name=12.1.2.1.1></A><B class=title><U>Downloading and 
+Installing the MikroTik RouterOS™</U></B> 
+<P>The download and installation process of the MikroTik RouterOS™ is described 
+in the following diagram:</P>
+<P><IMG alt="downloading and Installing" 
+src="basic_archivos/graphics_basic1.jpg"></P>
+<DIV class=orderedlist>
+<OL type=1>
+  <LI>Download the basic installation archieve file. 
+  <P>Depending on the desired media to be used for installing the MikroTik 
+  RouterOS™ please chose one of the following archive types for downloading:</P>
+  <DIV class=itemizedlist>
+  <UL>
+    <LI><B>ISO image</B> - of the installation CD, if you have a CD writer for 
+    creating CDs. The ISO image is in the 
+    MTcdimage_v2-9-x_dd-mmm-yyyy_(build_z).zip archive file containing a 
+    bootable CD image. The CD will be used for booting up the dedicated PC and 
+    installing the MikroTik RouterOS™ on its hard-drive or flash-drive. 
+    <LI><B>Netinstall</B> - if you want to install RouterOS over a LAN with one 
+    floppy boot disk, or alternatively using PXE or EtherBoot option supported 
+    by some network interface cards, that allows truly networked installation. 
+    Netinstall program works on Windows 95/98/NT4/2K/XP. 
+    <LI><B>MikroTik Disk Maker</B> - if you want to create 3.5" installation 
+    floppies. The Disk Maker is a self-extracting archive 
+    DiskMaker_v2-9-x_dd-mmm-yyyy_(build_z).exe file, which should be run on your 
+    Windows 95/98/NT4/2K/XP workstation to create the installation floppies. The 
+    installation floppies will be used for booting up the dedicated PC and 
+    installing the MikroTik RouterOS™ on its hard-drive or flash-drive. 
+  </LI></UL></DIV>
+  <LI>Create the installation media. 
+  <P>Use the appropriate installation archive to create the Installation CD or 
+  floppies.</P>
+  <DIV class=itemizedlist>
+  <UL>
+    <LI>For the CD, write the ISO image onto a blank CD. 
+    <LI>For the floppies, run the Disk Maker on your Windows workstation to 
+    create the installation floppies. Follow the instructions and insert the 
+    floppies in your FDD as requested, label them as Disk 1,2,3, etc. 
+  </LI></UL></DIV>
+  <LI>Install the MikroTik RouterOS™ software. 
+  <P>Your dedicated PC router hardware should have:</P>
+  <DIV class=itemizedlist>
+  <UL>
+    <LI><B>CPU and motherboard</B> - advanced 4th generation (core frequency 
+    100MHz or more), 5th generation (Intel Pentium, Cyrix 6X86, AMD K5 or 
+    comparable) or newer uniprocessor Intel IA-32 (i386) compatible (multiple 
+    processors are not supported) 
+    <LI><B>RAM</B> - minimum 64 MiB, maximum 1 GiB; 64 MiB or more recommended 
+    <LI><B>Hard Drive/Flash</B> - standard ATA interface controller and drive 
+    (SCSI and USB controllers and drives are not supported; RAID controllers 
+    that require additional drivers are not supported) with minimum of 64 Mb 
+    space </LI></UL></DIV>
+  <P>Hardware needed for installation time only</P>
+  <P>Depending on installation method chosen the router must have the following 
+  hardware:</P>
+  <DIV class=itemizedlist>
+  <UL>
+    <LI><B>Floppy-based installation</B> - standard AT floppy controller and 
+    3.5'' disk drive connected as the first floppy disk drive (A); AT, PS/2 or 
+    USB keyboard; VGA-compatible video controller card and monitor 
+    <LI><B>CD-based installation</B> - standard ATA/ATAPI interface controller 
+    and CD drive supporting "El Torito" bootable CDs (you might need also to 
+    check if the router's BIOS supports booting from this type of media; if El 
+    Torito is not supported by the BIOS, you can still boot up from the CD using 
+    <B>Smart Boot Manager Floppy</B>); AT, PS/2 or USB keyboard; VGA-compatible 
+    video controller card and monitor 
+    <LI><B>Floppy-based network installation</B> - standard AT floppy controller 
+    and 3.5'' disk drive connected as the first floppy disk drive (A); PCI 
+    Ethernet network interface card supported by MikroTik RouterOS (see the 
+    Device Driver List for the list) 
+    <LI><B>Full network-based installation</B> - PCI Ethernet network interface 
+    card supported by MikroTik RouterOS (see the Device Driver List for the 
+    list) with PXE or EtherBoot extension booting ROM (you might need also to 
+    check if the router's BIOS supports booting from network) </LI></UL></DIV>
+  <P>Note that if you use Netinstall, you can license the software during the 
+  installation procedure (the next point of this section describes how to do 
+  it).</P>
+  <P>Boot up your dedicated PC router from the Installation Media you created 
+  and follow the instructions on the console screen while the HDD is reformatted 
+  and MikroTik RouterOS installed on it. After successful installation please 
+  remove the installation media from your CD or floppy disk drive and hit 
+  'Enter' to reboot the router.</P>
+  <LI>License the software. 
+  <P>When booted, the software allows you to use all its features for 24 hours 
+  (note that you can pause the countdown by shutting down the router). If the 
+  license key will not be entered during this period of time, the router will 
+  become unusable, and will need a complete reinstallation.</P>
+  <P>RouterOS licensing scheme is based on software IDs. To license the 
+  software, you must know the software ID. It is shown during installation 
+  procedures, and also you can get it from system console or Winbox. To get the 
+  software ID from system console, type: <B>/system license print</B> (note that 
+  you must first log in the router; by default there is user <B>admin</B> with 
+  no password (just press [Enter] key when prompted for password)). See sections 
+  below on basic configuration of your router</P>
+  <DIV class=itemizedlist>
+  <P>Once you have the ID, you can obtain a license:</P>
+  <UL>
+    <LI>You should have an account on our account server. If you do not have an 
+    account at www.mikrotik.com, just press the 'New' button on the upper 
+    right-hand corner of the MikroTik's web page to create your account 
+    <LI>Choose the appropriate licence level that meets your needs. Please see 
+    the <A 
+    href="javascript:openURL('http://www.mikrotik.com/docs/ros/2.9/system/license.main',%20&quot;_top&quot;)">License 
+    Manual</A> or the <A 
+    href="javascript:openURL('http://www.mikrotik.com/software.php',%20&quot;new&quot;)">Software 
+    price list</A>. Note that there is a free license with restricted features 
+    (no time limitation) 
+    <LI>
+    <P>There are different methods how to get a license from the account 
+    server:</P>
+    <DIV class=orderedlist>
+    <OL type=1>
+      <LI>Enter the software ID in the account server, and get the license key 
+      by e-mail. You can upload the file received on the router's FTP server, or 
+      drag-and-drop it into opened Winbox window 
+      <LI>You can open the file with a text editor, and copy the contents. Then 
+      paste the text into system console (in any menu - you just should be 
+      logged in), or into System-&gt;License window of Winbox 
+      <LI>If the router has Internet connection, you can obtain the license 
+      directly from within it. The commands are described in the <A 
+      href="javascript:openURL('http://www.mikrotik.com/docs/ros/2.9/system/license.main',%20&quot;_top&quot;)">License 
+      Manual</A>. Note that you must have <B>Allow to use my account in 
+      netinstall</B> option enabled for your account. You can set it by 
+      following <B>change user information</B> link on the main screen of the 
+      account server. </LI></OL></DIV></LI></UL></DIV></LI></OL></DIV><A 
+name=12.1.2.2></A>
+<H3>Notes</H3><A name=12.1.2.2.1></A>
+<P>The hard disk will be entirely reformatted during the installation and all 
+data on it will be lost!</P><A name=12.1.2.2.2></A>
+<P>You can move the hard drive with MikroTik RouterOS installed to a new 
+hardware without loosing a license, but you cannot move the RouterOS to a 
+different hard drive without purchasing an another license (except hardware 
+failure situations). For additional information write to <A 
+href="javascript:openURL('mailto:key-support@mikrotik.com')">javascript:openURL('mailto:key-support@mikrotik.com')</A>.</P><A 
+name=12.1.2.2.3></A>
+<P><B>Note!</B> Do not use MS-DOS format command or other disk format utilities 
+to reinstall your MikroTik router! This will cause the Software-ID to change, so 
+you will need to buy another license in order to get MikroTik RouterOS 
+running.</P><A name=12.1.3></A>
+<H2>Logging into the MikroTik Router</H2><A name=12.1.3.1></A>
+<H3>Description</H3>
+<P>Normally you connect to the router by IP addresses with any telnet or SSH 
+client software (a simple text-mode telnet client is usually called telnet and 
+is distributed together with almost any OS). You can also use graphical 
+configuration tool for Windows (also can be run in Linux using Wine) called 
+Winbox. To get Winbox, connect to the router's IP address with a web browser, 
+and follow the link to download winbox.exe from the router. </P>
+<P>MAC-telnet is used to connect to a router when there is no other way to 
+connect to it remotely if the router has no IP address or in case of 
+misconfigured firewall. MAC-telnet can only be used from the same broadcast 
+domain (so there should be no routers in between) as any of the router's enabled 
+interfaces (you can not connect to a disabled interface). MAC-telnet program is 
+a part of the Neighbor Viewer. Download it from www.mikrotik.com, unpack both 
+files contained in the archive to the same directory, and run 
+NeighborViewer.exe. A list of MikroTik routers working in the same broadcast 
+domain will be showed double-click the one you need to connect to. Note that 
+Winbox is also able to connect to routers by their MAC addresses, and has the 
+discovery tool built-in. </P>
+<P>You can also connect to the router using a standard DB9 serial null-modem 
+cable from any PC. Default settings of the router's serial port are 9600 bits/s 
+(for RouterBOARD 500 series - 115200 bits/s), 8 data bits, 1 stop bit, no 
+parity, hardware (RTS/CTS) flow control. Use terminal emulation program (like 
+HyperTerminal or SecureCRT in Windows, or minicom in UNIX/Linux) to connect to 
+the router. The router will beep twice when booted up, and you should see the 
+login prompt shortly before that (check cabling and serial port settings if you 
+do not see anything in the terminal window). </P>
+<P>When logging into the router via terminal console, you will be presented with 
+the MikroTik RouterOS™ login prompt. Use 'admin' and no password (hit [Enter]) 
+for logging in the router for the first time, for example:</P><PRE>MikroTik v2.9
+Login: admin
+Password:</PRE>
+<P>The password can be changed with the <B>/password</B> command.</P><PRE>[admin@MikroTik] &gt; password
+old password:
+new password: ************
+retype new password: ************
+[admin@MikroTik] &gt;</PRE><A name=12.1.4></A>
+<H2>Adding Software Packages</H2><A name=12.1.4.1></A>
+<H3>Description</H3>
+<P>The basic installation comes only with the <B>system</B> package. This 
+includes basic IP routing and router administration. To have additional features 
+such as IP Telephony, OSPF, wireless and so on, you will need to <A 
+href="javascript:openURL('http://www.mikrotik.com/download.html',%20&quot;_top&quot;)">download</A> 
+additional software packages.</P>
+<P>The additional software packages should have <B>the same version</B> as the 
+system package. If not, the package won't be installed. Please consult the 
+MikroTik RouterOS™ Software Package Installation and Upgrading Manual for more 
+detailed information about installing additional software packages.</P>
+<P>To upgrade the router packages, simply upload the packages to the router via 
+ftp, using the binary transfer mode. After you have uploaded the packages, 
+reboot the router, and the features that are provided by those packages will be 
+available (regarding your license type, of course).</P><A name=12.1.5></A>
+<H2>Navigating The Terminal Console</H2><A name=12.1.5.1></A>
+<H3>Description</H3><A name=12.1.5.1.1></A><B class=title><U>Welcome Screen and 
+Command Prompt</U></B> 
+<P>After logging into the router you will be presented with the MikroTik 
+RouterOS™ Welcome Screen and command prompt, for example:</P><PRE>	
+  MMM      MMM       KKK                          TTTTTTTTTTT      KKK
+  MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK
+  MMM MMMM MMM  III  KKK  KKK  RRRRRR     OOOOOO      TTT     III  KKK  KKK
+  MMM  MM  MMM  III  KKKKK     RRR  RRR  OOO  OOO     TTT     III  KKKKK
+  MMM      MMM  III  KKK KKK   RRRRRR    OOO  OOO     TTT     III  KKK KKK
+  MMM      MMM  III  KKK  KKK  RRR  RRR   OOOOOO      TTT     III  KKK  KKK
+
+  MikroTik RouterOS 2.9 (c) 1999-2004       http://www.mikrotik.com/
+
+
+
+
+
+
+Terminal xterm detected, using multiline input mode
+[admin@MikroTik] &gt;</PRE>
+<P>The command prompt shows the identity name of the router and the current menu 
+level, for example:</P><PRE>[admin@MikroTik] &gt;
+[admin@MikroTik] interface&gt;
+[admin@MikroTik] ip address&gt;
+        </PRE><A name=12.1.5.1.2></A><B class=title><U>Commands</U></B> 
+<P>The list of available commands at any menu level can be obtained by entering 
+the question mark '?', for example:</P><PRE>[admin@MikroTik] &gt;
+
+log/ -- System logs
+quit -- Quit console
+radius/ -- Radius client settings
+certificate/ -- Certificate management
+special-login/ -- Special login users
+redo -- Redo previously undone action
+driver/ -- Driver management
+ping -- Send ICMP Echo packets
+setup -- Do basic setup of system
+interface/ -- Interface configuration
+password -- Change password
+undo -- Undo previous action
+port/ -- Serial ports
+import -- Run exported configuration script
+snmp/ -- SNMP settings
+user/ -- User management
+file/ -- Local router file storage.
+system/ -- System information and utilities
+queue/ -- Bandwidth management
+ip/ -- IP options
+tool/ -- Diagnostics tools
+ppp/ -- Point to Point Protocol
+routing/ -- Various routing protocol settings
+export  -- 
+
+[admin@MikroTik] &gt;</PRE><PRE>[admin@MikroTik] ip&gt;
+
+ 
+.. -- go up to root
+service/ -- IP services
+socks/ -- SOCKS version 4 proxy
+arp/ -- ARP entries management
+upnp/ -- Universal Plug and Play
+dns/ -- DNS settings
+address/ -- Address management
+accounting/ -- Traffic accounting
+the-proxy/ --
+vrrp/ -- Virtual Router Redundancy Protocol
+pool/ -- IP address pools
+packing/ -- Packet packing settings
+neighbor/ -- Neighbors
+route/ -- Route management
+firewall/ -- Firewall management
+dhcp-client/ -- DHCP client settings
+dhcp-relay/ -- DHCP relay settings
+dhcp-server/ -- DHCP server settings
+hotspot/ -- HotSpot management
+ipsec/ -- IP security
+web-proxy/ -- HTTP proxy
+export --
+
+[admin@MikroTik] ip&gt;</PRE>
+<P>The list of available commands and menus has short descriptions next to the 
+items. You can move to the desired menu level by typing its name and hitting the 
+[Enter] key, for example:</P><PRE>[admin@MikroTik] &gt;                 | Base level menu
+[admin@MikroTik] &gt; driver          | Enter 'driver' to move to the driver
+                                   | level menu
+[admin@MikroTik] driver&gt; /         | Enter '/' to move to the base level menu
+                                   | from any level
+[admin@MikroTik] &gt; interface       | Enter 'interface' to move to the
+                                   | interface level menu
+[admin@MikroTik] interface&gt; /ip    | Enter '/ip' to move to the IP level menu
+                                   | from any level
+[admin@MikroTik] ip&gt;               |</PRE>
+<P>A command or an argument does not need to be completed, if it is not 
+ambiguous. For example, instead of typing <B>interface</B> you can type just 
+<B>in</B> or <B>int</B>. To complete a command use the [Tab] key. Note that the 
+completion is optional, and you can just use short command and parameter 
+names</P>
+<P>The commands may be invoked from the menu level, where they are located, by 
+typing its name. If the command is in a different menu level than the current 
+one, then the command should be invoked using its full (absolute) or relative 
+path, for example:</P><PRE>[admin@MikroTik] ip route&gt; print                | Prints the routing table
+[admin@MikroTik] ip route&gt; .. address print     | Prints the IP address table
+[admin@MikroTik] ip route&gt; /ip address print    | Prints the IP address table</PRE>
+<P>The commands may have arguments. The arguments have their names and values. 
+Some commands, may have a required argument that has no name.</P><A 
+name=12.1.5.1.3></A><B class=title><U>Summary on executing the commands and 
+navigating the menus</U></B> 
+<TABLE cellSpacing=0 cellPadding=5 border=1>
+  <TBODY>
+  <TR>
+    <TD>Command</TD>
+    <TD>Action</TD></TR>
+  <TR>
+    <TD>command [Enter]</TD>
+    <TD>Executes the command</TD></TR>
+  <TR>
+    <TD>[?]</TD>
+    <TD>Shows the list of all available commands</TD></TR>
+  <TR>
+    <TD>command [?]</TD>
+    <TD>Displays help on the command and the list of arguments</TD></TR>
+  <TR>
+    <TD>command argument [?]</TD>
+    <TD>Displays help on the command's argument</TD></TR>
+  <TR>
+    <TD>[Tab]</TD>
+    <TD>Completes the command/word. If the input is ambiguous, a second [Tab] 
+      gives possible options</TD></TR>
+  <TR>
+    <TD>/</TD>
+    <TD>Moves up to the base level</TD></TR>
+  <TR>
+    <TD>/command</TD>
+    <TD>Executes the base level command</TD></TR>
+  <TR>
+    <TD>..</TD>
+    <TD>Moves up one level</TD></TR>
+  <TR>
+    <TD>""</TD>
+    <TD>Specifies an empty string</TD></TR>
+  <TR>
+    <TD>"word1 word2"</TD>
+    <TD>Specifies a string of 2 words that contain a space</TD></TR></TBODY></TABLE>
+<P>You can abbreviate names of levels, commands and arguments.</P>
+<P>For the IP address configuration, instead of using the <B>address</B> and 
+<B>netmask</B> arguments, in most cases you can specify the address together 
+with the number of true bits in the network mask, i.e., there is no need to 
+specify the <B>netmask</B> separately. Thus, the following two entries would be 
+equivalent:</P><PRE>/ip address add address 10.0.0.1/24 interface ether1
+/ip address add address 10.0.0.1 netmask 255.255.255.0 interface ether1</PRE><A 
+name=12.1.5.2></A>
+<H3>Notes</H3><A name=12.1.5.2.1></A>
+<P>You must specify the size of the network mask in the address argument, even 
+if it is the 32-bit subnet, i.e., use <B>10.0.0.1/32</B> for 
+<CODE>address=10.0.0.1 netmask=255.255.255.255</CODE> </P><A name=12.1.6></A>
+<H2>Basic Configuration Tasks</H2><A name=12.1.6.1></A>
+<H3>Description</H3><A name=12.1.6.1.1></A><B class=title><U>Interface 
+Management</U></B> 
+<P>Before configuring the IP addresses and routes please check the 
+<B>/interface</B> menu to see the list of available interfaces. If you have 
+Plug-and-Play cards installed in the router, it is most likely that the device 
+drivers have been loaded for them automatically, and the relevant interfaces 
+appear on the <B>/interface print</B> list, for example:</P><PRE>[admin@MikroTik] interface&gt; print
+Flags: X - disabled, D - dynamic, R - running
+ #    NAME                         TYPE             RX-RATE    TX-RATE    MTU
+ 0  R ether1                       ether            0          0          1500
+ 1  R ether2                       ether            0          0          1500
+ 2 X  wavelan1                     wavelan          0          0          1500
+ 3 X  prism1                       wlan             0          0          1500
+[admin@MikroTik] interface&gt;</PRE>
+<P>The interfaces need to be enabled, if you want to use them for 
+communications. Use the <B>/interface enable name</B> command to enable the 
+interface with a given name or number, for example:</P><PRE>[admin@MikroTik] interface&gt; print
+Flags: X - disabled, D - dynamic, R - running
+ #    NAME                         TYPE             RX-RATE    TX-RATE    MTU
+ 0 X  ether1                       ether            0          0          1500
+ 1 X  ether2                       ether            0          0          1500
+[admin@MikroTik] interface&gt; enable 0
+[admin@MikroTik] interface&gt; enable ether2
+[admin@MikroTik] interface&gt; print
+Flags: X - disabled, D - dynamic, R - running
+ #    NAME                         TYPE             RX-RATE    TX-RATE    MTU
+ 0  R ether1                       ether            0          0          1500
+ 1  R ether2                       ether            0          0          1500
+[admin@MikroTik] interface&gt;</PRE>
+<P>The interface name can be changed to a more descriptive one by using 
+<B>/interface set</B> command:</P><PRE>[admin@MikroTik] interface&gt; set 0 name=Local; set 1 name=Public
+[admin@MikroTik] interface&gt; print
+Flags: X - disabled, D - dynamic, R - running
+ #    NAME                         TYPE             RX-RATE    TX-RATE    MTU
+ 0  R Local                        ether            0          0          1500
+ 1  R Public                       ether            0          0          1500
+[admin@MikroTik] interface&gt;</PRE><A name=12.1.6.2></A>
+<H3>Notes</H3>
+<P>The device drivers for NE2000 compatible ISA cards need to be loaded using 
+the <B>add</B> command under the /drivers menu. For example, to load the driver 
+for a card with IO address 0x280 and IRQ 5, it is enough to issue the 
+command:</P><PRE>[admin@MikroTik] driver&gt; add name=ne2k-isa io=0x280
+[admin@MikroTik] driver&gt; print
+Flags: I - invalid, D - dynamic
+ #   DRIVER                                 IRQ IO       MEMORY   ISDN-PROTOCOL
+  0 D RealTek 8139
+  1 D Intel EtherExpressPro
+  2 D PCI NE2000
+  3   ISA NE2000                            280
+  4   Moxa C101 Synchronous                              C8000
+[admin@MikroTik] driver&gt;</PRE>
+<P>There are some other drivers that should be added manually. Please refer to 
+the respective manual sections for the detailed information on how drivers are 
+to be loaded.</P><A name=12.1.7></A>
+<H2>Setup Command</H2><A name=12.1.7.1></A>Command name: <B><I>/setup</I></B> 
+<BR><A name=12.1.7.2></A>
+<H3>Description</H3>
+<P>The initial setup of the router can be done by using the <B>/setup</B> 
+command which offers the following configuration:</P>
+<DIV class=itemizedlist>
+<UL>
+  <LI>reset all router configuration 
+  <LI>load interface driver 
+  <LI>configure ip address and gateway 
+  <LI>setup dhcp client 
+  <LI>setup dhcp server 
+  <LI>setup pppoe client 
+  <LI>setup pptp client </LI></UL></DIV><A name=12.1.7.3></A>
+<H3>Configure IP address on router, using the Setup command</H3>
+<P>Execute the <B>/setup</B> command from command line:</P><PRE>[admin@MikroTik] &gt; setup
+  Setup uses Safe Mode. It means that all changes that are made during setup
+are reverted in case of error, or if [Ctrl]+[C] is used to abort setup. To keep
+changes exit setup using the [X] key.
+
+[Safe Mode taken]
+  Choose options by pressing one of the letters in the left column, before
+dash. Pressing [X] will exit current menu, pressing Enter key will select the
+entry that is marked by an '*'. You can abort setup at any time by pressing
+[Ctrl]+[C].
+Entries marked by '+' are already configured.
+Entries marked by '-' cannot be used yet.
+Entries marked by 'X' cannot be used without installing additional packages.
+   r - reset all router configuration
+ + l - load interface driver
+ * a - configure ip address and gateway
+   d - setup dhcp client
+   s - setup dhcp server
+   p - setup pppoe client
+   t - setup pptp client
+   x - exit menu
+your choice [press Enter to configure ip address and gateway]: a
+</PRE>
+<P>To configure IP address and gateway, press <B>a</B> or [Enter], if the 
+<B>a</B> choice is marked with an asterisk symbol ('*').</P><PRE> * a - add ip address
+ - g - setup default gateway
+   x - exit menu
+your choice [press Enter to add ip address]: a</PRE>
+<P>Choose <B>a</B> to add an IP address. At first, setup will ask you for an 
+interface to which the address will be assigned. If the setup offers you an 
+undesirable interface, erase this choice, and press the [Tab] key twice to see 
+all available interfaces. After the interface is chosen, assign IP address and 
+network mask on it:</P><PRE>your choice: a
+enable interface:
+ether1  ether2  wlan1
+enable interface: ether1
+ip address/netmask: 10.1.0.66/24
+#Enabling interface
+/interface enable ether1
+#Adding IP address
+/ip address add address=10.1.0.66/24 interface=ether1 comment="added by setup"
+ + a - add ip address
+ * g - setup default gateway
+   x - exit menu
+your choice: x</PRE><A name=12.1.8></A>
+<H2>Basic Examples</H2><A name=12.1.8.1></A>
+<H3>Example</H3>
+<P>Assume you need to configure the MikroTik router for the following network 
+setup:</P>
+<P><IMG alt="" src="basic_archivos/graphics_basic3.jpg"></P>
+<P>In the current example we use two networks:</P>
+<DIV class=itemizedlist>
+<UL>
+  <LI>The local LAN with network address 192.168.0.0 and 24-bit netmask: 
+  255.255.255.0. The router's address is 192.168.0.254 in this network 
+  <LI>The ISP's network with address 10.0.0.0 and 24-bit netmask 255.255.255.0. 
+  The router's address is 10.0.0.217 in this network </LI></UL></DIV>
+<P>The addresses can be added and viewed using the following commands:</P><PRE>[admin@MikroTik] ip address&gt; add address 10.0.0.217/24 interface Public
+[admin@MikroTik] ip address&gt; add address 192.168.0.254/24 interface Local
+[admin@MikroTik] ip address&gt; print
+Flags: X - disabled, I - invalid, D - dynamic
+  #   ADDRESS            NETWORK         BROADCAST       INTERFACE
+  0   10.0.0.217/24      10.0.0.217      10.0.0.255      Public
+  1   192.168.0.254/24   192.168.0.0     192.168.0.255   Local
+[admin@MikroTik] ip address&gt;</PRE>
+<P>Here, the network mask has been specified in the value of the address 
+argument. Alternatively, the argument 'netmask' could have been used with the 
+value '255.255.255.0'. The network and broadcast addresses were not specified in 
+the input since they could be calculated automatically.</P>
+<P>Please <B>note</B> that the addresses assigned to different interfaces of the 
+router should belong to different networks.</P>
+<P><IMG alt="" src="basic_archivos/graphics_w_appex1.jpg"></P><A 
+name=12.1.8.2></A>
+<H3>Viewing Routes</H3>
+<P>You can see two dynamic (D) and connected (C) routes, which have been added 
+automatically when the addresses were added in the example above:</P><PRE>[admin@MikroTik] ip route&gt; print
+Flags:  A - active, X - disabled, I - invalid, D - dynamic, C - connect, 
+	S - static, r - rip, b - bgp, o - ospf, d - dynamic
+    #    DST-ADDRESS        G GATEWAY         DISTANCE INTERFACE
+    0 ADC 192.168.0.0/24     r 0.0.0.0         0        Local
+    1 ADC 10.0.0.0/24        r 0.0.0.0         0        Public
+[admin@MikroTik] ip route&gt; print detail
+Flags: A - active, X - disabled, I - invalid, D - dynamic, C - connect,
+       S - static, r - rip, b - bgp, o - ospf, d - dynamic
+ 0 ADC dst-address=192.168.0.0/24 prefsrc=192.168.0.254 interface=Local scope=10
+
+ 1 ADC dst-address=10.0.0.0/24 prefsrc=10.0.0.217 interface=Public scope=10
+ 
+[admin@MikroTik] ip route&gt;</PRE>
+<P>These routes show, that IP packets with destination to 10.0.0.0/24 would be 
+sent through the interface Public, whereas IP packets with destination to 
+192.168.0.0/24 would be sent through the interface Local. However, you need to 
+specify where the router should forward packets, which have destination other 
+than networks connected directly to the router.</P><A name=12.1.8.3></A>
+<H3>Adding Default Routes</H3>
+<P>In the following example the <CODE>default route</CODE> (destination 0.0.0.0 
+(any), netmask 0.0.0.0 (any)) will be added. In this case it is the ISP's 
+gateway 10.0.0.1, which can be reached through the interface <B>Public</B> </P><PRE>[admin@MikroTik] ip route&gt; add gateway=10.0.0.1
+[admin@MikroTik] ip route&gt; print
+Flags: X - disabled, I - invalid, D - dynamic, J - rejected,
+C - connect, S - static, R - rip, O - ospf, B - bgp
+    #     DST-ADDRESS        G GATEWAY         DISTANCE INTERFACE
+    0 ADC 192.168.0.0/24                      	       Local
+    1 ADC 10.0.0.0/24                        	       Public
+    2 A S 0.0.0.0/0          r 10.0.0.1         0      Public
+[admin@MikroTik] ip route&gt;</PRE>
+<P>Here, the default route is listed under #2. As we see, the gateway 10.0.0.1 
+can be reached through the interface 'Public'. If the gateway was specified 
+incorrectly, the value for the argument 'interface' would be unknown.</P>
+<P>Notes</P>
+<P>You cannot add two routes to the same destination, i.e., 
+destination-address/netmask! It applies to the default routes as well. Instead, 
+you can enter multiple gateways for one destination. For more information on IP 
+routes, please read the <A 
+href="javascript:openURL('http://www.mikrotik.com/docs/ros/2.9/ip/route.main',%20&quot;_top&quot;)">Routes, 
+Equal Cost Multipath Routing, Policy Routing</A> manual.</P>
+<P>If you have added an unwanted static route accidentally, use the 
+<B>remove</B> command to delete the unneeded one. You will not be able to delete 
+dynamic (DC) routes. They are added automatically and represent routes to the 
+networks the router connected directly.</P><A name=12.1.8.4></A>
+<H3>Testing the Network Connectivity</H3>
+<P>From now on, the <B>/ping</B> command can be used to test the network 
+connectivity on both interfaces. You can reach any host on both connected 
+networks from the router.</P>
+<P>How the <B>/ping</B> command works:</P><PRE>[admin@MikroTik] ip route&gt; /ping 10.0.0.4
+10.0.0.4 64 byte ping: ttl=255 time=7 ms
+10.0.0.4 64 byte ping: ttl=255 time=5 ms
+10.0.0.4 64 byte ping: ttl=255 time=5 ms
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 5/5.6/7 ms
+[admin@MikroTik] ip route&gt;
+[admin@MikroTik] ip route&gt; /ping 192.168.0.1
+192.168.0.1 64 byte ping: ttl=255 time=1 ms
+192.168.0.1 64 byte ping: ttl=255 time=1 ms
+192.168.0.1 64 byte ping: ttl=255 time=1 ms
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 1/1.0/1 ms
+[admin@MikroTik] ip route&gt;</PRE>
+<P>The workstation and the laptop can reach (ping) the router at its local 
+address 192.168.0.254, If the router's address 192.168.0.254 is specified as the 
+default gateway in the TCP/IP configuration of both the workstation and the 
+laptop, then you should be able to ping the router:</P><PRE>C:\&gt;ping 192.168.0.254
+Reply from 192.168.0.254: bytes=32 time=10ms TTL=253
+Reply from 192.168.0.254: bytes=32 time&lt;10ms TTL=253
+Reply from 192.168.0.254: bytes=32 time&lt;10ms TTL=253
+
+C:\&gt;ping 10.0.0.217
+Reply from 10.0.0.217: bytes=32 time=10ms TTL=253
+Reply from 10.0.0.217: bytes=32 time&lt;10ms TTL=253
+Reply from 10.0.0.217: bytes=32 time&lt;10ms TTL=253
+
+C:\&gt;ping 10.0.0.4
+Request timed out.
+Request timed out.
+Request timed out.
+</PRE>
+<P><B>Notes</B> </P>
+<P>You cannot access anything beyond the router (network 10.0.0.0/24 and the 
+Internet), unless you do the one of the following:</P>
+<DIV class=itemizedlist>
+<UL>
+  <LI>Use source network address translation (masquerading) on the MikroTik 
+  router to 'hide' your private LAN 192.168.0.0/24 (see the information below), 
+  or 
+  <LI>Add a static route on the ISP's gateway 10.0.0.1, which specifies the host 
+  10.0.0.217 as the gateway to network 192.168.0.0/24. Then all hosts on the 
+  ISP's network, including the server, will be able to communicate with the 
+  hosts on the LAN </LI></UL></DIV>
+<P>To set up routing, it is required that you have some knowledge of configuring 
+TCP/IP networks. We strongly recommend that you obtain more knowledge, if you 
+have difficulties configuring your network setups.</P><A name=12.1.9></A>
+<H2>Advanced Configuration Tasks</H2><A name=12.1.9.1></A>
+<H3>Description</H3>
+<P>Next will be discussed situation with 'hiding' the private LAN 192.168.0.0/24 
+'behind' one address 10.0.0.217 given to you by the ISP.</P><A 
+name=12.1.9.2></A>
+<H3>Application Example with Masquerading</H3>
+<P>If you want to 'hide' the private LAN 192.168.0.0/24 'behind' one address 
+10.0.0.217 given to you by the ISP, you should use the source network address 
+translation (masquerading) feature of the MikroTik router. Masquerading is 
+useful, if you want to access the ISP's network and the Internet appearing as 
+all requests coming from the host 10.0.0.217 of the ISP's network. The 
+masquerading will change the source IP address and port of the packets 
+originated from the network 192.168.0.0/24 to the address 10.0.0.217 of the 
+router when the packet is routed through it.</P>
+<P>Masquerading conserves the number of global IP addresses required and it lets 
+the whole network use a single IP address in its communication with the 
+world.</P>
+<P>To use masquerading, a source NAT rule with action 'masquerade' should be 
+added to the firewall configuration:</P><PRE>[admin@MikroTik] ip firewall nat&gt; add chain=srcnat action=masquerade out-interface=Public
+[admin@MikroTik] ip firewall nat&gt; print
+Flags: X - disabled, I - invalid, D - dynamic
+ 0   chain=srcnat out-interface=Public action=masquerade</PRE>
+<P><B>Notes</B> </P>
+<P>Please consult <A 
+href="javascript:openURL('http://wildcat.mikrotik.com/docs2.9/ip/nat.main',%20&quot;_top&quot;)">Network 
+Address Translation</A> for more information on masquerading.</P><A 
+name=12.1.9.3></A>
+<H3>Example with Bandwidth Management</H3>
+<P>Assume you want to limit the bandwidth to 128kbps on downloads and 64kbps on 
+uploads for all hosts on the LAN. Bandwidth limitation is done by applying 
+queues for outgoing interfaces regarding the traffic flow. It is enough to add a 
+single queue at the MikroTik router:</P><PRE>[admin@MikroTik] queue simple&gt; add max-limit=64000/128000 interface=Local
+[admin@MikroTik] queue simple&gt; print
+Flags: X - disabled, I - invalid, D - dynamic
+ 0    name="queue1" target-address=0.0.0.0/0 dst-address=0.0.0.0/0
+      interface=Local queue=default/default priority=8 limit-at=0/0
+      max-limit=64000/128000 total-queue=default
+[admin@MikroTik] queue simple&gt;</PRE>
+<P>Leave all other parameters as set by default. The limit is approximately 
+128kbps going to the LAN (download) and 64kbps leaving the client's LAN 
+(upload).</P><A name=12.1.9.4></A>
+<H3>Example with NAT</H3>
+<P>Assume we have moved the server in our previous examples from the public 
+network to our local one:</P>
+<P><IMG alt="" src="basic_archivos/graphics_basic7.jpg"></P>
+<P>The server's address is now 192.168.0.4, and we are running web server on it 
+that listens to the TCP port 80. We want to make it accessible from the Internet 
+at address:port 10.0.0.217:80. This can be done by means of Static Network 
+Address translation (NAT) at the MikroTik Router. The Public address:port 
+10.0.0.217:80 will be translated to the Local address:port 192.168.0.4:80. One 
+destination NAT rule is required for translating the destination address and 
+port:</P><PRE>[admin@MikroTik] ip firewall nat&gt; add chain=dstnat action=dst-nat protocol=tcp dst-address=10.0.0.217/32 
+				  dst-port=80 to-addresses=192.168.0.4
+[admin@MikroTik] ip firewall nat&gt; pr
+Flags: X - disabled, I - invalid, D - dynamic
+ 0   chain=dstnat dst-address=10.0.0.217/32 protocol=tcp dst-port=80
+     action=dst-nat to-addresses=192.168.0.4 to-ports=0-65535
+</PRE>
+<P><B>Notes</B> </P>
+<P>Please consult <A 
+href="javascript:openURL('http://wildcat.mikrotik.com/docs2.9/ip/nat.main',%20&quot;_top&quot;)">Network 
+Address Translation</A> for more information on Network Address 
+Translation.</P></DIV>
+<P class=copyright>© Copyright 1999-2006, MikroTik. All rights reserved. 
+Mikrotik, RouterOS and RouterBOARD are trademarks of Mikrotikls SIA. Other 
+trademarks and registered trademarks mentioned herein are properties of their 
+respective owners. </P>
+<SCRIPT language=JavaScript1.2>
+				
+					var cookie = readCookie('viewmode');
+					if (cookie) {
+						if (cookie != "simple") {
+							document.getElementById('navfront').style.marginLeft="10px";
+							document.getElementById('buttons').style.display="none";
+						}
+					} else {
+						createCookie('viewmode','splitted',365)
+					}
+				</SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+				
+					document.body.scrollTop =  0*document.body.offsetHeight;
+				</SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+				
+					var i=document.anchors.length;
+					while (i>0) {
+						i--;
+						if (document.anchors[i].name=='') {
+							document.body.scrollTop = document.anchors[i].offsetTop;
+							break;
+						}
+					}
+				</SCRIPT>
+</BODY></HTML>

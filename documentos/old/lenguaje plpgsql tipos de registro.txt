@@ -1,0 +1,146 @@
+Tipos Registro
+nombre RECORD;
+Las variables registro son similares a las variables tipo-renglón, pero no tienen una
+estructura predefinida. Toman la estructura actual del renglón al que son asignados
+durante un comando SELECT o FOR. La subestructura de una variable registro
+puede cambiar cada vez que es asignada. Una consecuencia de ésto es que mientras
+una variable registro no sea asignada por primera vez, no tendrá subestructura y
+cualquier intento de acceder a uno de sus campos generará un error en tiempo de
+ejecución.
+Observe que RECORD no es realmente un tipo de dato, sino un comodín. También
+debe darse cuenta que cuando una función PL/pgSQL se declara para regresar un
+tipo record, no es lo mismo que una variable registro, aunque tal variable pueda utilizar
+una variable registro para almacenar su resultado. En ambos casos la estructura
+actual del renglón es desconocida cuando se escribe la función, pero para una función
+que regresa un record la estructura actual se determina cuando se analiza la consulta
+solicitada, mientras que una variable record puede cambiar su estructura de renglón
+al vuelo.
+RENAME
+RENAME nombreviejo TO nombrenuevo;
+La declaración RENAME le permite cambiar el nombre de una variable, registro o
+renglón. Inicialmente es útil si NEW u OLD deben ser referidas con otro nombre dentro
+de un procedimiento disparador. Vea también ALIAS.
+Ejemplos:
+RENAME id TO id_usuario;
+RENAME this_var TO esta_variable;
+Nota: RENAME parece no funcionar desde PostgreSQL 7.3. La reparación es de baja prioridad
+puesto que ALIAS cubre la mayor parte de los usos prácticos de RENAME.
+Expresiones
+Todas las expresiones usadas en sentencias de PL/pgSQL son procesadas usando el
+ejecutor SQL regular del servidor. De hecho, una consulta como
+SELECT expresión
+se ejecuta usando al administrador SPI. Antes de la evaluación, las ocurrencias de
+los identificadores de variables de PL/pgSQL son reemplazados por los parámetros y
+el valor actual de las variables se pasa al ejecutor en el arreglo de parámetros. Esto
+permite que el plan de la consulta del SELECT sea preparado solamente una vez y
+después reutilizado para las evaluaciones subsecuentes.
+La evaluación hecha por el analizador (parser) pricipal de PostgreSQL tiene algunos
+efectos secundarios en la interpretación de los valores constantes. En detalle existen
+diferencias entre lo que hacen estas dos funciones:
+CREATE FUNCTION logfunc1(logtxt text) RETURNS timestamp AS $$
+BEGIN
+INSERT INTO logtable VALUES (logtxt, ’now’);
+RETURN ’now’;
+END;
+$$ LANGUAGE plpgsql;
+y
+CREATE FUNCTION logfunc2(logtxt text) RETURNS timestamp AS $$
+DECLARE
+curtime timestamp;
+BEGIN
+curtime := ’now’;
+INSERT INTO logtable VALUES (logtxt, curtime);
+RETURN curtime;
+END;
+$$ LANGUAGE plpgsql;
+En en caso de logfunc1, el analizador principal de PostgreSQL sabe cuando preparar
+el plan para el INSERT, que la cadena ’now’ debe interpretarse como timestamp debido
+a que su columna objetivo de logtable es de ese tipo. Asi, creará una constante
+con ella en este momento y su valor constante será utilizado en todas las invocaciones
+de logfunc1 durante la vida de la sesión. No es necesario decir que esto no es lo que
+el programador deseaba hacer.
+En el caso de logfunc2, el analizador principal de PostgreSQL no sabe que tipo
+debe tener ’now’ y entonces regresa un valor de tipo text que contiene la cadena
+now. Durante la asignación subsiguiente a la variable local curtime, el intérprete
+de PL/pgSQL transforma esta cadena al tipo timestamp llamando a las funciones
+text_out y timestamp_in para la conversión. Así, la hora y la fecha calculadas en
+cada ejecución es la que espera el programador.
+La naturaleza mutable de las variables registro presentan un problema en este ámbito.
+Cuando los campos de una variable registro son usados en expresiones o sentencias,
+los tipos de datos de los campos no deben cambiar entre llamadas de una misma
+expresión, puesto que la expresión será planeada usando los tipos de dato que estén
+presentes cuando la expresión sea alcanzada por primera vez. Tenga en cuenta esto
+al escribir procedimientos disparadores que manejen eventos para más de una tabla.
+(Cuando se necesario, puede utilizar EXECUTE para evitar este problema).
+Sentencias Básicas
+En esta sección y las siguientes describimos todos los tipos de sentencias que entiende
+explicitamente PL/pgSQL. Cualquier cosa que no sea reconocida como una de estos
+tipos de sentencias se presume que es un comando SQL y se envía a la máquina
+de la base de datos principal para ejecutarse (después de la sustitución de cualquier
+variable de PL/pgSQL usada en la sentencia). Así, por ejemplo, los comandos SQL
+INSERT, UPDATE y DELETE pueden considerarse como sentencias de PL/pgSQL,
+pero no se listan aquí específicamente.
+Asignación
+Una asignación de una valor a una variable o campo de un renglón/registro se escribe
+como:
+identificador := expresión;
+Tal como se escribió arriba, la expresión en tal sentencia es evaluada por medio de
+un comando SQL SELECT enviado a la máquina de la base de datos principal. La
+expresión debe producir un valor único.
+Si el tipo de dato del resultado de la expresión no coincide con el tipo de dato de la
+variable, o la variable tiene un tamaño/precisión específico (como char(20)), el valor
+resultante será convertido implícitamente por el intérprete de PL/pgSQL usando el
+tipo de resultado de la función de salida (output_function) y el tipo de variable de la
+función de entrada (input_function). Observe que esto puede resultar potencialmente
+en un error en tiempo de ejecución generado por la función de entrada, si la forma
+de la cadena del valor resultante no es aceptable para la función de entrada.
+Ejemplos:
+id_usuario := 20;
+impuesto := subtotal * 0.15;
+SELECT INTO
+El resultado de un comando SELECT que produce columnas múltiples (pero sólo un
+renglón) puede ser asignado a una variable registro, variable tipo-renglón o una lista
+de variables escalares. Esto se realiza con:
+SELECT INTO meta expresiones_select FROM ...;
+en donde meta puede ser una variable registro, una variable renglón o una lista
+de variables simples y campos registro/renglón separados por comas. Las
+expresiones_select y el resto del comando son iguales que en el SQL regular.
+Observe que es muy diferente de la interpretación normal de SELECT INTO de PostgreSQL,
+en donde la meta INTO es una tabla recién creada. Si desea crear una tabla
+a partir de una resultado de un SELECT dentro de una función PL/pgSQL, use la
+sintaxis CREATE TABLE ... AS SELECT.
+Si un renglón o una lista de variables se usa como meta, los valores seleccionados
+deben coincidir exactamente con la estructura de la meta, u ocurrirá un error en
+tiempo de ejecución. Cuando la meta es una variable registro, automáticamente se
+configura siguiendo la estructura del tipo renglón de la columnas del resultado de la
+consulta.
+Las sentencia SELECT es la misma que el comando SELECT normal y puede utilizarse
+con todo su poder, con la excepción de la claúsula INTO.
+La claúsula INTO puede aparecer casi en cualquier lugar en la sentencia SELECT.
+Suele escribirse ya sea antes de SELECT como se muestra arriba o justo antes de FROM
+— es decir, justo antes o justo después de la lista de las expresiones_select.
+Si la consulta regresa cero renglones, se asignan valores nulos a la(s) meta(s). Si la
+consulta regresa múltiples renglones, se asigna el primer renglón a la(s) meta(s) y el
+resto se descarta. (Observe que “el primer renglón” no está bien definido a menos
+que haga uso de ORDER BY).
+Puede verificar la variable especial FOUND (vea la sección de nombre Obteniendo el
+Estado del Resultado) después de una sentencia SELECT INTO para determinar si la
+asignación fue correcta, es decir, que la consulta regresó al menos un renglón. Por
+ejemplo:
+SELECT INTO mireg * FROM emp WHERE empnombre= minombre;
+IF NOT FOUND THEN
+RAISE EXCEPTION ’no se encontró al empleado %’, minombre;
+END IF;
+Para probar si un resultado registro/renglón es nulo puede usar la condicional IS
+NULL. Sin embargo, no existe una manera de decir si han sido descartados algunos
+renglones adicionales. Aquí hay un ejemplo que maneja el caso en que no se han
+regresado renglones:
+DECLARE
+reg_usuarios RECORD;
+BEGIN
+SELECT INTO reg_usuarios * FROM usuarios WHERE id_usuario=3;
+IF reg_usuarios.homepage IS NULL THEN
+-- El usuario no digitó un homepage, regresar "http://"
+RETURN ’http://’;
+END IF;
+END;

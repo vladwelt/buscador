@@ -1,0 +1,199 @@
+5.7.7      La Interface Comodin
+
+
+
+La  interface  comodin  (dummy)  es  en  realidad  un  tanto  exotica  y  sin  embargo  bastante
+
+util.  Resulta especialmente ventajosa para maquinas aisladas que se conectan a una red
+
+IP mediante un enlace telefonico. Se trata en realidad de maquinas que trabajan de forma
+
+aislada la mayor parte del tiempo.
+
+
+     El dilema con las maquinas aisladas es que elunico dispositivo activo es el de lazo, al que
+
+generalmente se le asigna la direccion 127.0.0.1. En ocasiones, sin embargo, le resultara ne-
+
+cesario enviar datos a la direccion de IP `oficial' de la maquina. Supongamos, por ejemplo,
+
+el caso del portatil vlite cuando no esta conectado a ninguna red. Una aplicacion en vlite
+
+que busque su direccion de IP en el fichero /etc/hosts dara como resultado 191.72.1.65, y
+
+por tanto intentara enviar los datos a esa direccion.  Como launica interface activa en ese
+
+momento es la de lazo, el nucleo no sabe que la direccion se refiere a la misma maquina.
+
+En consecuencia el nucleo descarta el datagrama y genera un error en la aplicacion.
+
+
+     En esta situacion es cuando la interface comodin esutil, resolviendo el dilema actuando
+
+como alter ego de la interface de lazo.  En el caso de vlite, simplemente debe asignarle la
+
+direccion 191.72.1.65 y a"nadir una ruta que apunte a ella. La forma correcta es pues:
+
+
+
+       #  ifconfig  dummy  vlite
+       #  route  add  vlite
+
+5.8       Todo  sobre  ifconfig
+El programa ifconfig  tiene muchos mas parametros que los descritos antes.  Generalmente
+
+se ejecuta en la forma:
+       ifconfig  interface  [[-net|-host]  direccion  [parametros ]]
+     interface es el nombre de la interface y direccion es la direccion de IP que se asigna
+
+a dicha interface.  La direccion puede estar en forma de cuaterna o usando un nombre que
+
+ifconfig buscara en /etc/hosts y /etc/networks. La opciones -net y -host fuerzan a ifconfig
+
+a tratar las direcciones dadas como direcciones de red o de maquina respectivamente.
+
+
+     Si ifconfig  es ejecutado a"nadiendounicamente el nombre de la interface, presentara la
+
+informacion de la configuracion de dicha interface.  Si se ejecuta sin parametros, presenta
+
+todas las interfaces configuradas hasta el momento; usando la opcion -a fuerza a ifconfig
+
+a incluir la informacion de las interfaces inactivas.  A modo de ejemplo, la consulta de la
+
+configuracion de la interface Ethernet eth0  seria:
+
+       #  ifconfig  eth0
+       eth0        Link  encap  10Mbps  Ethernet   HWaddr  00:00:C0:90:B3:42
+                     inet  addr  191.72.1.2  Bcast  191.72.1.255  Mask  255.255.255.0
+                     UP  BROADCAST  RUNNING   MTU  1500   Metric  0
+                     RX  packets  3136  errors  217  dropped  7  overrun  26
+                     TX  packets  1752  errors  25  dropped  0  overrun  0
+
+     Los campos MTU y Metric informan sobre los valores actuales de MTU y de la metrica
+
+para  una  interface  dada.   El  valor  de  la  metrica  es  usado  tradicionalmente  por  algunos
+
+sistemas  operativos  para  calcular  el  costo  de  una  ruta.   Linux  no  usa  este  valor  por  el
+
+momento, pero lo define por razones de compatibilidad.
+
+
+     Las lineas RX y TX dan idea de los paquetes recibidos o transmitidos sin errores, del
+
+numero de errores ocurridos, de cuantos paquetes han sido descartados, seguramente por
+
+memoria insuficiente y cuantos han sido perdidos por desbordamiento, condicion que ocurre
+
+cuando la recepcion de paquetes es demasiado rapida y el nucleo es incapaz de dar servicio
+
+al  paquete  anterior  anterior  antes  de  la  llegada  del  nuevo  paquete.  Los  nombres  de  los
+
+campos que genera ifconfig coinciden mas o menos con los parametros con los que se puede
+
+ejecutar; estos parametros son explicados mas abajo.
+
+
+     A continuacion tenemos una lista de los parametros reconocidos por ifconfig. Los nom-
+
+bres de los indicadores correspondientes aparecen entre parentesis.  Las opciones que sim-
+
+plemente activan alguna caracteristica pueden usarse para desactivarla precediendolas de
+
+un guion (-).
+
+
+
+up                 Marca la interface como "up" o activa, es decir, disponible para que sea usada
+
+                   por la capa IP. Esta opcion va implicita cuando lo que se da en la linea de
+
+                   comandos es una direccion .  Tambien permite reactivar una interface que
+
+                   se ha desactivado temporalmente mediante la opcion down.
+
+                   (Esta opcion corresponde a los indicadores UP  RUNNING.)
+
+
+down               Marca la interface como "down" o inactiva, es decir, inaccesible a la capa IP.
+
+                   Esto inhabilita cualquier trafico IP a traves de la interface.  Es importante
+
+                   darse cuenta que esto no borra los registros de la tabla de encaminamiento
+
+                   correspondientes a esa interface de forma automatica.  Si pretende desac-
+
+                   tivar una interface de forma permanente, deberia borrar estos registros de
+
+                   encaminamiento, aportando rutas alternativas si es posible.
+
+netmask mascara
+
+                   Esto asigna una mascara de subred a una interface.  Se puede dar como un
+
+                   valor de 32 bits en hexadecimal precedido del prefijo 0x, o en notacion de
+
+                   cuaterna usando numeros decimales separados por puntos.
+pointopoint direccion
+
+                   Esta opci'on se usa para enlaces IP punto-a-punto en los que intervienenuni-
+
+                   camente dos maquinas. Esta opcion es necesaria para por ejemplo configurar
+
+                   las interfaces SLIP o PLIP.
+
+                   (ifconfig  confirma el establecimiento de una direccion punto-a-punto inclu-
+
+                   yendo el indicador POINTOPOINT.)
+
+broadcast direccion
+
+                   La direccion de emision se obtiene,  generalmente,  usando la parte de red
+
+                   de la direccion y activando todos los bits de la parte correspondiente a la
+
+                   maquina.   Algunas  implementaciones  de  los  protocolos  IP  utilizan  un  es-
+
+                   quema diferente; esta opcion proporciona un metodo para adaptarse a esos
+
+                   entornos mas raros.
+
+                   (ifconfig confirma el establecimiento de una direccion de emision incluyendo
+
+                   el indicador BROADCAST.)
+
+metric number
+
+                   Esta opcion puede ser usada para asignar un valor de metrica a la tabla
+
+                   de encaminamiento creada para la interface.  Esta metrica es usada por el
+
+                   Protocolo  de  Informacion  de  Encaminamiento  (RIP16 )  para  construir  las
+
+                   tablas de encaminamiento para la red 17 .  El valor usado por defecto por
+
+                   ifconfig  es cero.  Si no esta ejecutando un demonio RIP, no necesita usar
+
+                   esta opcion para nada; si por el contrario si lo usa, al menos solo tendra que
+
+                   modificar este valor en contadas ocasiones.
+
+
+mtu bytes          Esto fija la unidad maxima de transmision, o lo que es lo mismo, el maxi-
+
+                   mo numero de octetos que la interface es capaz de manejar en una unica
+
+                   transaccion.  Para Ethernets, la MTU toma el valor 1500 por defecto; para
+
+                   interfaces tipo SLIP, el valor por defecto es 296.
+
+
+arp                Esta opcion es especifica de redes con emision como las Ethernets o las de
+
+                   radio por paquetes. Permite el uso de ARP18 , el Protocolo de Resolucion de
+
+                   Direcciones, para detectar la direccion fisica de las maquinas conectadas a
+
+                   la red. Para redes de emision, esta opcion es habilitada por defecto.
+
+                   (ifconfig avisa que ARP ha sido inhabilitado mediante el indicador NOARP.)

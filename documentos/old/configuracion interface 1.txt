@@ -1,0 +1,120 @@
+5.7.4      Configuracion de una Pasarela
+
+
+
+Configurar una maquina para conmutar paquetes entre dos Ethernets es bastante sencillo.
+
+Suponga  que  nos  encontramos  en  vlager,  que  contiene  dos  tarjetas  Ethernet,  cada  una
+
+conectada a una de las dos redes. Todo lo que necesitara hacer es configurar ambas interfaces
+
+de forma separada, dandole a cada una su direccion de IP correspondiente y eso es todo.
+
+
+     Es bastanteutil incluir la informacion de ambas interfaces en el fichero hosts del modo
+
+indicado mas abajo, de forma que tengamos nombres para referirnos a ellas tambien:
+
+
+
+       191.72.1.1        vlager        vlager.vbrew.com
+       191.72.1.1        vlager-if1
+       191.72.2.1        vlager-if2
+     La secuencia de comandos necesaria para establecer ambas interfaces sera por tanto:
+
+
+
+       #  ifconfig  eth0  vlager-if1
+       #  ifconfig  eth1  vlager-if2
+       #  route  add  brew-net
+       #  route  add  wine-net
+5.7.5      La Interface PLIP
+
+
+
+Si usa un enlace PLIP para conectar dos maquinas, las cosas son un poco diferentes de lo
+
+visto para una Ethernet.  En el primer caso se trata de un enlace conocido como punto-
+
+a-punto, porque solo requiere dos maquinas ("puntos"), en contraposicion a las redes con
+
+emision.
+
+
+     A modo de ejemplo, consideremos un ordenador portatil de un empleado en la Cervecera
+
+Virtual que se conecta a vlager via PLIP. El portatil se llama vlite, y tiene ununico puerto
+
+paralelo. Durante el arranque, este puerto sera registrado como plip1. Para activar el enlace,
+
+ha de configurar la interface plip1  mediante los siguientes comandos:14
+     El primer comando configura la interface, diciendole al nucleo que se trata de un enlace
+
+punto-a-punto, donde la parte remota tiene la direcci'on vlager. El segundo instala la ruta
+
+por defecto que usa a vlager como pasarela.  En vlager, se necesita ejecutar ifconfig  con
+
+argumentos similares para activar el enlace (en este caso no es necesario usar route):
+
+
+
+       #  ifconfig  plip1  vlager  pointopoint  vlite
+
+
+
+     Es interesante notar que la interface plip1 en vlager no necesita tener una direccion de
+
+IP diferente, sino que puede usar la misma direccion 191.72.1.1.15
+
+
+     Una vez hemos configurado el encaminamiento desde el portatil a la red de la Cervecera,
+
+solo resta arbitrar un modo para que cualquier maquina en esa red pueda acceder a vlite.
+
+Un modo particularmente enrevesado seria a"nadir una ruta a las tablas de encaminamiento
+
+de cada una de las maquinas de la red para usar vlager como pasarela hacia vlite:
+
+
+
+       #  route  add  vlite  gw  vlager
+
+
+
+     Una opcion mejor cuando tenemos que trabajar con rutas temporales es usar encami-
+
+namiento dinamico.  Una forma de conseguirlo es usando gated, un demonio de encamina-
+
+miento, que debera instalar en cada una de las maquinas de la red de forma que distribuye
+
+la informacion de encaminamiento de forma dinamica. La forma mas sencilla sin embargo,
+
+consiste en usar ARP sustituto ( proxy  ARP ). Con ARP sustituto,  vlager responde a
+
+cualquier pregunta ARP dirigida a vlite enviando su propia direccion Ethernet.  El efec-
+
+to conseguido es que todos los paquetes dirigidos a vlite terminan yendo a vlager, que
+
+se encarga de reenviarselos al portatil.  Volveremos a hablar de ARP sustituto en la sec-
+
+cion Comprobacion de las Tablas ARP mas abajo.
+
+
+     Las versiones futuras de Net-3 contendran una herramienta llamada plipconfig capaz de
+
+fijar el numero de IRQ del puerto de la impresora. Mas tarde se sustituira por un comando
+
+ifconfig mas general.
+5.7.6      Las Interfaces SLIP y PPP
+
+
+
+A pesar de que los enlaces SLIP y PPP son simples enlaces punto-a-punto igual que las
+
+conexiones PLIP, hay mucho mas que decir de ellas.  Generalmente, el establecimiento de
+
+un enlace SLIP incluye una llamada a un lugar de conexion remoto y el establecimiento del
+
+modo SLIP en la linea de comunicaciones serie. El uso de PPP es similar. Las herramientas
+
+necesarias para establecer un enlace SLIP o PPP se describen en los capitulos  7 y 8.

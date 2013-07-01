@@ -1,0 +1,207 @@
+4.2.2 - Descubrir una password
+Una vez encriptada una password, no se puede desencriptar. Sin embargo, esto
+no garantiza la seguridad de la password, puesto que no significa que la password no
+se pueda averiguar.
+El mecanismo que se utiliza para descubrir (no desencriptar) las passwords
+consiste en efectuar encriptaciones de palabras (posibles passwords) y comparar estas
+encriptaciones con el original.
+¿De que depende el éxito?
+El éxito depende de la calidad del diccionario (archivo que contiene un conjunto
+de posibles passwords), del programa que se utilice, del CPU y, por supuesto, de
+nuestra paciencia.
+Los programas buscadores de contraseñas son fácilmente diseñables.Si mediante un “bug” se obtiene el archivo /etc/passwd, se puede iniciar un
+ataque de diccionario contra el mismo obteniéndose, de este modo, las passwords.
+Otro tipo de ataque es el de “fuerza bruta”, que consiste simplemente en realizar
+todas la combinaciones posibles de caracteres hasta hallar la password.
+En el siguiente cuadro podemos ver el tiempo de búsqueda de una password de
+acuerdo a la longitud y tipo de caracteres utilizados. Se supone una velocidad de
+búsqueda de 100.000 passwords por segundo.4.3 - E-mail bombing y spamming
+En este apartado, se presentarán algunas de las dificultades que pueden surgir
+como consecuencia de la utilización de los servicios de mail. Se brindarán, por otro
+lado, algunas respuestas a dichos obstáculos.
+4.3.1 - Descripción
+El e-mail bombing consiste en enviar muchas veces un mensaje idéntico a una
+misma dirección, saturando el mailbox del destinatario.
+El spamming,, que es una variante del e-mail bombing, se refiere a enviar el email
+a centenares o millares de usuarios e, inclusive, a listas de interés. El Spamming
+puede resultar aún más perjudicial si los destinatarios contestan el mail, haciendo que
+todos reciban la respuesta.
+Puede, además, ocurrir inocentemente como resultado de enviar un mensaje a la
+lista y no darse cuenta de que la lista lo distribuye a millares de usuarios, o como
+resultado de mala configuración de un autorespondedor, por ejemplo el “vacation”.
+El e-mail bombing/spamming se puede combinar con el e-mail spoofing - que
+altera la identidad de la cuenta que envía el mail -, logrando que sea más difícil
+determinar quién está enviando realmente el mail.
+4.3.2 - Detalles técnicos
+Cuando se proveen los servicios de e-mail los usuarios son, lógicamente,
+vulnerables al e-mail bombing y spamming.
+En efecto, el e-mail spamming es casi imposible de prevenir. Un usuario con una
+dirección válida de mail puede realizar " Spam " a cualquier otra dirección de mail,
+newsgroup, o sistema de BBS.
+Cuando gran cantidad de mails son dirigidos a un solo sitio, éste puede sufrir
+“denial of service” por pérdida de conectividad, caerse el sistema o producirse fallas en
+el servicio debido a:
+· sobrecarga de conexiones de red;
+· utilización de todos los recursos de sistema disponibles;
+· llenado del disco como resultado de postings múltiples y de entradas en el
+“syslog”.
+4.3.3. - ¿Cómo proceder?
+Detección
+Si un sistema aparece repentinamente lento (el e-mail es lento o no parece ser
+enviado o recibido), la razón puede ser que su mailer está intentando procesar una
+excesiva cantidad de mensajes. Esto puede comprobarse a través del “log” de sistema.
+Reacción
+Es importante:
+· Identificar la fuente del e-mail bomb/spam y configure su router para evitar el
+acceso de los paquetes entrantes de esa dirección. Puede colocar un “access
+list” en el port 25 ( SMTP ) del tipo “established” para esa dirección.
+· Observar los “headers” del e-mail para determinar su origen verdadero.
+· Ponerse en contacto con el sitio que usted identificó en su revisión con el
+propósito de alertarlos de la actividad del spammer.
+· Asegurarse de tener la versión mas actualizada del “daemon” de mail (por
+ejemplo sendmail) y aumente el grado de “debug” o “log” que posea el
+proceso, para detectar o alertar estas actividades. Tenga la precaución de
+vigilar el tamaño del archivo de log, que puede crecer considerablemente, si se
+esta bajo un e-mail-bombing.
+.Prevención
+Desafortunadamente, hasta el momento, no hay manera de prevenir el
+bombardeo de e-mail o spamming y es imposible predecir el origen del ataque
+siguiente. Es trivial obtener acceso a listas de interés o acceder a información que
+contenga grandes volúmenes de direcciones de e-mail, las que proporcionan al atacante
+direcciones de destino para el spam.Pueden desarrollarse herramientas internas, que pueden ayudar a reconocer y a
+responder al e-mail bombing/spamming reduciendo, de esta manera, el impacto de tal
+actividad. Tales herramientas deben aumentar las capacidades de log y alertar de
+mensajes que vienen de un mismo lugar en un corto período de tiempo. Asimismo,
+deberían ser capaces de rechazar esos mensajes, o descartarlos.
+Si un sitio utiliza un número pequeño de servidores de e-mail, podría configurarse
+un “firewall” para asegurarse de que las conexiones de “smtp” fuera de su firewall
+puedan hacerse solamente a sus “hubs” de mail y a ninguno de los otros equipos.
+Aunque esta operación no prevendrá un ataque, reduce al mínimo el número de las
+máquinas disponibles para un ataque basado en SMTP. De este modo, se puede
+controlar el tráfico entrante SMTP y filtrarlo de manera acorde.
+Recuerde: no conteste y/o haga un forward de los Spams. De este modo
+evitará que el problema se propague.
+4.4 - Problemas de seguridad en el FTP
+4.4.1 - El comando PORT
+En los últimos años, se ha incrementado el debate en torno a los problemas
+relacionados con el comando PORT del protocolo del FTP. Estos problemas se basan el
+uso erróneo de dicho comando.
+4.4.2. - El Protocolo FTP
+Para entender estos ataques, es necesario tener una comprensión básica del
+protocolo FTP.
+Un cliente abre una conexión al port de control de ftp (21) de un FTP SERVER. De
+este modo, para que el servidor sea capaz luego de enviar datos de nuevo a la máquina
+del cliente, una segunda conexión (de datos) debe abrirse entre el servidor y el cliente.
+Para hacer esta segunda conexión, el cliente envía un comando PORT al servidor.
+Este comando incluye parámetros que indican al servidor cuál IP ADDRESS conectar y
+qué port abrir en aquella dirección.
+El servidor luego abre aquella conexión, siendo la fuente de la conexión el port 20
+del servidor y el destino el port identificado en los parámetros del comando PORT.
+El comando PORT se utiliza generalmente sólo en el " modo activo " del ftp (por
+default). No se suele utilizar en modo pasivo (PASV). Debe notarse que los servidores
+de ftp generalmente implementan ambos modos en ejecución, y el cliente especifica
+qué método utilizar.
+4.4.3. - El ataque “Ftp bounce”
+Conforme con el protocolo FTP, el comando PORT hace que la máquina que lo
+origina especifique una máquina de destino y un port arbitrarios para la conexión de
+datos. Sin embargo, esto también significa que un hacker puede abrir una conexión a
+un port del hacker eligiendo una máquina que puede no ser el cliente original.
+Hacer esta conexión a una máquina arbitraria es hacer un ataque “ftp bounce”.
+Con fines ilustrativos, se presentan seguidamente varios ejemplos de cómo los
+hackers pueden utilizar el “ftp bounce”.
+“Scanning” de ports
+Un hacker que desea realizar una port scan contra un sitio puede hacerlo de un
+server FTP de un tercero , que actúa como un “puente” para el scan. El sitio de la
+víctima ve la exploración como procedente del server FTP más que de la fuente
+verdadera (el cliente FTP).
+Bajo algunas circunstancias, esta técnica ofrece al hacker más ventajas que
+ocultar la fuente verdadera de la prueba. Cuando el sitio previsto de la víctima está en
+la misma subnet que el server FTP server, o cuando no filtra tráfico del server FTP , el
+hacker puede utilizar la máquina del servidor como la fuente del port scan más que la
+máquina del cliente, desviando de esta manera los controles de acceso que de otra
+manera se aplicarían.
+“Bypass” de dispositivos básicos de filtrado de paquetes.
+Un hacker puede realizar un “bypass” de un firewall en ciertas configuraciones de
+red.
+Por ejemplo, supongamos que un sitio tiene su servidor de FTP anónimo detrás
+del firewall. Usando la técnica de port scan, un hacker determina que un web server
+interno en ese sitio está disponible en el acceso 8080, un port normalmente bloqueado
+por un firewall.
+Conectándose al server FTP público del sitio, el hacker inicia otra conexión entre
+el server FTP y un port arbitrario, en una máquina no pública del sitio (por ejemplo el
+web server interno en el port 8080). Como resultado, el hacker establece una conexión
+a una máquina que sería protegida de otra manera por el firewall.
+4.4.4 - Bypass de dispositivos de filtrado dinámicos
+Otro problema se refiere a los sitios que tienen firewalls que utilizan filtros
+dinámicos para protegerse. Los sitios están abiertos al ataque porque el firewall confía
+en la información que recibe.
+En este ejemplo, el sitio de la víctima contiene todos sus sistemas detrás de un
+firewall que utiliza los filtros dinámicos. Una persona en el sitio de la víctima hojea las
+páginas de la Web y baja un Java applet construido por el hacker. Sin el conocimiento
+de esa persona, el Java applet abre una conexión de salida de ftp a la máquina del
+hacker. El applet entonces publica un comando PORT de ftp, ordenando a la máquina
+del servidor abrir una conexión a, por ejemplo, el port telnet que de otra manera se
+encontraba protegido detrás del firewall.
+Como el firewall de filtros dinámicos examina los paquetes de salida para
+determinar si alguna acción se requiere de su parte, observa el comando PORT y
+permite una conexión entrante del server web remoto al port del telnet en la máquina
+de la víctima. Esta conexión normalmente no es permitida por el firewall; fue permitida
+en este caso porque el comando PORT fue realizado por el cliente.
+4.4.5 - Soluciones
+Los ataques de los ejemplos demuestran el componente base de la vulnerabilidad:
+los contenidos del comando PORT del ftp no son tan dignos de confianza mientras
+están bajo control de un potencial atacante. El ejemplo del “ftp bounce” demuestra qué
+sucede cuando un servidor confía en la información. El ejemplo del filtro dinámico
+demuestra qué sucede cuando un firewall confía en la información.
+Software del Ftp server
+La mejor solución al problema del “ftp bounce” desde la perspectiva de la
+seguridad es asegurarse de que el software del server FTP no puede establecer
+conexiones a máquinas arbitrarias. Sin embargo, los sitios que confían en el
+comportamiento “RFC-compliant” pueden encontrar que el implementar esta solución
+afectará las aplicaciones que ellos utilizan.Por lo tanto, muchos vendedores ofrecen
+soluciones que permiten al sitio dar servicio de ftp adaptado a las necesidades del
+cliente . Las implementaciones del vendedor caen en tres grupos:
+1) conformidad estricta con funciones del RFC: el comando PORT se puede
+utilizar para conectar directamente con una máquina de una tercera persona, y
+ésta es la única funcionalidad permitida. Algunos vendedores que eligen
+mantener conformidad estricta, han tratado este problema modificando el
+resto de los servicios de red para rechazar las conexiones que se originaban en
+el port de datos del ftp (port 20).
+2) supresión estricta del comando PORT: el comando PORT puede ser utilizado
+para conectar con el cliente de origen, y ésta es la única funcionalidad
+permitida.
+3) comportamiento variable del comando PORT: el comando PORT se puede
+utilizar en las dos formas descriptas, siendo una la forma por default. El
+cambiar entre ellas se logra generalmente con un parámetro en la línea de
+comando. Se debe tener cuidado de verificar cuál es el valor por default.
+Asimismo, se debe tener conciencia sobre la categoría en que se halla el software
+del server. La recomendación es utilizar la opción 2, o la opción 3 con la supresión
+habilitada.
+Configuración del Ftp server
+Algunos de los ataques “ftp bounce” descriptos confían en unas o más máquinas
+del servidor (dependiendo del ataque) permitiendo el upload de archivos vía ftp
+(generalmente FTP anónimo ).
+Su sitio debe ofrecer recursos anónimos de upload solo si es absolutamente
+necesario. Incluso luego, usted debe configurar cuidadosamente el área entrante.
+Configuración de Red
+Hay algunas cosas a tener presente al configurar las “fronteras” de la red, esto es,
+los routers con access-lists y los firewalls.
+Los sitios deben asegurarse de que se diseñe cuidadosamente la topología de red
+de modo que los límites eficaces del tráfico existan entre los sistemas que ofrecen
+niveles distintos del servicio. Por ejemplo, un sitio tiene típicamente un servicio de FTP
+Anonymous, servicio del Web, y un hub entrante de correo electrónico. Una buena
+práctica de seguridad consiste en separar las máquinas que proporcionan estos
+servicios externos de las que realizan servicios internos. Es importante tener límites
+“fuertes” en la red, preferiblemente firewalls, entre estos dos conjuntos de máquinas.
+Por ejemplo, los sitios que tienen un server FTP que permite el comando PORT
+para establecer conexiones a las máquinas de un tercero deben bloquear el tráfico
+entre el server FTP y las máquinas que ofrecen servicios que confían en el hostname o
+la dirección IP para la autenticación. Los ejemplos de tales servicios son rlogin, rsh y
+NFS. Mientras que un firewall o un filtering router debe prevenir siempre el acceso
+externo directo a tales servicios, debe también filtrar el tráfico de un server FTP interno
+que se comporte de esta manera. Esto advierte al server FTP que está siendo utilizado
+como una máquina de relay para atacar protocolos con mecanismos débiles de
+autenticación basados en el hostname o la dirección IP.
+Los sitios que usan firewall de filtrado dinámico de paquetes dinámico necesitan
+tomar medidas adicionales para asegurarse de que los comandos PORT de terceros
+sean bloqueados por el firewall.

@@ -1,0 +1,60 @@
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+     Por esto, en 1984 se dise"no y adopto oficialmente un nuevo sistema, el DNS o sistema
+
+de nombres por dominios, dise"nado por Paul Mockapetris.
+2.6.2      Introduccion al DNS
+
+
+
+DNS organiza los nombres de los nodos en una jerarquia de dominios.  Un dominio es una
+
+coleccion de nodos relacionados de alguna manera, como estar en la misma red o pertenecer a
+
+una misma organizacion o pais. Por ejemplo, las universidades norteamericanas se agrupan
+
+en el dominio edu, y cada universidad mantiene un subdominio dentro de edu.  Nuestro
+
+ejemplo, la Universidad de Groucho Marx, mantendria el dominio gmu.edu y las maquinas
+
+del departamento de Matematicas se encontrarian dentro del dominio maths.gmu.edu.
+
+De modo que el nombre completo de la maquina erdos sera erdos.maths.gmu.edu.  El
+
+nombre completo se conoce como nombre totalmente cualificado o FQDN13 , e identifica a
+
+ese nodo en todo el mundo.
+
+
+
+                                    .
+      com                   edu                               net
+                                 groucho
+                    maths                                         physics
+  gauss        erdos       sophus         theory                          collider
+                         quark         otto        niels          up         down        strange
+                              Figura 2.3: Parte del espacio de dominios
+
+
+
+     En la figura 2.3 se muestra una seccion del espacio de dominios.  La entrada de la raiz
+
+delarbol, que se indica con un punto, se puede denominar dominio raiz, y agrupa al resto
+
+de los dominios. Para indicar que un nodo se expresa en notacion FQDN, se puede terminar
+
+el nombre en un punto, indicando asi que el nombre incluye al del dominio raiz.
+
+
+     Dependiendo de su localizacion en la jerarquia, un dominio puede ser de primer, segundo
+
+o tercer nivel.  Pueden existir otros niveles pero no son frecuentes.  Por ejemplo, algunos
+
+dominios de primer nivel muy usuales son los siguientes:
+
+_____________________________________________13
+     Fully Qualified Domain Name

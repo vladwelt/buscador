@@ -1,0 +1,55 @@
+2.4.2      Subredes
+
+
+
+La estructura de subredes se obtiene al dividir las direcciones IP en parte del nodo y parte
+
+de la red, como ya hemos explicado. Por defecto, la red de destino se deriva de la parte de
+
+red de la direccion IP. Es decir, los nodos con la misma direccion de red se encontraran en
+
+la misma red TCP/IP5.
+
+
+     Pero en una red puede interesar hacer una division en cientos de peque"nas redes, por
+
+ejemplo segmentos de Ethernet. Para ello se subdivide la red en subredes.
+
+
+     Una subred tiene la responsabilidad de la entrega de los datagramas a un determinado
+
+rango de direcciones IP de la red en la que se encuentra.  Como sucede con las clases A,
+
+B o C, se identifica en la parte del numero IP correspondiente a la red.  Sin embargo, esa
+
+parte incluira ahora algunos bits de la parte del nodo.  Los bits que se interpretan como
+
+direccion de subred se obtienen con la llamada mascara de red.  Es un numero de 32 bits
+
+que especifica una mascara para identificar los bits de la subred.
+
+
+                                     Parte de la Red        Parte del Nodo
+
+
+                                        149       76       12        4
+
+
+                                        149       76       12        4
+
+
+                                     Parte de la Red        Parte del Nodo
+
+                        Figura 2.1: Division de una red clase B en subredes
+
+
+
+     La red del campus de la Universidad de Groucho Marx es un ejemplo de red de clase B,
+
+poseedora de la red 149.76.0.0, con mascara 255.255.0.0.
+
+
+     Internamente, la red de la UGM se divide en peque"nas subredes, como las LAN de cada
+_____________________________________________5
+     Los sistemas autonomos son algo mas generales. Pueden tener mas de una red IP.
+ 

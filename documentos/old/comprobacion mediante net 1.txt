@@ -1,0 +1,224 @@
+     Todos los argumentos maquina  pueden ser nombres simbolicos o direcciones IP en no-
+
+tacion de cuaterna.
+
+
+     Si usamos el primer comando,  obtendremos el registro de la tabla correspondiente a
+
+la direccion IP o maquina especificada o, en el caso de que no se especifique ninguna, se
+
+muestran todas. Asi, si ejecutaramos arp en vlager obtendriamos
+
+
+
+       #  arp  -a
+       IP  address        HW  type                       HW  address
+       191.72.1.3        10Mbps  Ethernet            00:00:C0:5A:42:C1
+       191.72.1.2        10Mbps  Ethernet            00:00:C0:90:B3:42
+       191.72.2.4        10Mbps  Ethernet            00:00:C0:04:69:AA
+que muestra las direcciones Ethernet de vlager, vstout y vale.
+
+
+     Se puede usar la opcion -t para mostrar la informacion referente a un tipo especifico de
+
+hardware.  Los valores posibles son ether, ax25, o pronet, se refieren a Ethernet a 10Mbps,
+
+AMPR AX.25, y equipos token ring IEEE 802.5 respectivamente.
+
+
+     La  opcion  -s  se  usa  para  a"nadir  de  forma  permanente  la  direccion  de  hardware  de
+
+maquina a las tablas ARP. direccionhw es la direccion de hardware y por defecto se supone
+
+que es Ethernet, especificada como una cadena de seis bytes en hexadecimal separados entre
+
+medias por dos puntos. Se puede tambien especificar la direccion de otro tipo de hardware
+
+usando la opcion -t.
+
+
+     Un tipo de problema que puede requerir a"nadir una direccion IP manualmente a las
+
+tablas ARP es cuando por alguna razon una consulta ARP a una maquina remota falla, por
+
+ejemplo debido a que su manejador ARP no funciona correctamente o cuando alguna otra
+
+maquina en la red se identifica erroneamente como si ella misma tuviera esa direccion de IP.
+
+Tambien es un modo aunque algo drastico de protejerse frente a maquinas que conectadas
+
+a la misma Ethernet tratan de hacerse pasar por otras.
+
+
+     El uso arp con el indicador -d borra todos los registros ARP que se refieran a la maquina
+
+dada.  De  este  modo  se  puede  forzar  a  una  interface  a  que  intente  obtener  de  nuevo  la
+
+direccion Ethernet que corresponda a la direccion IP en cuestion.  Esto resultautil cuando
+
+un  sistema  mal  configurado  ha  emitido  una  informacion  ARP  incorrecta  (por  supuesto,
+
+primero habra de asegurarse que el error de configuracion ha sido subsanado).
+
+
+     La opcion -s se puede usar tambien para implementar ARP sustituto o proxy ARP. Se
+
+trata de una tecnica especial en la que una maquina, digamos gate, actua como pasarela
+
+para otra diferente llamada fnord, haciendo como que ambas direcciones pertenecen a la
+
+misma maquina, en este caso gate.  Esto se consigue haciendo publico un registro ARP
+
+para fnord que apunta a su propia interface Ethernet.  De este modo, cuando cualquier
+ 
+
+maquina de la red realiza una consulta sobre fnord,  gate responde con un registro que
+
+contiene su propia direccion Ethernet. La maquina que ha realizado la consulta enviara los
+
+datagramas a gate, quien se los pasa a fnord.
+
+
+     Este tipo de contorsiones puede ser necesario si, por ejemplo, pretende acceder a fnord
+
+mediante una maquina DOS que tiene una implementacion de TCP incorrecta que no entien-
+
+de el encaminamiento demasiado bien.  Cuando usa ARP sustituto, para todos los efectos,
+
+la maquina DOS ve a fnord en la subred local y por tanto no necesita preocuparse de como
+
+realizar el encaminamiento a traves de una pasarela.
+
+
+     Otro aplicacion muyutil del ARP sustituto es cuando una de sus maquinas actua como
+
+pasarela para otra maquina aunque solo de forma temporal, por ejemplo, en el caso de un
+
+enlace telefonico.  En un ejemplo anterior, ya nos encontramos con el portatil vlite que se
+
+conectaba a vlager mediante un enlace PLIP de vez en cuando.  Por supuesto, esto solo
+
+funcionara si la direccion de la maquina para la que quiere actuar de sustituto ARP se
+
+encuentra en la misma subred IP que su pasarela.  Asi por ejemplo, vstout podria ser el
+
+sustituto ARP de cualquier maquina de la subred de la Cervecera (191.72.1.0), pero nunca
+
+para maquinas de la subred de la Vinatera (191.72.2.0).
+
+
+     Abajo vemos el comando correcto para activar un ARP sustituto para fnord; por su-
+
+puesto, la direccion Ethernet dada debe ser la de gate.
+
+
+
+       #  arp  -s  fnord  00:00:c0:a1:42:e0  pub
+     Para borrar el registro de ARP sustituto bastara:
+
+
+
+       #  arp  -d  fnord
+
+5.11        El  Futuro
+Las comunicaciones en red con Linux estan en continua evolucion. Cambios fundamentales
+
+en el nucleo permitiran un esquema de configuracion muy flexible que permitira que confi-
+
+gure los dispositivos de red en tiempo de ejecucion. Por ejemplo, ifconfig tendra argumentos
+
+que permitan fijar la linea IRQ y el canal DMA.
+
+
+     Otro cambio que se espera pronto es el indicador adicional mtu en el comando route que
+
+permita establecer la Unidad de Transmision Maxima para una ruta en particular.  Esta
+
+MTU especifica de una ruta invalida el valor especificado para la interface.  El uso tipico
+
+de esta opcion es para rutas a traves de pasarelas, en las que el enlace entre la pasarela
+
+y la maquina destinataria requiere un MTU muy bajo.  Por ejemplo, supongamos que la
+
+maquina wanderer este conectada a vlager a traves de un enlace SLIP. Entoces, al enviar
+ 
+
+datos de vstout a wanderer,  la capa de red en wanderer enviaria paquetes de hasta
+
+1500 bytes, porque los paquetes son enviados a traves de una Ethernet. El enlace SLIP, sin
+
+embargo, opera con una MTU de 296, asi que la capa de red en vlager tendria que dividir
+
+los paquetes IP en fragmentos mas peque"nos que quepan en 296 bytes.  Si en vez de eso,
+
+configura la interface en vstout para que use una MTU de 296 desde el principio, se puede
+
+evitar el proceso de division que es relativamente costoso.:
+
+
+
+       #  route  add  wanderer  gw  vlager  mtu  296
+     Debe notar que la opcion mtu tambien permite que de forma selectiva evite los efectos
+
+de la politica las `Subredes son locales' (SNARL25 ). Se trata de una opcion de configuracion
+
+del nucleo descrita en el capitulo 3.
+
+_____________________________________________25
+     Del ingles Subnets Are Local Policy
+ 
+
+
+
+Capitulo  6
+Servicio   de   nombres.
+
+
+
+Configuracion
+Como se comento en el capitulo 2, la red TCP/IP puede utilizar diferentes metodos para
+
+convertir nombres en direcciones IP. El mecanismo mas simple consiste en almacenar los
+
+nombres en una tabla de maquinas en el fichero /etc/hosts. Esto esunicamente interesante
+
+en  el  caso  de  peque"nas  redes  de area  local  que  solo  requieran  la  administracion  de  una
+
+persona, y que no tengan trafico IP con el mundo exterior. Recordamos que el formato del
+
+fichero hosts fue descrito en el capitulo 5.
+
+
+     Alternativamente, puede utilizarse BIND - el servicio de nombres Internet de Berkeley
+
+o "Berkeley Internet Name Domain" - para traducir nombres de maquinas a direcciones IP
+
+(cosa que tambien se conoce como resolucion).  Configurar BIND puede ser una laboriosa
+
+tarea pero, una vez hecho, los cambios en la topologia de la red seran mucho mas faciles
+
+de hacer. En Linux, como en muchos otros sistemas Unix, el servicio de nombres se realiza
+
+mediante un programa llamado named. Al iniciarse, carga un conjunto de ficheros maestros
+
+en su cache y espera peticiones de procesos locales o remotos.  Existen distintas maneras
+
+de preparar BIND, y no es necesario ejecutar un servidor de nombres en cada maquina:
+
+generalmente, uno para toda la red es suficiente.
+
+
+     Este capitulo le dara ideas generales acerca de como configurar y ejecutar un servidor
+
+de nombres. Si pretende usar BIND en un entorno mas complejo que una peque"na red local
+
+-tal vez con conexion a Internet- deberia echar un vistazo a un buen libro sobre BIND, como
+
+"DNS y BIND" de Cricket Liu (vea [AlbitzLiu92    ]). Ademas, le interesara echar un vistazo
+
+a los comentarios adicionales que aparecen junto a las fuentes de su version de BIND. Tam-
+
+bien existe un grupo de news para cuestiones sobre DNS: el grupo comp.protocols.tcp-
+
+ip.domains.
+

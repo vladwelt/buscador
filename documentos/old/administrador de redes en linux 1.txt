@@ -1,0 +1,101 @@
+Capitulo  2
+Cuestiones   sobre   redes   TCP/IP
+Vamos a entrar en los detalles que deben tenerse en cuenta cuando se conecta una maquina
+
+Linux a una red TCP/IP. De este modo, hablaremos de direcciones IP, nombres y cuestiones
+
+sobre el encaminamiento.  Este capitulo le ense"nara la base con la que podra entender los
+
+pasos para su configuracion particular, pasos que son cubiertos exhaustivamente en otros
+
+capitulos.
+
+2.1       Interfaces  de  Red
+Para ocultar la diversidad de hardware que puede usarse en una red, TCP/IP define una
+
+interfaz a traves de la que accedemos al hardware. Esta interfaz ofrece un conjunto de ope-
+
+raciones identicas en cualquier tipo de hardware y que basicamente consisten en operaciones
+
+para enviar y recibir paquetes.
+
+
+     Para cada dispositivo que quiera utilizarse para conectarse a la red, se mantendra en el
+
+nucleo del sistema la correspondiente interfaz.  Por ejemplo, las interfaces con Ethernet en
+
+Linux son eth0  y eth1, mientras que las interfaces SLIP se llaman sl0, sl1, etcetera.  Estos
+
+nombres de interfaz se deben conocer durante la configuracion de la red, cuando queramos
+
+referirnos a un dispositivo hardware concreto.
+
+
+     Para que podamos usarlo en una red TCP/IP, la interfaz debera tener asignada una
+
+direccion IP que sirva como identificacion deesta ante los demas ordenadores de la red. Esta
+
+direccion es diferente del nombre de interfaz considerado anteriormente;  puede realizarse
+
+la siguiente analogia:  la interfaz seria la "puerta" de su sistema, mientras que la direccion
+
+vendria a ser un numero enmarcado y colgado de la "puerta".
+
+
+     Por supuesto, hay otros parametros configurables para cada dispositivo, como el numero
+
+maximo de datagramas que pueden ser procesados por el dispositivo, conocido como Unidad
+
+
+
+                                                      19
+ 
+_______________________________________________________________________________________________________________2.2.   D*
+ *irecciones IP           @
+
+
+
+
+de Transferencia Maxima o MTU1. Otros parametros seran introducidos mas tarde.
+
+2.2       Direcciones  IP
+Como se dijo en el capitulo anterior, las direcciones utilizadas en el protocolo de red IP la
+
+forman numeros de 32 bits, cada maquina debe tener una direccion propia. Si las maquinas
+
+se encuentran en una red TCP/IP que no se conecta a otras redes, dichas direcciones podran
+
+asignarse a las maquinas librememente. Sin embargo, si las maquinas se conectan a Internet,
+
+las direcciones de los ordenadores seran asignadas por una autoridad principal, el NIC o
+
+Centro de Informacion de la Red2.
+
+
+     Para facilitar la lectura, las direcciones IP se dividen en cuatro numeros de 8 bits lla-
+
+mados octetos.  Por ejemplo, si la maquina quark.physics.groucho.edu tiene una direc-
+
+cion IP 0x954C0C04, normalmente la escribiremos con la notacion de puntos divisorios,
+
+que separa cada octeto, de esta forma: 149.76.12.4.
+
+
+     Otra razon para usar esta notacion es que las direcciones IP se pueden dividir en el
+
+numero de red  y el numero de nodo.  Cuando pedimos al NIC un conjunto de direcciones,
+
+este organismo nos concedera, no una direccion para nuestra maquina, sino un rango de
+
+direcciones validas, que en realidad es un numero de red concreto (el numero de nodo lo
+
+pondremos nosotros, contando con todos esos nodos disponibles).
+
+
+     Dependiendo del tama"no de la red, la parte de la direccion correspondiente al nodo puede
+
+ser mas o menos grande.  Para adaptarse a diferentes necesidades, se conceden diferentes
+
+clases de redes, que definen diferentes maneras de dividir la direccion IP en parte de red y
+
+parte del nodo.

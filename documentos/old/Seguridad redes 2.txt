@@ -1,0 +1,76 @@
+	En efecto, el tema no está restringido únicamente a Internet. Aunque no se esté
+conectado a Internet, una red está expuesta a distintos tipos de ataques electrónicos,
+incluídos los virus.
+Para tratar de asignar un valor al costo del delito electrónico podríamos mencionar
+el reporte de la agencia norteamericana Defense Information Systems Agency titulado
+“Defending the Defense Information Infrastructure- Defense Information Systems
+Agency”, del 9 de julio de 1996. En dicho informe las corporaciones más grandes de los
+Estados Unidos reportan haber experimentado pérdidas estimadas en U$S 800 millones
+dólares en 1996 debido a ataques a la red. Asimismo el informe de marzo de 1997 de
+The Computer Security Institute (CSI) indica que el crimen de cómputo continúa en
+alza y se reportan pérdidas superiores a los U$S 100 millones de dólares y esto es tan
+solo durante el primer cuarto del año 1997. Si, además, tenemos en cuenta que según
+las estadísticas de estas agencias norteamericanas sólo 1 de cada 500 ataques son
+detectados y reportados, ya es posible hacerse una idea de los valores involucrados en
+este tipo de delito.
+Por esto, y por cualquier otro tipo de consideración que se tenga en
+mente, es realmente válido pensar que cualquier organización que trabaje
+con computadoras - y hoy en día más específicamente con redes de
+computadoras - debe tener normativas que hacen al buen uso de los recursos
+y de los contenidos, es decir, al buen uso de la información.
+1.2 - Definiciones
+Dado que se está tratando con conceptos que pueden tener múltiples
+interpretaciones, parece prudente acordar ciertos significados específicos. Por tanto,
+hemos recurrido a algunas definiciones, todas ellas extraídas del diccionario Espasa
+Calpe.
+· Seguridad: es “calidad de seguro”, y, seguro está definido como “libre de
+riesgo”.
+· Información: es “acción y efecto de informar”.
+· Informar: es “dar noticia de una cosa”.
+· Redes: es “el conjunto sistemático de caños o de hilos conductores o de vías
+de comunicación o de agencias y servicios o recursos para determinado fin”.
+Uniendo todas estas definiciones, podemos establecer qué se entiende por
+Seguridad en redes.
+Seguridad en Redes: es mantener la provisión de información libre de riesgo y
+brindar servicios para un determinado fin.
+Si trabajamos en definir Seguridad en Redes con los elementos que conocemos,
+podemos llegar a una definición más acertada :
+
+Seguridad en redes es mantener bajo protección los recursos y la
+información con que se cuenta en la red, a través de procedimientos basados
+en una política de seguridad tales que permitan el control de lo actuado.
+1.3 - Seguridad Global
+¿Qué es una red global?. El concepto de red global incluye todos los recursos
+informáticos de una organización, aún cuando estos no estén interconectados:
+· Redes de área local (LAN),
+· Redes de área metropolitana (MAN),
+· Redes nacionales y supranacionales (WAN),
+· Computadoras personales, minis y grandes sistemas.
+De manera que, seguridad global es mantener bajo protección todos los
+componentes de una red global.
+Al fin de cuentas, los usuarios de un sistema son una parte a la que no hay que
+olvidar ni menospreciar. Siempre hay que tener en cuenta que la seguridad
+comienza y termina con personas.
+Obtener de los usuarios la concientización de los conceptos, usos y costumbres
+referentes a la seguridad, requiere tiempo y esfuerzo. Que los usuarios se concienticen
+de la necesidad y, más que nada, de las ganancias que se obtienen implementando
+planes de seguridad, exige trabajar directamente con ellos, de tal manera que se
+apoderen de los beneficios de tener un buen plan de seguridad. (Por ejemplo: permite
+que se determine exactamente lo que debe hacer cada uno y cómo debe hacerlo, y,
+también las desviaciones que se pueden producir). De esta forma, ante cualquier
+problema, es muy fácil determinar dónde se produjo o de dónde proviene.
+Para realizar esto, lo más usado, y que da muy buenos resultados es hacer
+“grupos de trabajo” en los cuales se informen los fines, objetivos y ganancias de
+establecer medidas de seguridad, de tal manera que los destinatarios finales se sientan
+informados y tomen para sí los conceptos. Este tipo de acciones favorece, la adhesión a
+estas medidas.
+1.4 - Impacto en la organización
+La implementación de políticas de seguridad, trae aparejados varios tipos de
+problemas que afectan el funcionamiento de la organización. ¿Cómo pueden impactar si
+se implementan para hacer más seguro el sistema?. En realidad, la implementación de
+un sistema de seguridad conlleva a incrementar la complejidad en la operatoria de la
+organización, tanto técnica como administrativa.
+Por ejemplo, la disminución de la funcionalidad o el decremento de la operatividad
+tal vez sea uno de los mayores problemas. Esto se puede aclarar de la siguiente
+manera: en un primer momento, el usuario, para acceder a tal recurso, debía realizar
+un solo login. Ahora, con la implementación del nuevo esquema de seguridad, debe

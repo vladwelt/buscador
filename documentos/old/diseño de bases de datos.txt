@@ -1,0 +1,25 @@
+IG47/II47. Dise˜no y gesti´on de bases de datos
+Curso 2004/2005
+Indices
+Utilizando los manuales que se han proporcionado en clase, responder brevemente a cada una
+de las preguntas para cada SGBD: PostgreSQL, Oracle y MySQL. Si alguna pregunta no se puede
+contestar porque falta informaci´on, hay que indicarlo.
+1. ¿Qu´e tipos de ´indices proporciona cada SGBD?
+2. ¿Se dan indicaciones para decidir en qu´e ocasiones crear´indices? Si as´i, anota el apartado/p´agina
+de cada manual.
+3. ¿Se indica en qu´e hay que basarse para escoger los tipos de los ´indices a crear, entre los distintos
+tipos disponibles en cada SGBD? Si as´i, anota el apartado/p´agina de cada manual.
+4. ¿C´omo decide o en qu´e se basa cada SGBD para usar un ´indice en la ejecuci´on de una sentencia
+de consulta o actualizaci´on de datos?
+5. De los tipos de ´indices que se proporcionan ¿destacan o recomiendan alguno en concreto?
+6. ¿El SGBD crea ´indices autom´aticamente en algunas circunstancias? Si es as´i ¿en cu´ales?
+7. ¿Se pueden definir ´indices compuestos o multicolumna? Si es as´i ¿en qu´e accesos se podr´a hacer
+uso de un ´indice de esta clase? (se puede indicar dando ejemplos).
+8. ¿Se pueden definir ´indices sobre el resultado de aplicar una funci´on a una o varias columnas de
+una tabla? Si es as´i ¿en qu´e accesos se podr´a hacer uso de un ´indice de esta clase? (se puede
+indicar dando ejemplos).
+9. ¿Se pueden definir ´indices parciales que s´olo indexen un subconjunto de las filas de una tabla?
+Si es as´i ¿en qu´e accesos se podr´a hacer uso de un ´indice de esta clase? (se puede indicar dando
+ejemplos).
+10. ¿El SGBD nos da la posibilidad de conocer el uso que se hace de los ´indices en las consultas y
+actualizaciones que realizamos?

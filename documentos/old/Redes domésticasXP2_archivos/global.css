@@ -1,0 +1,177 @@
+BODY {
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 110%; MARGIN-BOTTOM: -0.07em; PADDING-BOTTOM: 5px; COLOR: #8caae7; PADDING-TOP: 0px
+}
+H1.navpages {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 110%; MARGIN-BOTTOM: -0.07em; PADDING-BOTTOM: 5px; COLOR: #8caae7; PADDING-TOP: 0px
+}
+H2 {
+	FONT-SIZE: 100%; COLOR: #8caae7
+}
+H2.subtitle {
+	FONT-SIZE: 95%; MARGIN-BOTTOM: 0px; FONT-STYLE: italic
+}
+H3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 80%; MARGIN-BOTTOM: -1.3em
+}
+P {
+	FONT-SIZE: 11px
+}
+P.blurbs {
+	FONT-SIZE: 11px; LINE-HEIGHT: 140%
+}
+P.navpages {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; FONT-SIZE: 80%; PADDING-BOTTOM: 1px; LINE-HEIGHT: 150%; PADDING-TOP: 1px
+}
+HR.pqHR {
+	COLOR: #6487dc; HEIGHT: 1px
+}
+TD.blurbs {
+	FONT-SIZE: 11px; LINE-HEIGHT: 140%
+}
+TD.leading {
+	FONT-SIZE: 80%; LINE-HEIGHT: 190%; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+TD.toolbar {
+	FONT-SIZE: 10px; COLOR: #ffffff
+}
+TD.search {
+	FONT-SIZE: 10px; COLOR: #ffffff
+}
+TD.eyebrow {
+	FONT-SIZE: 65%; COLOR: #0066cc
+}
+TD.MNPFooterRow1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #ffffff
+}
+TD.MNPFooterRow2 {
+	FONT-SIZE: 10px; COLOR: #ffffff
+}
+TD.footnote {
+	FONT-SIZE: 65%; COLOR: #666666
+}
+TABLE.tblMatrix {
+	FONT-SIZE: 100%; BORDER-LEFT-COLOR: #999999; BORDER-BOTTOM-COLOR: #999999; BORDER-TOP-COLOR: #999999; BORDER-RIGHT-COLOR: #999999
+}
+TD.tblData {
+	FONT-SIZE: 70%; BACKGROUND-COLOR: #ffffff
+}
+TD.tblHeader {
+	FONT-WEIGHT: bold; FONT-SIZE: 75%; BACKGROUND-COLOR: #8caae7
+}
+TD.tblColOne {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; BACKGROUND-COLOR: #dee8ff
+}
+TD.tblColOneTrans {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%
+}
+TD.toolkitHeader {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; COLOR: #ffffff; BACKGROUND-COLOR: #8caae7
+}
+TD.componentBodyText {
+	FONT-SIZE: 11px; COLOR: #000000
+}
+TD.pqQuote {
+	FONT-WEIGHT: bold; FONT-SIZE: 80%; COLOR: #8caae7; LINE-HEIGHT: 150%
+}
+.componentHeader {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; TEXT-TRANSFORM: uppercase; COLOR: #ffffff; BACKGROUND-COLOR: #8caae7
+}
+.componentHeaderSel {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; BORDER-LEFT-COLOR: #cccccc; BORDER-BOTTOM-COLOR: #cccccc; TEXT-TRANSFORM: uppercase; COLOR: #ffffff; BORDER-TOP-COLOR: #cccccc; BACKGROUND-COLOR: #7896d2; BORDER-RIGHT-COLOR: #cccccc
+}
+.componentHeaderText {
+	FONT-WEIGHT: bold; FONT-SIZE: 65%; COLOR: #ffffff
+}
+.componentBorder {
+	BORDER-RIGHT: #cedbf7 0.025cm solid; BORDER-TOP: #cedbf7 0.025cm solid; BORDER-LEFT: #cedbf7 0.025cm solid; BORDER-BOTTOM: #cedbf7 0.025cm solid
+}
+.componentBorderSel {
+	BORDER-RIGHT: #eef3ff 0.025cm solid; BORDER-TOP: #eef3ff 0.025cm solid; BORDER-LEFT: #eef3ff 0.025cm solid; BORDER-BOTTOM: #eef3ff 0.025cm solid
+}
+.componentFooter {
+	BACKGROUND-COLOR: #8caae7
+}
+A {
+	COLOR: #0066cc; TEXT-DECORATION: underline
+}
+A:hover {
+	COLOR: #ff3300
+}
+A:visited {
+	COLOR: #993399
+}
+A:active {
+	COLOR: #993399
+}
+A.tbGlobal:link {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.tbGlobal:visited {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.tbGlobal:hover {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+A.tbLocal:link {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.tbLocal:visited {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.tbLocal:hover {
+	COLOR: #cebef7; TEXT-DECORATION: none
+}
+A.eyebrow {
+	COLOR: #0066cc; TEXT-DECORATION: none
+}
+A.eyebrow:visited {
+	COLOR: #0066cc; TEXT-DECORATION: none
+}
+A.eyebrow:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+A.MNPFooterRow1:link {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.MNPFooterRow1:visited {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.MNPFooterRow1:hover {
+	COLOR: #cebef7; TEXT-DECORATION: none
+}
+A.MNPFooterRow2:link {
+	COLOR: #ffffff
+}
+A.MNPFooterRow2:visited {
+	COLOR: #ffffff
+}
+A.MNPFooterRow2:hover {
+	COLOR: #cebef7
+}
+LI {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; FONT-SIZE: 11px; PADDING-BOTTOM: 1px; LINE-HEIGHT: 150%; PADDING-TOP: 1px; ul: 80%
+}
+UL.embedded {
+	FONT-SIZE: 100%; MARGIN-BOTTOM: 0.5em; MARGIN-LEFT: 18px
+}
+OL.navpages {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; FONT-SIZE: 80%; PADDING-BOTTOM: 1px; LINE-HEIGHT: 150%; PADDING-TOP: 1px
+}
+.fontSize1 {
+	FONT-SIZE: 65%; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+.fontSize2 {
+	FONT-SIZE: 70%; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+.fontSize3 {
+	FONT-SIZE: 75%; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+.fontSize4 {
+	FONT-SIZE: 85%; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+A.inline {
+	FONT-WEIGHT: bold; COLOR: #0066cc; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}

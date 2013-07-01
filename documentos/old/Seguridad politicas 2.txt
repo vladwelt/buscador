@@ -1,0 +1,198 @@
+De igual forma, las PSI deben ir acompañadas de una visión de negocio que
+promueva actividades que involucren a las personas en su hacer diario, donde se
+identifiquen las necesidades y acciones que materializan las políticas. En este contexto,
+entender la organización, sus elementos culturales y comportamientos nos debe llevar a
+reconocer las pautas de seguridad necesarias y suficientes que aseguren confiabilidad
+en las operaciones y funcionalidad de la compañía.
+A continuación, mencionamos algunas recomendaciones para concientizar sobre la
+seguridad informática:
+· Desarrolle ejemplos organizacionales relacionados con fallas de seguridad que
+capten la atención de sus interlocutores.
+· Asocie el punto anterior a las estrategias de la organización y a la imagen que
+se tiene de la organización en el desarrollo de sus actividades.
+· Articule las estrategias de seguridad informática con el proceso de toma de
+decisiones y los principios de integridad, confidencialidad y disponibilidad de la
+información. Muestre una valoración costo-beneficio, ante una falla de
+seguridad.
+· Justifique la importancia de la seguridad informática en función de hechos y
+preguntas concretas, que muestren el impacto, limitaciones y beneficios sobre
+los activos claves de la organización.
+2.6 - Las políticas de seguridad informática como base de la
+administración de la seguridad integral.
+Las políticas de seguridad informática conforman el conjunto de lineamientos que
+una organización debe seguir para asegurar la confiabilidad de sus sistemas. En razón
+de lo anterior, son parte del engranaje del sistema de seguridad que la organización
+posee para salvaguardar sus activos. Las PSI constituyen las alarmas y compromisos
+compartidos en la organización, que le permiten actuar proactivamente ante situaciones
+que comprometan su integridad. Por tanto, deben constituir un proceso continuo y
+retroalimentado que observe la concientización, los métodos de acceso a la
+información, el monitoreo de cumplimiento y la renovación, aceptación de las directrices
+y estrategia de implantación, que lleven a una formulación de directivas institucionales
+que logren aceptación general.
+Las políticas por sí mismas no constituyen una garantía para la seguridad de la
+organización. Ellas deben responder a intereses y necesidades organizacionales basados
+en la visión de negocio, que lleven a un esfuerzo conjunto de sus actores por
+administrar sus recursos y a reconocer en los mecanismos de seguridad informática
+factores que facilitan la normalización y materialización de los compromisos adquiridos
+con la organización.
+La seguridad tiene varios estratos:
+· El marco jurídico adecuado.
+
+· Medidas técnico-administrativas, como la existencia de políticas y
+procedimientos o la creación de funciones, como administración de la
+seguridad o auditoría de sistemas de información interna.
+Ambas funciones han de ser independientes y nunca una misma persona podrá
+realizar las dos ni existir dependencia jerárquica de una función respecto de otra.
+En cuanto a la administración de seguridad pueden existir, además, coordinadores
+en las diferentes áreas funcionales y geográficas de cada entidad, especialmente si la
+dispersión, la complejidad organizativa o el volumen de la entidad así lo demandan.
+En todo caso, debe existir una definición de funciones y una separación suficiente
+de tareas. No tiene sentido que una misma persona autorice una transacción, la
+introduzca, y revise después los resultados (un diario de operaciones, por ejemplo),
+porque podría planificar un fraude o encubrir cualquier anomalía; por ello deben
+intervenir funciones / personas diferentes y existir controles suficientes. La seguridad
+física, como la ubicación de los centros de procesos, las protecciones físicas, el control
+físico de accesos, los vigilantes, las medidas contra el fuego y el agua, y otras similares.
+La llamada seguridad lógica, como el control de accesos a la información exige la
+identificación y autenticación del usuario, o el cifrado de soportes magnéticos
+intercambiados entre entidades o de respaldo interno, o de información transmitida por
+línea. Puede haber cifrado de la información por dispositivos físicos o a través de
+programas, y en casos más críticos existen los dos niveles.
+2.7 - Riesgos
+La autenticación suele realizarse mediante una contraseña, aún cuando sería más
+lógico - si bien los costes resultan todavía altos para la mayoría de sistemas - que se
+pudiera combinar con características biométricas del usuario para impedir la
+suplantación. Entre éstas pueden estar: la realización de la firma con reconocimiento
+automático por ordenador, el análisis del fondo de ojo, la huella digital u otras.
+Al margen de la seguridad, nos parece que el mayor riesgo, aún teniendo un
+entorno muy seguro, es que la Informática y la Tecnología de la Información en general
+no cubran las necesidades de la entidad; o que no estén alineadas con las finalidades
+de la organización.
+Limitándonos a la seguridad propiamente dicha, los riesgos pueden ser múltiples.
+El primer paso es conocerlos y el segundo es tomar decisiones al respecto; conocerlos
+y no tomar decisiones no tiene sentido y debiera crearnos una situación de
+desasosiego.
+Dado que las medidas tienen un costo, a veces, los funcionarios se preguntan cuál
+es el riesgo máximo que podría soportar su organización. La respuesta no es fácil
+porque depende de la criticidad del sector y de la entidad misma, de su dependencia
+respecto de la información, y del impacto que su no disponibilidad pudiera tener en la
+entidad. Si nos basamos en el impacto nunca debería aceptarse un riesgo que pudiera
+
+llegar a poner en peligro la propia continuidad de la entidad, pero este listón es
+demasiado alto.
+Por debajo de ello hay daños de menores consecuencias, siendo los errores y
+omisiones la causa más frecuente - normalmente de poco impacto pero frecuencia muy
+alta - y otros, como por ejemplo:
+· el acceso indebido a los datos (a veces a través de redes),
+· la cesión no autorizada de soportes magnéticos con información crítica
+(algunos dicen "sensible"),
+· los daños por fuego, por agua (del exterior como puede ser una inundación, o
+por una tubería interior),
+· la variación no autorizada de programas, su copia indebida, y tantos otros,
+persiguiendo el propio beneficio o causar un daño, a veces por venganza.
+Otra figura es la del “hacker”, que intenta acceder a los sistemas sobre todo para
+demostrar (a veces, para demostrarse a sí mismo/a) qué es capaz de hacer, al superar
+las barreras de protección que se hayan establecido.
+Alguien podría preguntarse por qué no se citan los virus, cuando han tenido tanta
+incidencia. Afortunadamente, este riesgo es menor en la actualidad comparando con
+años atrás. Existe, de todas maneras, un riesgo constante porque de forma continua
+aparecen nuevas modalidades, que no son detectadas por los programas antivirus hasta
+que las nuevas versiones los contemplan. Un riesgo adicional es que los virus pueden
+llegar a afectar a los grandes sistemas, sobre todo a través de las redes, pero esto es
+realmente difícil - no nos atrevemos a decir que imposible- por las características y la
+complejidad de los grandes equipos y debido a las características de diseño de sus
+sistemas operativos.
+En definitiva, las amenazas hechas realidad pueden llegar a afectar los datos, en
+las personas, en los programas, en los equipos, en la red y algunas veces,
+simultáneamente en varios de ellos, como puede ser un incendio.
+Podríamos hacernos una pregunta realmente difícil: ¿qué es lo más crítico que
+debería protegerse? La respuesta de la mayoría, probablemente, sería que las personas
+resultan el punto más crítico y el valor de una vida humana no se puede comparar con
+las computadoras, las aplicaciones o los datos de cualquier entidad. Ahora bien, por
+otra parte, podemos determinar que los datos son aún más críticos si nos centramos en
+la continuidad de la entidad.
+Como consecuencia de cualquier incidencia, se pueden producir unas pérdidas que
+pueden ser no sólo directas (comumente que son cubiertas por los seguros)más
+facilmente, sino también indirectas, como la no recuperación de deudas al perder los
+datos, o no poder tomar las decisiones adecuadas en el momento oportuno por carecer
+de información.
+Sabemos que se producen casos similares en gran parte de entidades, pero en
+general no conocemos a cuáles han afectado (o lo sabemos pero no podemos
+difundirlo), porque por imagen estos no se hacen públicos y el hecho de que se
+conozcan muchos más referidos a Estados Unidos y a otros puntos lejanos que respecto
+de nuestros países no significa que estemos a salvo, sino que nuestro pudor es mayor y
+los ocultamos siempre que podemos.
+2.8 - Niveles de trabajo
+· Confidencialidad
+· Integridad
+· Autenticidad
+· No Repudio
+· Disponibilidad de los recursos y de la información
+· Consistencia
+· Control de Acceso
+· Auditoría
+2.8.1 – Confidencialidad
+Consiste en proteger la información contra la lectura no autorizada explícitamente.
+Incluye no sólo la protección de la información en su totalidad, sino también las piezas
+individuales que pueden ser utilizadas para inferir otros elementos de información
+confidencial.
+2.8.2 – Integridad
+Es necesario proteger la información contra la modificación sin el permiso del
+dueño. La información a ser protegida incluye no sólo la que está almacenada
+directamente en los sistemas de cómputo sino que también se deben considerar
+elementos menos obvios como respaldos, documentación, registros de contabilidad del
+sistema, tránsito en una red, etc. Esto comprende cualquier tipo de modificaciones:
+· Causadas por errores de hardware y/o software.
+· Causadas de forma intencional.
+· Causadas de forma accidental
+Cuando se trabaja con una red, se debe comprobar que los datos no fueron
+modificados durante su transferencia.
+2.8.3 - Autenticidad
+En cuanto a telecomunicaciones se refiere, la autenticidad garantiza que quien
+dice ser "X" es realmente "X". Es decir, se deben implementar mecanismos para
+verificar quién está enviando la información.
+2.8.4 - No – repudio
+Ni el origen ni el destino en un mensaje deben poder negar la transmisión. Quien
+envía el mensaje puede probar que, en efecto, el mensaje fue enviado y viceversa.
+2.8.5 - Disponibilidad de los recursos y de la información
+De nada sirve la información si se encuentra intacta en el sistema pero los
+usuarios no pueden acceder a ella. Por tanto, se deben proteger los servicios de
+cómputo de manera que no se degraden o dejen de estar disponibles a los usuarios de
+forma no autorizada. La disponibilidad también se entiende como la capacidad de un
+sistema para recuperarse rápidamente en caso de algún problema.
+2.8.6 – Consistencia
+Se trata de asegurar que el sistema siempre se comporte de la forma esperada,
+de tal manera que los usuarios no encuentren variantes inesperadas.
+2.8.7 - Control de acceso a los recursos
+Consiste en controlar quién utiliza el sistema o cualquiera de los recursos que
+ofrece y cómo lo hace.
+2.8.8 – Auditoría
+Consiste en contar con los mecanismos para poder determinar qué es lo que
+sucede en el sistema, qué es lo que hace cada uno de los usuarios y los tiempos y
+fechas de dichas acciones.
+En cuanto a los dos últimos puntos resulta de extrema importancia, cuando se
+trata de los derechos de los usuarios, diferenciar entre “espiar” y “monitorear” a los
+mismos. La ética es algo que todo buen administrador debe conocer y poseer.
+Finalmente, todos estos servicios de seguridad deben ser tomados en cuenta en el
+momento de elaborar las políticas y procedimientos de una organización para evitar
+pasar por alto cuestiones importantes como las que señalan dichos servicios. De esta
+manera, es posible sentar de forma concreta y clara los derechos y límites de usuarios y
+administradores. Sin embargo antes de realizar cualquier acción para lograr garantizar
+estos servicios, es necesario asegurarnos de que los usuarios conozcan sus derechos y
+obligaciones (es decir, las políticas), de tal forma que no se sientan agredidos por los
+procedimientos organizacionales.
+2.9 - Algoritmo
+Cuando se piensa establecer una estrategia de seguridad, la pregunta que se
+realiza, en primera instancia, es: ¿en qué baso mi estrategia?. La respuesta a esta
+pregunta es bien simple. El algoritmo Productor/Consumidor.
+En este algoritmo, hay dos grandes entidades: una que es la encargada de
+producir la información; la otra entidad es el consumidor de esta información y otra,
+llamada precisamente “otros”. Entre el productor y el consumidor, se define una
+relación que tiene como objetivo una transferencia de “algo” entre ambos, sin otra cosa
+que intervenga en el proceso. Si esto se logra llevar a cabo y se mantiene a lo largo del
+tiempo, se estará en presencia de un sistema seguro.
+En la realidad, existen entidades y/o eventos que provocan alteraciones a este
+modelo. El estudio de la seguridad, en pocas palabras, se basa en la
+determinación, análisis y soluciones de las alteraciones a este modelo.
+En una observación y planteo del modelo, determinamos que sólo existen cuatro
+tipos de alteraciones en la relación producción-consumidor (ver el gráfico del algoritmo)

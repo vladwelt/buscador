@@ -1,0 +1,243 @@
+1 comilla
+Para iniciar y finalizar el cuerpo de la función, por ejemplo:
+CREATE FUNCTION foo() RETURNS integer AS ’
+....
+’ LANGUAGE plpgsql;
+En cualquier lugar dentro del cuerpo de la función delimitada por una comilla,
+las comillas deben aparecer en pares.
+2 comillas
+Para cadenas literales dentro del cuerpo de la función, por ejemplo:
+a_output := ”Blah”;
+SELECT * FROM users WHERE f_name=”foobar”;
+Usando la técnica de $$, usted debería escribir
+a_output := ’Blah’;
+SELECT * FROM users WHERE f_name=’foobar’;
+que es exactamente lo que el analizador de PL/pgSQL vería en ambos casos.
+4 comillas
+Cuando requiera una comilla sencilla en una cadena constante dentro del cuerpo
+de la función, por ejemplo;
+a_output := a_output || ” AND name LIKE ””foobar”” AND xyz”
+El valor realmente concatenado a a_output sería: AND name LIKE ’foobar’
+AND xyz.
+Usando la técnica de $$, usted escribiría
+a_output := a_output || $$ AND name LIKE ’foobar’ AND xyz$$
+teniendo cuidado de que cualquiera de los delimitadores estilo dólar alrededor
+de esta cadena no sea ciertamente $$.
+6 comillas
+Cuando una comillas sencilla en una cadena dentro del cuerpo de la función sea
+adyacente al final de la cadena constante, por ejemplo:
+a_output := a_output || ” AND name LIKE ””foobar”””
+El valor concatenado a a_output sería entonces: AND name LIKE ’foobar’.
+Con el estilo dólar se transformaría en:
+a_output := a_output || $$ AND name LIKE ’foobar’$$
+10 comillas
+Cuando requiera dos comillas sencillas en una cadena constante (que equivalen a
+8 comillas) y ésta es adyacente al final de la cadena constante (2 más). Es probable
+que solamente necesite esto si está escribiendo una función que genera otras
+funciones. Por ejemplo:
+a_output := a_output || ” if v_” ||
+referrer_keys.kind || ” like ”””””
+|| referrer_keys.key_string || ”””””
+then return ””” || referrer_keys.referrer_type
+|| ”””; end if;”;
+El valor de a_output sería entonces:
+if v_... like ”...” then return ”...”; end if;
+Con el estilo dólar quedaría como
+a_output := a_output || $$ if v_$$ || referrer_keys.kind ||
+$$ like ’$$ || referrer_keys.key_string || $$’
+then return ’$$ || referrer_keys.referrer_type
+|| $$’; end if;$$;
+en donde suponemos que solamente requerimos colocar una comilla dentro de
+a_output debido a que será re-encomillado antes de usarse.
+Una variante es el escapar las comillas en el cuerpo de la función con una diagonal
+invertida en lugar de duplicarlas. Con este método escribiría cosas como \’\’ en
+lugar de ””. Algunas personas consideran esta técnica más sencilla, pero otras no.
+La Estructura de PL/pgSQL
+PL/pgSQL es un lenguaje estructurado a base de bloques. El texto completo de la
+definición de una función debe ser un bloque. Un bloque está definido como:
+[ <<etiqueta>> ]
+[ DECLARE
+declaraciones ]
+BEGIN
+sentencias
+END;
+Cada declaración y cada sentencia dentro de un bloque deben terminar con punto
+y coma. Un bloque que aparece dentro de otro bloque debe contar con un punto y
+coma después de END, como se muestra abajo; sin embargo, el END final que cierra el
+cuerpo de una función no requiere el punto y coma.
+Todas la palabras reservadas y los identificadores pueden escribirse en mayúsculas,
+minúsculas o una mezcla de ellas. Los identificadores son convertidos implicitamente
+a minúsculas, a menos que estén encerradas en comillas dobles.
+Existen dos tipos de comentarios en PL/pgSQL. Un doble guión (--) marca el inicio
+de un comentario que se extiende hasta el final de la línea. Los símbolos /* marcan
+el inicio de un bloque de un comentario que se extiende hasta la aparición de /*. Los
+bloques de comentarios no pueden anidarse, pero los comentarios con doble guión
+pueden ocultar los delimitadores de un bloque de un comentario /* y */.
+Cualquier sentencia en la sección de sentencias de un bloque puede ser un subbloque.
+Los subbloques pueden usarse para agrupamientos lógicos o para hacer locales las
+variables de un grupo de sentencias.
+Las variables declaradas en la sección de declaraciones que precede a un bloque son
+inicializadas a su valor por omisión cada vez que se entra al bloque, no solamente
+una vez por llamada a la función. Por ejemplo:
+CREATE FUNCTION somefunc() RETURNS integer AS $$
+DECLARE
+quantity integer := 30;
+BEGIN
+RAISE NOTICE ’Aquí, cantidad tiene el valor de %’, quantity;
+-- Aquí, cantidad tiene el valor de 30
+quantity := 50;
+--
+-- Creamos un subbloque
+--
+DECLARE
+quantity integer := 80;
+BEGIN
+RAISE NOTICE ’Aquí, cantidad tiene el valor de %’, quantity;
+-- Aquí, cantidad tiene el valor de 80
+END;
+RAISE NOTICE ’Aquí, cantidad tiene el valor de %’, quantity;
+-- Aquí, cantidad tiene el valor de 50
+RETURN quantity;
+END;
+$$ LANGUAGE plpgsql;
+Es importante no confundir el uso de BEGIN/END para agrupar sentencias en
+PL/pgSQL con los comandos de la base de datos para el control de las transacciones.
+Los comandos BEGIN/END de PL/pgSQL se usan solamente para agrupar;
+no inician ni terminan una transacción. Las funciones y los procedimientos
+disparadores (trigger) siempre son ejecutados dentro de una transacción establecida
+por una consulta externa — no pueden iniciar o hacer que se ejecute un commit de
+esa transacción, puesto que no existe un contexto para su ejecución. Sin embargo, un
+bloque que contenga una claúsula de EXCEPTION sí genera una subtransacción
+que puede echarse atrás (rolled back) sin afectar la transacción externa. Para más
+detalles puede ver la sección de nombre Atrapar los Errores.
+Declaraciones
+Todas las variables usadas en un bloque deben ser declaradas en la sección de
+declaraciones de ese bloque. (La única excepción es que la variable índice de un
+ciclo FOR que itera sobre un rango de valores enteros es declarada automáticamente
+como una variable entera).
+Las variables de PL/pgSQL pueden tener cualquier tipo de dato de SQL, tales como
+integer, varchar y char.
+Estos son algunos ejemplos de la declaración de variables:
+user_id integer;
+cantidad numeric(5);
+url varchar;
+myrenglon nombretabla%ROWTYPE;
+mycampo nombretabla.nombrecolumna%TYPE;
+unrenglon RECORD;
+La sintaxis general de la declaración de una variable es:
+nombre [ CONSTANT ] tipo [ NOT NULL ] [ { DEFAULT | := } expresión ];
+La cláusula DEFAULT, cuando existe, especifica el valor inicial asignado a la variable
+cuando se ingresa al bloque. Si la claúsula DEFAULT no existe entonces la variable
+se inicializa al valor nulo de SQL. Si se especifica NOT NULL, la asignación de un
+valor nulo dará por resultado un error en tiempo de ejecución. Todas las variable
+declaradas como NOT NULL deben tener especificado un valor no nulo.
+El valor por omisión se evalúa cada vez que se entra al bloque. Así, por ejemplo, el
+asignar now() a la variable de tipo timestamp causará que esa variable tenga la hora
+de la llamada a la función actual, no la hora en que la función fue precompilada.
+Ejemplos:
+cantidad integer DEFAULT 32;
+url varchar := ’http://misitio.com’;
+user_id CONSTANT integer := 10;
+Aliases para los Parámetros de las Funciones
+Los parámetros pasados a las funciones se nombran con los identificadores $1, $2,
+etc. Opcionalmente, se pueden declarar aliases para $n nombres de parámetros para
+una mayor claridad. Tanto el alias como su identificador numérico pueden ser usados
+para referirse al valor del parámetro.
+Existen dos maneras de crear un alias. La manera preferida es asignarle un nombre
+al parámetro en el comando CREATE FUNCTION, por ejemplo:
+CREATE FUNCTION impuesto_ventas(subtotal real) RETURNS real AS $$
+BEGIN
+RETURN subtotal * 0.06;
+END;
+$$ LANGUAGE plpgsql;
+La otra manera, que era la única disponible para versiones previas a PostgreSQL 8.0,
+es el declarar explícitamente un alias, usando la sintaxis de declaración
+nombre ALIAS FOR $n;
+El mismo ejemplo en este estilo se vería así
+CREATE FUNCTION impuesto_ventas(real) RETURNS real AS $$
+DECLARE
+subtotal ALIAS FOR $1;
+BEGIN
+RETURN subtotal * 0.06;
+END;
+$$ LANGUAGE plpgsql;
+Algunos ejemplos más:
+CREATE FUNCTION instr(varchar, integer) RETURNS integer AS $$
+DECLARE
+v_string ALIAS FOR $1;
+index ALIAS FOR $2;
+BEGIN
+-- Algún procesamiento aquí
+END;
+$$ LANGUAGE plpgsql;
+CREATE FUNCTION concatenar_campos_seleccionados(in_t nombretabla)
+RETURNS text AS $$
+BEGIN
+RETURN in_t.f1 || in_t.f3 || in_t.f5 || in_t.f7;
+END;
+$$ LANGUAGE plpgsql;
+Cuando el tipo regresado de una función PL/pgSQL se declara como de tipo polimór-
+fico (anyelement o anyarray), se crea un parámetro especial $0. Su tipo de dato es el
+tipo de dato actual regresado por la función, el cual deduce de los tipos de entrada
+actuales. Esto permite a la función acceder a su tipo de retorno actual como se muestra
+en la sección de nombre Copiando Tipos. La variable $0 se inicializa a nulo y puede
+ser modificada por la función, de tal manera que pueda ser usada para almacenar el
+valor de retorno si eso es lo que se desea, aunque esto no es necesario. A la variable
+$0 también se le puede dar un alias. Por ejemplo, esta función trabaja con cualquier
+tipo de dato que tenga un operador +:
+CREATE FUNCTION suma_tres_valores(v1 anyelement,v2 anyelement,
+v3 anyelement)
+RETURNS anyelement AS $$
+DECLARE
+resultado ALIAS FOR $0;
+BEGIN
+resultado := v1 + v2 + v3;
+RETURN resultado;
+END;
+$$ LANGUAGE plpgsql;
+Copiando Tipos
+variable%TYPE
+%TYPE proporciona el tipo de dato de una variable o de una columna de una tabla.
+Puede utilizarla para declarar variables que almacenarán valores de la base de
+datos. Por ejemplo, supongamos que tiene una columna llamada id_usuario en
+su tabla usuarios. Para declarar una variable con el mismo tipo de dato que
+usuarios.id_usuario usted escribiría:
+id_usuario usuarios.id_usuario%TYPE;
+Al usar %TYPE no necesita conocer el tipo de dato de la estructura a la que está haciendo
+referencia, y lo más importante, si el tipo de dato del ítem referido cambia en
+algún momento en el futuro (por ejemplo: si cambia el tipo de id_usuario de integer
+a real), usted no necesita cambiar la definición en su función.
+%TYPE es particularmente útil en las funciones polimórficas, puesto que los tipos de
+datos necesarios para las variables internas puede cambiar de una llamada a otra.
+Se pueden crear variables apropiadas aplicando %TYPE a los argumentos o a los comodines
+de los resultados de la función.
+Tipos Renglón
+nombre nombre_tabla%ROWTYPE;
+nombre nombre_tipo_compuesto;
+Una variable de un tipo compuesto se denomina una variable renglón (o tipo-renglon).
+Dicha variable puede almacenar un renglón completo resultado de una consulta SELECT
+o FOR, en tanto el conjunto de columnas de la consulta coincida con el tipo de
+la variable declarado. Los campos individuales del valor del renglón pueden accederse
+usando la notación usual de punto, por ejemplo renglonvar.campo.
+Una variable renglón puede declararse para tener el mismo tipo que los renglones
+de una tabla o vista existente, usando la notación nombre_tabla%ROWTYPE; o puede
+ser declarada dando el nombre de un tipo compuesto. (Puesto que todas las tablas
+tiene un tipo compuesto asociado del mismo nombre, en PostgreSQL realmente no
+importa si escribe %ROWTYPE o no. Pero la forma con %ROWTYPE es más portable).
+Los parámetros de una función pueden ser de tipo compuesto (renglones de tablas
+completos). En ese caso, el identificador correspondiente $n será un variable renglón,
+y pueden seleccionarse los campos a partir de él, por ejemplo $1.id_usuario.
+En una variable tipo-renglón, solamente son accesibles las columnas definidas por
+el usuario, no el OID u otras columnas del sistema (debido a que el renglón podría
+ser de una vista). Los campos del tipo renglón heredan el tamaño o la precisión del
+campo de la tabla para datos tales como char(n).
+Este es un ejemplo del uso de los tipos compuestos:
+CREATE FUNCTION merge_fields(t_row tablename) RETURNS text AS $$
+DECLARE
+t2_row table2name%ROWTYPE;
+BEGIN
+SELECT * INTO t2_row FROM table2name WHERE ... ;
+RETURN t_row.f1 || t2_row.f3 || t_row.f5 || t2_row.f7;
+END;
+$$ LANGUAGE plpgsql;
+SELECT merge_fields(t.*) FROM tablename t WHERE ... ;

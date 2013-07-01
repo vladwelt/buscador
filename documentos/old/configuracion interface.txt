@@ -1,0 +1,128 @@
+
+ *configuracion de Interfac@
+
+
+
+
+     Una  vez  finalizados  los  pasos  basicos  de  configuracion,  debemos  asegurarnos  de  que
+
+la interface Ethernet esta funcionando correctamente.  Elija una maquina de su red, por
+
+ejemplo vlager, y escriba
+
+
+
+       #  ping  vlager
+       PING  vlager:  64  byte  packets
+       64  bytes  from  191.72.1.1:  icmp_seq=0.  time=11.  ms
+       64  bytes  from  191.72.1.1:  icmp_seq=1.  time=7.  ms
+       64  bytes  from  191.72.1.1:  icmp_seq=2.  time=12.  ms
+       64  bytes  from  191.72.1.1:  icmp_seq=3.  time=3.  ms
+       ^C
+
+
+       ----vstout.vbrew.com  PING  Statistics----
+       4  packets  transmitted,  4  packets  received,  0%  packet  loss
+       round-trip  (ms)   min/avg/max  =  3/8/12
+     Si el resultado no es similar a este, algo va mal obviamente.  Una tasa de perdida de
+
+paquetes12 inusualmente alta, sugiere un problema de hardware, como terminaciones en mal
+
+estado o incluso la ausencia de las mismas, etc. Si no recibe ningun paquete, debe comprobar
+
+la configuracion de la interface mediante netstat.  Las estadisticas de paquetes producidas
+
+por ifconfig  le indican si algun paquete ha sido enviado mediante esa interface.  Si tiene
+
+acceso a una maquina remota, tambien deberia dirigirse a esa maquina y comprobar las
+
+estadisticas de la interface.  De este modo puede determinar exactamente en que momento
+
+se han descartado los paquetes. Ademas, debe consultar la informacion de encaminamiento
+
+con route  para ver si ambas maquinas han registrado la informacion de encaminamiento
+
+correctamente en sus tablas. route imprime la tabla de encaminamiento del nucleo completa
+
+si se ejecuta sin argumentos (la opcion -n hace que utilice la notacion de cuaternas en vez
+
+de los nombres de las maquinas):
+
+
+
+       #  route  -n
+       Kernel  routing  table
+       Destination       Gateway            Genmask            Flags  Metric  Ref  Use      Iface
+       127.0.0.1          *                    255.255.255.255  UH      1        0        112  lo
+       191.72.1.0        *                    255.255.255.0    U       1        0          10  eth0
+     El significado de cada uno de los campos se detalla mas abajo en la seccion Comprobacion
+
+mediante netstat .  La columna Flags contiene una lista de los indicadores activos en cada
+
+interface. U indica que la interface esta activa y H indica que la direccion de destino es una
+
+maquina13 Si encuentra que el indicador H se ha activado para una ruta que pretendia usar
+para una red, entonces debe usar la opcion -net con el comando route. Para comprobar si
+
+alguna ruta esta siendo usada o no, debe mirar si el campo Use en la penultima columna
+
+se incrementa entre dos ejecuciones sucesivas de ping.
+5.7.3      Encaminamiento a traves de una Pasarela
+
+
+
+En la seccion anterior, cubri solo el caso en el que la maquina solo tiene unaunica Ethernet.
+
+Frecuentemente, es posible encontrar redes conectadas unas a otras a traves de pasarelas o
+
+maquinas de enlace.  Estas pasarelas pueden simplemente unir dos o mas Ethernets, pero
+
+pueden tambien servir de enlace con el exterior, con la Internet. Para usar una pasarela, es
+
+necesario a"nadir informacion adicional a la capa de red.
+
+
+     Por ejemplo, las Ethernets de la Cervecera Virtual y de la Vinatera Virtual estan unidas
+
+a traves de una pasarela, vlager.  Suponiendo que la maquina vlager ha sido configurada
+
+ya,  solo  tenemos  que  a"nadir  otro  registro  a  la  tabla  de  encaminamiento  de  la  maquina
+
+vstout que le comunique al nucleo que puede acceder a todos las maquinas de la red de
+
+la Vinatera a traves de vlager.  El encantamiento apropiado usando route  se muestra a
+
+continuacion; la palabra clave gw indica que el argumento siguiente es una pasarela.
+       #  route  add  wine-net  gw  vlager
+     Por supuesto, cualquier host en la red de la Vinatera al que quiera dirigirse debe tener
+
+un registro analogo referido a la red de la Cervecera, o de otro modo solo podria enviar
+
+datos de vstout a vbardolino, pero la respuesta del segundo iria a parar al gran cubo.
+
+
+     Este ejemplo describeunicamente una pasarela que conmuta paquetes entre dos redes
+
+Ethernet aisladas. Supongamos ahora que vlager tambien tiene una conexion a la Internet
+
+(digamos, a traves de un enlace SLIP). Nos gustaria que los datagramas destinados a cual-
+
+quier direccion fuera de la red de la Cervecera fueran entregados a vlager.  Esto se puede
+
+conseguir convirtiendolo en la pasarela por defecto para vstout:
+       #  route  add  default  gw  vlager
+     El  nombre  de  red  default  es  una  abreviatura  que  representa  la  red  0.0.0.0,  o  ruta
+
+por defecto.  No es necesario a"nadir este nombre a /etc/networks, porque esta informacion
+
+esta contenida en route.
+
+
+     Una tasa alta de perdida de paquetes usando ping hacia una maquina situada detras de
+
+una o mas pasarelas, puede deberse a que la red esta muy congestionada.  La perdida de
+
+paquetes no se debe tanto a deficiencias tecnicas como a exceso temporal de carga en las
+maquinas que actuan de enlace, provocando retrasos o incluso el descarte de datagramas
+
+entrantes.

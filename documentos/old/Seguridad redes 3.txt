@@ -1,0 +1,82 @@
+realizar dos logines: uno para ingresar al sistema y otro para acceder al recurso. El
+usuario visualiza esto como un nuevo impedimento en su tarea, en lugar de verlo como
+una razón de seguridad para él, pues de esta manera, se puede controlar más el uso
+del recurso y, ante algún problema, será mucho más fácil establecer responsabilidades.
+Por otro lado, al poner en funcionamiento una nueva norma de seguridad, ésta
+traerá una nueva tarea para la parte técnica (por ejemplo, cambiar los derechos a algo
+de algunos usuarios) y administrativamente, se les deberá avisar por medio de una
+nota de los cambios realizados y en qué les afectará.
+1.5 - Visibilidad del proceso
+En un reciente estudio de Datapro Research Corp. se resumía que los problemas
+de seguridad en sistemas basados en redes responde a la siguiente distribución:
+· Errores de los empleados 50%
+· Empleados deshonestos 15%
+· Empleados descuidados 15%
+Otros 20% (Intrusos ajenos a la Empresa 10%; Integridad física de instalaciones
+10% )
+Se puede notar que el 80% de los problemas, son generados por los empleados
+de la organización, y, éstos se podrían tipificar en tres grandes grupos:
+· Problemas por ignorancia
+· Problemas por haraganería
+· Problemas por malicia
+Entre estas razones, la ignorancia es la más fácil de direccionar. Desarrollando
+tácticas de entrenamiento y procedimientos formales e informales son fácilmente
+neutralizadas. Los usuarios, además, necesitan de tiempo en tiempo, que se les
+recuerden cosas que ellos deberían conocer.
+La haraganería será siempre una tentación –tanto para los administradores de
+sistemas como para los usuarios – pero, se encuentra que éste es un problema menor
+cuando los usuarios ven las metas de los sistemas de seguridad. Esto requiere soporte
+de las Gerencias y de la Administración, y de la organización como un todo formado por
+usuarios individuales. En adición, una atmósfera que se focalice en las soluciones, en
+lugar de censurar, es generalmente más eficiente que aquella que tiende a la coerción
+o la intimidación.
+La malicia, se debe combatir creando una cultura en la organización que aliente la
+lealtad de los empleados.
+La visibilidad es permitir el aporte de las personas de la organización y, dar a
+conocer las acciones tomadas. Es decir que, cuando se deben producir cambios en las
+políticas no es necesario que se decidan unilateralmente. Es altamente deseable que se
+formen grupos de trabajo para discutir y/o conocer el alcance y el tipo de medidas a
+llevar a cabo (esta metodología de trabajo se puede implementar por lo menos en un
+80 % de las veces en que se presenta esta cuestión). Esto, además de llevar algunas
+veces a obtener soluciones que son más efectivas que las que se pensaban tomar,
+hace que aquellos que sean tocados por las modificaciones no se sientan recelosos de
+los cambios realizados y se comprometan con el cambio. Luego, una vez tomada la
+decisión, se debe comunicar fehacientente a los involucrados de los cambios realizados
+por medio de minutas, notas o boletines informativos.
+De esta manera, aseguramos que los hechos son visibles al resto de la
+organización. Como consecuencia, las personas no sienten resquemores o recelos de
+las nuevas medidas implementadas y adhieren rápidamente a ellas. Cabría, asimismo,
+tener en cuenta cuando deban realizarse modificaciones, hacerlas contando con la
+asesoría de la parte legal. Así, se pueden llegar a establecer los alcances de las
+penalidades en caso de infringir las normas dictadas. Respecto de este punto, es
+también aconsejable que las modificaciones o nuevas normativas, así como las
+penalizaciones, estén bien publicitadas, ya sea por medio de boletines, en tableros de
+novedades, en transparencias o por cualquier medio que permita llevar a cabo estas
+acciones con razonable éxito.
+1.6 - Implementación
+La implementación de medidas de seguridad, es un proceso técnicoadministrativo.
+Como este proceso debe abarcar toda la organización, sin exclusión
+alguna, ha de estar fuertemente apoyado por el sector gerencial, ya que sin ese apoyo,
+las medidas que se tomen no tendrán la fuerza necesaria.
+Hay que tener muy en cuenta la complejidad que suma a la operatoria de la
+organización la implementación de estas medidas (ver párrafo “Impacto en la
+Organización”). Será necesario sopesar cuidadosamente la ganancia en seguridad
+respecto de los costos administrativos y técnicos que se generen.
+También, como hemos mencionado anteriormente, es fundamental no dejar de
+lado la notificación a todos los involucrados en las nuevas disposiciones y, darlas a
+conocer al resto de la organización con el fin de otorgar visibilidad a los actos de la
+administración.
+De todo lo expuesto anteriormente, resulta claro que proponer o identificar una
+política de seguridad requiere de un alto compromiso con la organización, agudeza
+técnica para establecer fallas y debilidades, y constancia para renovar y actualizar dicha
+política en función del dinámico ambiente que rodea las organizaciones modernas.
+1.7 - Apostilla
+Un reciente estudio indica que para el 25% de los responsables de la información
+en empresas de más de 100 empleados, a la seguridad no se le da una prioridad alta
+dentro de la organización y, en los casos en que se da esta prioridad, creen que el resto
+de la organización no presta a este tema la atención que requiere. Este estudio nos
+presenta un material interesante para pensar y debatir.
+1.Organization for Economic Cooperation and Development (OEDC) Guidelines for
+Security of Information Systems. 1992.
+2.SWANSON et al. (1996) National Institute of Standard and Technology (NIST).
+General Principles for Information and systems Security Policies.

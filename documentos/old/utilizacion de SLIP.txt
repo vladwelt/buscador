@@ -1,0 +1,167 @@
+Capitulo  7
+SLIP:   IP   por  ilnea   serie
+Los protocolos de linea serie, SLIP y PPP, permiten a los "pobres" tener conexion a Inter-
+
+net.  Solo se necesita un modem y un puerto serie con buffer FIFO. Utilizarlo no es mas
+
+complicado que usar un buzon, y cada vez existen mas proveedores que le ofrecen acceso
+
+telefonico IP a un coste asequible para todos.
+
+
+     En Linux hay manejadores tanto de SLIP como de PPP. SLIP es mas veterano y por
+
+tanto mas estable. PPP para Linux ha sido recientemente desarrollado por Michael Callahan
+
+y Al Longyear; y se describira en el proximo capitulo1.
+
+7.1       Requisitos  generales
+Para  utilizar  SLIP  o  PPP,  hay  que  configurar  algunas  caracteristicas  de  red  que  ya  se
+
+han descrito en capitulos anteriores,  por supuesto.  Por lo menos,  debe tener el interfaz
+
+"loopback" y sistema de traduccion de nombres. Cuando se conecte a Internet, querra usar,
+
+por supuesto, el DNS. Lo mas facil es poner la direccion de algun servidor de nombres en
+
+el fichero resolv.conf ; este servidor se usara tan pronto como SLIP conecte.  Lo mejor es
+
+poner el servidor de nombres mas cercano.
+
+
+     Sin embargo, esta solucion no es laoptima, ya que las busquedas de nombres seguiran
+
+yendo por la conexion SLIP o PPP. Si le interesa consumir menos ancho de banda, puede
+
+instalarse  un  servidor  de  nombres  solo  con  cache.   No  requiere  un  dominio  ya  que  solo
+
+actuara como "relay", es decir, pasara a otro servidor las peticiones que Vd.  realice.  La
+
+ventaja es que construira una cache de modo que al pedir un nombre varias veces seguidas,
+
+solo se contactara con el servidor externo la primera vez.  Un fichero named.boot que sirva
+
+para esto puede ser el siguiente:
+
+
+
+       ;  fichero  named.boot  para  un  servidor  solo  con  cache
+       directory                                      /var/named
+
+
+       primary          0.0.127.in-addr.arpa    db.127.0.0  ;  red  ``loopback''
+       cache            .                              db.cache    ;  servidores  raiz
+     Ademas debe tener un fichero db.cache  con una lista de servidores raiz validos.  Este
+
+fichero esta descrito al final del capitulo dedicado a la configuracion del servidor de nombres.
+
+7.2       Utilizacion  de  SLIP
+Los servidores de IP por telefono suelen ofrecer servicios SLIP mediante cuentas de usuario
+
+especiales.  Despues  de  entrar  en  una  cuenta  no  se  entra  en  un  interprete  de  comandos
+
+normal, sino en un programa o shell script que se ejecuta para activar el manejador SLIP
+
+del servidor y configura la interfaz con la red.  En ese momento tiene que hacer lo mismo
+
+en su maquina.
+
+
+     En algunos sistemas operativos, el manejador de SLIP es un programa de usuario, pero
+
+bajo Linux es parte del nucleo, cosa que lo hace mucho mas rapido. Requiere, sin embargo,
+
+que la linea serie sea explicitamente convertida a modo SLIP. Esto se hace mediante una
+
+disciplina de linea especial llamada SLIPDISC. Mientras que un terminal (tty) esta en modo
+
+normal (DISC0), intercambiara datos solo con procesos de usuario, mediante las llamadas
+
+read(2) y write(2) habituales, y el manejador de SLIP no podra escribir o leer del terminal.
+
+En el modo SLIPDISC se cambian los papeles:  ahora los programas de usuario no podran
+
+acceder a la linea pero todos los datos que lleguen se pasaran al manejador SLIP.
+
+
+     El manejador de SLIP entiende por si mismo varias versiones del protocolo, incluyendo
+
+CSLIP, que realiza la llamada compresion de cabeceras de Van Jacobson en los paquetes IP
+
+salientes.2  Esto aumenta el rendimiento de las sesiones interactivas. Ademas, hay versiones
+
+de seis bits de estos protocolos.
+
+
+     Una forma facil de convertir una linea serie a modo SLIP es usar la utilidad slattach.
+
+Suponiendo que tenemos un modem en /dev/cua3  y que se ha entrado correctamente en el
+
+servidor de SLIP, se debera ejecutar:
+     Esto cambiara el modo de linea de cua3  a SLIPDISC, y la enganchara a uno de los
+
+interfaces SLIP disponibles.  Si es launica conexion SLIP se enganchara al interface sl1, si
+
+es la segunda, a sl2, etc. Los nucleos actuales soportan hasta ocho enlaces SLIP simultaneos.
+
+
+     La encapsulacion por defecto que elige slattach  es CSLIP. Puede elegirse otra con la
+
+opcion -p. Para usar SLIP sin compresion debera ponerse:
+       #  slattach  -p  slip  /dev/cua3  &
+     Otros modos son cslip, slip6, cslip6 (para la version de 6 bits) y adaptive para SLIP
+
+adaptativo, que deja al nucleo averiguar que encapsulacion de SLIP usa el otro extremo de
+
+la comunicacion.
+
+
+     Observe que debe utilizarse el mismo sistema de encapsulacion que use el otro extremo.
+
+Por ejemplo, si cowslip usara CSLIP, tendra que usarlo Vd. tambien. El sintoma tipico de
+
+una seleccion incorrecta es que la orden ping a una maquina remota no tendra respuesta. Si
+
+la otra maquina le hace ping a Vd, recibira mensajes del tipo "Can't  build  ICMP  header"
+
+(no se puede construir la cabecera ICMP) en la consola.  Una forma de intentar evitar este
+
+tipo de problemas es usar SLIP adaptativo.
+
+
+     De hecho, slattach no solo le permite activar SLIP, sino tambien otros protocolos serie
+
+como PPP o KISS (protocolo que se usa en packet-radio). Para mas detalle, vea el manual
+
+en linea de slattach(8).
+
+
+     Despues de preparar la linea para SLIP, tendra que configurar el interfaz de red.  De
+
+nuevo, se hara esto mediante los programas estandares ifconfig  y route.  Suponiendo que
+
+desde la maquina vlager hemos llamado al servidor cowslip, se deberia ejecutar:
+
+
+
+       #  ifconfig  sl0  vlager  pointopoint  cowslip
+       #  route  add  cowslip
+       #  route  add  default  gw  cowslip
+     El primer comando configura la interface como un enlace a cowslip punto a punto,
+
+mientras que el segundo y el tercero sirven para a"nadir la ruta correspondiente a cowslip
+
+como ruta por defecto y configurar esa maquina como pasarela de todos nuestros mensajes.
+
+
+     Cuando se quiera terminar el enlace SLIP, debe empezarse por eliminar todas las rutas
+
+a traves de cowslip mediante el comando route con la opcion del, desactivar el interface
+
+y enviar al proceso slattach la se"nal SIGHUP. Despues de esto se debera colgar el modem
+
+usando un programa de terminal de nuevo:
+
+
+
+       #  route  del  default

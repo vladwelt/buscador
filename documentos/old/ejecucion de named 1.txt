@@ -1,0 +1,225 @@
+                   named intentara entonces refrescar los datos almacenados regularmente. Es-
+
+                   to se explica despues cuando se vean las entradas "SOA" de los ficheros.
+
+
+cache              Tiene como argumentos un dominio y un nombre  de  fichero . Contiene la
+
+                   lista de servidores de nombres raiz.  Solo se reconoceran registros NS y A.
+
+                   El argumento domain  es normalmente el nombre de dominio raiz (".").
+
+                   Esta informacion es fundamental: si el comando cache no existiera, named no
+
+                   haria una cache local.  Esto degradaria de forma importante el rendimiento
+
+                   e incrementaria la carga de la red si los nombres que se buscan no estan en
+
+                   la red local. Ademas, named tampoco sera capaz de contactar con cualquier
+
+                   servidor de nombres raiz,  y por ello,  no podra resolver ninguna direccion
+
+                   excepto aquellas paara las que este autorizado.  Una excepcion a esta regla,
+
+                   ocurre  cuando  se  usan  servidores  redirigidos  (con  el  comando  forwarders
+
+                   explicada a continuacion).
+
+
+forwarders         Esta opcion lleva una lista  de  direcciones  como argumento.  Las direc-
+
+                   ciones IP en la lista especifican servidores de nombres a los que named puede
+
+                   preguntar si falla una traduccion de un nombre mediante su cache local. Se
+
+                   intenta preguntar a todos en orden hasta que uno de ellos responda.
+
+
+slave              Esta opcion hace que el servidor sea esclavo. Esto significa que nunca reali-
+
+                   zara consultas recursivas, sino que las redirigira a los servidores especificados
+
+                   con forwarders.
+
+
+
+     Hay dos opciones adicionales que no vamos a describir: sortlist y domain. Ademas, hay
+
+dos directivas que pueden aparecer en los ficheros de zona.  Son $INCLUDE  y $ORIGIN,
+
+que no vamos a describir, ya que raramente se utilizan.
+6.2.2      Ficheros de base de datos DNS
+
+
+
+Los ficheros incluidos con named, como named.hosts, siempre tienen un dominio asociado
+
+a ellos llamado origen.  Este es el nombre de dominio especificado con los comandos cache
+
+y primary.  En un fichero maestro, se pueden especificar nombres de maquinas y dominios
+
+relativos  a  este  dominio.   Un  nombre  dado  en  un  fichero  de  configuracion  se  considera
+
+absoluto  si termina con un punto.  En caso contrario se considera relativo al origen.  Al
+
+origen en si mismo nos podemos referir con "@ ".
+
+
+     Todos los datos en un fichero principal se dividen en registros de recursos o RRs.  Son
+
+la unidad de informacion del DNS. Cada RR tiene un tipo.  Los registros de tipo A, por
+
+ejemplo, asocian un nombre a una direccion IP. Los registros de tipo CNAME asocian un
+
+alias de una maquina con su nombre oficial.  Como ejemplo, observese la figura 6.3 de la
+
+pagina 94, que muestra el fichero named.hosts para nuestro sistema.
+
+
+     La representacion de los RRs en los ficheros utilizan el siguiente formato:
+
+
+
+       [domain ]  [ttl ]  [class ]  type  rdata
+
+
+
+     Los campos se separan por espacios o tabulaciones.  Una entrada puede continuarse en
+
+varias lineas si se abre un parentesis antes del primer fin de linea y el ultimo campo es
+
+seguido de un cierre de parentesis.  Cualquier cosa entre un punto y coma y el siguiente
+
+salto de linea sera un comentario.
+
+
+
+domain             Aqui  va  el  nombre  del  dominio  que  se  aplica  al  RR  actual.   Si  no  se  da
+
+                   nombre de dominio, se asume el mismo que se puso para el RR anterior.
+
+
+ttl                Con el fin de forzar al sistema DNS a descartar informacion despues de cierto
+
+                   tiempo, cada RR lleva asociado un "tiempo de vida" o ttl 5.  El campo ttl
+
+                   especifica, en segundos, el tiempo de validez de la informacion desde que se
+
+                   obtiene del servidor. Es un numero decimal de hasta ocho digitos.
+
+                   Si no se especifica ningun valor, tomara uno por defecto del campo minimum
+
+                   del registro SOA precedente.
+
+
+class              Aqui se indica la clase de direccion: IN para direcciones IP, HS para objetos
+
+                   de la clase Hesiod.  Trabajando con redes TCP/IP debe usarse siempre la
+
+                   clase IN.
+
+                   Si no se especifica ningun valor, se toma el valor del RR anterior.
+
+
+type               Describe el tipo de RR. Los tipos habituales son A, SOA, PTR y NS. En las
+
+                   siguientes secciones comentaremos estos tipos de RRs.
+
+
+rdata              Contiene los datos asociados al RR. El formato depende del tipo, y se des-
+
+                   cribiran mas adelante.
+
+A continuacion se presenta una lista incompleta de RRs que se utilizan en los ficheros de
+
+DNS. Hay algunos mas que no vamos a comentar. Son experimentales, y de escaso uso.
+
+
+
+SOA                Describe una zona de autoridad (SOA significa "Start of Authority", es decir,
+
+                   "Comienzo  de  Autoridad").   Se"nala  que  los  registros  siguientes  contienen
+
+                   informacion "autorizada" para el dominio. Cada fichero incluido en la opcion
+
+                   primary  debe tener un registro SOA para esta zona.  Los datos asociados
+
+                   contienen los siguientes campos:
+                   origin            Nombre canonico del servidor de nombres primario para este
+
+                                     dominio. Se suele dar como nombre absoluto.
+
+
+                   contact           Direccion de correo electronico de la persona responsable de
+
+                                     mantener el dominio,  reemplazando el caracter `@ ' por un
+
+                                     punto.  Por ejemplo,  si el responsable de nuestra red fuese
+
+                                     janet, este campo contendra: janet.vbrew.com.
+
+
+                   serial            Este es el numero de version del fichero de zona, expresado
+
+                                     con un numero decimal. Cuando se cambien datos del fichero,
+
+                                     debera incrementarse este numero.
+
+                                     El numero de version es utilizado por los servidores secunda-
+
+                                     rios para saber cuando la informacion de una zona ha cam-
+
+                                     biado. Para mantenerse actualizados, los servidores secunda-
+
+                                     rios piden cada cierto tiempo el registro SOA del primario,
+
+                                     y comparan el numero de version con el que tienen en la ca-
+
+                                     che.  Si ha cambiado, el servidor secundario pedira de nuevo
+
+                                     la informacion de zona al primario.
+
+
+                   refresh           Especifica el intervalo, en segundos, que esperan los servido-
+
+                                     res secundarios entre peticiones de registros SOA a los pri-
+
+                                     marios.  De nuevo, se trata de un numero decimal de hasta
+
+                                     ocho digitos.
+
+                                     Normalmente, la topologia de la red no cambia mucho, con
+
+                                     lo que este numero sera como poco de un dia para grandes
+
+                                     redes, y de mucho mas tiempo para redes peque"nas.
+
+
+                   retry             Este numero determina los intervalos de tiempo entre rein-
+
+                                     tentos de comunicacion con servidores primarios cuando una
+
+                                     peticion de una zona falla.  No debe ser peque"no ya que un
+
+                                     fallo temporal del servidor primario hara que el secundario
+
+                                     cargue inutilmente la red.  Buenas elecciones son una hora o
+
+                                     como poco media hora.
+
+
+                   expire            Especifica el tiempo, en segundos, que tardara el servidor en
+
+                                     descartar  los  datos  de  zona  si  no  ha  podido  contactar  con
+
+                                     el servidor primario.  Normalmente sera grande.  Asi, Craig
+
+                                     Hunt ([Hunt92   ]) recomienda 42 dias.
+
+
+                   minimum           Valor  por  defecto  para  el  valor  del  ttl  en  los  registros  de
+
+                                     recursos que no lo especifiquen.  Sirve para indicar a otros
+
+                                     servidores de nombres que descarten el RR tras cierto tiempo.
+ 

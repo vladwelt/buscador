@@ -1,0 +1,173 @@
+3.5.1 Relaciones
+Las bases de datos relacionales representan las relaciones mediante las claves
+ajenas. No tienen estructuras de datos que formen parte de la base de datos
+y que representen estos enlaces entre tablas. Las relaciones se utilizan para
+hacer concatenaciones (join) de tablas. Por el contrario, las bases de datos
+orientadas a objetos implementan sus relaciones incluyendo en cada objeto los
+identificadores de los objetos con los que se relaciona.
+Un identificador de objeto es un atributo interno que posee cada objeto. Ni
+los programadores, ni los usuarios que realizan consultas de forma interactiva,
+ven o manipulan estos identificadores directamente. Los identificadores de los
+objetos los asigna el SGBD y es ´el el ´unico que los utiliza.
+El identificador puede ser un valor arbitrario o puede incluir la informaci´on
+necesaria para localizar el objeto en el fichero donde se almacena la base de
+datos. Por ejemplo, el identificador puede contener el n´umero de la p´agina del
+fichero donde se encuentra almacenado el objeto, junto con el desplazamiento
+desde el principio de la p´agina.
+Hay dos aspectos importantes a destacar sobre este m´etodo de representar
+las relaciones entre datos:
+• Para que el mecanismo funcione, el identificador del objeto no debe cambiar
+mientras ´este forme parte de la base de datos.
+• Las ´unicas relaciones que se pueden utilizar para consultar la base de
+datos son aquellas que se han predefinido almacenando en atributos los
+identificadores de los objetos relacionados. Por lo tanto, una base de datos
+orientada a objetos pura es navegacional, como los modelos prerrelacionales
+(el modelo jer´arquico y el modelo de red). De este modo se limita
+la flexibilidad del programador/usuario a aquellas relaciones predefinidas,
+pero los accesos que siguen estas relaciones presentan mejores prestaciones
+que en las bases de datos relacionales porque es m´as r´apido seguir
+los identificadores de los objetos que hacer operaciones de concatenaci´on
+(join).
+El modelo orientado a objetos permite los atributos multivaluados, agregaciones
+a las que se denomina conjuntos (sets) o bolsas (bags). Para crear una
+relaci´on de uno a muchos, se define un atributo en la parte del uno que ser´a de
+la clase del objeto con el que se relaciona. Este atributo contendr´a el identifi-
+cador de objeto del padre. La clase del objeto padre contendr´a un atributo que
+almacenar´a un conjunto de valores: los identificadores de los objetos hijo con
+los que se relaciona. Cuando el SGBD ve que un atributo tiene como tipo de
+datos una clase, ya sabe que el atributo contendr´a un indentificador de objeto.
+Las relaciones de muchos a muchos se pueden representar directamente en
+las bases de datos orientadas a objetos, sin necesidad de crear entidades intermedias.
+Para representar la relaci´on, cada clase que participa en ella define
+un aributo que contendr´a un conjunto de valores de la otra clase con la que
+se relacionar´a. Aunque el hecho de poder representar relaciones de muchos a
+muchos parece aportar muchas ventajas, hay que tener mucho cuidado cuando
+se utilizan. En primer lugar, si la relaci´on tiene datos, ser´a necesario crear una
+entidad intermedia que contenga estos datos. Por ejemplo, en la relaci´on de los
+art´iculos con los proveedores, en donde cada proveedor puede tener un precio
+distinto para un mismo art´iculo. En este caso, la relaci´on de muchos a muchos
+se sustituye por dos relaciones de uno a muchos, como se har´ia en una base
+de datos relacional. En segundo lugar, se puede dise˜nar una base de datos que
+contiene relaciones de muchos a muchos en donde o bien se pierde informaci´on, o
+bien se hace imposible determinar las relaciones con precisi´on. Tambi´en en estos
+casos la soluci´on es incluir una entidad intermedia que represente la relaci´on.
+Ya que el paradigma orientado a objetos soporta la herencia, una base de
+datos orientada a objetos tambi´en puede utilizar la relaci´on “es un” entre objetos.
+Por ejemplo, en una base de datos para un departamento de recursos
+humanos habr´a una clase gen´erica Empleado con diversos atributos: nombre,
+direcci´on, n´umero de la seguridad social, fecha de contrato y departamento en
+el que trabaja. Sin embargo, para registrar el modo de pago de cada empleado
+hay un dilema. No a todos los empleados se les paga del mismo modo: a algunos
+se les paga por horas, mientras que otros tienen un salario mensual. La clase
+de los empleados que trabajan por horas necesita unos atributos distintos que
+la clase de los otros empleados. En una base de datos orientada a objetos se
+deben crear las dos subclases de empleados. Aunque el SGBD nunca crear´a
+objetos de la clase Empleado, su presencia en el dise˜no clarifica el dise˜no l´ogico
+de la base de datos y ayuda a los programadores de aplicaciones permiti´endoles
+escribir s´olo una vez los m´etodos que tienen en com´un las dos subclases (ser´an
+los m´etodos que se sit´uan en la clase Empleado).´
+En teor´ia, una base de datos orientada a objetos debe soportar dos tipos
+de herencia: la relaci´on “es un” y la relaci´on “extiende”. La relaci´on “es un”,
+que tambi´en se conoce como generalizaci´on–especializaci´on, crea una jerarqu´ia
+donde las subclases son tipos espec´ificos de las s´uperclases. Con la relaci´on
+“extiende”, sin embargo, una clase expande su s´uperclase en lugar de estrecharla
+en un tipo m´as espec´ifico. Por ejemplo, en la jerarqu´ia de la clase Empleado,
+al igual que son necesarias clases para los empleados que realizan cada trabajo
+espec´ifico, hace falta guardar informaci´on adicional sobre los directores, que son
+empleados pero que tambi´en tienen unas caracter´isticas espec´ificas adicionales.
+La base de datos incluir´a una clase Director con un atributo para los empleados
+a los que dirige. En este sentido un director no es un empleado m´as espec´ifico
+sino un empleado con informaci´on adicional.
+Una de las cosas que es dif´icil de manejar en las bases de datos relacionales
+es la idea de las partes de un todo, como en una base de datos de fabricaci´on, en
+la que hace falta saber qu´e piezas y qu´e componentes se utilizan para fabricar
+un determinado producto. Sin embargo, una base de datos orientada a objetos
+puede aprovechar la relaci´on denominada “todo–parte” en la que los objetos de
+una clase se relacionan con objetos de otras clases que forman parte de ´el. En
+el caso de la base de datos de fabricaci´on, la clase Producto se relacionar´a con
+las clases Pieza y Componente utilizando una relaci´on “todo–parte”. Este tipo
+de relaci´on es una relaci´on de muchos a muchos con un significado especial. Un
+producto puede estar hecho de muchas piezas y muchos componentes. Adem´as,
+una misma pieza o un mismo componente se puede utilizar para fabricar distintos
+productos. El identificar esta relaci´on como “todo–parte” permite que el
+dise˜no sea m´as f´acil de entender.
+3.5.2 Integridad de las relaciones
+Para que las relaciones funcionen en una base de datos orientada a objetos
+pura, los identificadores de los objetos deben corresponderse en ambos extremos
+de la relaci´on. Por ejemplo, si los aparejadores de una empresa de control de
+calidad se deben relacionar con las obras de construcci´on que supervisan, debe
+haber alg´un modo de garantizar que, cuando un identificador de un objeto
+Obra se incluye en un objeto Aparejador, el identificador de este mismo objeto
+Aparejador se debe incluir en el objeto Obra anterior. Este tipo de integridad
+de relaciones, que es de alg´un modo an´alogo a la integridad referencial en las
+bases de datos relacionales, se gestiona especificando relaciones inversas.
+La clase Aparejador tiene un atributo de tipo conjunto llamado supervisa.
+Del mismo modo, la clase Obra tiene un atributo llamado es supervisada.
+Para garantizar la integridad de esta relaci´on, un SGBD orientado a objetos
+puro deber´a permitir que el dise˜nador de la base de datos pueda especificar
+d´onde debe aparecer el identificador del objeto inverso, como por ejemplo:
+relationship set<Obra> supervisa
+inverse Obra::es_supervisada
+en la clase Aparejador y:
+relationship Aparejador es_supervisada
+inverse Aparejador::supervisa
+en la clase Obra.
+Siempre que un usuario o un programa de aplicaci´on inserta o elimina un
+identificador de objeto de la relaci´on supervisa en un objeto Aparejador, el
+SGBD actualizar´a autom´aticamente la relaci´on es supervisada en el objeto
+Obra relacionado. Cuando se hace una modificaci´on en el objeto Obra, el SGBD
+lo propagar´a autom´aticamente al objeto Aparejador.
+Del mismo modo que en las bases de datos relacionales es el dise˜nador de
+la base de datos el que debe especificar las reglas de integridad referencial, en
+las bases de datos orientadas a objetos es tambi´en el dise˜nador el que debe
+especificar las relaciones inversas cuando crea el esquema de la base de datos.
+3.5.3 UML
+Existen distintas notaciones o modelos para dise˜nar esquemas conceptuales
+de bases de datos orientadas a objetos: la notaci´on de Coad/Yourdon, la
+Shlaer/Mellor, la OMT (Rombaugh) o la de Booch. Cada modelo presenta
+distintas deficiencias, por lo que algunos de sus autores han desarrollado conjuntamente
+un lenguaje, denominado UML (Unified Modeling Language), que
+las evita.
+“La notaci´on UML (no hay que confundir con las metodolog´ias que utilizan
+dicha notaci´on), se ha convertido desde finales de los 90 en un est´andar
+para modelar con tecnolog´ia orientada a objetos todos aquellos elementos que
+configuran la arquitectura de un sistema de informaci´on y, por extensi´on, de los
+procesos de negocio de una organizaci´on. De la misma manera que los planos de
+un arquitecto disponen el esquema director a partir del cual levantamos un edi-
+ficio, los diagramas UML suministran un modelo de referencia para formalizar
+los procesos, reglas de negocio, objetos y componentes de una organizaci´on. La
+interacci´on de todos estos elementos es una representaci´on de nuestra realidad.”
+Extra´ido de <http://www.vico.org/UMLguiavisual/>).
+3.6 El modelo est´andar ODMG
+Un grupo de representantes de la industria de las bases de datos formaron
+el ODMG (Object Database Management Group) con el prop´osito de definir
+est´andares para los SGBD orientados a objetos. Este grupo propuso un modelo
+est´andar para la sem´antica de los objetos de una base de datos. Los principales
+componentes de la arquitectura ODMG para un SGBD orientado a objetos son
+los siguientes:
+• Modelo de objetos.
+• Lenguaje de definici´on de objetos (ODL).
+• Lenguaje de consulta de objetos (OQL).
+• Conexi´on con los lenguajes C++, Smalltalk y Java.
+En el anexo D se presenta una descripci´on de este modelo.
+3.7 Sistemas objeto–relacionales
+El modo en que los objetos han entrado en el mundo de las bases de datos
+relacionales es en forma de dominios, actuando como el tipo de datos de una
+columna. Hay dos implicaciones muy importantes por el hecho de utilizar una
+clase como un dominio:
+• Es posible almacenar m´ultiples valores en una columna de una misma fila
+ya que un objeto suele contener m´ultiples valores. Sin embargo, si se utiliza
+una clase como dominio de una columna, en cada fila esa columna s´olo
+puede contener un objeto de la clase (se sigue manteniendo la restricci´on
+del modelo relacional de contener datos at´omicos en la intersecci´on de
+cada fila con cada columna).
+• Es posible almacenar procedimientos en las relaciones porque un objeto
+est´a enlazado con el c´odigo de los procesos que sabe realizar (los m´etodos
+de su clase).
+Otro modo de incoporar objetos en las bases de datos relacionales es construyendo
+tablas de objetos, donde cada fila es un objeto.
+Ya que un sistema objeto–relacional es un sistema relacional que permite
+almacenar objetos en sus tablas, la base de datos sigue sujeta a las restricciones
+que se aplican a todas las bases de datos relacionales y conserva la capacidad
+de utilizar operaciones de concatenaci´on (join) para implementar las relaciones
+“al vuelo”.

@@ -1,0 +1,58 @@
+3.15 - Procedimientos para la determinación de identificación de
+usuario y grupo de pertenencia por defecto
+Este procedimiento determina la forma de establecer las identificaciones y los
+grupos a los que pertenecerán los usuarios por defecto en el momento de darlos de
+alta. En él deben explicarse, concisamente, los pasos a seguir para cambiar los
+derechos y las identificaciones de los usuarios dados de alta y la manera de documentar
+los mismos, así también como quién será responsable de la tarea.
+3.16 - Procedimientos para recuperar información
+Este procedimiento sirve para reconstruir todo el sistema o parte de él, a partir de
+las copias de seguridad. En él, deben explicarse todos los pasos a seguir para rearmar
+el sistema a partir de los back-up existentes, así como cada cuánto tiempo habría que
+llevarlos a cabo y quiénes son los responsables de dicha tarea.
+3.17 - Check-Lists
+Las check-lists, como su nombre lo indica, son listas con un conjunto de ítems
+referentes a lo que habría que chequear en el funcionamiento del sistema.
+Algunos ejemplos de check-lists:
+· Asegurar el entorno. ¿Qué es necesario proteger? ¿Cuáles son los riesgos?
+· Determinar prioridades para la seguridad y el uso de los recursos.
+· Crear planes avanzados sobre qué hacer en una emergencia.
+· Trabajar para educar a los usuarios del sistema sobre las necesidades y las
+ventajas de la buena seguridad
+· Estar atentos a los incidentes inusuales y comportamientos extraños.
+· Asegurarse de que cada persona utilice su propia cuenta.
+· ¿Están las copias de seguridad bien resguardadas?
+· No almacenar las copias de seguridad en el mismo sitio donde se las realiza
+· ¿Los permisos básicos son de sólo lectura?
+· Si se realizan copias de seguridad de directorios/archivos críticos, usar chequeo
+de comparación para detectar modificaciones no autorizadas.
+· Periódicamente rever todo los archivos de “booteo de los sistemas y los
+archivos de configuración para detectar modificaciones y/o cambios en ellos.
+· Tener sensores de humo y fuego en el cuarto de computadoras.
+· Tener medios de extinción de fuego adecuados en el cuarto de computadoras.
+· Entrenar a los usuarios sobre qué hacer cuando se disparan las alarmas.
+· Instalar y limpiar regularmente filtros de aire en el cuarto de computadoras.
+· Instalar UPS, filtros de línea, protectores gaseosos al menos en el cuarto de
+computadoras.
+· Tener planes de recuperación de desastres.
+· Considerar usar fibras ópticas como medio de transporte de información en la
+red.
+· Nunca usar teclas de función programables en una terminal para almacenar
+información de login o password.
+· Considerar realizar autolog de cuentas de usuario.
+· Concientizar a los usuarios de pulsar la tecla ESCAPE antes de ingresar su login
+y su password, a fin de prevenir los “Caballos de Troya”.
+· Considerar la generación automática de password.
+· Asegurarse de que cada cuenta tenga un password.
+· No crear cuentas por defecto o “guest” para alguien que está temporariamente
+en la organización.
+· No permitir que una sola cuenta esté compartida por un grupo de gente.
+· Deshabilitar las cuentas de personas que se encuentren fuera de la
+organización por largo tiempo.
+· Deshabilitar las cuentas “dormidas” por mucho tiempo.
+· Deshabilitar o resguardar físicamente las bocas de conexión de red no usadas.
+· Limitar el acceso físico a cables de red, routers, bocas, repetidores y
+terminadores.
+· Los usuarios deben tener diferentes passwords sobre diferentes segmentos de
+la red.
+· Monitorear regularmente la actividad sobre los gateways.

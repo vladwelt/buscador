@@ -1,0 +1,87 @@
+2.3 Definici´on y uso de disparadores en el est´andar
+SQL:1999
+Este apartado se ha extra´ido del libro “Bases de datos relacionales” de Celma,
+Casamayor y Mota (2003).
+CREATE TRIGGER nombre_disparador
+{BEFORE | AFTER}
+{INSERT | DELETE | UPDATE OF [ col, ... ]} ON nombre_tabla
+[REFERENCING {OLD [ROW] [AS] nombre_ref
+| NEW [ROW] [AS] nombre_ref
+| OLD_TABLE [AS] nombre_ref
+| NEW_TABLE [AS] nombre_ref}]
+[FOR EACH {ROW | STATEMENT}]
+[WHEN (condici´on)]
+{sentencia_SQL | bloque SQL/PSM | CALL procedimiento_SQL}
+El evento de un disparador en SQL s´olo puede ser una ´unica operaci´on de actualizaci
+´on sobre una tabla de la base de datos. Este evento est´a impl´icitamente
+parametrizado con dos tipos de par´ametro: de fila y de tabla (NEW, OLD,
+NEW TABLE, OLD TABLE). Dichos par´ametros pueden ser referidos tanto en la
+condici´on como en la acci´on del disparador y se pueden renombrar mediante
+REFERENCING.
+Si el evento es una operaci´on INSERT, s´olo est´an definidos los par´ametros
+NEW y si es una operaci´on DELETE s´olo est´an definidos los par´ametros OLD. En
+las operaciones UPDATE est´an definidos ambos tipos de par´ametros.
+La condici´on es una expresi´on l´ogica escrita con la sintaxis de SQL. La acci´on
+puede ser una sentencia de SQL, un bloque escrito en SQL/PSM o una llamada
+a un procedimiento escrito en SQL/PSM o alg´un otro lenguaje de programaci
+´on. SQL/PSM es un lenguaje de programaci´on del nuevo est´andar de SQL
+que permite integrar las sentencias de SQL con estructuras de programaci´on
+(condicionales, bucles, asignaciones, etc.).
+Cada disparador tiene una granularidad. La granularidad orientada a la fila
+(FOR EACH ROW) hace que el disparador se ejecute una vez para cada fila afectada
+por el evento. La granularidad orientada a la sentencia (FOR EACH STATEMENT)
+hace que el disparador se ejecute un sola vez, independientemente del n´umero
+de filas a las que afecte el evento disparador. Si se omite, el valor por defecto
+es FOR EACH STATEMENT. Con este tipo de disparadores s´olo se pueden utilizar
+los par´ametros de tabla (NEW TABLE, OLD TABLE).
+Cuando un disparador activado es seleccionado por el sistema para su ejecuci
+´on, las funciones de evaluaci´on de la condici´on y de ejecuci´on de la acci´on
+se realizan de modo inmediato. La ´unica opci´on disponible para el dise˜nador es
+poder elegir si el disparador se procesa antes (BEFORE) o despu´es (AFTER) de la
+ejecuci´on del evento.
+Combinando ambas funciones (BEFORE, AFTER) y ambas granularidades (FOR
+EACH ROW, FOR EACH STATEMENT) se obtienen cuatro combinaciones para cada
+evento:
+BEFORE ROW
+BEFORE STATEMENT
+AFTER ROW
+AFTER STATEMENT
+La ejecuci´on de las sentencias INSERT, DELETE y UPDATE de SQL se entremezclan
+con la ejecuci´on de los disparadores que ellas mismas activan siguiendo este
+algoritmo:
+1. Se consideran los disparadores de nivel BEFORE STATEMENT y se ejecutan.
+2. Para cada fila de la tabla a la que afecta la sentencia:
+(a) Se consideran los disparadores de nivel BEFORE ROW1 y se ejecutan.
+(b) La sentencia se aplica a la fila y a continuaci´on se realizan las comprobaciones
+de la integridad que se hayan especificado (CHECK).
+(c) Se consideran los disparadores de nivel AFTER ROW y se ejecutan.
+3. Se llevan a cabo las comprobaciopnes de la integridad especificadas para
+la tabla.
+4. Se consideran los disparadores de nivel AFTER STATEMENT y se ejecutan.
+Si ocurre alg´un error durante la evaluaci´on de un disparador, se deshacen todas
+las modificaciones llevadas a cabo como consecuencia de la sentencia SQL que
+ha activado el disparador.
+Cada SGBD sigue su propio criterio para ordenar la ejecuci´on de los distintos
+disparadores que se pueden activa ante un mismo evento. El consejo, cuando
+hay varios disparadores del mismo tipo para el mismo evento, es combinarlos
+todos en uno solo, de modo que se pueda establecer el orden en que se han de
+ejecutar las operaciones de las acciones de los distintos disparadores.
+Algunos SGBD, como Oracle o las reglas (RULE) de PostgreSQL, permiten
+hacer acciones en lugar de eventos (INSTEAD OF), pero solamente en el caso en
+que la tabla destino sea una vista (BEFORE y AFTER no se pueden especificar
+sobre vistas). En este caso, se ejecuta el c´odigo del disparador o de la regla en
+lugar de la sentencia sobre la vista.
+Cuando se crea un disparador, ´este est´a habilitado. Los disparadores pueden
+ser deshabilitados y volver a ser habilitados. Mientras un disparador est´a
+deshabilitado no se activa.
+Algunos SGBD permiten que en la acci´on que se especifica mediante el bloque
+de SQL/PSM se puedan utilizar condiciones especiales para ejecutar secciones
+espec´ificas dependiendo del tipo de evento que ha activado el disparador:
+• INSERTING es verdadero si el disparador ha sido activado por una sentencia
+INSERT.
+• DELETING es verdadero si el disparador ha sido activado por una sentencia
+DELETE.
+• UPDATING es verdadero si el disparador ha sido activado por una sentencia
+UPDATE.
+• UPDATING(col) es verdadero si el disparador ha sido activado por una
+sentencia UPDATE que actualiza la columna col.

@@ -1,0 +1,89 @@
+10.4        Ejecutar  un  servidor  NIS
+     Despues de todoeste teorico parloteo tecnico, ya empieza a ser hora de que metamos mano
+
+     al verdadero trabajo de configuracion.  Enesta seccion, cubriremos la configuracion de un
+
+     servidor NIS. Si ya hay un servidor NIS corriendo en su red, no necesita configurar su propio
+
+     servidor; eneste caso puede usted saltarseesta seccion.
+3           Observe que siunicamente va usted a experimentar con el servidor, tiene que
+
+            asegurarse de que no lo configura con un nombre de dominio NIS que ya este en
+
+            uso en su red.  Ello podria desbaratar todo el servicio de red y hacer a mucha
+
+            gente desdichada, y muy enfadada.
+     Actualmente  hay  disponibles  dos  servidores  NIS  de  forma  gratuita  para  Linux,  uno
+
+contenido  en  el  paquete  yps  de  Tobias  Reber,  y  el  otro  en  el  paquete  ypserv  de  Peter
+
+Eriksson. No deberia importar cual utilice usted, no importa que usted use NYS o el codigo
+
+de cliente estandar que existe actualmente en libc.  Actualmente, el codigo para manejar
+
+servidores NIS esclavo parece ser mas completo en yps.  Asi que si tiene que tratar con
+
+servidores esclavo, yps puede ser una mejor opcion.
+
+
+     Tras instalar el programa servidor (ypserv ) en /usr/sbin, debera crear el directorio que
+
+vaya a contener los ficheros mapa que su servidor vaya a distribuir. Al establecer un dominio
+
+NIS para el dominio cerveceria, los mapas irian al fichero /var/yp/cerveceria. El servidor
+
+determina si esta sirviendo un dominio NIS en particular chequeando si el directorio mapa
+
+esta  presente.   Si  esta  deshabilitando  el  servicio  para  algun  dominio  NIS,  asegurese  de
+
+eliminar el directorio tambien.
+
+
+     Los mapas son normalmente almacenados en ficheros DBM para acelerar las busquedas.
+
+Son creados a partir de los ficheros maestro usando un programa llamado makedbm (para el
+
+servidor de Tobias) o dbmload  (para el servidor de Peter).  Estos podrian no ser intercam-
+
+biables. Transformar un fichero maestro a una forma entendible por dbmload normalmente
+
+requiere un poco de magia awk o sed, lo que tiende a ser un poco tedioso de escribir y dificil
+
+de recordar.  Por ello, el paquete ypserv  de Peter Eriksson contiene un Makefile (llamado
+
+ypMakefile) que realiza todos esos trabajos por usted.  Deberia instalarlo como Makefile
+
+en su directorio mapa, y editarlo para que refleje los mapas que desee distribuir.  Hacia el
+
+principio del fichero encontrara la etiqueta all que lista los servicios que ypserv ofrece. Por
+
+defecto, la linea es algo parecido aesto:
+
+
+
+       all:  ethers  hosts  networks  protocols  rpc  services  passwd  group  netid
+     Si no desea producir los mapas ethers.byname y ethers.byaddr, por ejemplo, simplemente
+
+elimine la palabra ethers de la linea.  Para chequear su configuracion, podria ser suficiente
+
+con empezar con solo uno o dos mapas, como los mapas services.*.
+
+
+     Tras editar el Makefile, y sin salir del directorio mapa, teclee"make".  Esto generara e
+
+instalara automaticamente los mapas.  Debe asegurarse de actualizar los mapas cada vez
+
+que cambie los ficheros maestros, de otro modo los cambios seguiran siendo invisibles para
+
+la red.
+
+
+     La siguiente seccion explica como configurar el codigo de cliente NIS. Si su configuracion
+
+no funciona, deberia comprobar si llega alguna peticion a su servidor o no.  Si especifica el
+
+parametro -D al servidor NYS,este imprimira mensajes de depuracion en la consola sobre
+
+todas las peticiones NIS entrantes, y los resultados devueltos.  Esto deberia darle una idea
+
+sobre por donde puede estar el problema. El servidor de Tobias no tiene esa opcion.

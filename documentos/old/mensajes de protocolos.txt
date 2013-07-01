@@ -1,0 +1,78 @@
+_______________________________________________________________________________________________________________2.5.   P*
+ *rotocolo de Mensajes de @
+
+
+
+
+2.4.5      Metricas de Encaminamiento
+
+
+
+El encaminamiento dinamico basado en RIP elige la mejor ruta a un determinado nodo
+
+o red a partir del numero de "saltos",  es decir,  las pasarelas que tiene que atravesar el
+
+datagrama hasta llegar a su destino.  La ruta mas corta sera la elegida, y si hay 16 o mas
+
+saltos se descartara por exceso de distancia.
+
+
+     Para  usar  RIP  tiene  que  ejecutar  gated  en  todas  las  maquinas.   Al  arrancar,  gated
+
+comprueba cuantas interfaces estan activas.  Si hay mas de una (sin contar la de loopback)
+
+asumira que el nodo es una pasarela.  Si no, entrara en modo pasivo, dedicandose a recibir
+
+cualquier actualizacion RIP y cambiando sus tablas en consecuencia.
+
+
+     Para enviar a las demas pasarelas la informacion de su tabla local de rutas, gated cuenta
+
+la longitud de cada una a partir de una metrica  especifica (que es decidida por el admi-
+
+nistrador del sistema y debe reflejar el coste de esa ruta).  Asi, la metrica de una ruta a
+
+una subred con conexion directa sera siempre cero, mientras que una ruta que atraviese dos
+
+pasarelas debera tener un coste de dos.
+
+2.5       Protocolo  de  Mensajes  de  Control  de  Internet  (ICMP)
+IP  tiene  otro  protocolo  aun  no  mencionado.  Es  el  protocolo  de  mensajes  de  control  de
+
+Internet o ICMP10 , y lo usa el software de gestion de red para comunicar mensajes de error
+
+entre nodos.  Por ejemplo, si estamos en la maquina erdos y hacemos un telnet al puerto
+
+12345 del nodo quark y no hay procesos escuchando en ese puerto, recibira un mensaje
+
+ICMP de "puerto inalcanzable".
+
+
+     Hay mas mensajes ICMP, muchos de ellos referidos a condiciones de error. Sin embargo,
+
+hay uno interesante que es el de redireccion.  Lo genera el modulo de encaminamiento al
+
+detectar que otro nodo esta usandolo como pasarela,  a pesar de existir una ruta mucho
+
+mas  corta.  Por  ejemplo,  tras  configurarse  la  tabla  de  encaminamiento  de  sophus, esta
+
+puede estar incompleta, conteniendo rutas a traves del encaminador por defecto gcc1. Por
+
+lo  tanto,  los  paquetes  enviados  inicialmente  a  quark  iran  por  gcc1  en  lugar  de  niels.
+
+En este caso gcc1 notificara a sophus que esta usando una ruta costosa y reenviara el
+
+datagrama  a  niels,  al  mismo  tiempo  que  devolvera  un  mensaje  ICMP  de  redireccion  a
+
+sophus informandole de la nueva ruta.
+
+
+     Con lo visto, queda claro que se puede evitar tener que establecer las rutas a mano.
+
+Sin embargo,  usar solo esquemas de encaminamiento dinamico no es siempre una buena
+
+idea.  La redireccion de ICMP y el protocolo RIP no incluyen mecanismos de verificacion
+
+de la autenticidad de los mensajes.  Esto permite a los piratas corromper el trafico de la
+_____________________________________________10
+     Internet Control Message Protocol

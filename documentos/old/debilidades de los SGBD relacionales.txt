@@ -1,0 +1,53 @@
+3.3 Debilidades de los SGBD relacionales
+El modelo relacional tiene una s´olida base te´orica, basada en la l´ogica de
+predicados de primer orden. Gracias a esta teor´ia se ha desarrollado un lenguaje
+declarativo, el SQL, que se ha convertido en un est´andar para el acceso a
+las bases de datos relacionales. Otra virtud es que el modelo relacional es muy
+simple. Tambi´en es muy apropiado para los sistemas de procesamiento de transacciones
+en l´inea (OLTP) y ofrece gran independencia de datos. Sin embargo,
+tambi´en tiene algunas debilidades, que se citan a continuaci´on.
+• Pobre representaci´on de las entidades del mundo real, siendo necesario
+descomponerlas para almacenarlas en varias tablas y tener que realizar
+muchos joins para recuperarlas.
+• La tabla tiene una sobrecarga sem´antica, porque se utiliza para almacenar
+tanto entidades como relaciones, sin que haya posibilidad de distinguir autom
+´aticamente qu´e representa cada tabla, por lo que no se puede explotar
+la sem´antica en los operadores. Sucede lo mismo con las relaciones: se
+expresan todas como claves ajenas y en cada clave ajena no se expresa lo
+que representa la relaci´on, su significado.
+• Se ofrece un soporte muy limitado para expresar y mantener las reglas
+de integridad y las reglas de negocio. Algunos sistemas no dan ning´un
+soporte en absoluto, por lo que se deben construir en los programas de
+aplicaci´on, duplic´andose el esfuerzo dedicado a realizarlas y aumentando
+la posibilidad de que aparezcan inconsistencias.
+• La estructura de los datos es homog´enea: cada fila de una misma tabla
+tiene la misma estructura, los mismos atributos. Adem´as, en todas las
+filas los valores de cada atributo pertenecen a un solo dominio. Y en la
+intersecci´on de cada fila con cada columna s´olo puede aparecer un valor
+at´omico. Esta estructura es demasiado restrictiva para muchos objetos
+del mundo real, que tienen una estructura compleja, por lo que acceder a
+los mismos cuando se almacenan en una base de datos relacional, requiere
+realizar muchos joins.
+• El modelo relacional tiene un conjunto fijo de operaciones, que viene dado
+por la especificaci´on del est´andar de SQL. Esto resulta muy restrictivo
+para modelar el comportamiento de muchos objetos del mundo real.
+• Es dif´icil manejar consultas recursivas, es decir, consultas sobre relaciones
+que una tabla tiene consigo misma.
+• Cuando se programan aplicaciones que acceden a bases de datos es necesario
+embeber las sentencias del lenguaje declarativo SQL, con las sentencias
+de un lenguaje procedural, por lo que hay una mezcla de paradigmas de
+programaci´on que complica el trabajo. Adem´as, el lenguaje SQL utiliza
+dispone de nuevos tipos de datos que no existen en los lenguajes procedurales
+y, por lo tanto, es necesario invertir tiempo en hacer las conversiones
+oportunas, lo que resulta poco eficiente. Se calcula que el 30% del c´odigo
+se dedica a estas tareas de conversi´on.
+• Las transacciones de las aplicaciones de gesti´on suelen ser de muy corta
+duraci´on por lo que el control de la concurrencia suele estar basado en
+bloqueos. Este tipo de control no es adecuado para transacciones de larga
+duraci´on, como las de otras aplicaciones no de gesti´on.
+• Los cambios en el esquema de la base de datos son complejos, ya que
+han de intervenir los administradores de la base de datos para cambiar la
+estructura de la base de datos y quiz´a los programas de aplicaci´on.
+• Los sistemas relacionales se han dise˜nado para realizar accesos asociativos
+y son pobres en el acceso navegacional (acceso moviendose entre registros
+individuales).

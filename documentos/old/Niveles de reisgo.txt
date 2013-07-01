@@ -1,0 +1,184 @@
+3 - ¿Cómo establecer los niveles de riesgo de
+los recursos involucrados?
+Al crear una política de seguridad de red, es importante entender que la razón
+para crear tal política es, en primer lugar, asegurar que los esfuerzos invertidos en la
+seguridad son costeables. Esto significa que se debe entender cuáles recursos de la red
+vale la pena proteger y que algunos recursos son más importantes que otros. También
+se deberá identificar la fuente de amenaza de la que se protege a los recursos. A pesar
+de la cantidad de publicidad sobre intrusos en una red, varias encuestas indican que
+para la mayoría de las organizaciones, la pérdida real que proviene de los “miembros
+internos” es mucho mayor (tal cual se ha explicado anteriormente).
+El análisis de riesgos implica determinar lo siguiente:
+· Qué se necesita proteger
+· De quién protegerlo
+· Cómo protegerlo
+Los riesgos se clasifican por el nivel de importancia y por la severidad de la
+pérdida. No se debe llegar a una situación donde se gasta más para proteger aquello
+que es menos valioso.
+En el análisis de los riesgos, es necesario determinar los siguientes factores:
+· Estimación del riesgo de pérdida del recurso (lo llamaremos Ri)
+· Estimación de la importancia del recurso (lo llamaremos Wi)
+Como un paso hacia la cuantificación del riesgo de perder un recurso, es posible
+asignar un valor numérico. Por ejemplo, al riesgo (Ri) de perder un recurso, se le
+asigna un valor de cero a diez, donde cero, significa que no hay riesgo y diez es el
+riesgo más alto. De manera similar, a la importancia de un recurso (Wi) también se le
+puede asignar un valor de cero a diez, donde cero significa que no tiene importancia y
+diez es la importancia más alta. La evaluación general del riesgo será entonces el
+producto del valor del riesgo y su importancia (también llamado el peso). Esto puede
+escribirse como:
+WRi = Ri *Wi
+Donde:
+WRi : es el peso del riesgo del recurso “i” (también lo podemos llamar
+ponderación)
+Ri : es el riesgo del recurso “i”
+Wi : es la importancia del recurso “i”
+3.1 - Ejemplo práctico
+Supongamos una red simplificada con un router, un servidor y un bridge.
+Los administradores de la red y de sistemas han producido las estimaciones
+siguientes para el riesgo y la importancia de cada uno de los dispositivos que forman
+nuestra red:
+Como se ve, a cada uno de los componentes del sistemas, se le ha asignado un
+cierto riesgo y una cierta importancia. Hay que destacar que estos valores son
+totalmente subjetivos, dependen exclusivamente de quien ó quienes están realizando la
+evaluación.
+Tenemos, entonces:
+Router:
+R1 = 6
+W1 = 7
+Bridge:
+R2 = 6
+W2 = 3
+Servidor:
+R3 = 10
+
+W3 = 10
+El cálculo de los riesgos evaluados, será, para cada dispositivo:
+Router:
+WR1 = R1 * W1 = 6 * 7 = 42
+Bridge:
+WR2 = R2 * W2 = 6 * 3 = 1.8
+Servidor:
+WR3 = R3 * W3 = 10 * 10 = 100
+La tabla que sigue a continuación, nos muestra cómo podríamos llevar a cabo esta
+tarea de una manera ordenada y los valores que contiene son los que hemos tratado:
+Recurso del sistema
+Número Nombre
+Riesgo (Ri)
+Importancia
+(Wi)
+Riesgo Evaluado
+(Ri * Wi)
+1 Router 6 7 42
+2 Bridge 6 3 18
+3 Servidor 10 10 100
+Vemos que, en este caso, el recurso que debemos proteger más es el Servidor ya
+que su riesgo ponderado es muy alto. Por tanto, comenzaremos por buscar las
+probables causas que pueden provocar problemas con los servicios brindados por él.
+Hay que tener muy en cuenta que, al realizar el análisis de riesgo,se deben
+identificar todos los recursos (por más triviales que parezcan) cuya seguridad está en
+riesgo de ser quebrantada.
+Ahora bien, ¿cuáles son los recursos?
+Los recursos que deben ser considerados al estimar las amenazas a la seguridad
+son solamente seis:
+Hardware: procesadores, tarjetas, teclados, terminales, estaciones de trabajo,
+computadoras personales, impresoras, unidades de disco, líneas de comunicación,
+cableado de la red, servidores de terminal, routers, bridges.
+Software: programas fuente, programas objeto, utilerías, programas de
+diagnóstico, sistemas operativos, programas de comunicaciones.
+Datos: durante la ejecución, almacenados en línea, archivados fuera de línea,
+back-up, bases de datos, en tránsito sobre medios de comunicación.
+Gente: usuarios, personas para operar los sistemas.
+
+Documentación: sobre programas, hardware, sistemas, procedimentos
+administrativos locales.
+Accesorios: papel, formularios, cintas, información grabada.
+La pregunta que cabe formular, luego de haber hecho el trabajo anterior, es cómo
+protegemos ahora nuestros recursos. Tal vez, ésta sea la pregunta más difícil de
+responder, pues, según el recurso del que se trate, será el modo de protegerlo.
+Primero, deberemos tener en cuenta qué es lo queremos proteger. Si se trata de
+los problemas ocasionados por el personal propio o de intromisiones clandestinas que
+puedan afectar la operatoria de la organización. (1)
+Hay que tener en cuenta, que todos los estudios realizados demuestran que el
+80% de los problemas proceden de los llamados “clientes internos” de la organización
+(los empleados o elementos que se desempeñan en la organización), y sólo el 20 %
+restante, proviene de elementos externos a la organización.
+Una aproximación acerca de cómo proteger los recursos de los problemas
+originados por el cliente interno consiste en la identificación del uso correcto de los
+mismos por parte de éstos.
+Pero primero, deberemos saber quiénes son los que van a hacer uso de los
+recursos. Es decir se debe contar, previamente, con un conocimiento cabal de todos los
+usuarios que tenemos en el sistema. Esta lista no es obligatoriamente individual, sino
+que puede ser, en efecto, una lista por grupos de usuarios y sus necesidades en el
+sistema. Esta es, con seguridad, la práctica más extendida pues, definida la necesidad
+de un grupo de usuarios, lo más efectivo es englobarlos a todos en un mismo grupo.
+Una vez identificados los usuarios (o grupos de usuarios), se puede realizar la
+determinación de los recursos de que harán uso y de los permisos que tendrán. Esto es
+sencillo de realizar con una tabla como la siguiente:
+Recurso del sistema
+Número Nombre
+Identificación del
+usuario
+Tipo de
+acceso
+Permisos
+otorgados
+1 Base Datos
+Cuentas
+Corrientes
+Grupo de auditores Local Lectura
+2 Router
+2500
+Grupo de
+mantenimiento de
+comunicaciones
+Local y remoto Lectura y escritura
+Este modelo, nos permitirá disponer para cada usuario (o grupos de usuarios), la
+información de qué se les está permitido hacer y qué no.
+El otro problema que nos presentamos, es el de las intromisiones clandestinas.
+Aquí, es preciso tener en cuenta el tipo de recurso a proteger. En base a ello,
+estará dada la política de seguridad.
+Daremos, a continuación, algunos ejemplos acerca de a qué nos estamos
+enfrentando:
+· ¿Cómo aseguramos que no están ingresando a nuestro sistema por un
+puerto desprotegido o mal configurado?
+· ¿Cómo nos aseguramos de que no se estén usando programas propios del
+sistema operativo o aplicaciones para ingresar al sistema en forma
+clandestina?
+· ¿Cómo aseguramos de que, ante un corte de energía eléctrica, el sistema
+seguirá funcionando?
+· ¿Cómo nos aseguramos de que los medios de transmisión de información
+no son suceptibles de ser monitoreados?
+· ¿Cómo actúa la organización frente al alejamiento de uno de sus
+integrantes?
+La respuesta a estos interrogantes reside en la posibilidad de conseguir dicha
+seguridad por medio de herramientas de control y seguimiento de accesos, utilizando
+check-lists para comprobar puntos importantes en la configuración y/o funcionamiento
+de los sistemas y por medio de procedimientos que hacen frente a las distintas
+situaciones.
+Es muy aconsejable que se disponga de una agenda con las tareas que se deben
+llevar a cabo regularmente, a fin de que el seguimiento de los datos obtenidos sea
+efectivo y se puedan realizar comparaciones válidas al contar con datos secuenciales.
+Esta agenda, podría ser en sí misma un procedimiento.
+Damos, a continuación, un ejemplo de procedimiento de chequeo de eventos en el
+sistema:
+Diariamente:
+· Extraer un logístico sobre el volumen de correo transportado. Extraer
+un logístico sobre las conexiones de red levantadas en las últimas 24
+horas.
+Semanalmente:
+· Extraer un logístico sobre los ingresos desde el exterior a la red
+interna.
+· Extraer un logístico con las conexiones externas realizadas desde
+nuestra red.
+· Obtener un logístico sobre los downloads de archivos realizados y
+quién los realizó.
+· Obtener gráficos sobre tráfico en la red.
+· Obtener logísticos sobre conexiones realizadas en horarios no normales
+(desde dónde, a qué hora y con qué destino).
+Mensualmente:
+· Realizar un seguimiento de todos los archivos logísticos a fin de
+detectar cambios (realizados con los archivos de back-up del mes
+anterior).
+Cabría resaltar que, en gran parte, este procedimiento puede ser automatizado
+por medio de programas que realicen las tareas y sólo informen de las desviaciones con
+respecto a las reglas dadas.

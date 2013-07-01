@@ -1,0 +1,75 @@
+8.10.3       El Fichero de Claves PAP
+
+
+
+El fichero de claves PAP es muy similar al utilizado por el CHAP. Los dos primeros campos
+
+siempre contienen un nombre de usuario y un nombre de servidor; el tercero alberga la clave
+PAP. Cuando el sistema remoto envia una peticion de autentificacion, el pppd usa la entrada
+
+en la que el campo de servidor es igual al nombre del ordenador local, y el campo de usuario
+
+igual al nombre de usuario enviado en la peticion. Cuando se autentifica a si mismo al otro
+
+ordenador,  el pppd  toma la clave a enviar de la linea con el nombre de usuario igual al
+
+nombre del usuario local, y con el campo de servidor igual al nombre del ordenador remoto.
+
+
+     Un fichero de claves PAP sencillo puede parecerse aeste:
+
+
+
+       #  /etc/ppp/pap-secrets
+       #
+       #  usuario          servidor           clave               direccion
+       vlager-pap        c3po                cresspahl          vlager.vbrew.com
+       c3po                vlager              DonaldGNUth       c3po.lucas.com
+     La primera linea se usa para autentificarnos a nosotros mismos cuando hablemos con
+
+c3po.  La segunda linea describe como un usuario llamado c3po tiene que autentificarse
+
+con nosotros.
+
+
+     El nombre vlager-pap de la primera columna es el nombre de usuario que nosotros
+
+mandamos a c3po.  Por defecto,  el pppd  tomara el nombre del ordenador local como el
+
+nombre de usuario, pero tambien se puede especificar un nombre diferente dando la opcion
+
+user, seguida por el nombre deseado.
+
+
+     Para escoger una de las entradas del fichero pap-secrets  para la autentificacion con el
+
+compa"nero, el pppd tiene que saber el nombre del ordenador remoto. Como no tiene manera
+
+de averiguarlo, tiene que especificarlo en la linea de comando usando la palabra remotename,
+
+seguida por el nombre del ordenador remoto. Por ejemplo, para usar la entrada comentada
+
+anteriormente para la autentificacion con c3po, tenemos que a"nadir la siguiente opcion a
+
+la linea de comando del pppd :
+
+
+
+         #  pppd  ...  remotename  c3po  user  vlager-pap
+     En el cuarto campo (y todos los siguientes), puede especificar que direcciones IP estan
+
+permitidas para ese ordenador particular, de la misma forma que en el fichero de claves del
+
+CHAP. El otro ordenador solo podra pedir direcciones de esa lista. En el fichero de ejemplo,
+
+obligamos a c3po a usar su direccion IP autentica.
+
+
+     Dese cuenta de que el PAP es un metodo de autentificacion bastante debil, y se reco-
+
+mienda utilizar el CHAP siempre que sea posible. Por eso, no explicaremos el PAP en gran
+
+profundidad aqui; si esta interesado en utilizar el PAP, encontrara algunas caracteristicas
+
+mas deeste comentadas en la pagina del manual del pppd(8).
+ 

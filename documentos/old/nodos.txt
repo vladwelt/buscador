@@ -1,0 +1,106 @@
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+edu                Aqui se incluyen casi todas las universidades o centros de investigacion nor-
+
+                   teamericanos.
+
+
+com                Compa"nias u organizaciones con fines comerciales.
+
+
+org                Organizaciones  no  comerciales.   Las  redes  UUCP  privadas  se  encuentran
+
+                   aqui.
+
+
+net                Pasarelas y otros nodos administrativos de la red.
+
+
+mil                Nodos militares norteamericanos.
+
+
+gov                Nodos del gobierno norteamericano.
+
+
+uucp               Oficialmente, todos los nombres de nodos UUCP sin dominio han sido mo-
+
+                   vidos a este nuevo dominio .uucp.
+
+
+
+     En general, los dominios anteriores pertenecen a redes norteamericanas.  Algo especial-
+
+mente cierto con los dominios mil o gov.
+
+
+     Fuera de los Estados Unidos, existe un dominio de primer nivel para cada pais, de dos
+
+letras segun se define en la norma ISO-3166.  Finlandia,  por ejemplo,  usa el dominio fi;
+
+el dominio de corresponde a Alemania y el dominio es corresponde a Espa"na.  Cada pais
+
+organiza por debajo del primer nivel, los dominios de segundo nivel, de manera parecida a los
+
+americanos en algunos casos (por ejemplo, con dominios com.au o edu.au) o directamente
+
+por organizaciones, como sucede en Espa"na (con dominios como upm.es para la Universidad
+
+de Politecnica de Madrid).
+
+
+     Por supuesto, un nodo dentro del dominio de un pais puede no estar fisicamente enel.
+
+El dominiounicamente identifica al nodo como registrado en el NIC de ese pais.  Asi, un
+
+comerciante sueco puede tener una delegacion en Australia, y tener sus nodos australianos
+
+registrados dentro del dominio de primer nivel sueco, se.
+
+
+     Esta  organizacion  por  dominios  soluciona  el  problema  de  la  unicidad  de  nombres.
+
+Ademas, los nombres totalmente cualificados no son dificiles de recordar.
+
+
+     Pero  DNS  tiene  otras  ventajas:  permite  delegar  la  autoridad  sobre  un  determinado
+
+subdominio a sus administradores.  Por ejemplo, los subdominios maths y physics de la
+
+UGM son creados y mantenidos por el Centro de Calculo de dicha universidad.  Y si el
+
+mantenimiento del subdominio maths.gmu.edu fuese complicado (por numero elevado de
+
+nodos,  existencia de subdominios internos,  etc),  el Centro de Calculo de la UGM puede
+
+delegar la autoridad sobre ese subdominio al departamento de Matematicas. La delegacion
+
+de un subdominio implica el control total del mismo por parte de la organizacion en la
+
+que se delego, con total libertad para crear nuevos subdominios internos, asociar nombres
+ 
+ _______________________________________________________________________________________________________________2.6.   *
+ *El sistema de nombres DNS@
+
+
+
+
+ a nodos, etc.
+
+
+      Para este fin,  el espacio de nombres se divide en zonas,  cada una asociada a un do-
+
+ minio.  Notese que existe una diferencia entre zona y dominio:  el dominio  groucho.edu
+
+ incluye todos los nodos de la UGM, mientras que la zona  groucho.edu incluye solo los
+
+ nodos que mantiene directamente el Centro de Calculo, ya que los nodos del subdominio
+
+ physics.groucho.edu pertenecen a la zona controlada por el Departamento de Fisicas. En
+
+ la figura 2.3 se marca el inicio de una zona con un peque"no circulo a la derecha del nombre
+
+ del dominio.

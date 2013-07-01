@@ -1,0 +1,330 @@
+1.2.5 Dise˜no f´isico
+El dise˜no f´isico es el proceso de producir la descripci´on de la implementaci´on
+de la base de datos en memoria secundaria: estructuras de almacenamiento y
+m´etodos de acceso que garanticen un acceso eficiente a los datos. Mientras que
+en el dise˜no l´ogico se especifica qu´e se guarda, en el dise˜no f´isico se especifica
+c´omo se guarda.
+Para llevar a cabo esta etapa, se debe haber decidido cu´al es el SGBD que se
+va a utilizar, ya que el esquema f´isico se adapta a ´el. El dise˜nador debe conocer
+muy bien toda la funcionalidad del SGBD concreto que se vaya a utilizar y
+tambi´en el sistema inform´atico sobre el que ´este va a trabajar.
+El dise˜no f´isico no es una etapa aislada, ya que algunas decisiones que se
+tomen durante su desarrollo, por ejemplo para mejorar las prestaciones, pueden
+provocar una reestructuraci´on del esquema l´ogico. De este modo, entre el dise˜no
+f´isico y el dise˜no l´ogico hay una realimentaci´on.
+En general, el prop´osito del dise˜no f´isico es describir c´omo se va a implementar
+f´isicamente el esquema l´ogico obtenido en la fase anterior. Concretamente,
+en el modelo relacional, esto consiste en:
+• Obtener un conjunto de tablas y las restricciones que se deben cumplir
+sobre ellas.
+• Determinar las estructuras de almacenamiento y los m´etodos de acceso
+que se van a utilizar para conseguir unas prestaciones ´optimas.
+• Dise˜nar el modelo de seguridad del sistema.
+Traducir el esquema l´ogico global
+La primera fase del dise˜no l´ogico consiste en traducir el esquema l´ogico global
+en un esquema que se pueda implementar en el SGBD escogido. Para ello,
+es necesario conocer toda la funcionalidad que ´este ofrece. Por ejemplo, el
+dise˜nador deber´a saber:
+• Si el sistema soporta la definici´on de claves primarias, claves ajenas y
+claves alternativas.
+• Si el sistema soporta la definici´on de datos requeridos (es decir, si se pueden
+definir atributos como no nulos).
+• Si el sistema soporta la definici´on de dominios.
+• Si el sistema soporta la definici´on de reglas de negocio.
+• C´omo se crean las tablas.
+Dise˜nar las tablas para el SGBD espec´ifico
+Las tablas se definen mediante el lenguaje de definici´on de datos del SGBD.
+Para ello, se utiliza la informaci´on producida durante el dise˜no l´ogico: el esquema
+l´ogico global y el diccionario de datos. El esquema l´ogico consta de un
+conjunto de tablas y, para cada una de ellas, se define:
+• El nombre.
+• La lista de atributos son sus nombres, y para cada uno de ellos:
+– Su dominio: tipo de datos, longitud y restricciones de dominio (CHECK).
+– El valor por defecto, que es opcional (DEFAULT).
+– Si admite nulos o no (NULL/NOT NULL).
+• La clave primaria (PRIMARY KEY), las claves alternativas (UNIQUE) y las
+claves ajenas (FOREIGN KEY), si las tiene.
+• Las reglas de integridad de las claves ajenas (ON UPDATE, ON DELETE).
+Dise˜nar las reglas de integridad y las reglas de negocio para el
+SGBD espec´ifico
+Las actualizaciones que se realizan sobre las tablas de la base de datos deben
+observar ciertas restricciones o producir determinadas consecuencias, que
+imponen las reglas de negocio de la empresa. Algunos SGBD proporcionan
+mecanismos que permiten definir estas restricciones y vigilan su cumplimiento.
+Un modo de definir reglas de integridad y de negocio es mediante las restricciones
+(CONSTRAINTS) de tipo CHECK. Otro modo de hacerlo es mediante
+disparadores (TRIGGER).
+Hay algunas reglas que no las pueden manejar todos los SGBD, como por
+ejemplo ‘a las 20:30 del ´ultimo d´ia laborable de cada a˜no archivar los pedidos
+servidos y borralos’. Para algunas reglas habr´a que escribir programas de aplicaci
+´on espec´ificos. Por otro lado, hay SGBD que no permiten la definici´on de
+reglas, por lo que ´estas deber´an incluirse en los programas de aplicaci´on.
+Todas las reglas que se definan deben estar documentadas. Si hay varias
+opciones posibles para implementarlas, hay que explicar porqu´e se ha escogido
+la opci´on implementada.
+Dise˜nar la representaci´on f´isica
+Uno de los objetivos principales del dise˜no f´isico es almacenar los datos de
+modo eficiente. Para medir la eficiencia hay varios factores que se deben tener
+en cuenta:
+• Productividad de transacciones. Es el n´umero de transacciones que se
+quiere procesar en un intervalo de tiempo.
+• Tiempo de respuesta. Es el tiempo que tarda en ejecutarse una transacci
+´on. Desde el punto de vista del usuario, este tiempo deber´ia ser el
+m´inimo posible.
+• Espacio en disco. Es la cantidad de espacio en disco que hace falta para los
+ficheros de la base de datos. Normalmente, el dise˜nador querr´a minimizar
+este espacio.
+Lo que suele suceder, es que todos estos factores no se pueden satisfacer a la vez.
+Por ejemplo, para conseguir un tiempo de respuesta m´inimo, puede ser necesario
+aumentar la cantidad de datos almacenados, ocupando m´as espacio en disco.
+Por lo tanto, el dise˜nador deber´a ir ajustando estos factores para conseguir un
+equilibrio razonable. El dise˜no f´isico inicial no ser´a el definitivo, sino que habr´a
+que ir monitoriz´andolo para observar sus prestaciones e ir ajust´andolo como sea
+oportuno. Muchos SGBD proporcionan herramientas para monitorizar y afinar
+el sistema.
+Hay algunas estructuras de almacenamiento que son muy eficientes para cargar
+grandes cantidades de datos en la base de datos, pero no son eficientes para
+el resto de operaciones, por lo que se puede escoger dicha estructura de almacenamiento
+para inicializar la base de datos y cambiarla, a continuaci´on, para su
+posterior operaci´on. Los tipos de organizaciones de ficheros disponibles var´ian
+en cada SGBD. Algunos sistemas proporcionan m´as estructuras de almacenamiento
+que otros. Es muy importante que el dise˜nador del esquema f´isico sepa
+qu´e estructuras de almacenamiento le proporciona el SGBD y c´omo las utiliza.
+Para mejorar las prestaciones, el dise˜nador del esquema f´isico debe saber
+c´omo interact´uan los dispositivos involucrados y c´omo esto afecta a las prestaciones:
+• Memoria principal. Los accesos a memoria principal son mucho m´as
+r´apidos que los accesos a memoria secundaria (decenas o centenas de miles
+de veces m´as r´apidos). Generalmente, cuanta m´as memoria principal se
+tenga, m´as r´apidas ser´an las aplicaciones. Sin embargo, es aconsejable
+tener al menos un 5% de la memoria disponible, pero no m´as de un 10%.
+Si no hay bastante memoria disponible para todos los procesos, el sistema
+operativo debe transferir p´aginas a disco para liberar memoria (paging).
+Cuando estas p´aginas se vuelven a necesitar, hay que volver a traerlas desde
+el disco (faltas de p´agina). A veces, es necesario llevar procesos enteros
+a disco (swapping) para liberar memoria. El hacer estas transferencias
+con demasiada frecuencia empeora las prestaciones.
+• CPU. La CPU controla los recursos del sistema y ejecuta los procesos
+de usuario. El principal objetivo con este dispositivo es lograr que no
+haya bloqueos de procesos para conseguirla. Si el sistema operativo, o
+los procesos de los usuarios, hacen muchas demandas de CPU, ´esta se
+convierte en un cuello de botella. Esto suele ocurrir cuando hay muchas
+faltas de p´agina o se realiza mucho swapping.
+• Entrada/salida a disco. Los discos tienen una velocidad de entrada/salida.
+Cuando se requieren datos a una velocidad mayor que ´esta, el disco se
+convierte en un cuello de botella. Dependiendo de c´omo se organicen los
+datos en el disco, se conseguir´a reducir la probabilidad de empeorar las
+prestaciones. Los principios b´asicos que se deber´ian seguir para repartir
+los datos en los discos son los siguientes:
+– Los ficheros del sistema operativo deben estar separados de los ficheros
+de la base de datos.
+– Los ficheros de datos deben estar separados de los ficheros de ´indices
+– Los ficheros con los diarios de operaciones deben estar separados del
+resto de los ficheros de la base de datos.
+• Red. La red se convierte en un cuello de botella cuando tiene mucho tr´afico
+y cuando hay muchas colisiones.
+Cada uno de estos recursos afecta a los dem´as, de modo que una mejora en
+alguno de ellos puede provocar mejoras en otros.
+Analizar las transacciones
+Para realizar un buen dise˜no f´isico es necesario conocer las consultas y las
+transacciones que se van a ejecutar sobre la base de datos. Esto incluye tanto
+informaci´on cualitativa, como cuantitativa. Para cada transacci´on, hay que
+especificar:
+• La frecuencia con que se va a ejecutar.
+• Las tablas y los atributos a los que accede la transacci´on, y el tipo de acceso:
+consulta, inserci´on, modificaci´on o eliminaci´on. Los atributos que se
+modifican no son buenos candidatos para construir estructuras de acceso.
+• Los atributos que se utilizan en los predicados del WHERE de las sentencias
+SQL. Estos atributos pueden ser candidatos para construir estructuras de
+acceso dependiendo del tipo de predicado que se utilice.
+• Si es una consulta, los atributos involucrados en el JOIN de dos o m´as
+tablas. Estos atributos pueden ser candidatos para construir estructuras
+de acceso.
+• Las restricciones temporales impuestas sobre la transacci´on. Los atributos
+utilizados en los predicados de la transacci´on pueden ser candidatos para
+construir estructuras de acceso.
+Escoger las organizaciones de ficheros
+El objetivo de este paso es escoger la organizaci´on de ficheros ´optima para
+cada tabla. Por ejemplo, un fichero desordenado es una buena estructura cuando
+se va a cargar gran cantidad de datos en una tabla al inicializarla, cuando la
+tabla tiene pocas filas, tambi´en cuando en cada acceso se deben obtener todas
+las filas de la tabla, o cuando la tabla tiene una estructura de acceso adicional,
+como puede ser un ´indice.
+Por otra parte, los ficheros dispersos (hashing) son apropiados cuando se
+accede a las tuplas a trav´es de los valores exactos de alguno de sus campos
+(condici´on de igualdad en el WHERE). Si la condici´on de b´usqueda es distinta
+de la igualdad (b´usqueda por rango, por patr´on, etc.), la dispersi´on no es una
+buena opci´on. Hay otras organizaciones, como la ISAM o los ´arboles B+.
+Las organizaciones de ficheros elegidas deben documentarse, justificando en
+cada caso la opci´on escogida.
+Escoger los ´indices a crear y sus tipos
+Los ´indices son estructuras adicionales que se utilizan para acelerar el acceso
+a las tablas en respuesta a ciertas condiciones de b´usqueda. Algunos tipos de
+´indices, los denominados caminos de acceso secundario, no afectan al emplazamiento
+f´isico de los datos en el disco y lo que hacen es proporcionar caminos de
+acceso alternativos para encontrar los datos de modo eficiente bas´andose en los
+campos de indexaci´on.
+Hay que tener en cuenta que los ´indices conllevan un coste de mantenimiento
+que hay que sopesar frente a la ganancia en prestaciones.
+Cada SGBD proporcionar´a uno o varios tipos de ´indices, entre los que se
+puede escoger. Los m´as habituales son los ´indices basados en la dispersi´on
+(hash) y los basados en ´arboles B y B +/B *.
+Un´indice basado en la dispersi´on es un fichero disperso en el que las entradas
+se insertan en el ´indice aplicando una funci´on sobre el campo de indexaci´on.
+Aunque el acceso a los datos es muy r´apido (es casi un acceso directo), este tipo
+de ´indices s´olo se pueden usar cuando la condici´on de b´usqueda es la igualdad
+sobre el campo de indexaci´on.
+Un ´indice con estructura de ´arbol B es un ´arbol de b´usqueda que siempre
+est´a equilibrado (todas las hojas se encuentran al mismo nivel) y en el que el
+espacio desperdiciado por la eliminaci´on, si lo hay, nunca ser´a excesivo. Los
+algoritmos para insertar y eliminar son complejos para poder mantener estas
+restricciones. No obstante, la mayor parte de las inserciones y eliminaciones son
+procesos simples que se complican s´olo en circunstancias especiales: cuando se
+intenta insertar en un nodo que est´a lleno o cuando se intenta borrar en un nodo
+que est´a ocupado hasta la mitad. Puedes encontrar m´as informaci´on sobre los
+´arboles B y B+ en el anexo B y en la bibliograf´ia. Las simulaciones muestran
+que un ´indice con estructura de ´arbol B+ de cuatro niveles contiene unos cien
+millones de nodos hoja, lo que indica que en cuatro accesos se puede llegar a
+los datos, incluso si la tabla es muy grande. Este tipo de ´indices es ´util no s´olo
+en b´usquedas con la condici´on de igualdad sobre el campo de indexaci´on, sino
+tambi´en para hacer b´usquedas por rangos.
+A la hora de seleccionar los ´indices, se pueden seguir las siguientes indicaciones:
+• Crear un ´indice sobre la clave primaria de cada tabla.
+La mayor parte de los SGBD relacionales crean un ´indice ´unico de manera
+autom´atica sobre la clave primaria de cada tabla porque es el mecanismo
+que utilizan para mantener la unicidad.
+• No crear ´indices sobre tablas peque˜nas. Si el SGBD ha creado ´indices autom
+´aticamente sobre este tipo de tablas, se pueden eliminar (DROP INDEX).
+Aqu´i conviene tener en cuenta que, en la mayor parte de los SGBD, no se
+permite eliminar un´indice creado sobre una clave primaria a la que apunta
+una clave ajena, ya que este ´indice se utiliza para mantener la integridad
+referencial.
+• Crear un ´indice sobre las claves ajenas que se utilicen con frecuencia para
+hacer JOIN.
+• Crear un ´indice sobre los atributos que se utilizan con frecuencia para
+hacer restricciones WHERE (son condiciones de b´usqueda).
+• Crear un ´indice ´unico sobre las claves alternativas que se utilizan para
+hacer b´usquedas.
+Al igual que ocurre con las claves primarias, los SGBD suelen mantener
+la unicidad de las claves alternativas mediante un ´indice ´unico que crean
+autom´aticamente.
+• Evitar los ´indices sobre atributos que se modifican a menudo.
+• Evitar los ´indices sobre atributos poco selectivos: aquellos en los que la
+consulta selecciona una porci´on significativa de la tabla (m´as del 15% de
+las filas).
+• Evitar los ´indices sobre atributos formados por tiras de caracteres largas.
+• Evitar los ´indices sobre tablas que se actualizan mucho y que se consultan
+muy espor´adicamente (tablas de auditor´ia o diarios). Si se han creado
+´indices sobre este tipo de tablas, podr´ia ser aconsejable eliminarlos.
+• Revisar si hay ´indices redundantes o que se solapan y eliminar los que no
+sean necesarios.
+Los ´indices creados se deben documentar, explicando las razones de su elecci
+´on.
+Considerar la introducci´on de redundancias controladas y cambios
+en el esquema
+En ocasiones puede ser conveniente relajar las reglas de normalizaci´on introduciendo
+redundancias de forma controlada, con objeto de mejorar las prestaciones
+del sistema. En la etapa del dise˜no l´ogico se recomienda llegar, al
+menos, hasta la tercera forma normal para obtener un esquema con una estructura
+consistente y sin redundancias. Pero, a menudo, sucede que las bases
+de datos as´i normalizadas no proporcionan la m´axima eficiencia, con lo que es
+necesario volver atr´as y desnormalizar algunas tablas, sacrificando los beneficios
+de la normalizaci´on para mejorar las prestaciones. Es importante hacer notar
+que la desnormalizaci´on s´olo debe realizarse cuando se estime que el sistema no
+puede alcanzar las prestaciones deseadas. Y, desde luego, la necesidad de desnormalizar
+en ocasiones no implica eliminar la normalizaci´on del dise˜no l´ogico:
+la normalizaci´on obliga al dise˜nador a entender completamente cada uno de los
+atributos que se han de representar en la base de datos. Por lo tanto, hay que
+tener en cuenta los siguientes factores:
+• La desnormalizaci´on hace que la implementaci´on sea m´as compleja.
+• La desnormalizaci´on hace que se sacrifique la flexibilidad.
+• La desnormalizaci´on puede hacer que los accesos a datos sean m´as r´apidos,
+pero ralentiza las actualizaciones.
+Por regla general, la desnormalizaci´on de una relaci´on puede ser una opci´on
+viable cuando las prestaciones que se obtienen no son las deseadas y la relaci´on se
+actualiza con poca frecuencia, pero se consulta muy a menudo. Las redundancias
+que se pueden incluir al desnormalizar son de varios tipos: se pueden introducir
+datos derivados (calculados a partir de otros datos), se pueden duplicar atributos
+o se pueden hacer JOIN de tablas.
+El incluir un atributo derivado depender´a del coste adicional de almacenarlo
+y mantenerlo consistente con los datos de los que se deriva, frente al coste de
+calcularlo cada vez que se necesita.
+No se pueden establecer una serie de reglas que determinen cu´ando desnormalizar
+tablas, pero hay algunas situaciones muy comunes en donde puede
+considerarse esta posibilidad:
+• Combinar relaciones de uno a uno. Cuando hay tablas involucradas en
+relaciones de uno a uno, se accede a ellas de manera conjunta con frecuencia
+y casi no se les accede separadamente, se pueden combinar en una sola
+tabla.
+• Duplicar atributos no clave en relaciones de uno a muchos para reducir los
+JOIN. Para evitar operaciones de JOIN, se pueden incluir atributos de la
+relaci´on (tabla) padre en la tabla hijo de las relaciones de uno a muchos.
+• Tablas de referencia. Las tablas de referencia (lookup) son listas de valores
+posibles de una o varias columnas de la base de datos. La lista normalmente
+consta de una descripci´on (valor) y un c´odigo. Este tipo de tablas
+son un caso de relaci´on de uno a muchos y con ellas es muy f´acil validar
+los datos. Mediante ellas se puede ahorrar espacio en las tablas donde se
+usan los valores de referencia ya que se puede escribir s´olo el c´odigo (como
+una clave ajena) y no el valor en s´i (descripci´on).
+Si las tablas de referencia se utilizan a menudo en las consultas, se puede
+considerar la introducci´on de la descripci´on junto con el c´odigo en la tabla
+hijo, manteniendo la tabla de referencia para validaci´on de datos cuando
+´estos se introducen en la base de datos. De esta forma se evitan los JOIN
+con la tabla de referencia al hacer las consultas. En este caso, se puede
+eliminar la restricci´on de la clave ajena ya que no es necesario mantener
+la integridad referencial, al copiarse los valores en la tabla hijo.
+• Duplicar claves ajenas en relaciones de uno a muchos para reducir los
+JOIN. Para evitar operaciones de JOIN, se pueden incluir claves ajenas de
+una tabla en otra tabla con la que se relaciona (habr´a que tener en cuenta
+ciertas restricciones).
+• Duplicar atributos en relaciones de muchos a muchos para reducir los
+JOIN. Durante el dise˜no l´ogico se eliminan las relaciones de muchos a
+muchos introduciendo dos relaciones de uno a muchos. Esto hace que
+aparezca una nueva tabla intermedia, de modo que si se quiere obtener
+la informaci´on de la relaci´on de muchos a muchos, se tiene que realizar el
+JOIN de tres tablas. Para evitar algunos de estos JOIN se pueden incluir
+algunos de los atributos de las tablas originales en la tabla intermedia.
+• Introducir grupos repetitivos. Los grupos repetitivos se eliminan en el
+primer paso de la normalizaci´on para conseguir la primera forma normal.
+Estos grupos se eliminan introduciendo una nueva tabla, generando una
+relaci´on de uno a muchos. A veces, puede ser conveniente reintroducir los
+grupos repetitivos para mejorar las prestaciones.
+• Partir tablas. Las tablas se pueden partir horizontalmente (por casos) o
+verticalmente (por atributos) de modo que a partir de una tabla grande,
+que tiene datos que no se acceden con frecuencia, se obtengan tablas m´as
+peque˜nas, algunas de las cuales contienen s´olo datos que s´i se acceden muy
+a menudo.
+Todas las redundancias que se introduzcan en este paso se deben documentar
+y razonar. El esquema l´ogico se debe actualizar para reflejar los cambios
+introducidos.
+Estimar la necesidad de espacio en disco
+En caso de que se tenga que adquirir nuevo equipamiento inform´atico, el
+dise˜nador debe estimar el espacio necesario en disco para la base de datos. Esta
+estimaci´on depende del SGBD que se vaya a utilizar y del hardware. En general,
+se debe estimar el n´umero de filas de cada tabla y su tama˜no. Tambi´en se debe
+estimar el factor de crecimiento de cada tabla.
+Dise˜nar los mecanismos de seguridad
+Los datos constituyen un recurso esencial para la empresa, por lo tanto su seguridad
+es de vital importancia. Durante el dise˜no l´ogico se habr´an especificado
+los requerimientos en cuanto a seguridad que en esta fase se deben implementar.
+Para llevar a cabo esta implementaci´on, el dise˜nador debe conocer las posibilidades
+que ofrece el SGBD que se vaya a utilizar.
+Dise˜nar las vistas (esquemas externos) de los usuarios.
+El objetivo de este paso es dise˜nar las vistas o esquemas externos de los
+usuarios, correspondientes a los esquemas l´ogicos locales. Cada esquema externo
+estar´a formado por tablas y vistas (VIEW) de SQL. Las vistas, adem´as de
+preservar la seguridad, mejoran la independencia de datos, reducen la complejidad
+y permiten que los usuarios vean los datos en el formato deseado.
+Dise˜nar las reglas de acceso
+El administrador de la base de datos asigna a cada usuario un identificador
+que tendr´a una contrase˜na asociada por motivos de seguridad. Para cada usuario
+o grupo de usuarios se otorgar´an permisos para realizar determinadas acciones
+sobre determinados objetos de la base de datos. Por ejemplo, los usuarios de un
+determinado grupo pueden tener permiso para consultar los datos de una tabla
+concreta y no tener permiso para actualizarlos.
+Monitorizar y afinar el sistema
+Una vez implementado el esquema f´isico de la base de datos, se debe poner en
+marcha para observar sus prestaciones. Si ´estas no son las deseadas, el esquema
+deber´a cambiar para intentar satisfacerlas. Una vez afinado el esquema, no
+permanecer´a est´atico, ya que tendr´a que ir cambiando conforme lo requieran los
+nuevos requisitos de los usuarios. Los SGBD proporcionan herramientas para
+monitorizar el sistema mientras est´a en funcionamiento.

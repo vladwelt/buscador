@@ -1,0 +1,274 @@
+Errores y Mensajes
+Utilice la sentencia RAISE para reportar mensajes y levantar (raise) errores.
+RAISE nivel ’formato’ [, variable [, ...]];
+Los niveles posibles son DEBUG, LOG, INFO, NOTICE, WARNING y EXCEPTION. EXCEPTION
+levanta un error (lo cual normalmente aborta la transacción actual); los demás niveles
+solo generan mensajes de diferentes niveles de prioridad. Que los mensajes de una
+prioridad particular sean reportados al cliente, escritos en la bitácora del servidor o
+ambos, se controla por las variables de configuración correspondientes.
+Dentro de la cadena de formato, % se reemplaza por la siguiente representacion de
+cadena del argumento opcional. Debe escribir %% para generar una % literal. Observe
+que los argumentos opcionales actualmente deben ser variables simples, no expresiones,
+y el formato debe ser una cadena literal simple.
+En este ejemplo, el valor de v_job_id remplazará el % en la cadena:
+RAISE NOTICE ’LLamando a cs_create_job(%)’, v_job_id;
+Este ejemplo abortará la transacción con el mensaje de error dado:
+RAISE EXCEPTION ’ID no existente --> %’, user_id;
+Actualmente RAISE EXCEPTION genera siempre el mismo código SQLSTATE,
+P0001, sin importar con que mensaje se invoque. Es posible atrapar esta excepción
+con EXCEPTION ... WHEN RAISE_EXCEPTION THEN ... pero no hay manera de
+diferenciar un RAISE de otro.
+Procedimientos Desencadenantes o Disparadores (Triggers)
+PL/pgSQL puede usarse para definir procedimientos disparadores (triggers). Un procedimiento
+trigger se crea con el comando CREATE FUNCTION, declarándola como
+una función sin argumentos y un tipo de retorno trigger. Observe que la función
+debe ser declarada sin argumentos, aunque espere recibir argumentos especificados
+en CREATE TRIGGER — los argumentos de los triggers se pasan por medio de
+TG_ARGV, tal como se describe adelante.
+Cuando una función PL/pgSQL es llamada como un trigger, se crean automáticamente
+varias variables especiales en el bloque más externo. Ellas son:
+NEW
+Tipo de dato RECORD; variable que almacena el nuevo renglón de la base
+de datos para las operaciones de INSERT/UPDATE para triggers a nivel de
+renglón. Esta variable es NULL en triggers a nivel de sentencia.
+OLD
+Tipo de dato RECORD; variable que almacena el renglón viejo de la base de
+datos para las operaciones de UPDATE/DELETE para triggers a nivel de
+renglón. Esta variable es NULL en triggers a nivel de sentencia.
+TG_NAME
+Tipo de dato name; variable que contiene el nombre del trigger lanzado actualmente.
+TG_WHEN
+Tipo de dato text; una cadena con BEFORE o AFTER dependiendo de la definición
+del trigger.
+TG_LEVEL
+Tipo de dato text; una cadena con ROW o STATEMENT dependiendo de la definición
+del trigger.
+TG_OP
+Tipo de dato text; una cadena con INSERT, UPDATE o DELETE la cual informa
+acerca de la operación para la que fue lanzado el trigger.
+TG_RELID
+Tipo de dato oid; el ID del objeto de la tabla que causó la invocación del trigger.
+TG_RELNAME
+Tipo de dato name; el nombre de la tabla que causó la invocación del trigger.
+TG_NARGS
+Tipo de dato integer; la cantidad de argumentos dados al procedimiento trigger
+en la sentencia CREATE TRIGGER.
+TG_ARGV[]
+Tipo de dato arreglo de text; los argumentos de la sentencia CREATE TRIGGER.
+El índice cuenta desde 0, Los índices inválidos (menores que 0 o mayores
+o iguales a tg_nargs) generan un valor nulo.
+Una función trigger debe regresar ya sea un NULL o un valor registro/renglón que
+tenga exactamente la misma estructura de la tabla para la cual se inició el trigger.
+Los triggers de nivel renglón lanzados ANTES (BEFORE) pueden regresar un nulo
+para notificar al administrador de triggers que debe saltarse el resto de la operación
+para este renglón (es decir, los triggers subsecuentes no deben dispararse, y el INSERT/
+UPDATE/DELETE no ocurre para este renglón). Si se regresa un valor no
+nulo entonces la operación procede con ese valor de renglón. El regresar un valor de
+renglón diferente del valor original de NEW altera el renglón que será insertado o actualizado
+(pero no tiene un efecto directo en el caso DELETE). Para alterar el renglón
+que se va a almacenar, es posible reemplazar valores particulares directamente en
+NEW y regresar el NEW modificado o construir completamente el nuevo registro que se
+va a regresar.
+El valor de retorno de un trigger de nivel sentencia BEFORE o AFTER o un trigger de
+nivel renglón siempre se ignora; también puede ser nulo. Sin embargo, cualquiera de
+estos tipos de triggers pueden abortar la operación entera al levantarse un error.
+El Ejemplo 1-1 muestra un ejemplo de un procedimiento trigger en PL/pgSQL.
+Ejemplo 1-1. Un Procedimiento Trigger PL/pgSQL
+Este ejemplo de trigger asegura que en cualquier momento en que se inserta o actualiza
+un renglón en una tabla, se estampen en el renglón el nombre del usuario y el
+tiempo actuales. También verifica que exista el nombre del usuario y que el salario
+tenga un valor positivo.
+CREATE TABLE empleados (
+empleado_nombre text NOT NULL,
+salario integer
+ultima_fecha timestamp,
+ultimo_usuario text
+);
+CREATE FUNCTION empleado_stamp() RETURNS trigger AS $empleado_stamp$
+BEGIN
+-- Revisa que se existan el nombre y el salario
+IF NEW.empleado_nombre IS NULL THEN
+RAISE EXCEPTION ’empleado_nombre no puedo ser nulo’;
+END IF;
+IF NEW.salario IS NULL THEN
+RAISE EXCEPTION ’% no puede tener un salario nulo’,
+NEW.empleado_nombre;
+END IF;
+-- Nadie debe pagar por trabajar
+IF NEW.salario < 0 THEN
+RAISE EXCEPTION ’% no puede tener un salario negativo’,
+NEW.empleado_nombre;
+END IF;
+-- Recuerda quien y cuando cambió la nómina
+NEW.ultima_fecha := ’now’;
+NEW.ultimo_usuario := current_user;
+RETURN NEW;
+END;
+$empleado_stamp$ LANGUAGE plpgsql;
+CREATE TRIGGER empleado_stamp BEFORE INSERT OR UPDATE ON emp
+FOR EACH ROW EXECUTE PROCEDURE empleado_stamp();
+Otra manera de llevar una bitácora en una tabla implica el crear una nueva tabla que
+contenga un renglón por cada insert, update o delete que ocurra. Esta técnica puedes
+considerarse como una auditoría a los cambios a una tabla. El Ejemplo 1-2 muestra
+un ejemplo de un procedimiento trigger de auditoría en PL/pgSQL.
+Ejemplo 1-2. Un Procedimiento Trigger para Auditoría en PL/pgSQL
+Este trigger de ejemplo asegura que cualquier inserción, actualización o borrado de
+un renglón en la tabla emp, sea registrada (i.e., auditada) en la tabla emp_audit. La
+hora actual y el nombre del usuario se estampan en el renglón, junto con el tipo de
+operación ejecutada.
+CREATE TABLE empleados (
+empleado_nombre text NOT NULL,
+salario integer
+);
+CREATE TABLE empleados_audit(
+operacion char(1) NOT NULL,
+horafecha timestamp NOT NULL,
+userid text NOT NULL,
+empleado_nombre text NOT NULL,
+salario integer
+);
+CREATE OR REPLACE FUNCTION procesa_empleados_audit() RETURNS TRIGGER AS ’
+BEGIN
+--
+-- Crea un registro en empleado_audit para reflejar las operaciones
+-- realizadas en empleados utiliza las variables especiales TG_OP
+-- para efectuar la operación
+IF (TG_OP = ”DELETE”) THEN
+INSERT INTO empleados_audit SELECT ”D”, now(), user, OLD.*;
+RETURN OLD;
+ELSIF (TG_OP = ”UPDATE”) THEN
+INSERT INTO empleados_audit SELECT ”U”, now(), user,
+NEW.empleado_nombre, NEW.salario;
+RETURN NEW;
+ELSIF (TG_OP = ”INSERT”) THEN
+INSERT INTO empleados_audit SELECT ”I”, now(), user, NEW.*;
+RETURN NEW;
+END IF;
+RETURN NULL; -- el resultado es ignorado puesto que este
+-- es un trigger AFTER
+END;
+’ language ’plpgsql’;
+CREATE TRIGGER empleados_audit AFTER INSERT OR UPDATE OR
+DELETE ON empleados FOR EACH ROW EXECUTE PROCEDURE
+procesa_empleados_audit();
+Un uso de los triggers es el mantener una tabla como resumen de otra tabla. El resumen
+resultante puede usarse en lugar de la tabla original para ciertas consultas —
+comúnmente con una gran ahorro en el tiempo de ejecución. Esta técnica se suele usar
+en Data Warehousing, en donde las tablas se datos medidos u observados (llamadas
+tablas factuales) pueden ser extremadamente grandes. El Ejemplo 1-3 muestra un
+ejemplo de un procedimiento trigger en PL/pgSQL que mantiene una tabla resumen
+para una tabla factual en un data warehouse.
+Ejemplo 1-3. Un Procedimiento Trigger Para Mantener Una Tabla Resumen en
+PL/pgSQL
+El esquema que se detalla aquí está basado parcialmente en el ejemplo Grocery Store
+de The Data Warehouse Toolkit por Ralph Kimball.
+--
+-- Tablas principales - time dimension y sales fact.
+--
+CREATE TABLE time_dimension (
+time_key integer NOT NULL,
+day_of_week integer NOT NULL,
+day_of_month integer NOT NULL,
+month integer NOT NULL,
+quarter integer NOT NULL,
+year integer NOT NULL
+);
+CREATE UNIQUE INDEX time_dimension_key ON time_dimension(time_key);
+CREATE TABLE sales_fact (
+time_key integer NOT NULL,
+product_key integer NOT NULL,
+store_key integer NOT NULL,
+amount_sold numeric(12,2) NOT NULL,
+units_sold integer NOT NULL,
+amount_cost numeric(12,2) NOT NULL
+);
+CREATE INDEX sales_fact_time ON sales_fact(time_key);
+--
+-- Tabla resumen - sales by time.
+--
+CREATE TABLE sales_summary_bytime (
+time_key integer NOT NULL,
+amount_sold numeric(15,2) NOT NULL,
+units_sold numeric(12) NOT NULL,
+amount_cost numeric(15,2) NOT NULL
+);
+CREATE UNIQUE INDEX sales_summary_bytime_key ON
+sales_summary_bytime(time_key);
+--
+-- Función y trigger para corregir la(s) columna(s)
+-- resumida(s) en UPDATE, INSERT, DELETE.
+--
+CREATE OR REPLACE FUNCTION maint_sales_summary_bytime()
+RETURNS TRIGGER AS $maint_sales_summary_bytime$
+DECLARE
+delta_time_key integer;
+delta_amount_sold numeric(15,2);
+delta_units_sold numeric(12);
+delta_amount_cost numeric(15,2);
+BEGIN
+-- Calcula la(s) cantidad(es) del incremento/decremento.
+IF (TG_OP = ’DELETE’) THEN
+delta_time_key = OLD.time_key;
+delta_amount_sold = -1 * OLD.amount_sold;
+delta_units_sold = -1 * OLD.units_sold;
+delta_amount_cost = -1 * OLD.amount_cost;
+ELSIF (TG_OP = ’UPDATE’) THEN
+-- Prohibe las actualizacioes que cambie la time_key -
+-- (probabablemente no muy oneroso, puesto que
+-- la mayoría de los cambios se harán como
+-- DELETE + INSERT).
+IF ( OLD.time_key != NEW.time_key) THEN
+RAISE EXCEPTION ’La actualización de time_key: % -> %
+no está permitida’, OLD.time_key, NEW.time_key;
+END IF;
+delta_time_key = OLD.time_key;
+delta_amount_sold = NEW.amount_sold - OLD.amount_sold;
+delta_units_sold = NEW.units_sold - OLD.units_sold;
+delta_amount_cost = NEW.amount_cost - OLD.amount_cost;
+ELSIF (TG_OP = ’INSERT’) THEN
+delta_time_key = NEW.time_key;
+delta_amount_sold = NEW.amount_sold;
+delta_units_sold = NEW.units_sold;
+delta_amount_cost = NEW.amount_cost;
+END IF;
+-- Actualiza el renglón resumen con los nuevos valores.
+UPDATE sales_summary_bytime
+SET amount_sold = amount_sold + delta_amount_sold,
+units_sold = units_sold + delta_units_sold,
+amount_cost = amount_cost + delta_amount_cost
+WHERE time_key = delta_time_key;
+-- No debe haber ningún renglón con este time_key
+-- (e.g. ¡nuevos datos!).
+IF (NOT FOUND) THEN
+BEGIN
+INSERT INTO sales_summary_bytime (
+time_key,
+amount_sold,
+units_sold,
+amount_cost)
+VALUES (
+delta_time_key,
+delta_amount_sold,
+delta_units_sold,
+delta_amount_cost
+);
+EXCEPTION
+--
+-- Atrape la condición de competencia cuando dos
+-- transacciones estén añadiendo datos para
+-- un nuevo time_key.
+--
+WHEN UNIQUE_VIOLATION THEN
+UPDATE sales_summary_bytime
+SET amount_sold = amount_sold + delta_amount_sold,
+units_sold = units_sold + delta_units_sold,
+amount_cost = amount_cost + delta_amount_cost
+WHERE time_key = delta_time_key;
+END;
+END IF;
+RETURN NULL;
+END;
+$maint_sales_summary_bytime$ LANGUAGE plpgsql;
+CREATE TRIGGER maint_sales_summary_bytime
+AFTER INSERT OR UPDATE OR DELETE ON sales_fact
+FOR EACH ROW EXECUTE PROCEDURE maint_sales_summary_bytime();

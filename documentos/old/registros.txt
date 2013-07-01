@@ -1,0 +1,141 @@
+_____________________________________________14
+     Time To Live
+   15Aunque al menos debera tener informacion autorizada para el localhost y la resolucion inversa de
+
+127.0.0.1
+   16Instituto Tecnologico de Massachusets
+ 
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+     Un  nodo  puede  admitir  mas  de  un  nombre.   Pero  solo  uno  de  ellos  sera  "oficial"  o
+
+canonico, mientras que los demas son alias del primero. La diferencia es que el canonico se
+
+define en un registro de tipo A, mientras que los alias se definen en registros CNAME que
+
+apuntan al nombre canonico.
+
+
+     En un capitulo posterior se trata todo esto en profundidad.  Aqui nos vamos a limitar
+
+a ver algunos ejemplos.  En la figura 2.4 se muestra una parte de la base de datos para la
+
+zona physics.groucho.edu.
+
+  ;
+  ;  Informacion  Autorizada  de  physics.groucho.edu
+  @                            IN      SOA              (
+         niels.physics.groucho.edu.
+         hostmaster.niels.physics.groucho.edu.
+         1034                  ;  serial  no
+         360000               ;  refresh
+         3600                  ;  retry
+         3600000              ;  expire
+         3600                  ;  default  ttl  )
+  ;
+  ;  Servidores  de  nombres  autorizados
+          IN      NS          niels
+          IN      NS          gauss.maths.groucho.edu.
+  gauss.maths.groucho.edu.  IN  A           149.76.4.23
+  ;
+  ;  Fisica  Teorica  (subred  12)
+  niels                       IN      A           149.76.12.1
+          IN      A           149.76.1.12
+  nameserver                IN      CNAME      niels
+  otto                        IN      A           149.76.12.2
+  quark                       IN      A           149.76.12.4
+  down                        IN      A           149.76.12.5
+  strange                    IN      A           149.76.12.6
+  ...
+  ;  Laboratorio  Collider  (subred  14)
+  boson                       IN      A           149.76.14.1
+  muon                        IN      A           149.76.14.7
+  bogon                       IN      A           149.76.14.12
+  ...
+          Figura 2.4: Extracto del fichero named.hosts del departamento de Fisicas.
+
+
+
+     Ademas  de  los  registros  A  y  CNAME,  se  puede  ver  que  hay  un  registro  especial  al
+
+principio del fichero, con varias lineas.  Se trata del registro SOA o de inicio de autoridad,
+
+que mantiene informacion general sobre el servidor de nombres.  Por ejemplo, el tiempo de
+ 
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+vida por defecto de todos los registros que mantiene.
+
+
+     Notese que aquellos nombres que no finalicen en un punto seran interpretados como re-
+
+lativos al dominio en cuestion. El nombre especial "@" usado en el registro SOA representa
+
+al dominio completo.
+
+
+     Hemos visto que los servidores para el dominio groucho.edu deben tener conocimiento
+
+sobre los servidores de la zona physics para poder reenviarles las peticiones paraesta. Esto
+
+se suele incluir en los registros NS que incluyen el nombre de los servidores en notacion
+
+FQDN, y un registro A que da la direccion IP para ese servidor.  Vease, por ejemplo, la
+
+figura 2.5.
+
+  ;
+  ;  Datos  de  zona  para  groucho.edu.
+  @                          IN          SOA            (
+         vax12.gcc.groucho.edu.
+         hostmaster.vax12.gcc.groucho.edu.
+         233                   ;  serial  no
+         360000               ;  refresh
+         3600                  ;  retry
+         3600000              ;  expire
+         3600                  ;  default  ttl  )
+
+
+  ....
+  ;
+  ;  Registros  de  la  zona.
+  physics                  IN       NS           niels.physics.groucho.edu.
+       IN       NS           gauss.maths.groucho.edu.
+  niels.physics          IN       A            149.76.12.1
+  gauss.maths            IN       A            149.76.4.23
+  ...
+                    Figura 2.5: Extracto del fichero named.hosts de la UGM.
+
+2.6.6      Resolucion inversa
+
+
+
+Ademas de la obtencion de una direccion IP a partir del nombre, a veces interesa lo contrario:
+
+conocida la direccion, obtener el nombre canonico. Esto se conoce como traduccion inversa
+
+y la utilizan algunas aplicaciones de red para verificar la identidad del llamante.  Cuando
+
+se  usa  un  fichero  hosts,  la  resolucion  inversa  supone  una  simple  busqueda  en  el  mismo.
+
+En cambio, para el DNS se ha creado un dominio especial, el in-addr.arpa, que contiene
+
+direcciones  de  los  nodos  en  notacion  de  puntos  divisorios  invertida.   Por  ejemplo,  a  la
+
+direccion IP 149.76.12.4 le corresponde el nombre 4.12.76.149.in-addr.arpa. El tipo de
+ 
+_______________________________________________________________________________________________________________2.6.   E*
+ *l sistema de nombres DNS@
+
+
+
+
+registro para estos datos se llama PTR.

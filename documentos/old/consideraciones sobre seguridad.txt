@@ -1,0 +1,264 @@
+8.9       Consideraciones  Generales  sobre  Seguridad
+Un demonio de PPP mal configurado puede ser un peligroso agujero en la seguridad.  Es
+
+equivalente a dejar a cualquiera enganchar su maquina a su red Ethernet (y eso es muy
+
+malo).  En esta seccion, discutiremos algunas medidas que deberian hacer su configuracion
+
+del PPP segura.
+
+
+     Uno de los problemas del pppd  es que el configurar el dispositivo de red y la tabla de
+
+encaminamiento requiere los privilegios de root.  Normalmente resolvera esto ejecutandolo
+
+como  setuid  de  root.   A  pesar  de  ello,  el  pppd  permite  a  los  usuarios  establecer  varias
+
+opciones  de  relevancia  para  la  seguridad.   Para  protegerse  contra  cualquier  ataque  que
+
+pueda lanzar algun usuario manipulando estas opciones, se sugiere que establezca un par de
+
+valores por defecto en el fichero global /etc/ppp/options, tal como mostrados en el fichero
+
+de ejemplo en la seccion Utilizacion de los Ficheros de Opciones.  Algunos de ellos, como
+
+los de las opciones de autentificacion, no pueden ser despues modificados por el usuario,
+
+asi que proporcionan una razonable proteccion contra las manipulaciones.
+
+
+     Por supuesto, tambien tiene que protegerse de los sistemas con los que habla con PPP.
+
+Para evitar que otros ordenadores puedan hacerse pasar por quien no son, debe de utilizar
+
+siempre algun tipo de autentificacion con el otro extremo de la comunicacion.  Ademas,
+
+no deberia permitir a ordenadores desconocidos usar cualquier direccion IP que elijan, sino
+
+restringirlas a unas pocas. La siguiente seccion tratata sobreestos asuntos.
+
+8.10        Autentificacion  con  PPP
+8.10.1       CHAP frente a PAP
+
+
+
+Con el PPP, cada sistema puede obligar al otro ordenador a identificarse usando uno de
+
+los  dos  protocolos  de  autentificacion  disponibles.  Estos  son  el  Password  Authentication
+
+Protocol (PAP), y el Challenge Handshake Authentication Protocol (CHAP). Cuando se
+
+establece una conexion, cada extremo puede pedir al otro que se autentifique, independien-
+
+temente de que sea el llamante o el llamado. Mas adelante, utilizare relajadamente `cliente'
+
+y `servidor' cuando quiera distinguir entre el sistema autentificado y el autentificador.  Un
+
+demonio PPP puede pedir a la otra maquina autentificacion enviando otra peticion mas de
+
+configuracion de LCP indicando el protocolo de autentificacion deseado.
+
+     El PAP trabaja basicamente de la misma forma que el procedimiento normal de lo-
+
+gin.  El cliente se autentifica a si mismo enviando un nombre de usuario y una contrase"na
+
+(opcionalmente encriptada) al servidor, la cual es comparada por el servidor con su base
+
+de datos de claves.  Esta tecnica es vulnerable a los intrusos que pueden intentar obtener
+
+la contrase"na escuchando en una linea de serie y a otros que hagan sucesivos intentos de
+
+ataque por el metodo de prueba y error.
+
+
+     El CHAP no tiene estos defectos. Con el CHAP, el autentificador (i.e. el servidor) envia
+
+una cadena de "reto" generada aleatoriamente al cliente, junto a su nombre de ordenador.
+
+El cliente utiliza el nombre del ordenador para buscar la clave apropiada, la combina con
+
+el reto, y encripta la cadena utilizando una funcion de codificacion de un solo sentido.  El
+
+resultado es devuelto al servidor junto con el nombre del ordenador cliente.  El servidor
+
+realiza ahora la misma computacion, y advierte al cliente si llega al mismo resultado.
+
+
+     Otra caracteristica del CHAP es que no solicita autentificacion al cliente solamente al
+
+comienzo de la sesion, sino que envia retos a intervalos regulares para asegurarse de que el
+
+cliente no ha sido reemplazado por un intruso, por ejemplo cambiando la linea telefonica.
+
+
+     El pppd mantiene las claves secretas para el CHAP y el PAP en dos ficheros separados,
+
+llamados /etc/ppp/chap-secrets  y pap-secrets  respectivamente.  Si introduce un ordenador
+
+remoto en alguno de los dos ficheros, tiene un buen control de cual de los protocolos CHAP
+
+o PAP se utilizara para autentificarnos conel y viceversa.
+
+
+     Por defecto, el pppd no pide autentificacion al ordenador remoto, pero aceptara el auten-
+
+tificarse a si mismo cuando se lo pida el ordenador remoto.  Como el CHAP es mucho mas
+
+fuerte que el PAP, el pppd  intenta usar el anterior siempre que es posible.  Si el otro or-
+
+denador no lo acepta, o el pppd  no encuentra una clave CHAP para el sistema remoto es
+
+su fichero chap-secrets, cambia al PAP. Si tampoco tiene clave PAP para su compa"nero,
+
+renunciara a autentificarse. Como consecuencia de esto, se cerrara la conexion.
+
+
+     Este comportamiento puede ser modificado de varias formas.  Por ejemplo, cuando se
+
+a"nade la palabra auth, el pppd  solicitara al otro ordenador que se autentifique.  El pppd
+
+aceptara el uso del CHAP o el PAP para ello, siempre y cuando tenga una clave para su
+
+compa"nero en su base de datos CHAP o PAP respectivamente.  Hay otras opciones para
+
+activar o no un determinado protocolo de autentificacion, pero no las describre aqui. Puede
+
+leer la pagina de manual del pppd(8) para mas detalles.
+
+
+     Si todos los sistemas con los que conversa en PPP estan de acuerdo en autentificarse
+
+con  usted,  deberia  poner  la  opcion  auth  en  el  fichero  global  /etc/ppp/options  y  definir
+
+contrase"nas para cada sistema en el fichero chap-secrets. Si un sistema no acepta el CHAP,
+
+a"nada una entrada parael a el fichero pap-secrets. De esta forma, puede asegurarse de que
+
+ningun sistema sin autentificar se conecta a su ordenador.
+
+
+     Las dos secciones siguientes hablan sobre los dos ficheros de claves del PPP, pap-secrets
+ 
+y chap-secrets.  Estan situados en /etc/ppp  y contienen tripletas de clientes, servidores y
+
+contrase"nas, seguidas opcionalmente por una lista de direcciones IP. La interpretacion de
+
+los campos de servidor y cliente es distinta en el CHAP y el PAP, y tambien depende de
+
+si nos autentificamos nosotros con el otro ordenador , o si solicitamos al servidor que se
+
+autentifique con nosotros.
+8.10.2       El fichero de claves CHAP
+
+
+
+Cuando tiene que autentificarse con algun servidor utilizando el CHAP, el pppd  busca en
+
+el fichero pap-secrets una entrada cuyo campo de cliente sea igual al nombre del ordenador
+
+local, y cuyo campo de servidor sea igual al nombre del ordenador remoto enviado en el reto
+
+del CHAP. Cuando solicita a la otra maquina que se autentifique, los roles son simplemente
+
+al reves: el pppd entonces buscara una entrada que tenga el campo de cliente igual al nombre
+
+del ordenador remoto (enviado en en la respuesta del CHAP del cliente), y el campo de
+
+servidor igual al nombre del ordenador local.
+
+
+     El siguiente es un fichero de ejemplo del chap-secrets para vlager:10
+
+
+
+       #  claves  CHAP  para  vlager.vbrew.com
+       #
+       #  cliente            servidor              clave                       direccion
+       #----------------------------------------------------------------------
+       vlager.vbrew.com   c3po.lucas.com      "Use  The  Source  Luke"  vlager.vbrew.com
+       c3po.lucas.com      vlager.vbrew.com   "riverrun,  pasteve"    c3po.lucas.com
+       *                       vlager.vbrew.com   "VeryStupidPassword"   pub.vbrew.com
+     Cuando se intenta establecer una conexion PPP con c3po,  c3po pide a vlager que
+
+se autentifique usando el CHAP mediante el envio de un reto del CHAP. El pppd  enton-
+
+ces  examina  chap-secrets  buscando  una  entrada  cuyo  campo  de  cliente  sea  igual  a  vla-
+
+ger.vbrew.com y el campo de servidor sea c3po.lucas.com,11  y encuentra la primera
+
+linea  mostrada  anteriormente.   Entonces  produce  la  respuesta  del  CHAP  a  partir  de  la
+
+cadena del reto y la clave (Use  The  Source  Luke), y la envia de vuelta a c3po.
+
+
+     Al mismo tiempo, el pppd produce un reto del CHAP para c3po, conteniendo unaunica
+
+cadena de reto y su nombre de ordenador completo vlager.vbrew.com.  c3po construye
+
+una respuesta del CHAP de la manera que acabamos de decir, y se la devuelve a vlager.
+
+El pppd extrae ahora el nombre del cliente (c3po.vbrew.com) de la respuesta, y busca en
+
+el fichero chap-secrets una linea que tenga c3po como cliente y vlager como servidor.  La
+segunda linea se corresponde conesto, asi que el pppd combina el reto del CHAP y la clave
+
+riverrun,  pasteve, las encripta, y compara el resultado con la respuesta del CHAP de
+
+c3po.
+
+
+     El cuarto campo opcional lista las direcciones IP que son aceptables por los clientes
+
+nombrados en el primer campo.  Las direcciones pueden ser dadas en notacion de cuarteto
+
+numerico o como nombres de ordenador que son resueltos posteriormente.  Por ejemplo, si
+
+c3po solicita usar una direccion IP que no esta en esta lista durante la negociacion IPCP,
+
+la peticion sera rechazaa, y IPCP se desconectara. En el fichero de ejemplo anterior, c3po
+
+esta limitado a poder usar solo su propia direccion.  Si el campo de direccion esta vacio, se
+
+permitira cualquier direccion; un valor de "-" evita el uso de una cierta direccion IP con un
+
+cliente.
+
+
+     La tercera linea del fichero chap-secrets de prueba, permite a cualquier ordenador esta-
+
+blecer un enlace PPP con vlager, pues si aparece la expresion "* " en los campos de cliente
+
+o servidor, sera valido cualquier nombre.  Elunico requisito es que sepa la clave, y utiliza
+
+la direccion de pub.vbrew.com.  Pueden aparecer perfectamente entradas con comodines
+
+en los nombres en cualquier lugar del fichero de claves, pues el pppd  siempre utilizara la
+
+entrada mas especifica que pueda ser aplicada a un par cliente/servidor.
+
+
+     Hay algunas cosas que decir sobre la manera en que el pppd  encuentra los nombres de
+
+ordenadores que busca en el fichero de claves.  Como se explico anteriormente, el nombre
+
+del ordenador remoto es siempre proporcionado por el otro ordenador en el paquete de reto
+
+o respuesta del CHAP. El nombre del ordenador local sera obtenido por defecto llamando
+
+a la funcion gethostname(2).  Si ha configurado el nombre del sistema como el nombre del
+
+ordenador sin calificar, entonces tendra que dar al pppd  el nombre del dominio a a"nadir
+
+usando la opcion domain:
+       #  pppd  ...domain  vbrew.com
+     Esto a"nadira el nombre del dominio de Brewery a vlager para todas las actividades
+
+relacionadas con la autentificacion.  Otras opciones que modifican la idea que tiene el pppd
+
+del nombre del ordenador local son usehostname y name. Cuando da la direccion IP local en
+
+la linea de comando usando "local :remoto ", y local es un nombre en vez de un cuarteto
+
+numerico, el pppd utilizaraeste como el nombre local.  Para mas detalles, lea la pagina del
+
+manual del pppd(8).

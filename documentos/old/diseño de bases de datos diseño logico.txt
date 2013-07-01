@@ -1,0 +1,91 @@
+1.2.4 Dise˜no l´ogico
+El dise˜no l´ogico es el proceso de construir un esquema de la informaci´on
+que utiliza la empresa, bas´andose en un modelo de base de datos espec´ifico,
+independiente del SGBD concreto que se vaya a utilizar y de cualquier otra
+consideraci´on f´isica.
+En esta etapa, se transforma el esquema conceptual en un esquema l´ogico
+que utilizar´a las estructuras de datos del modelo de base de datos en el que se
+basa el SGBD que se vaya a utilizar, como puede ser el modelo relacional, el
+modelo de red, el modelo jer´arquico o el modelo orientado a objetos. Conforme
+se va desarrollando el esquema l´ogico, ´este se va probando y validando con los
+requisitos de usuario.
+La normalizaci´on es una t´ecnica que se utiliza para comprobar la validez de
+los esquemas l´ogicos basados en el modelo relacional, ya que asegura que las
+tablas obtenidas no tienen datos redundantes.
+El esquema l´ogico es una fuente de informaci´on para el dise˜no f´isico. Adem´as,
+juega un papel importante durante la etapa de mantenimiento del sistema, ya
+que permite que los futuros cambios que se realicen sobre los programas de
+aplicaci´on o sobre los datos, se representen correctamente en la base de datos.
+Tanto el dise˜no conceptual, como el dise˜no l´ogico, son procesos iterativos,
+tienen un punto de inicio y se van refinando continuamente. Ambos se deben
+ver como un proceso de aprendizaje en el que el dise˜nador va comprendiendo
+el funcionamiento de la empresa y el significado de los datos que maneja. El
+dise˜no conceptual y el dise˜no l´ogico son etapas clave para conseguir un sistema
+que funcione correctamente. Si el esquema no es una representaci´on fiel de la
+empresa, ser´a dif´icil, sino imposible, definir todas las vistas de usuario (esquemas
+externos), o mantener la integridad de la base de datos. Tambi´en puede ser dif´icil
+definir la implementaci´on f´isica o el mantener unas prestaciones aceptables del
+sistema. Adem´as, hay que tener en cuenta que la capacidad de ajustarse a
+futuros cambios es un sello que identifica a los buenos dise˜nos de bases de datos.
+Por todo esto, es fundamental dedicar el tiempo y las energ´ias necesarias para
+producir el mejor esquema que sea posible.
+Restricciones de integridad
+Las restricciones de integridad son reglas que se quieren imponer para proteger
+la base de datos, de modo que no pueda llegar a un estado inconsistente.
+Hay cinco tipos de restricciones de integridad.
+(a) Datos requeridos. Algunos atributos deben contener valores en todo momento,
+es decir, no admiten nulos.
+(b) Restricciones de dominios. Todos los atributos tienen un dominio asociado,
+que es el conjunto los valores que cada atributo puede tomar.
+(c) Integridad de entidades. El identificador de una entidad no puede ser nulo,
+por lo tanto, las claves primarias de las tablas no admiten nulos.
+(d) Integridad referencial. Una clave ajena enlaza cada tupla de la relaci´on
+hijo con la tupla de la relaci´on padre que tiene el mismo valor en su clave
+primaria. La integridad referencial dice que si una clave ajena tiene un
+valor (si es no nula), ese valor debe ser uno de los valores de la clave
+primaria a la que referencia. Hay varios aspectos a tener en cuenta sobre
+las claves ajenas para lograr que se cumpla la integridad referencial.
+1. ¿Admite nulos la clave ajena? Cada clave ajena expresa una relaci´on.
+Si la participaci´on de la entidad hijo en la relaci´on es total, entonces
+la clave ajena no admite nulos; si es parcial, la clave ajena debe
+aceptar nulos.
+2. ¿Qu´e hacer cuando se quiere borrar una ocurrencia de la entidad
+padre que tiene alg´un hijo? O lo que es lo mismo, ¿qu´e hacer cuando
+se quiere borrar una tupla que est´a siendo referenciada por otra tupla
+a trav´es de una clave ajena? Hay varias respuestas posibles:
+• Restringir: no se pueden borrar tuplas que est´an siendo referenciadas
+por otras tuplas.
+• Propagar: se borra la tupla deseada y se propaga el borrado a
+todas las tuplas que le hacen referencia.
+• Anular: se borra la tupla deseada y todas las referencias que
+ten´ia se ponen, autom´aticamente, a nulo (esta respuesta s´olo es
+v´alida si la clave ajena acepta nulos).
+• Valor por defecto: se borra la tupla deseada y todas las referencias
+toman, autom´aticamente, el valor por defecto (esta respuesta
+s´olo es v´alida si se ha especificado un valor por defecto para la
+clave ajena).
+• No comprobar: se borra la tupla deseada y no se hace nada para
+garantizar que se sigue cumpliendo la integridad referencial.
+3. ¿Qu´e hacer cuando se quiere modificar la clave primaria de una tupla
+que est´a siendo referenciada por otra tupla a trav´es de una clave
+ajena? Las respuestas posibles son las mismas que en el caso anterior.
+Cuando se escoge propagar, se actualiza la clave primaria en la tupla
+deseada y se propaga el cambio a los valores de clave ajena que le
+hac´ian referencia.
+(e) Reglas de negocio. Cualquier operaci´on que se realice sobre los datos debe
+cumplir las restricciones que impone el funcionamiento de la empresa. En
+ocasiones estas reglas de negocio pueden requerir la ejecuci´on autom´atica
+de ciertas acciones ante determinados eventos.
+Todas las restricciones de integridad establecidas en este paso se deben reflejar
+en el diccionario de datos para que puedan ser tenidas en cuenta durante la fase
+del dise˜no f´isico.
+Relaci´on entre el esquema l´ogico y los diagramas de flujo de datos
+El esquema l´ogico refleja la estructura de los datos a almacenar que maneja
+la empresa. Un diagrama de flujo de datos muestra c´omo se mueven los datos en
+la empresa y los almacenes en donde se guardan. Si se han utilizado diagramas
+de flujo de datos para modelar las especificaciones de requisitos de usuario, se
+pueden utilizar para comprobar la consistencia y completitud del esquema l´ogico
+desarrollado. Para ello:
+• Cada almac´en de datos debe corresponder con una o varias entidades
+completas.
+• Los atributos en los flujos de datos deben corresponder a alguna entidad.
