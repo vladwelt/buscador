@@ -1,5 +1,6 @@
 <?php
-include_once('basedatos.php');
+
+include_once('BD/basedatos.php');
 conectar_bd();
 
 class Busqueda2{

@@ -2,7 +2,7 @@
 <?php
 	$servidorBD = "localhost";
 	$usuario = "root";
-	$clave = ".ronald";
+	$clave = "asdf";
 	$BD = "buscador";
     $enlace = 0;
     $res = 0;	

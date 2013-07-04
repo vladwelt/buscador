@@ -28,8 +28,6 @@ function eraseCookie(name)
 	createCookie(name,"",-1);
 }
 
-<!-- Misc functions -->
-
 function openURL(url, target) {
 	var cookie = readCookie('viewmode');
 	if(cookie) {

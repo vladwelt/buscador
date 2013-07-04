@@ -61,7 +61,7 @@ body {
     <td height="300" align="left" valign="top">
 <?php 
 
-	include('busqueda.php');
+	include('../motor/busqueda.php');
 	$link=new Busqueda();
 	if(!isset($_POST['texto']))
 	{
@@ -76,7 +76,7 @@ body {
     <td height="300" align="left" valign="top">
 <?php 
 
-	include('busqueda2.php');
+	include('../motor/busqueda2.php');
 	$b=new Busqueda2();
 	if(!isset($_POST['texto']))
 	{
@@ -95,7 +95,7 @@ body {
     <td height="">
   <tr>
     
-		<td height="5" ><div align="right"><a href="index.html" class="Estilo6">*Salir </a>&nbsp;</div></td>
+		<td height="5" ><div align="right"><a href="../index.html" class="Estilo6">*Salir </a>&nbsp;</div></td>
 	</td>
   </tr>
 	</td>

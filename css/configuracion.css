@@ -1,0 +1,86 @@
+.main {
+    background-image: url('../images/bg_main.png');
+    overflow: hidden;
+    position: relative !important;
+}
+table{
+  border-style:double;
+  background-image: url('../images/bg_second.png');
+  border-spacing: 0px;
+  width: 100%;
+  text-align: left;
+}
+th{
+  border-style:solid;
+  background-image: url('../images/bg_main.png');
+  border-bottom: 5px solid #0088CC;
+  width: 20%;
+  text-align-last: top;
+  padding: 0.4em;
+}
+td{
+  background-image: url('../images/bg_main.png');
+  border-style:groove;
+  width: 20%;
+  padding: 2px;
+}
+
+table tr td input[type="password"]{
+  width: 100px;
+}
+table tr td input[type="text"]{
+    width: 100px;
+}
+
+
+header{
+background-image: url('../images/bg_second.png');   
+border-radius: 5px;
+margin: 0px;
+padding: 10px;
+color: blanchedalmond;
+font-weight: bold;
+}
+.user{
+font-weight: bold;
+color: #993300;
+padding: 0px;   
+}
+* {
+    font-family: 'Verdana',Arial,serif;
+    font-size: 12pt;
+}
+nav{
+background-image: url('../images/bg_main.png');
+margin: 5px 5px 5px 0px;
+border-radius: 5px;
+border: 2px solid #993300;
+padding: 10px;
+position: absolute;
+float: left;
+width: 12%;
+height: 500px;
+}
+
+section{
+margin: 5px 0px 5px 5px;
+background-image: url('../images/bg_main.png');
+border-radius: 5px;
+border: 2px solid #993300;
+padding: 10px;
+float: right;
+width: 85%;
+height: 500px;
+}
+footer{
+background-image: url('../images/bg_second.png');  
+text-align: center;
+clear: both;
+border-radius: 5px;
+border: 2px solid #993300;
+bottom: 100%;
+color:darkorange;
+padding: 20px;
+font-size: 13pt;
+font-weight: bold;
+}
