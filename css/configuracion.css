@@ -1,6 +1,6 @@
 .main {
     background-image: url('../images/bg_main.png');
-    overflow: auto;
+    overflow: hidden;
     position: relative !important;
 }
 table{
