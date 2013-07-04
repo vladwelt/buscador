@@ -31,7 +31,7 @@
         include_once ('archiver/indexador.php');
     }
     else if ($vista == 9){
-    include_once ('models/model_selector_1.html');
+        include_once ('models/model_selector_1.html');
     }
     else if ($vista == 10){
         include_once ('models/booleano1palabra.php');
